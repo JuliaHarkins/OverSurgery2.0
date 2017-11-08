@@ -25,7 +25,7 @@ namespace OverSurgery
         }
         Dictionary<Type, int> typeDict = new Dictionary<Type, int>
         {
-            {typeof(int),0},
+            {typeof(MedicalStaff),1 },
             {typeof(string),1},
             {typeof(Receptionist),4}
         };

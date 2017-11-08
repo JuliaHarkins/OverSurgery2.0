@@ -16,6 +16,7 @@ namespace OverSurgery
     /// </summary>
     public class LoginController
     {
+        Staff userLoggedIn;
         MetaLayer ml = MetaLayer.Instance();
         private static Random random = new Random();
         private int? m_type;
@@ -119,6 +120,12 @@ namespace OverSurgery
             string salt = "$2a$" + passwordCost + "$" + passwordSalt;
             p_password = BCrypt.Net.BCrypt.HashPassword(p_password, salt);
             return p_password;
+        }
+
+        public Staff GetLoggedInUser(string p_username)
+        {
+            Staff s = ml.GetStaffByUserName(p_username);
+            return s;
         }
     }
 }
