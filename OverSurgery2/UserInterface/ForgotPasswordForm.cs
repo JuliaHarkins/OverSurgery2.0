@@ -24,8 +24,15 @@ namespace OverSurgery
         private void btn_SendEmail_Click(object sender, EventArgs e)
         {
             string verification = lc.GenerateVerification(8);
-            lc.SendPasswordResetEmail(ml.GetStaffEmailByUserName(txt_UserName.Text), verification);
-            ml.NewResetRequest(txt_UserName.Text, verification);
+            
+            if(ml.NewResetRequest(txt_UserName.Text, verification))
+            {
+                lc.SendPasswordResetEmail(ml.GetStaffEmailByUserName(txt_UserName.Text), verification);
+            }
+            else
+            {
+                MessageBox.Show("Reset Request Unsuccessful, please see your manager");
+            }
         }
 
         private void btn_Verify_Click(object sender, EventArgs e)
@@ -39,7 +46,7 @@ namespace OverSurgery
             }
             else
             {
-                MessageBox.Show("Invalid Verification Code");
+                MessageBox.Show("Invalid Verification Code, please try again");
             }
         }
 

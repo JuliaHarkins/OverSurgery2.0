@@ -18,11 +18,14 @@ namespace OverSurgery
         {
             InitializeComponent();
             m_currentPatient = ml.GetPatientByID(p_patientID);
+            LoadCurrentPatientInfo();
             this.ShowDialog();
         }
 
-        public void LoadCurrentPatientInfo()
-        { 
+        private void LoadCurrentPatientInfo()
+        {
+            txt_FirstName.Text = m_currentPatient.FirstName;
+            txt_LastName.Text = m_currentPatient.LastName;
         }
 
     }

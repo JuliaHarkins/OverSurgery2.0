@@ -148,6 +148,8 @@ namespace OverSurgery
                     LastN = dr.GetString(2);
                     Addr = dr.GetInt16(4);
                 }
+                dr.Close();
+                con.CloseConnection();
             }
             p = new Patient { ID = Id, FirstName = FirstN, LastName = LastN, Address = Addr };
             return p;
@@ -217,6 +219,8 @@ namespace OverSurgery
                 {
                     Id = dr.GetInt32(0);
                 }
+                dr.Close();
+                con.CloseConnection();
             }
             s = pf.CreateStaff(4);
             return s;
@@ -239,22 +243,23 @@ namespace OverSurgery
             }
             return verificationcode;
         }
-        public void NewResetRequest(string username, string verificationcode)
+        public bool NewResetRequest(string username, string verificationcode)
         {
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-
                 con.Insert("INSERT INTO resetrequests VALUES ('" + username + "','" + verificationcode + "');");
                 con.CloseConnection();
+                return true;
             }
+            return false;
         }
-        public bool UpdateStaffPassword(string user, string newPassword)
+        public bool UpdateStaffPassword(string p_username, string p_newPassword)
         {
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                con.Update("UPDATE Staff Set password ='" + newPassword + "' WHERE username ='" + user + "';");
+                con.Update("UPDATE Staff Set password ='" + p_newPassword + "' WHERE username ='" + p_username + "';");
                 con.CloseConnection();
                 return true;
             }
