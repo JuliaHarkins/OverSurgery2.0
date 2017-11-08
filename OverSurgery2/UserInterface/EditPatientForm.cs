@@ -1,0 +1,29 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace OverSurgery
+{
+    public partial class EditPatientForm : Form
+    {
+        Patient m_currentPatient;
+        MetaLayer ml = MetaLayer.Instance();
+        public EditPatientForm(int p_patientID)
+        {
+            InitializeComponent();
+            m_currentPatient = ml.getPatientByID(p_patientID);
+            this.ShowDialog();
+        }
+
+        public void LoadCurrentPatientInfo()
+        { 
+        }
+
+    }
+}

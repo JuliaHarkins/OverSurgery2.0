@@ -4,7 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery2
+
+namespace OverSurgery
 {
     static class Program
     {
@@ -16,7 +17,8 @@ namespace OverSurgery2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new LoginForm());
+
         }
     }
 }
