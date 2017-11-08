@@ -193,7 +193,7 @@ namespace OverSurgery
 
                 while (dr.Read())
                 {
-
+                    Id = dr.GetInt32(0);
                 }
             }
             s = pf.CreateStaff(4);
