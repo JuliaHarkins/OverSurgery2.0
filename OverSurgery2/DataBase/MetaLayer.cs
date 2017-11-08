@@ -117,7 +117,18 @@ namespace OverSurgery
             }
             return medication;
         }
-        public Patient getPatientByID(int id)
+        /// <summary>
+        /// Return a Patient by their ID.
+        /// </summary>
+        /// <param name="p_id">Use Patient ID</param>
+        /// <example>
+        /// This example shows you how to use the <see cref="GetPatientByID(int)"/> method.
+        /// <code>
+        /// Patient p = ml.GetPatientByID(1);
+        /// </code>
+        /// </example>
+        /// <returns>Returns a Patient</returns>
+        public Patient GetPatientByID(int p_id)
         {
             int Id = 0;
             string FirstN = null;
@@ -128,7 +139,7 @@ namespace OverSurgery
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM PATIENT WHERE PatientID = '" + id + "';");
+                DbDataReader dr = con.Select("SELECT * FROM PATIENT WHERE PatientID = '" + p_id + "';");
 
                 while (dr.Read())
                 {
@@ -142,13 +153,24 @@ namespace OverSurgery
             return p;
 
         }
-        public string getAddressByID(int id)
+        /// <summary>
+        /// Return an address by its ID.
+        /// </summary>
+        /// <param name="p_id">Use Address ID</param>
+        /// <example>
+        /// This example shows you how to use the <see cref="GetAddressByID(int)"/> method.
+        /// <code>
+        /// string address = ml.GetAddressByID(1);
+        /// </code>
+        /// </example>
+        /// <returns>Returns an address string</returns>
+        public string GetAddressByID(int p_id)
         {
             string address = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + id + ";");
+                DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + p_id + ";");
 
                 while (dr.Read())
                 {

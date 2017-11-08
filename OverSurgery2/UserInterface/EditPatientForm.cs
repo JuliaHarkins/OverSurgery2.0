@@ -17,7 +17,7 @@ namespace OverSurgery
         public EditPatientForm(int p_patientID)
         {
             InitializeComponent();
-            m_currentPatient = ml.getPatientByID(p_patientID);
+            m_currentPatient = ml.GetPatientByID(p_patientID);
             this.ShowDialog();
         }
 
