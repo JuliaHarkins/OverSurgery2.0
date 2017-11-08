@@ -205,6 +205,7 @@ namespace OverSurgery
         public Staff GetStaffByUserName(string p_username)
         {
             int Id = 0;
+            int type;
             string FirstN = null;
             string LastN = null;
             int Addr = 0;
@@ -218,11 +219,16 @@ namespace OverSurgery
                 while (dr.Read())
                 {
                     Id = dr.GetInt32(0);
+                    FirstN = dr.GetString(1);
+                    LastN = dr.GetString(2);
+                    Addr = dr.GetInt32(3);
+                    type = dr.GetInt32(4);
+
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            s = pf.CreateStaff(4);
+            s = pf.CreateStaff(4, FirstN, LastN, Id, Addr); // Order subject to change
             return s;
         }
 
