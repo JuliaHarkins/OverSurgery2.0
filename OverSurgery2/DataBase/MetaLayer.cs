@@ -18,6 +18,7 @@ namespace OverSurgery
     class MetaLayer
     {
         static private MetaLayer m_Instance = null;
+        PersonFactory pf = PersonFactory.Instance();
 
         private MetaLayer() { }
 
@@ -147,7 +148,7 @@ namespace OverSurgery
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = '" + id + "';");
+                DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + id + ";");
 
                 while (dr.Read())
                 {
@@ -160,13 +161,13 @@ namespace OverSurgery
             return address;
         }
 
-        public string GetStaffEmailByUserName(string username)
+        public string GetStaffEmailByUserName(string p_username)
         {
             string email = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT email FROM Staff WHERE username = '" + username + "';");
+                DbDataReader dr = con.Select("SELECT email FROM Staff WHERE username = '" + p_username + "';");
 
                 while (dr.Read())
                 {
@@ -176,6 +177,27 @@ namespace OverSurgery
                 con.CloseConnection();
             }
             return email;
+        }
+        public Staff GetStaffByUserName(string p_username)
+        {
+            int Id = 0;
+            string FirstN = null;
+            string LastN = null;
+            int Addr = 0;
+
+            Staff s;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Staff WHERE username = '" + p_username + "';");
+
+                while (dr.Read())
+                {
+
+                }
+            }
+            s = pf.CreateStaff(4);
+            return s;
         }
 
         public string GetResetRequestCode(string username)

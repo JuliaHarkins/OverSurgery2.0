@@ -57,7 +57,6 @@
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="DataBase\DBConnect.cs" />
     <Compile Include="DataBase\DBFactory.cs" />
-    <Compile Include="DataBase\DB_TEST.cs" />
     <Compile Include="MainClasses\Staff\Doctor.cs" />
     <Compile Include="MainClasses\LoginObserver.cs" />
     <Compile Include="UserInterface\DoctorForm.cs">

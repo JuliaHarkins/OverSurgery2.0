@@ -25,20 +25,19 @@ namespace OverSurgery
             return m_instance;
         }
         // Let method decide which type of object to create
-        public Person CreatePerson(params object[] args) // Arg order: Type of person, other args
+        public Staff CreateStaff(params object[] args) // Arg order: Type of person, other args
         {
-            switch(args[0].ToString())
+            switch(args[0])
             {
-                case "Patient":
-                    CreatePatient(args);
+                case 1:
                     break;
-                case "MedicalStaff":
-                    break;
-                case "Doctor":
+                case 2:
                     CreateDoctor(); // Temporarily nulled as not fully implemented
                     break;
-                case "Receptionist":
+                case 3:
                     CreateReceptionist();
+                    break;
+                case 4:
                     break;
                 default:
                     break;
