@@ -8,6 +8,8 @@ namespace OverSurgery
 {
     public class FormController
     {
+        MetaLayer ml = MetaLayer.Instance();
+        Staff currentUser;
         private static FormController m_getInstance;
         private FormController()
         {
@@ -21,10 +23,16 @@ namespace OverSurgery
             }
             return m_getInstance;
         }
-
-        public void OpenMainForm(int? type, string currentUser)
+        Dictionary<Type, int> typeDict = new Dictionary<Type, int>
         {
-            switch (type)
+            {typeof(int),0},
+            {typeof(string),1},
+            {typeof(Receptionist),4}
+        };
+        public void OpenMainForm(Staff currentUser)
+        {
+
+            switch(typeDict[currentUser.GetType()])
             {
                 case 1:
                     break;
@@ -33,7 +41,7 @@ namespace OverSurgery
                 case 3:
                     break;
                 case 4:
-                    new ReceptionistForm(currentUser);
+                    //new ReceptionistForm(currentLoggedIn);
                     break;
             }
         }

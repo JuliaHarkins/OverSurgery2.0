@@ -18,9 +18,11 @@ namespace OverSurgery
         private int m_ID;
         private int m_address;
         private string m_phoneNumber;
+        private int m_registeredDoctorID;
 
         public int ID { get { return m_ID; } set { m_ID = value; } }
         public int Address { get { return m_address; } set { m_address = value; } }
         public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
+        public int RegisteredDoctorID {get { return m_registeredDoctorID; } set { m_registeredDoctorID = value; } }
     }
 }

@@ -14,13 +14,12 @@ namespace OverSurgery
     public partial class ReceptionistForm : Form
     {
         BindingSource PatientBinding;
-        string currentUserLoggedIn;
+        Staff currentUserLoggedIn;
         MetaLayer ml = MetaLayer.Instance();
         FormController fc = FormController.Instance();
-        public ReceptionistForm(string currentUser)
+        public ReceptionistForm(Staff currentUser)
         {
             InitializeComponent();
-            currentUserLoggedIn = currentUser;
             this.ShowDialog();
 
             
@@ -41,7 +40,7 @@ namespace OverSurgery
             DataGridPatients.Columns["Address"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["EmailAddress"].Visible = false;
-            this.Text = "Logged in: " + currentUserLoggedIn + " as Receptionist";
+            this.Text = "Logged in: " + currentUserLoggedIn.FirstName + " " + currentUserLoggedIn.LastName + " as Receptionist";
         }
 
 
