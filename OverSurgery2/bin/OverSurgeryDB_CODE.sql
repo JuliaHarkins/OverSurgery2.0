@@ -28,6 +28,7 @@ CREATE TABLE `MedicalStaff` (
     `MedicalStaffID` INT(8) NOT NULL auto_increment,
     `MedicalPracticeNumber` VARCHAR(35) NOT NULL default '',
     `StaffID` INT(8) NOT NULL,
+    `Gender` TINYINT NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),
     FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
