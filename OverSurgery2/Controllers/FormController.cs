@@ -23,16 +23,18 @@ namespace OverSurgery
             }
             return m_getInstance;
         }
-        Dictionary<Type, int> typeDict = new Dictionary<Type, int>
+        public void OpenMainForm()
         {
-            {typeof(MedicalStaff),1 },
-            {typeof(string),1},
-            {typeof(Receptionist),4}
-        };
-        public void OpenMainForm(Staff currentUser)
-        {
+            Dictionary<Type, int> StaffTypes = new Dictionary<Type, int>
+            {
+                {typeof(MedicalStaff),1 },
+                {typeof(Locum),2},
+                {typeof(Doctor), 3},
+                {typeof(Receptionist),4},
+                {typeof(Manager), 5 }
+            };
 
-            switch(typeDict[currentUser.GetType()])
+            switch(StaffTypes[currentUser.GetType()])
             {
                 case 1:
                     break;
@@ -41,9 +43,16 @@ namespace OverSurgery
                 case 3:
                     break;
                 case 4:
-                    //new ReceptionistForm(currentLoggedIn);
+                    new ReceptionistForm(currentUser);
+                    break;
+                case 5:
                     break;
             }
+        }
+
+        public void SetCurrentUser(string p_username)
+        {
+           currentUser = ml.GetStaffByUserName(p_username);
         }
 
         public void OpenPatientViewForm(int id)
