@@ -27,8 +27,9 @@ namespace OverSurgery
         private int m_appDate;
         private int m_appTime;
         private int m_appointmentID;
-#endregion
-#region Properties
+        private bool m_appAttend;
+        #endregion
+        #region Properties
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int PatientID { get { return m_patientID; } set { m_patientID = value; } }
@@ -38,7 +39,8 @@ namespace OverSurgery
         public int AppDate { get { return m_appDate; } set { m_appDate = value; } }
         public int AppTime { get { return m_appTime; } set { m_appTime = value; } }                                                                               // Stores the date and time of the appointment
         public int AppointmentID { get { return m_appTime; } set { m_appTime = value; } }
-#endregion
+        public bool AppAttend { get { return m_appAttend; } set { m_appAttend = value; } }
+        #endregion
 
         /// <summary>
         /// Gets the details of the appointment from the appointment manager
@@ -52,17 +54,27 @@ namespace OverSurgery
         /// <param name="p_notes"></param>
         /// <param name="p_patientDOB"></param>
         /// <param name="p_appointmentID"></param>
-        public Appointment(int p_appDate, int p_appTime, int p_medicalStaffID, int p_patientID, string p_patientFirstName, string p_patientLastName, string p_notes, int p_patientDOB, int p_appointmentID)
+        /// <param name="p_appAttend"></param>
+        public Appointment(Dictionary <string,object> p_AppValues)
         {
-            MedicalStaffID = p_medicalStaffID;
-            PatientID = p_patientID;
-            AppDate = p_appDate;
-            AppTime = p_appTime;
-            Notes = p_notes;
-            PatientForename = p_patientFirstName;
-            PatientSurname = p_patientLastName;
-            PatientDOB = p_patientDOB;
-            AppointmentID = p_appointmentID;
+            // AppointmentID 
+            // AppointmentDate
+            // AppointmentTime
+            // AppointmentNote
+            // AppointmentAttended
+            // MedicalStaffID
+            // PatientID
+
+            AppointmentID = Convert.ToInt16(p_AppValues["ID"]);
+            MedicalStaffID = ;
+            PatientID = ;
+            AppDate = ;
+            AppTime = ;
+            Notes = ;
+            PatientForename = ;
+            PatientSurname = ;
+            PatientDOB =;
+            AppAttend = ;
         }
 
 

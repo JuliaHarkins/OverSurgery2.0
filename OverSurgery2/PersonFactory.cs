@@ -15,7 +15,7 @@ namespace OverSurgery
     public class PersonFactory
     {
         private static PersonFactory m_instance;
-
+        public enum Gender { Male, Female };
         public static PersonFactory Instance()
         {
             if(null == m_instance)
@@ -84,14 +84,13 @@ namespace OverSurgery
         {
             try
             {
-               /// return new Receptionist(values);
+               return new Receptionist(values);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw e;
             }
-            return null;
         }
 
         public Locum CreateLocum(Dictionary<string, object> values)

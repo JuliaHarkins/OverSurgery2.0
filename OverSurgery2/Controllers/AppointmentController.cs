@@ -20,15 +20,16 @@ namespace OverSurgery.Class_Diagram_Classes
         Appointment a;
 #region Properties
         List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved
-        protected string Notes;
-        protected int MedicalStaffID;
-        protected int PatientID;
-        protected string PatientForename;
-        protected string PatientSurname;
-        protected int PatientDOB;
-        protected int AppDate;
-        protected int AppTime;
-        protected int AppointmentID;
+        private string Notes;
+        private int MedicalStaffID;
+        private int PatientID;
+        private string PatientForename;
+        private string PatientSurname;
+        private int PatientDOB;
+        private int AppDate;
+        private int AppTime;
+        private int AppointmentID;
+        private bool AppAttend;
         MetaLayer instance = MetaLayer.Instance();
         #endregion
         /// <summary>
@@ -43,9 +44,14 @@ namespace OverSurgery.Class_Diagram_Classes
         /// <param name="Notes"></param>
         /// <param name="PatientDOB"></param>
         /// <param name="AppointmentID"></param>
-        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB, int AppointmentID)
+        /// <param name="AppAttend"></param>
+        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB, int AppointmentID, bool AppAttend)
         {
-            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB, AppointmentID));            
+            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB, AppointmentID, AppAttend));            
+        }
+        public void AddNewAppointment(Dictionary<string,object>)
+        {
+
         }
 
         /// <summary>

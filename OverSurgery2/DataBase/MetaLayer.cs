@@ -280,6 +280,82 @@ namespace OverSurgery
                 con.CloseConnection();
             }
         }
+
+        public Patient GetPatientByName(string p_forename, string p_surname)
+        {
+            DataConnection con = DBFactory.Instance();
+            Dictionary<string, object> d = null;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM patient WHERE forename = '" + p_forename + "' AND surname = '"+p_surname+"' LIMIT 1;");
+                while (dr.Read())
+                {
+                    d = new Dictionary<string, object>
+                    {
+                        { "ID", dr.GetInt16(0) },
+                        { "Forename", dr.GetString(1) },
+                        { "Surname", dr.GetString(2) },
+                        { "RegisteredDoctorID", dr.GetInt16(3) },
+                        { "AddressID", dr.GetInt16(4) },
+                    };
+                    return pf.CreatePatient(d);
+                }
+
+        /// <summary>
+        /// Get appointment details from the database
+        /// </summary>
+        public Appointment GetAppointmentByPatientId(int id)
+        {
+            int appID, appDate, appTime, medicalStaffID, patientID, patientDOB;
+            string appNote, patientForename, patientSurname;
+            bool attend;
+
+            Dictionary<string, object> d;
+            d = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                // Find appointment specific data
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE PatientID = " + id + ";");
+                while (dr.Read())
+                {
+                    // AppointmentID 
+                    // AppointmentDate
+                    // AppointmentTime
+                    // AppointmentNote
+                    // AppointmentAttended
+                    // MedicalStaffID
+                    // PatientID
+                    d = new Dictionary<string, object>
+                    {
+                        { "ID", dr.GetInt16(0) },
+                        { "Date", dr.GetString(1) },
+                        { "Time", dr.GetString(2) },
+                        { "Notes", dr.GetString(3) },
+                        { "Attend", dr.GetBoolean(4) },
+                        { "MedStaffID", dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6)},
+                    };
+                    return new Appointment(d);
+                }
+
+                // Find patient specific data
+                DbDataReader dr2 = con.Select("SELECT * FROM Patient WHERE PatientID = " + id + ";");
+                while (dr.Read())
+                {
+                    patientForename = dr.GetInt32(1);
+                    patientSurname = dr.GetInt32(2);
+                    patientDOB = dr.GetInt32(2);
+                    
+                }
+
+                dr.Close();
+                con.CloseConnection();
+                a = new Appointment(appID, appTime, medicalStaffID, patientID, patientForename, patientSurname, appNote, patientDOB, appID, appAttend);
+            }
+            return verificationcode;
+
+        }
     }
 }
 
