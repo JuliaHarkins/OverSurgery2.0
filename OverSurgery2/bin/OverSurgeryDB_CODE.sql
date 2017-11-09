@@ -145,7 +145,17 @@ INSERT INTO Staff VALUES (7, 'Doctor', 'Test', 'Test.OverSurgery@gmail.com',2 , 
 INSERT INTO Staff VALUES (8, 'Nurse', 'Test', 'Someone.OverSurgery@gmail.com',2 , 'Nurse', '', );
 INSERT INTO Staff VALUES (9, 'Locum', 'Test', 'Test.OverSurgery@gmail.com',3 , 'Locum', '', );
 
-INSERT INTO MedicalStaff VALUES (1, '',1 ,0);
-INSERT INTO MedicalStaff VALUES (2, '',9 ,1);
-INSERT INTO MedicalStaff VALUES (3, '',8 ,0);
-INSERT INTO MedicalStaff VALUES (4, '',7 ,1);
+INSERT INTO MedicalStaff VALUES (1, '123456789AB',1 ,0);
+INSERT INTO MedicalStaff VALUES (2, '987654321BA',9 ,1);
+INSERT INTO MedicalStaff VALUES (3, '159753824QW',8 ,0);
+INSERT INTO MedicalStaff VALUES (4, '953718462BV',7 ,1);
+
+INSERT INTO Patient VALUES (1, 'steven', 'smith', 1, '+447634395183', 1, 3);
+INSERT INTO Patient VALUES (2, 'Jane', 'Hollo', 0, '01563572805', 4, 4);
+INSERT INTO Patient VALUES (3, 'Amy','Adams', 1,'07829405285', 4, 5);
+INSERT INTO Patient VALUES (4, 'Thomas', 'William', 0, '01553490294', 3, 2);
+INSERT INTO Patient VALUES (5, 'Andy', 'Potato', 0, '+447911363901', 3, 1);
+
+INSERT INTO Appointment VALUES (1,20171109, 093000,'blood test',1,1,1);
+INSERT INTO Appointment VALUES (2,20171109, 161500,'',1,4,2);
+INSERT INTO Appointment VALUES (3,20171110, 161500,'',0,4,5);
