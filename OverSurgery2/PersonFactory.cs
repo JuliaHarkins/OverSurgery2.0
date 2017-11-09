@@ -25,14 +25,14 @@ namespace OverSurgery
             return m_instance;
         }
         // Let method decide which type of object to create
-        public Staff CreateStaff(params object[] args) // Arg order: Type of person, other args
+        public Staff CreateStaff(params object[] p_args) // Arg order: Type of person, other args
         {
-            switch(args[0])
+            switch(p_args[0])
             {
                 case 1:
                     break;
                 case 2:
-                    CreateDoctor(); // Temporarily nulled as not fully implemented
+                    CreateDoctor(p_args); // Temporarily nulled as not fully implemented
                     break;
                 case 3:
                     CreateReceptionist();
@@ -52,11 +52,22 @@ namespace OverSurgery
         }
 
         //Return a new doctor
-        public Doctor CreateDoctor(/*Args here eventually*/)
+        public Doctor CreateDoctor(object[] p_args)
         {
+            try
+            {
+                //return new Doctor(Convert.ToString(p_args[1]), Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), 
+                //Convert.ToInt16(p_args[4]), Convert.ToString(p_args[5]),Convert.ToString(p_args[6]), Convert.ToInt16(p_args[7]), 
+                // Convert.ToInt16(p_args[8]), Convert.ToString(p_args[9]), Convert.ToBoolean(p_args[10]));
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
             return null;
         }
-        
+
         //// Return a new receptionist
         public Receptionist CreateReceptionist()
         {
