@@ -33,10 +33,10 @@ namespace OverSurgery
         /// 07/11/2017 - j
         /// </summary>
         #region Constructor
-        public Doctor(int p_staffID, string p_firstName, string p_lastName, string p_email, string p_username, string p_password, int p_prescriptionLevel, int p_gender, string p_phoneNumber)
+        public Doctor(Dictionary<string,object>)
         {
-
-            m_firstName = p_firstName;
+            //int p_staffID, string p_firstName, string p_lastName, string p_email, string p_username, string p_password, int p_prescriptionLevel, int p_gender, string p_phoneNumber
+            m_firstName = ;
             m_lastName = p_lastName;
             m_email = p_email;
             m_staffID = p_staffID;

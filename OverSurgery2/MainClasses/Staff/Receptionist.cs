@@ -21,6 +21,7 @@ namespace OverSurgery
         string m_username;
         string m_password;
         List<Prescription> m_extension;
+        FormController fc = FormController.Instance();
 #endregion
 #region Properties
         List<Prescription> Extention
@@ -64,7 +65,6 @@ namespace OverSurgery
         }
         public void EditPatient()
         {
-
         }
         public void CancelAppointment()
         {

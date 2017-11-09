@@ -82,6 +82,9 @@ namespace OverSurgery
             return null;
         }
 
-        public Locum CreateLocum
+        public Locum CreateLocum()
+        {
+            return null;
+        }
     }
 }
