@@ -11,7 +11,7 @@ namespace OverSurgery
     /// Created By: J
     /// Date Created : 31/10/17
     /// </summary>
-    public class Receptionist
+    public class Receptionist : Staff
     {
 #region Member Variables
         string m_Forename;
@@ -31,17 +31,11 @@ namespace OverSurgery
                 m_extension = value;
             }
         }
-#endregion 
-        public Receptionist(int p_staffID, string p_Forename, string p_Surname, string p_email, string p_username, string p_password)
+        #endregion
+
+        public Receptionist(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
         {
-
-            m_Forename = p_Forename;
-            m_Surname = p_Surname;
-            m_email = p_email;
-            m_staffID = p_staffID;
-            m_username = p_username;
-            m_password = p_password;
-
+            
         }
 
         /// <summary>

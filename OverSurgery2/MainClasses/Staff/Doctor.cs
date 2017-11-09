@@ -7,9 +7,10 @@ using OverSurgery.Main_Classes;
 
 namespace OverSurgery
 {
-    /// <summary>
-    /// 
-    /// </summary>
+   /*
+    
+         
+   */
     public class Doctor : MedicalStaff
     {
         #region Member Variables 
