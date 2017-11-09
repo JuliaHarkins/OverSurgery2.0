@@ -14,8 +14,8 @@ namespace OverSurgery
     public class Receptionist
     {
 #region Member Variables
-        string m_firstName;
-        string m_lastName;
+        string m_Forename;
+        string m_Surname;
         string m_email;
         int m_staffID;
         string m_username;
@@ -32,11 +32,11 @@ namespace OverSurgery
             }
         }
 #endregion 
-        public Receptionist(int p_staffID, string p_firstName, string p_lastName, string p_email, string p_username, string p_password)
+        public Receptionist(int p_staffID, string p_Forename, string p_Surname, string p_email, string p_username, string p_password)
         {
 
-            m_firstName = p_firstName;
-            m_lastName = p_lastName;
+            m_Forename = p_Forename;
+            m_Surname = p_Surname;
             m_email = p_email;
             m_staffID = p_staffID;
             m_username = p_username;

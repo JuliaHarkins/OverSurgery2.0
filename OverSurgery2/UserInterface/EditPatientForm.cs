@@ -24,8 +24,8 @@ namespace OverSurgery
 
         private void LoadCurrentPatientInfo()
         {
-            txt_FirstName.Text = m_currentPatient.FirstName;
-            txt_LastName.Text = m_currentPatient.LastName;
+            txt_Forename.Text = m_currentPatient.Forename;
+            txt_Surname.Text = m_currentPatient.Surname;
         }
 
     }

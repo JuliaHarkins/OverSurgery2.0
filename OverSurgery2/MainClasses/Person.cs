@@ -8,12 +8,12 @@ namespace OverSurgery
 {
     public abstract class Person
     {
-        private string m_firstName;
-        private string m_lastName;
+        private string m_Forename;
+        private string m_Surname;
         private string m_email;
 
-        public string FirstName { get { return m_firstName; } set { m_firstName = value; } }
-        public string LastName { get { return m_lastName; } set { m_lastName = value; } }
+        public string Forename { get { return m_Forename; } set { m_Forename = value; } }
+        public string Surname { get { return m_Surname; } set { m_Surname = value; } }
         public string EmailAddress { get { return m_email; } set { m_email = value; } }
     }
     
