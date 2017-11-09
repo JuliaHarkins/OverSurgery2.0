@@ -20,6 +20,7 @@ namespace OverSurgery
         private uint? m_gender;
         private uint? m_prescriptionLevel;
         private string m_phoneNumber;
+        private uint? m_AddressID;
         #endregion
         #region Constructors
         public MedicalStaff(Dictionary<string, object> p_medicalStaffValues)
@@ -30,6 +31,7 @@ namespace OverSurgery
             m_gender = Convert.ToUInt32(p_medicalStaffValues["Gender"]);
             m_prescriptionLevel = Convert.ToUInt16(p_medicalStaffValues["PrescriptionLevel"]);
             m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
+            m_AddressID = Convert.ToUInt16(p_medicalStaffValues["AddressID"]);
         }
         #endregion
         #region Properties
