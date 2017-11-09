@@ -26,9 +26,9 @@ namespace OverSurgery
         {
             m_forename = Convert.ToString(p_medicalStaffValues["Forename"]);
             m_surname = Convert.ToString(p_medicalStaffValues["Surname"]);
-            m_medicalStaffID = Convert.ToUInt32(p_medicalStaffValues["MediclaStaffID"]);
+            m_medicalStaffID = Convert.ToUInt16(p_medicalStaffValues["MedicalStaffID"]);
             m_gender = Convert.ToUInt32(p_medicalStaffValues["Gender"]);
-            m_prescriptionLevel = Convert.ToUInt32(p_medicalStaffValues["PrescriptionLevel"]);
+            m_prescriptionLevel = Convert.ToUInt16(p_medicalStaffValues["PrescriptionLevel"]);
             m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
         }
         #endregion
