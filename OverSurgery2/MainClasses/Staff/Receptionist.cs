@@ -31,7 +31,7 @@ namespace OverSurgery
             }
         }
 #endregion 
-        public Receptionist(string p_firstName, string p_lastName, string p_email, int p_staffID, string p_username, string p_password)
+        public Receptionist(int p_staffID, string p_firstName, string p_lastName, string p_email, string p_username, string p_password)
         {
 
             m_firstName = p_firstName;
