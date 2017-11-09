@@ -35,7 +35,7 @@ namespace OverSurgery
                     CreateDoctor(p_args); // Temporarily nulled as not fully implemented
                     break;
                 case 3:
-                    CreateReceptionist();
+                    CreateReceptionist(p_args);
                     break;
                 case 4:
                     break;
@@ -57,8 +57,8 @@ namespace OverSurgery
             try
             {
                 return new Doctor(Convert.ToInt16(p_args[1]),Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), Convert.ToString(p_args[4]),
-                Convert.ToString(p_args[5]), Convert.ToString(p_args[6]), Convert.ToString(p_args[7]), Convert.ToInt16(p_args[8]),
-                 Convert.ToInt16(p_args[8]), Convert.ToString(p_args[9])));
+                Convert.ToString(p_args[5]), Convert.ToString(p_args[6]), Convert.ToInt16(p_args[7]), Convert.ToInt16(p_args[8]),
+                 Convert.ToString(p_args[9]));
             }
             catch (Exception e)
             {
@@ -72,7 +72,7 @@ namespace OverSurgery
         {
             try
             {
-                return new Receptionist(p_args[1],p_args[2],p_args[3])
+                return new Receptionist(Convert.ToInt16(p_args[1]), Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), Convert.ToString(p_args[4]), Convert.ToString(p_args[5]), Convert.ToString(p_args[6]));
             }
             catch (Exception e)
             {
@@ -81,5 +81,7 @@ namespace OverSurgery
             }
             return null;
         }
+
+        public Locum CreateLocum
     }
 }
