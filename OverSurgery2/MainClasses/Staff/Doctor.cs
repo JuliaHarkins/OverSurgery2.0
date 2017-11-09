@@ -20,7 +20,7 @@ namespace OverSurgery
         string m_username;
         string m_password;
         int m_prescriptionLevel;
-        Enum m_gender;
+        Gender m_gender;
         string m_phoneNumber;
         bool m_onCall;
         List<Prescription> m_extension;
@@ -33,7 +33,7 @@ namespace OverSurgery
         /// 07/11/2017 - j
         /// </summary>
         #region Constructor
-        public Doctor(string p_firstName, string p_lastName, string p_email, int p_staffID, string p_username, string p_password, int p_prescriptionLevel, Enum p_gender, string p_phoneNumber, bool p_onCall)
+        public Doctor(string p_firstName, string p_lastName, string p_email, int p_staffID, string p_username, string p_password, int p_prescriptionLevel, int p_gender, string p_phoneNumber, bool p_onCall)
         {
 
             m_firstName = p_firstName;
@@ -43,9 +43,10 @@ namespace OverSurgery
             m_username = p_username;
             m_password = p_password;
             m_prescriptionLevel = p_prescriptionLevel;
-            m_gender = p_gender;
             m_phoneNumber = p_phoneNumber;
             m_onCall = false;
+            m_gender = SetGender(p_gender);
+            
         }
         #endregion
         #region Properties
