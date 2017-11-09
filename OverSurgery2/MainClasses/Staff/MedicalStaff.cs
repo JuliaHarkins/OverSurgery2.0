@@ -13,20 +13,26 @@ namespace OverSurgery
     /// </summary>
     public class MedicalStaff : Staff
     {
-#region Member Variables
-        private int? m_prescriptionLevel;
+        #region Member Variables
+        private string m_forename;
+        private string m_surname;
+        private uint? m_medicalStaffID;
+        private uint? m_gender;
+        private uint? m_prescriptionLevel;
         private string m_phoneNumber;
 #endregion
 #region Constructors
-        public MedicalStaff()
+        public MedicalStaff(Dictionary<string, object> p_medicalStaffValues)
         {
-            m_prescriptionLevel = null;
-            m_phoneNumber = null;
+            m_forename = Convert.ToString(p_medicalStaffValues["Forename"]);
+            m_surname = Convert.ToString(p_medicalStaffValues["Surname"]);
+            m_medicalStaffID = Convert.ToUInt32(p_medicalStaffValues["MediclaStaffID"]);
+            m_gender = Convert.ToUInt32(p_medicalStaffValues["Gender"]);
+            m_prescriptionLevel = Convert.ToUInt32(p_medicalStaffValues["PrescriptionLevel"]);
+            m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
         }
 #endregion
 #region Properties
-        public enum Gender
-        { Male, Female }
         public int? PrescriptionLevel
         {
             get
@@ -36,6 +42,17 @@ namespace OverSurgery
             set
             {
                 m_prescriptionLevel = value;
+            }
+        }
+        public int? Gender
+        {
+            get
+            {
+                return m_gender;
+            }
+            set
+            {
+                m_gender = value;
             }
         }
         public string PhoneNumber
