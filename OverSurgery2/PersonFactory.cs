@@ -55,9 +55,9 @@ namespace OverSurgery
         }
 
         // Return a new patient
-        public Patient CreatePatient(object[] args)
+        public Patient CreatePatient(Dictionary<string,object> p_values)
         {
-            return new Patient() { Forename = Convert.ToString(args[1]), Surname = Convert.ToString(args[2]) };
+            return new Patient(p_values);
         }
 
         //Return a new doctor

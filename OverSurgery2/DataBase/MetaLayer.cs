@@ -287,7 +287,7 @@ namespace OverSurgery
             Dictionary<string, object> d = null;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM patient WHERE forename = '" + p_forename + "' AND surname = '"+p_surname+"' LIMIT 1;");
+                DbDataReader dr = con.Select("SELECT * FROM patient WHERE forename = '" + p_forename + "' AND surname = '" + p_surname + "' LIMIT 1;");
                 while (dr.Read())
                 {
                     d = new Dictionary<string, object>
@@ -297,10 +297,11 @@ namespace OverSurgery
                         { "Surname", dr.GetString(2) },
                         { "RegisteredDoctorID", dr.GetInt16(3) },
                         { "AddressID", dr.GetInt16(4) },
-                    };
-                    return pf.CreatePatient(d);
+                    }; 
                 }
-
+            }
+            return pf.CreatePatient(d);
+        }
         /// <summary>
         /// Get appointment details from the database
         /// </summary>
