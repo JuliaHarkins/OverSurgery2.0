@@ -109,6 +109,11 @@ CREATE TABLE `Extension` (
     FOREIGN KEY(`MedicalStaffID`) REFERENCES MedicalStaff(`MedicalStaffID`) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+CREATE TABLE `ResetRequests` (
+	`UserName` varchar(255) NOT NULL,
+	`VerificationCode` varchar(8) NOT NULL
+	); ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- TESTING ACCOUNT --
 CREATE USER 'DBAccess'@localhost IDENTIFIED BY 'Nricb';
 GRANT ALL ON OverSurgery.* TO 'DBAccess'@localhost;
