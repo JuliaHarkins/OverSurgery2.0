@@ -33,21 +33,8 @@ namespace OverSurgery
         /// 07/11/2017 - j
         /// </summary>
         #region Constructor
-        public Doctor(int p_staffID, string p_firstName, string p_lastName, string p_email, string p_username, string p_password, int p_prescriptionLevel, int p_gender, string p_phoneNumber)
-        {
-
-            m_firstName = p_firstName;
-            m_lastName = p_lastName;
-            m_email = p_email;
-            m_staffID = p_staffID;
-            m_username = p_username;
-            m_password = p_password;
-            m_prescriptionLevel = p_prescriptionLevel;
-            m_phoneNumber = p_phoneNumber;
-            m_onCall = false;
-            m_gender = p_gender;
-            /*
-             public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues);
+        
+         public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues)
              {
                 m_firstName = Convert.ToString(p_medicalStaffValues["FirstName"]);
                 m_lastName = Convert.ToString(p_medicalStaffValues["LastName"]);
@@ -60,8 +47,7 @@ namespace OverSurgery
                 m_onCall = false;
                 m_gender = Convert.ToInt16(p_medicalStaffValues["Gender"]);
              }
-            */
-        }
+        
         #endregion
         #region Properties
         public bool OnCall
