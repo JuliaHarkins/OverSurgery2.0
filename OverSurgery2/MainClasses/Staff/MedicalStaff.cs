@@ -13,21 +13,27 @@ namespace OverSurgery
     /// </summary>
     public class MedicalStaff : Staff
     {
-#region Member Variables
-        private int? m_prescriptionLevel;
+        #region Member Variables
+        private string m_forename;
+        private string m_surname;
+        private uint? m_medicalStaffID;
+        private uint? m_gender;
+        private uint? m_prescriptionLevel;
         private string m_phoneNumber;
-#endregion
-#region Constructors
-        public MedicalStaff()
+        #endregion
+        #region Constructors
+        public MedicalStaff(Dictionary<string, object> p_medicalStaffValues)
         {
-            m_prescriptionLevel = null;
-            m_phoneNumber = null;
+            m_forename = Convert.ToString(p_medicalStaffValues["Forename"]);
+            m_surname = Convert.ToString(p_medicalStaffValues["Surname"]);
+            m_medicalStaffID = Convert.ToUInt32(p_medicalStaffValues["MediclaStaffID"]);
+            m_gender = Convert.ToUInt32(p_medicalStaffValues["Gender"]);
+            m_prescriptionLevel = Convert.ToUInt32(p_medicalStaffValues["PrescriptionLevel"]);
+            m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
         }
-#endregion
-#region Properties
-        public enum Gender
-        { Male, Female }
-        public int? PrescriptionLevel
+        #endregion
+        #region Properties
+        public uint? PrescriptionLevel
         {
             get
             {
@@ -36,6 +42,17 @@ namespace OverSurgery
             set
             {
                 m_prescriptionLevel = value;
+            }
+        }
+        public uint? Gender
+        {
+            get
+            {
+                return m_gender;
+            }
+            set
+            {
+                m_gender = value;
             }
         }
         public string PhoneNumber
@@ -49,10 +66,10 @@ namespace OverSurgery
                 m_phoneNumber = value;
             }
         }
-#endregion
+        #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {
-#region Declaration
+            #region Declaration
             int? prescriptionID;
             string dosage, frequency, notes;
             string dateFrom, dateUntil;
@@ -60,8 +77,8 @@ namespace OverSurgery
             string[] prescription;
             StringBuilder bld;
             Random rand;
-#endregion
-#region Initialisation
+            #endregion
+            #region Initialisation
             prescriptionID = null;
             dateFrom = null;
             dateUntil = null;
@@ -70,18 +87,18 @@ namespace OverSurgery
             bld = new StringBuilder();
             bld.Remove(0, bld.Length);
             rand = new Random();
-#endregion
-#region Execution
+            #endregion
+            #region Execution
             //prescriptionID = "SELECT PrescriptionID FROM Prescription".Count + 1;
             bld.Append("INSERT INTO Prescription VALUES (");
             bld.Append(prescriptionID);
             bld.Append(", ");
             bld.Append(prescription);
             bld.Append(");");
-#endregion
-#region return
+            #endregion
+            #region return
             return bld.ToString();
-#endregion
+            #endregion
         }
     }
 }
