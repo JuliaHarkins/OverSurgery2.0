@@ -13,11 +13,18 @@ namespace OverSurgery
     public abstract class Staff : Person
     {
         private int m_staffID;
-        private string m_userName;
+        private string m_username;
         private string m_password;
         public string Password { get { return m_password; } }
         LoginController lc = LoginController.Instance();
 
+        public Staff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
+             {
+            
+            m_staffID = Convert.ToInt16(p_PersonValues["ID"]);
+            m_username = Convert.ToString(p_PersonValues["UserName"]);
+            m_password = Convert.ToString(p_PersonValues["Password"]);
+        }
         //public bool Login(string p_username, string p_attemptedPassword)
         //{
         //    bool loginValidated;
@@ -30,5 +37,5 @@ namespace OverSurgery
         //        loginValidated = false;
         //    }
         //    return loginValidated;
-        }
+    }
     }
