@@ -14,18 +14,17 @@ namespace OverSurgery
     public class MedicalStaff : Staff
     {
         #region Member Variables
+
         private uint? m_medicalStaffID;
-        private uint? m_gender;
         private uint? m_prescriptionLevel;
-        private string m_phoneNumber;
         #endregion
         #region Constructors
-        public MedicalStaff(Dictionary<string, object> p_medicalStaffValues)
+        public MedicalStaff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
         {
-            m_medicalStaffID = Convert.ToUInt16(p_medicalStaffValues["MedicalStaffID"]);
-            m_gender = Convert.ToUInt32(p_medicalStaffValues["Gender"]);
-            m_prescriptionLevel = Convert.ToUInt16(p_medicalStaffValues["PrescriptionLevel"]);
-            m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
+           
+            m_medicalStaffID = Convert.ToUInt16(p_PersonValues["MedicalStaffID"]);
+            m_prescriptionLevel = Convert.ToUInt16(p_PersonValues["PrescriptionLevel"]);
+            
         }
         #endregion
         #region Properties
@@ -35,12 +34,20 @@ namespace OverSurgery
             {
                 return m_prescriptionLevel;
             }
+            set
+            {
+                m_prescriptionLevel = value;
+            }
         }
         public uint? Gender
         {
             get
             {
                 return m_gender;
+            }
+            set
+            {
+                m_gender = value;
             }
         }
         public string PhoneNumber

@@ -28,6 +28,7 @@ namespace OverSurgery.Class_Diagram_Classes
         protected int PatientDOB;
         protected int AppDate;
         protected int AppTime;
+        protected int AppointmentID;
         MetaLayer instance = MetaLayer.Instance();
         #endregion
         /// <summary>
@@ -41,9 +42,10 @@ namespace OverSurgery.Class_Diagram_Classes
         /// <param name="PatientSurname"></param>
         /// <param name="Notes"></param>
         /// <param name="PatientDOB"></param>
-        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB)
+        /// <param name="AppointmentID"></param>
+        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB, int AppointmentID)
         {
-            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB));            
+            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB, AppointmentID));            
         }
 
         /// <summary>
@@ -80,7 +82,7 @@ namespace OverSurgery.Class_Diagram_Classes
 
         public void t()
         {
-            a = new Appointment(20170101,03033000, 12, 12, "12", "12", "12", 20121212);
+            a = new Appointment(20170101,03033000, 12, 12, "12", "12", "12", 20121212, 4326645);
             string testNotes = a.Notes;
         }
     }
