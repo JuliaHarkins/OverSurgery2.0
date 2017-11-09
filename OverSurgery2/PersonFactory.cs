@@ -56,21 +56,29 @@ namespace OverSurgery
         {
             try
             {
-                //return new Doctor(Convert.ToString(p_args[1]), Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), 
-                //Convert.ToInt16(p_args[4]), Convert.ToString(p_args[5]),Convert.ToString(p_args[6]), Convert.ToInt16(p_args[7]), 
-                // Convert.ToInt16(p_args[8]), Convert.ToString(p_args[9]), Convert.ToBoolean(p_args[10]));
+                return new Doctor(Convert.ToInt16(p_args[1]),Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), Convert.ToString(p_args[4]),
+                Convert.ToString(p_args[5]), Convert.ToString(p_args[6]), Convert.ToString(p_args[7]), Convert.ToInt16(p_args[8]),
+                 Convert.ToInt16(p_args[8]), Convert.ToString(p_args[9])));
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw e;
             }
-            return null;
         }
 
         //// Return a new receptionist
-        public Receptionist CreateReceptionist()
+        public Receptionist CreateReceptionist(object[] p_args)
         {
+            try
+            {
+                return new Receptionist(p_args[1],p_args[2],p_args[3])
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
             return null;
         }
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OverSurgery
 {
-    public class Locum
+    public class Locum : MedicalStaff
     {
         public Locum()
         {
