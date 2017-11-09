@@ -32,12 +32,12 @@ namespace OverSurgery
                 case 1:
                     break;
                 case 2:
-                    CreateDoctor(p_args); // Temporarily nulled as not fully implemented
+                    CreateLocum(p_args); // Temporarily nulled as not fully implemented
                     break;
                 case 3:
-                    CreateReceptionist(p_args);
                     break;
                 case 4:
+                    CreateReceptionist(p_args);
                     break;
                 default:
                     break;
@@ -56,9 +56,16 @@ namespace OverSurgery
         {
             try
             {
-                return new Doctor(Convert.ToInt16(p_args[1]),Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), Convert.ToString(p_args[4]),
-                Convert.ToString(p_args[5]), Convert.ToString(p_args[6]), Convert.ToInt16(p_args[7]), Convert.ToInt16(p_args[8]),
-                 Convert.ToString(p_args[9]));
+                Dictionary<string, object> values = new Dictionary<string, object>
+                {
+                    {"FirstName", Convert.ToString(p_args[2]) },
+                    {"LastName", Convert.ToString(p_args[3]) },
+                    {"ID", Convert.ToInt16(p_args[4]) },
+                    {"Email", Convert.ToString(p_args[5]) },
+                    { }
+
+                };
+                return new Doctor(values);
             }
             catch (Exception e)
             {
@@ -82,7 +89,7 @@ namespace OverSurgery
             return null;
         }
 
-        public Locum CreateLocum()
+        public Locum CreateLocum(object[] p_args)
         {
             return null;
         }
