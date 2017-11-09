@@ -39,28 +39,6 @@ namespace OverSurgery
                 m_prescriptionLevel = value;
             }
         }
-        public uint? Gender
-        {
-            get
-            {
-                return m_gender;
-            }
-            set
-            {
-                m_gender = value;
-            }
-        }
-        public string PhoneNumber
-        {
-            get
-            {
-                return m_phoneNumber;
-            }
-            set
-            {
-                m_phoneNumber = value;
-            }
-        }
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {
