@@ -69,36 +69,28 @@ namespace OverSurgery
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {
-            #region Declaration
+#region Declaration
             int? prescriptionID;
             string dosage, frequency, notes;
             string dateFrom, dateUntil;
             bool repeat;
             string[] prescription;
-            StringBuilder bld;
             Random rand;
-            #endregion
-            #region Initialisation
+#endregion
+#region Initialisation
             prescriptionID = null;
             dateFrom = null;
             dateUntil = null;
             repeat = false;
             prescription = new string[10];
-            bld = new StringBuilder();
-            bld.Remove(0, bld.Length);
             rand = new Random();
-            #endregion
-            #region Execution
-            //prescriptionID = "SELECT PrescriptionID FROM Prescription".Count + 1;
-            bld.Append("INSERT INTO Prescription VALUES (");
-            bld.Append(prescriptionID);
-            bld.Append(", ");
-            bld.Append(prescription);
-            bld.Append(");");
-            #endregion
-            #region return
-            return bld.ToString();
-            #endregion
+#endregion
+#region Execution
+            //
+#endregion
+#region return
+            return null;
+#endregion
         }
     }
 }
