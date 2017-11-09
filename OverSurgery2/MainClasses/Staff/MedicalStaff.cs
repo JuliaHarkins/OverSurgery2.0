@@ -13,7 +13,7 @@ namespace OverSurgery
     /// </summary>
     public class MedicalStaff : Staff
     {
-        #region Member Variables
+#region Member Variables
         private string m_forename;
         private string m_surname;
         private uint? m_medicalStaffID;
@@ -33,7 +33,7 @@ namespace OverSurgery
         }
 #endregion
 #region Properties
-        public int? PrescriptionLevel
+        public uint? PrescriptionLevel
         {
             get
             {
@@ -44,7 +44,7 @@ namespace OverSurgery
                 m_prescriptionLevel = value;
             }
         }
-        public int? Gender
+        public uint? Gender
         {
             get
             {
