@@ -15,7 +15,7 @@ namespace OverSurgery
     public class PersonFactory
     {
         private static PersonFactory m_instance;
-
+        public enum Gender { Male, Female };
         public static PersonFactory Instance()
         {
             if(null == m_instance)
