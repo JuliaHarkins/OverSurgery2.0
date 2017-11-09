@@ -34,7 +34,7 @@ namespace OverSurgery
         /// </example>
         /// <param name="values">Type(1-5),FirstName,LastName,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
-        public Staff CreateStaff(Dictionary[string, object] values) // Arg order: Type of person, other args
+        public Staff CreateStaff(Dictionary<string, object> values) // Arg order: Type of person, other args
         {
             switch(Convert.ToInt16(values["Type"]))
             {
@@ -46,7 +46,7 @@ namespace OverSurgery
                 case 3:
                     return CreateDoctor(values);
                 case 4:
-                    return CreateReceptionist(p_args);
+                    return CreateReceptionist(values);
                     break;
                 default:
                     break;
@@ -80,21 +80,20 @@ namespace OverSurgery
         }
 
         //// Return a new receptionist
-        public Receptionist CreateReceptionist(object[] p_args)
+        public Receptionist CreateReceptionist(Dictionary<string,object> values)
         {
             try
             {
-                return new Receptionist(Convert.ToInt16(p_args[1]), Convert.ToString(p_args[2]), Convert.ToString(p_args[3]), Convert.ToString(p_args[4]), Convert.ToString(p_args[5]), Convert.ToString(p_args[6]));
+                return new Receptionist(values);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw e;
             }
-            return null;
         }
 
-        public Locum CreateLocum(object[] p_args)
+        public Locum CreateLocum(Dictionary<string, object> values)
         {
             return null;
         }

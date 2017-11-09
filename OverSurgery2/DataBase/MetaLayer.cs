@@ -204,13 +204,8 @@ namespace OverSurgery
         }
         public Staff GetStaffByUserName(string p_username)
         {
-            int Id = 0;
-            int type = 0;
-            string FirstN = null;
-            string LastN = null;
-            int Addr = 0;
-
-            Staff s;
+            Dictionary<string, object> d;
+            d = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
@@ -218,18 +213,22 @@ namespace OverSurgery
 
                 while (dr.Read())
                 {
-                    Id = dr.GetInt32(0);
-                    FirstN = dr.GetString(1);
-                    LastN = dr.GetString(2);
-                    Addr = dr.GetInt32(4);
-                    type = dr.GetInt32(7);
-
+                    d = new Dictionary<string, object>
+                    {
+                        { "ID", dr.GetInt16(0) },
+                        { "FirstName", dr.GetString(1) },
+                        { "LastName", dr.GetString(2) },
+                        { "Email", dr.GetString(3) },
+                        { "Address", dr.GetInt16(4) },
+                        { "UserName", dr.GetString(5) },
+                        { "Password", dr.GetString(6)},
+                        { "Type", dr.GetInt16(7) }
+                    };
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            s = pf.CreateStaff(type, FirstN, LastN, Id, Addr); // Order subject to change
-            return s;
+            return pf.CreateStaff(d);
         }
 
         public string GetResetRequestCode(string username)
