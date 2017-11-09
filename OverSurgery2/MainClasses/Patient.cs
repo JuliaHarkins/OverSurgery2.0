@@ -16,13 +16,26 @@ namespace OverSurgery
     public class Patient : Person
     {
         private int m_ID;
-        private int m_address;
-        private string m_phoneNumber;
+        private string m_dateOfBirth;
         private int m_registeredDoctorID;
 
+        public Patient(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
+        {
+
+        }
+
         public int ID { get { return m_ID; } set { m_ID = value; } }
-        public int Address { get { return m_address; } set { m_address = value; } }
-        public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
+        public string DateOfBirth
+        {
+            get
+            {
+                return m_dateOfBirth;
+            }
+            set
+            {
+                m_dateOfBirth = value;
+            }
+        }
         public int RegisteredDoctorID {get { return m_registeredDoctorID; } set { m_registeredDoctorID = value; } }
     }
 }
