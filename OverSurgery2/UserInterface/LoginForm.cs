@@ -29,7 +29,8 @@ namespace OverSurgery
             {
                 Console.WriteLine("\t\tLOGGED IN");
                 this.Hide();
-                //fc.OpenMainForm(lc.Type, test["Username"]);
+                fc.SetCurrentUser(test["Username"]);
+                fc.OpenMainForm();
                 txt_Username.Clear();
                 txt_Password.Clear();
                 this.Show();
