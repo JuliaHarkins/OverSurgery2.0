@@ -25,19 +25,28 @@ namespace OverSurgery
             return m_instance;
         }
         // Let method decide which type of object to create
-        public Staff CreateStaff(params object[] p_args) // Arg order: Type of person, other args
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <example>
+        /// This example shows you how to use the <see cref="CreateStaff(object[])"/> method.
+        /// <c>Staff st = pf.CreateStaff(3, "Lewis", "Barnes", null, "test@email.com", "LewisB", "7a8l48u2g/5ur837", "07658885433", 0);</c>
+        /// </example>
+        /// <param name="values">Type(1-5),FirstName,LastName,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <returns></returns>
+        public Staff CreateStaff(Dictionary[string, object] values) // Arg order: Type of person, other args
         {
-            switch(p_args[0])
+            switch(Convert.ToInt16(values["Type"]))
             {
                 case 1:
                     break;
                 case 2:
-                    CreateLocum(p_args); // Temporarily nulled as not fully implemented
+                    CreateLocum(values); // Temporarily nulled as not fully implemented
                     break;
                 case 3:
-                    break;
+                    return CreateDoctor(values);
                 case 4:
-                    CreateReceptionist(p_args);
+                    return CreateReceptionist(p_args);
                     break;
                 default:
                     break;
@@ -52,19 +61,15 @@ namespace OverSurgery
         }
 
         //Return a new doctor
-        public Doctor CreateDoctor(object[] p_args)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p_args">FirstName, LastName,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <returns></returns>
+        private Doctor CreateDoctor(Dictionary<string, object> values)
         {
             try
             {
-                Dictionary<string, object> values = new Dictionary<string, object>
-                {
-                    {"FirstName", Convert.ToString(p_args[2]) },
-                    {"LastName", Convert.ToString(p_args[3]) },
-                    {"ID", Convert.ToInt16(p_args[4]) },
-                    {"Email", Convert.ToString(p_args[5]) },
-                    { }
-
-                };
                 return new Doctor(values);
             }
             catch (Exception e)

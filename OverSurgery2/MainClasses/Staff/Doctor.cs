@@ -46,17 +46,21 @@ namespace OverSurgery
             m_phoneNumber = p_phoneNumber;
             m_onCall = false;
             m_gender = p_gender;
-            //Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues);
-            //m_firstName = Convert.ToString(p_medicalStaffValues["FirstName"]);
-            //m_lastName = Convert.ToString(p_medicalStaffValues["LastName"]);
-            //m_email = Convert.ToString(p_medicalStaffValues["Email"]);
-            //m_staffID = Convert.ToInt16(p_medicalStaffValues["ID"]);
-            //m_username = Convert.ToString(p_medicalStaffValues["UserName"]);
-            //m_password = Convert.ToString(p_medicalStaffValues["Password"]);
-            //m_prescriptionLevel = Convert.ToInt16(p_medicalStaffValues["PrescriptionLevel"]);
-            //m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
-            //m_onCall = false;
-            //m_gender = Convert.ToInt16(p_medicalStaffValues["Gender"]);
+            /*
+             public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues);
+             {
+                m_firstName = Convert.ToString(p_medicalStaffValues["FirstName"]);
+                m_lastName = Convert.ToString(p_medicalStaffValues["LastName"]);
+                m_email = Convert.ToString(p_medicalStaffValues["Email"]);
+                m_staffID = Convert.ToInt16(p_medicalStaffValues["ID"]);
+                m_username = Convert.ToString(p_medicalStaffValues["UserName"]);
+                m_password = Convert.ToString(p_medicalStaffValues["Password"]);
+                m_prescriptionLevel = Convert.ToInt16(p_medicalStaffValues["PrescriptionLevel"]);
+                m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
+                m_onCall = false;
+                m_gender = Convert.ToInt16(p_medicalStaffValues["Gender"]);
+             }
+            */
         }
         #endregion
         #region Properties

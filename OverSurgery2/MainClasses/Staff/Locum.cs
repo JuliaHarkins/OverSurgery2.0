@@ -8,9 +8,8 @@ namespace OverSurgery
 {
     public class Locum : MedicalStaff
     {
-        public Locum()
+        public Locum(Dictionary<string,object> p_medicalStaffValues) :base(p_medicalStaffValues)
         {
-
         }
     }
 }
