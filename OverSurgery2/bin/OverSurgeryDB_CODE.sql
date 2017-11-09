@@ -37,6 +37,8 @@ CREATE TABLE `Patient` (
     `PatientID` INT(8) NOT NULL auto_increment,
     `Forename` VARCHAR(35) NOT NULL default '',
     `Surname` VARCHAR(35) NOT NULL default '',
+    `Gender` TINYINT(4) NOT NULL default 0,
+    `PhoneNumber` VARCHAR(35) NOT NULL default '',
     `RegesteredDoctorID` INT(8) NOT NULL default 0,
     `AddressID` INT(8) NOT NULL default 0,
     PRIMARY KEY(`PatientID`),
@@ -124,3 +126,26 @@ GRANT ALL ON OverSurgery.* TO 'DBAccess'@localhost;
 #CREATE USER 'DoctorAccess'@localhost IDENTIFIED BY 'Nricb';
 #CREATE USER 'StaffAccess'@localhost IDENTIFIED BY 'Nricb';
 #CREATE USER 'OtherAccess'@localhost IDENTIFIED BY 'Nricb';
+
+
+
+INSERT INTO Address VALUES (1, null, 2, "THIS IS A TEST", "01 TEST 10");
+INSERT INTO Address VALUES (2, null, 12, "X THIS IS A TEST", "01 TEST 10");
+INSERT INTO Address VALUES (3, null, 16, "Q THIS IS A TEST", "01 TEST 10");
+INSERT INTO Address VALUES (4, null, 19, "Z THIS IS A TEST", "01 TEST 10");
+INSERT INTO Address VALUES (5, "Trial", null, "B THIS IS A TEST", "01 TEST 10");
+
+INSERT INTO Staff VALUES (1, 'Linus', 'Torvild', 'Test.OverSurgery@gmail.com',1 , 'Linus', '', );
+INSERT INTO Staff VALUES (2, 'Bill', 'Gates', 'Someone.OverSurgery@gmail.com',1 , 'Bill', '', );
+INSERT INTO Staff VALUES (3, 'Steve', 'Jobs', 'Test.OverSurgery@gmail.com',2 , 'Steve', '', );
+INSERT INTO Staff VALUES (4, 'Test', 'Trial', 'Someone.OverSurgery@gmail.com',2 , 'Test', '', );
+INSERT INTO Staff VALUES (5, 'Manager', 'Test', 'Test.OverSurgery@gmail.com',1 , 'Manager', '', );
+INSERT INTO Staff VALUES (6, 'Receptionist', 'Test', 'Someone.OverSurgery@gmail.com',1 , 'Receptionist', '', );
+INSERT INTO Staff VALUES (7, 'Doctor', 'Test', 'Test.OverSurgery@gmail.com',2 , 'Doctor', '', );
+INSERT INTO Staff VALUES (8, 'Nurse', 'Test', 'Someone.OverSurgery@gmail.com',2 , 'Nurse', '', );
+INSERT INTO Staff VALUES (9, 'Locum', 'Test', 'Test.OverSurgery@gmail.com',3 , 'Locum', '', );
+
+INSERT INTO MedicalStaff VALUES (1, '',1 ,0);
+INSERT INTO MedicalStaff VALUES (2, '',9 ,1);
+INSERT INTO MedicalStaff VALUES (3, '',8 ,0);
+INSERT INTO MedicalStaff VALUES (4, '',7 ,1);
