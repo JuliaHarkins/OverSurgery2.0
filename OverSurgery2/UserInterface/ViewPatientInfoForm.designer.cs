@@ -28,29 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbl_FirstName = new System.Windows.Forms.Label();
-            this.lbl_LastName = new System.Windows.Forms.Label();
+            this.lbl_Forename = new System.Windows.Forms.Label();
+            this.lbl_Surname = new System.Windows.Forms.Label();
             this.lbl_address = new System.Windows.Forms.Label();
             this.btn_EditPatient = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // lbl_FirstName
+            // lbl_Forename
             // 
-            this.lbl_FirstName.AutoSize = true;
-            this.lbl_FirstName.Location = new System.Drawing.Point(12, 9);
-            this.lbl_FirstName.Name = "lbl_FirstName";
-            this.lbl_FirstName.Size = new System.Drawing.Size(23, 13);
-            this.lbl_FirstName.TabIndex = 0;
-            this.lbl_FirstName.Text = "null";
+            this.lbl_Forename.AutoSize = true;
+            this.lbl_Forename.Location = new System.Drawing.Point(12, 9);
+            this.lbl_Forename.Name = "lbl_Forename";
+            this.lbl_Forename.Size = new System.Drawing.Size(23, 13);
+            this.lbl_Forename.TabIndex = 0;
+            this.lbl_Forename.Text = "null";
             // 
-            // lbl_LastName
+            // lbl_Surname
             // 
-            this.lbl_LastName.AutoSize = true;
-            this.lbl_LastName.Location = new System.Drawing.Point(12, 58);
-            this.lbl_LastName.Name = "lbl_LastName";
-            this.lbl_LastName.Size = new System.Drawing.Size(23, 13);
-            this.lbl_LastName.TabIndex = 1;
-            this.lbl_LastName.Text = "null";
+            this.lbl_Surname.AutoSize = true;
+            this.lbl_Surname.Location = new System.Drawing.Point(12, 58);
+            this.lbl_Surname.Name = "lbl_Surname";
+            this.lbl_Surname.Size = new System.Drawing.Size(23, 13);
+            this.lbl_Surname.TabIndex = 1;
+            this.lbl_Surname.Text = "null";
             // 
             // lbl_address
             // 
@@ -78,8 +78,8 @@
             this.ClientSize = new System.Drawing.Size(602, 261);
             this.Controls.Add(this.btn_EditPatient);
             this.Controls.Add(this.lbl_address);
-            this.Controls.Add(this.lbl_LastName);
-            this.Controls.Add(this.lbl_FirstName);
+            this.Controls.Add(this.lbl_Surname);
+            this.Controls.Add(this.lbl_Forename);
             this.Name = "ViewPatientInfoForm";
             this.Text = "ViewPatientInfoForm";
             this.ResumeLayout(false);
@@ -89,8 +89,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Label lbl_FirstName;
-        private System.Windows.Forms.Label lbl_LastName;
+        private System.Windows.Forms.Label lbl_Forename;
+        private System.Windows.Forms.Label lbl_Surname;
         private System.Windows.Forms.Label lbl_address;
         private System.Windows.Forms.Button btn_EditPatient;
     }

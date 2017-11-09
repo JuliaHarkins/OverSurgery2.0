@@ -23,8 +23,8 @@ namespace OverSurgery.Class_Diagram_Classes
         protected string Notes;
         protected int MedicalStaffID;
         protected int PatientID;
-        protected string PatientFirstName;
-        protected string PatientLastName;
+        protected string PatientForename;
+        protected string PatientSurname;
         protected int PatientDOB;
         protected int AppDate;
         protected int AppTime;
@@ -37,13 +37,13 @@ namespace OverSurgery.Class_Diagram_Classes
         /// <param name="AppTime"></param>
         /// <param name="MedicalStaffID"></param>
         /// <param name="PatientID"></param>
-        /// <param name="PatientFirstName"></param>
-        /// <param name="PatientLastName"></param>
+        /// <param name="PatientForename"></param>
+        /// <param name="PatientSurname"></param>
         /// <param name="Notes"></param>
         /// <param name="PatientDOB"></param>
-        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientFirstName, string PatientLastName, string Notes, int PatientDOB)
+        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB)
         {
-            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientFirstName, PatientLastName, Notes, PatientDOB));            
+            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB));            
         }
 
         /// <summary>
@@ -55,25 +55,25 @@ namespace OverSurgery.Class_Diagram_Classes
         //    //Test the data the user has typed in to see if the appointment details entered are correct.
         //    try
         //    {
-        //        if ((txtFirstName.Text == a.PatientFirstName) && (txtLastName.Text == a.PatientLastName) && (txtDOB.Text == a.PatientDOB))
+        //        if ((txtForename.Text == a.PatientForename) && (txtSurname.Text == a.PatientSurname) && (txtDOB.Text == a.PatientDOB))
         //        {
 
 
         //        }
-        //        else if ((txtFirstName.Text == a.PatientFirstName) && (txtLastName.Text == a.PatientLastName))
+        //        else if ((txtForename.Text == a.PatientForename) && (txtSurname.Text == a.PatientSurname))
         //        {
 
         //        }
-        //        else if ((txtLastName.Text == a.PatientLastName) && (txtDOB.Text == a.PatientDOB))
+        //        else if ((txtSurname.Text == a.PatientSurname) && (txtDOB.Text == a.PatientDOB))
         //        {
 
         //        }
         //    }
         //    catch
         //    {
-        //        txtFirstName.Clear();
-        //        txtFirstName.Text = "Appointment not found";
-        //        txtLastName.Clear();
+        //        txtForename.Clear();
+        //        txtForename.Text = "Appointment not found";
+        //        txtSurname.Clear();
         //        txtDOB.Clear();
         //    }
         //}

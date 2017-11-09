@@ -46,8 +46,8 @@ namespace OverSurgery
                     patients.Add(new Patient
                     {
                         ID = dr.GetInt32(0),
-                        FirstName = dr.GetString(1),
-                        LastName = dr.GetString(2),
+                        Forename = dr.GetString(1),
+                        Surname = dr.GetString(2),
                         Address = dr.GetInt32(3)
                     });
                 }
@@ -151,7 +151,7 @@ namespace OverSurgery
                 dr.Close();
                 con.CloseConnection();
             }
-            p = new Patient { ID = Id, FirstName = FirstN, LastName = LastN, Address = Addr };
+            p = new Patient { ID = Id, Forename = FirstN, Surname = LastN, Address = Addr };
             return p;
 
         }
@@ -216,8 +216,8 @@ namespace OverSurgery
                     d = new Dictionary<string, object>
                     {
                         { "ID", dr.GetInt16(0) },
-                        { "FirstName", dr.GetString(1) },
-                        { "LastName", dr.GetString(2) },
+                        { "Forename", dr.GetString(1) },
+                        { "Surname", dr.GetString(2) },
                         { "Email", dr.GetString(3) },
                         { "Address", dr.GetInt16(4) },
                         { "UserName", dr.GetString(5) },

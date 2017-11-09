@@ -21,8 +21,8 @@ namespace OverSurgery
         private string m_notes;
         private int m_medicalStaffID;
         private int m_patientID;
-        private string m_patientFirstName;
-        private string m_patientLastName;
+        private string m_patientForename;
+        private string m_patientSurname;
         private int m_patientDOB;
         private int m_appDate;
         private int m_appTime;
@@ -31,8 +31,8 @@ namespace OverSurgery
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int PatientID { get { return m_patientID; } set { m_patientID = value; } }
-        public string PatientFirstName { get { return m_patientFirstName; } set { m_patientFirstName = value; } }
-        public string PatientLastName { get { return m_patientLastName; } set { m_patientLastName = value; } }
+        public string PatientForename { get { return m_patientForename; } set { m_patientForename = value; } }
+        public string PatientSurname { get { return m_patientSurname; } set { m_patientSurname = value; } }
         public int PatientDOB { get { return m_patientDOB; } set { m_patientDOB = value; } }
         public int AppDate { get { return m_appDate; } set { m_appDate = value; } }
         public int AppTime { get { return m_appTime; } set { m_appTime = value; } }                                                                               // Stores the date and time of the appointment
@@ -45,19 +45,19 @@ namespace OverSurgery
         /// <param name="p_appTime"></param>
         /// <param name="p_medicalStaffID"></param>
         /// <param name="p_patientID"></param>
-        /// <param name="p_patientFirstName"></param>
-        /// <param name="p_patientLastName"></param>
+        /// <param name="p_patientForename"></param>
+        /// <param name="p_patientSurname"></param>
         /// <param name="p_notes"></param>
         /// <param name="p_patientDOB"></param>
-        public Appointment(int p_appDate, int p_appTime, int p_medicalStaffID, int p_patientID, string p_patientFirstName, string p_patientLastName, string p_notes, int p_patientDOB)
+        public Appointment(int p_appDate, int p_appTime, int p_medicalStaffID, int p_patientID, string p_patientForename, string p_patientSurname, string p_notes, int p_patientDOB)
         {
             MedicalStaffID = p_medicalStaffID;
             PatientID = p_patientID;
             AppDate = p_appDate;
             AppTime = p_appTime;
             Notes = p_notes;
-            PatientFirstName = p_patientFirstName;
-            PatientLastName = p_patientLastName;
+            PatientForename = p_patientForename;
+            PatientSurname = p_patientSurname;
             PatientDOB = p_patientDOB;
         }
 

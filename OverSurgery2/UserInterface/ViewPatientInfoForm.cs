@@ -26,9 +26,9 @@ namespace OverSurgery
         public void LoadPatientInfo()
         {
             Patient currentPatient = ml.GetPatientByID(selectedPatient);
-            this.Text = "Viewing Patient - " + currentPatient.FirstName + " " +currentPatient.LastName;
-            lbl_FirstName.Text = currentPatient.FirstName;
-            lbl_LastName.Text = currentPatient.LastName;
+            this.Text = "Viewing Patient - " + currentPatient.Forename + " " +currentPatient.Surname;
+            lbl_Forename.Text = currentPatient.Forename;
+            lbl_Surname.Text = currentPatient.Surname;
             lbl_address.Text = ml.GetAddressByID(currentPatient.Address);
 
         }

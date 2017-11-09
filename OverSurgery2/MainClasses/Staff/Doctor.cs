@@ -13,8 +13,8 @@ namespace OverSurgery
     public class Doctor : MedicalStaff
     {
         #region Member Variables 
-        string m_firstName;
-        string m_lastName;
+        string m_Forename;
+        string m_Surname;
         string m_email;
         int m_staffID;
         string m_username;
@@ -36,8 +36,8 @@ namespace OverSurgery
         
          public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues)
              {
-                m_firstName = Convert.ToString(p_medicalStaffValues["FirstName"]);
-                m_lastName = Convert.ToString(p_medicalStaffValues["LastName"]);
+                m_Forename = Convert.ToString(p_medicalStaffValues["Forename"]);
+                m_Surname = Convert.ToString(p_medicalStaffValues["Surname"]);
                 m_email = Convert.ToString(p_medicalStaffValues["Email"]);
                 m_staffID = Convert.ToInt16(p_medicalStaffValues["ID"]);
                 m_username = Convert.ToString(p_medicalStaffValues["UserName"]);

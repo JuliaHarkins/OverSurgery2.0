@@ -32,7 +32,7 @@ namespace OverSurgery
         /// This example shows you how to use the <see cref="CreateStaff(object[])"/> method.
         /// <c>Staff st = pf.CreateStaff(3, "Lewis", "Barnes", null, "test@email.com", "LewisB", "7a8l48u2g/5ur837", "07658885433", 0);</c>
         /// </example>
-        /// <param name="values">Type(1-5),FirstName,LastName,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <param name="values">Type(1-5),Forename,Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
         public Staff CreateStaff(Dictionary<string, object> values) // Arg order: Type of person, other args
         {
@@ -46,7 +46,7 @@ namespace OverSurgery
                 case 3:
                     return CreateDoctor(values);
                 case 4:
-                    return CreateReceptionist(values);
+                    //return CreateReceptionist(values);
                     break;
                 default:
                     break;
@@ -57,14 +57,14 @@ namespace OverSurgery
         // Return a new patient
         public Patient CreatePatient(object[] args)
         {
-            return new Patient() { FirstName = Convert.ToString(args[1]), LastName = Convert.ToString(args[2]) };
+            return new Patient() { Forename = Convert.ToString(args[1]), Surname = Convert.ToString(args[2]) };
         }
 
         //Return a new doctor
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p_args">FirstName, LastName,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <param name="p_args">Forename, Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
         private Doctor CreateDoctor(Dictionary<string, object> values)
         {
@@ -84,13 +84,14 @@ namespace OverSurgery
         {
             try
             {
-                return new Receptionist(values);
+               /// return new Receptionist(values);
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw e;
             }
+            return null;
         }
 
         public Locum CreateLocum(Dictionary<string, object> values)
