@@ -44,7 +44,7 @@ namespace OverSurgery
         #endregion
 
         /// <summary>
-        /// Gets the details of the appointment from the appointment manager
+        /// Gets the details of the appointment from the AppointmentControler and patient details from the database
         /// </summary>
         /// <param name="p_appDate"></param>
         /// <param name="p_appTime"></param>
@@ -56,7 +56,7 @@ namespace OverSurgery
         /// <param name="p_patientDOB"></param>
         /// <param name="p_appointmentID"></param>
         /// <param name="p_appAttend"></param>
-        public Appointment(Dictionary <string,object> p_AppValues)
+        public Appointment(Dictionary <string,object> p_AppValues, int p_appDate, int p_appTime, int p_patientID, string p_notes, bool p_appAttend)
         {
             // AppointmentID 
             // AppointmentDate
@@ -68,14 +68,14 @@ namespace OverSurgery
 
             AppointmentID = Convert.ToInt16(p_AppValues["ID"]);
             MedicalStaffID = Convert.ToInt16(p_AppValues["RegisteredDoctorID"]);
-            PatientID = ;
-            AppDate = ;
-            AppTime = ;
-            Notes = ;
+            PatientID = p_patientID;
+            AppDate = p_appDate;
+            AppTime = p_appTime;
+            Notes = p_notes;
             PatientForename = Convert.ToString(p_AppValues["Forename"]);
             PatientSurname = Convert.ToString(p_AppValues["Surname"]);
-            PatientDOB =;
-            AppAttend = ;
+            //PatientDOB = Convert.ToString(p_AppValues["DateOfBirth"]);
+            AppAttend = p_appAttend;
         }
 
 

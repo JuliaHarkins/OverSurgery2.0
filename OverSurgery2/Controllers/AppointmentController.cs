@@ -47,9 +47,9 @@ namespace OverSurgery.Class_Diagram_Classes
         /// <param name="AppointmentID"></param>
         /// <param name="AppAttend"></param>
         /// 
-        public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB, int AppointmentID, bool AppAttend)
+        public void UpdateAppointment(Dictionary<string, object> p_AppValues, int AppDate, int AppTime, int PatientID, string Notes, bool AppAttend)
         {
-            //AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB, AppointmentID, AppAttend));            
+            AppointmentList.Add(new Appointment(p_AppValues, AppDate, AppTime, PatientID, Notes, AppAttend));            
         }
 
         public void AddNewAppointment(Dictionary<string,object> AppValues)
@@ -57,10 +57,10 @@ namespace OverSurgery.Class_Diagram_Classes
 
         }
 
-        public void t()
-        {
-            a = new Appointment(20170101,03033000, 12, 12, "12", "12", "12", 20121212, 4326645);
-            string testNotes = a.Notes;
-        }
+        //public void test()
+        //{
+        //    a = new Appointment(20170101,03033000, 12, 12, "12", "12", "12", 20121212, 4326645);
+        //    string testNotes = a.Notes;
+        //}
     }
 }
