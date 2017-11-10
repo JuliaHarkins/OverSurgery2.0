@@ -51,5 +51,10 @@ namespace OverSurgery2.UserInterface
         {
 
         }
+
+        private void MedicalStaff_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
