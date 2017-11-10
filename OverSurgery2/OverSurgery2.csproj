@@ -101,6 +101,12 @@
     <Compile Include="UserInterface\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\MedicalStaff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\MedicalStaff.Designer.cs">
+      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\PasswordResetForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +134,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserInterface\DoctorForm.resx">
+      <DependentUpon>DoctorForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\EditPatientForm.resx">
       <DependentUpon>EditPatientForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -136,6 +145,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\MedicalStaff.resx">
+      <DependentUpon>MedicalStaff.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>
