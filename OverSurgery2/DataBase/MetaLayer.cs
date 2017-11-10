@@ -310,6 +310,7 @@ namespace OverSurgery
                         { "Surname", dr.GetString(2) },
                         { "RegisteredDoctorID", dr.GetInt16(3) },
                         { "AddressID", dr.GetInt16(4) },
+                        //{ "DataOfBirth", dr.GetInt16(5) },
                     }; 
                 }
             }
@@ -321,10 +322,7 @@ namespace OverSurgery
         /// </summary>
         public Appointment GetAppointmentByPatientId(int id)
         {
-            int appID, appDate, appTime, medicalStaffID, patientID, patientDOB;
-            string appNote, patientForename, patientSurname;
-            bool attend;
-
+            
             Dictionary<string, object> d;
             d = null;
             DataConnection con = DBFactory.Instance();
@@ -354,21 +352,21 @@ namespace OverSurgery
                     return new Appointment(d);
                 }
 
-                // Find patient specific data
-                DbDataReader dr2 = con.Select("SELECT * FROM Patient WHERE PatientID = " + id + ";");
-                while (dr.Read())
-                {
-                    patientForename = dr.GetInt32(1);
-                    patientSurname = dr.GetInt32(2);
-                    patientDOB = dr.GetInt32(2);
+            //    // Find patient specific data
+            //    DbDataReader dr2 = con.Select("SELECT * FROM Patient WHERE PatientID = " + id + ";");
+            //    while (dr.Read())
+            //    {
+            //        patientForename = dr.GetInt32(1);
+            //        patientSurname = dr.GetInt32(2);
+            //        patientDOB = dr.GetInt32(2);
                     
-                }
+            //    }
 
-                dr.Close();
-                con.CloseConnection();
-                a = new Appointment(appID, appTime, medicalStaffID, patientID, patientForename, patientSurname, appNote, patientDOB, appID, appAttend);
+            //    dr.Close();
+            //    con.CloseConnection();
+            //    a = new Appointment(appID, appTime, medicalStaffID, patientID, patientForename, patientSurname, appNote, patientDOB, appID, appAttend);
             }
-            return verificationcode;
+            //return verificationcode;
 
         }
     }
