@@ -14,15 +14,14 @@ namespace OverSurgery2
     public partial class ReceptionistForm : Form
     {
         BindingSource PatientBinding;
-        Staff currentUserLoggedIn;
+        Staff currentUserLoggedIn = null;
         MetaLayer ml = MetaLayer.Instance();
         FormController fc = FormController.Instance();
         public ReceptionistForm(Staff currentUser)
         {
+            currentUserLoggedIn = currentUser;
             InitializeComponent();
             this.ShowDialog();
-
-            
         }
 
         private void btn_Logout_click(object sender, EventArgs e)

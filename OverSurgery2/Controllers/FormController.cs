@@ -46,6 +46,7 @@ namespace OverSurgery2
                     new ReceptionistForm(currentUser);
                     break;
                 case 5:
+                    new ManagerForm(currentUser);
                     break;
             }
         }

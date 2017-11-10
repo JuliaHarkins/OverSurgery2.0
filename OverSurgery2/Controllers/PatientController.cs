@@ -12,8 +12,23 @@ namespace OverSurgery2
         /// Created By: J
         /// Date Created : 31/10/17
         /// </summary>
-        public PatientController()
+        private static PatientController m_getInstance;
+        private PatientController()
         {
+
+        }
+        public static PatientController Instance()
+        {
+            if (m_getInstance == null)
+            {
+                m_getInstance = new PatientController();
+            }
+            return m_getInstance;
+        }
+
+        public void AddPatient(Patient p_Patient)
+        {
+
         }
     }
 }

@@ -12,6 +12,11 @@ namespace OverSurgery2
 {
     public partial class ManagerForm : Form
     {
+        BindingSource StaffBinding;
+        BindingSource RotaBinding;
+        Staff currentUserLoggedIn = null;
+        MetaLayer ml = MetaLayer.Instance();
+        FormController fc = FormController.Instance();
         public ManagerForm()
         {
             InitializeComponent();

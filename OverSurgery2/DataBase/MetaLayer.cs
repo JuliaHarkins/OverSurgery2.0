@@ -155,6 +155,29 @@ namespace OverSurgery2
             return pf.CreatePatient(d);
         }
 
+        public bool InsertNewPatient(Dictionary<string,object> p_PatientValues)
+        {
+            {
+                DataConnection con = DBFactory.Instance();
+                if (con.OpenConnection())
+                {
+                    try
+                    {
+                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["RegisteredDoctorID"] +
+                            p_PatientValues["AddressID"] + "," + p_PatientValues["DateOfBirth"] + ");");
+                        con.CloseConnection();
+                        return true;
+                    }
+                    catch(Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        throw e;
+                    }
+                }
+                return false;
+            }
+        }
+
         /// <summary>
         /// Return an address by its ID.
         /// </summary>
