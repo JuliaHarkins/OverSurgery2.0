@@ -31,5 +31,25 @@ namespace OverSurgery2.UserInterface
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_notes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_addPerscription_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
