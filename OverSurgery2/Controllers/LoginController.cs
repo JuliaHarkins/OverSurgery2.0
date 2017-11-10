@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
     /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)

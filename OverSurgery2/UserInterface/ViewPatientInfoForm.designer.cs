@@ -1,4 +1,4 @@
-﻿namespace OverSurgery
+﻿namespace OverSurgery2
 {
     partial class ViewPatientInfoForm
     {

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
     /// Handles appointment data
@@ -58,6 +58,11 @@ namespace OverSurgery
         /// <param name="p_appAttend"></param>
         public Appointment(Dictionary <string,object> p_AppValues, int p_appDate, int p_appTime, int p_patientID, string p_notes, bool p_appAttend)
         {
+            /*
+             * What needs to be done:
+             * Remove everything but the dictionary from the objects that are passed to the constructor
+             * Change the assignments of the variables to take the values from the dictionary
+            */
             // AppointmentID 
             // AppointmentDate
             // AppointmentTime

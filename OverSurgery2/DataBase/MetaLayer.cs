@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
     /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)
@@ -39,17 +39,11 @@ namespace OverSurgery
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT PatientID, Forename, Surname, AddressID FROM patient;");
-
+                Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
-                    patients.Add(new Patient
-                    {
-                        ID = dr.GetInt32(0),
-                        Forename = dr.GetString(1),
-                        Surname = dr.GetString(2),
-                        Address = dr.GetInt32(3)
-                    });
+                    patients.Add(new Patient(values)
                 }
                 // Close Data Reader
                 dr.Close();
@@ -154,7 +148,7 @@ namespace OverSurgery
                 dr.Close();
                 con.CloseConnection();
             }
-            p = new Patient { ID = Id, Forename = FirstN, Surname = LastN, Address = Addr };
+            //p = new Patient { ID = Id, Forename = FirstN, Surname = LastN, Address = Addr };
             return p;
 
         }
@@ -349,7 +343,7 @@ namespace OverSurgery
                         { "MedStaffID", dr.GetInt16(5) },
                         { "PatientID", dr.GetInt16(6)},
                     };
-                    return new Appointment(d);
+                    //return new Appointment(d);
                 }
 
             //    // Find patient specific data

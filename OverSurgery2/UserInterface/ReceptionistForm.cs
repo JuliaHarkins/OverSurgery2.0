@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     public partial class ReceptionistForm : Form
     {

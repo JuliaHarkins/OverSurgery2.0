@@ -11,7 +11,7 @@ using System.Threading.Tasks;
  *   and allow for their extention
  */
 
-namespace OverSurgery.Main_Classes
+namespace OverSurgery2.Main_Classes
 {
     /// <summary>
     /// this object is used to hold all information needed for a perscription,

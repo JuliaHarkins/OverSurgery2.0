@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery.Class_Diagram_Classes
+namespace OverSurgery2.Class_Diagram_Classes
 {
     /// <summary>
     /// Created By: J

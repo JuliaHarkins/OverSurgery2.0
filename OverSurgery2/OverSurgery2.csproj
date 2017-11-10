@@ -60,6 +60,12 @@
     <Compile Include="MainClasses\Staff\Doctor.cs" />
     <Compile Include="MainClasses\LoginObserver.cs" />
     <Compile Include="MainClasses\Staff\Locum.cs" />
+    <Compile Include="ManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ManagerForm.Designer.cs">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\DoctorForm.cs">
       <SubType>Form</SubType>
     </Compile>

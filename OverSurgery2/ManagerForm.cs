@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace OverSurgery2
 {
-    public partial class DoctorForm : Form
+    public partial class ManagerForm : Form
     {
-        public DoctorForm()
+        public ManagerForm()
         {
             InitializeComponent();
         }
