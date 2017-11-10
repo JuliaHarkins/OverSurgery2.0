@@ -31,6 +31,7 @@ namespace OverSurgery.Class_Diagram_Classes
         private int AppointmentID;
         private bool AppAttend;
         MetaLayer instance = MetaLayer.Instance();
+
         #endregion
         /// <summary>
         /// Gives appointment details to the Appointment class to be stored
@@ -45,46 +46,16 @@ namespace OverSurgery.Class_Diagram_Classes
         /// <param name="PatientDOB"></param>
         /// <param name="AppointmentID"></param>
         /// <param name="AppAttend"></param>
+        /// 
         public void UpdateAppointment(int AppDate ,int AppTime, int MedicalStaffID, int PatientID, string PatientForename, string PatientSurname, string Notes, int PatientDOB, int AppointmentID, bool AppAttend)
         {
-            AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB, AppointmentID, AppAttend));            
+            //AppointmentList.Add(new Appointment(AppDate, AppTime, MedicalStaffID, PatientID, PatientForename, PatientSurname, Notes, PatientDOB, AppointmentID, AppAttend));            
         }
-        public void AddNewAppointment(Dictionary<string,object>)
+
+        public void AddNewAppointment(Dictionary<string,object> AppValues)
         {
 
         }
-
-        /// <summary>
-        /// Search for a specific appointment for a patient
-        /// </summary>
-        //public void SearchAppointment()
-        //{
-
-        //    //Test the data the user has typed in to see if the appointment details entered are correct.
-        //    try
-        //    {
-        //        if ((txtForename.Text == a.PatientForename) && (txtSurname.Text == a.PatientSurname) && (txtDOB.Text == a.PatientDOB))
-        //        {
-
-
-        //        }
-        //        else if ((txtForename.Text == a.PatientForename) && (txtSurname.Text == a.PatientSurname))
-        //        {
-
-        //        }
-        //        else if ((txtSurname.Text == a.PatientSurname) && (txtDOB.Text == a.PatientDOB))
-        //        {
-
-        //        }
-        //    }
-        //    catch
-        //    {
-        //        txtForename.Clear();
-        //        txtForename.Text = "Appointment not found";
-        //        txtSurname.Clear();
-        //        txtDOB.Clear();
-        //    }
-        //}
 
         public void t()
         {

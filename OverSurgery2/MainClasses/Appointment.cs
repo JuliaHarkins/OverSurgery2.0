@@ -28,8 +28,9 @@ namespace OverSurgery
         private int m_appTime;
         private int m_appointmentID;
         private bool m_appAttend;
-        #endregion
-        #region Properties
+#endregion
+
+#region Properties
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int PatientID { get { return m_patientID; } set { m_patientID = value; } }
@@ -66,13 +67,13 @@ namespace OverSurgery
             // PatientID
 
             AppointmentID = Convert.ToInt16(p_AppValues["ID"]);
-            MedicalStaffID = ;
+            MedicalStaffID = Convert.ToInt16(p_AppValues["RegisteredDoctorID"]);
             PatientID = ;
             AppDate = ;
             AppTime = ;
             Notes = ;
-            PatientForename = ;
-            PatientSurname = ;
+            PatientForename = Convert.ToString(p_AppValues["Forename"]);
+            PatientSurname = Convert.ToString(p_AppValues["Surname"]);
             PatientDOB =;
             AppAttend = ;
         }
