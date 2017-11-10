@@ -16,8 +16,7 @@ namespace OverSurgery2
         [STAThread]
         static void Main()
         {
-            bool testB = false;
-            do
+            while (true)
             {
                 switch (Console.ReadKey(true).KeyChar)
                 {
@@ -33,7 +32,7 @@ namespace OverSurgery2
                     default:
                         break;
                 }
-            } while (!testB);
+            }
 
         }
 
