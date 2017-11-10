@@ -57,6 +57,7 @@ namespace OverSurgery
             }
             return patients;
         }
+
         public Tuple<string, string, int?> GetLogin(string p_username)
         {
             #region Declaration
@@ -94,6 +95,7 @@ namespace OverSurgery
             return m_login;
             #endregion
         }
+
         public List<Medication> getMedication()
         {
             List<Medication> medication = new List<Medication>();
@@ -117,6 +119,7 @@ namespace OverSurgery
             }
             return medication;
         }
+
         /// <summary>
         /// Return a Patient by their ID.
         /// </summary>
@@ -155,6 +158,7 @@ namespace OverSurgery
             return p;
 
         }
+
         /// <summary>
         /// Return an address by its ID.
         /// </summary>
@@ -202,6 +206,7 @@ namespace OverSurgery
             }
             return email;
         }
+
         public Staff GetStaffByUserName(string p_username)
         {
             Dictionary<string, object> d;
@@ -248,6 +253,7 @@ namespace OverSurgery
             }
             return verificationcode;
         }
+
         public bool NewResetRequest(string username, string verificationcode)
         {
             DataConnection con = DBFactory.Instance();
@@ -259,6 +265,7 @@ namespace OverSurgery
             }
             return false;
         }
+
         public bool UpdateStaffPassword(string p_username, string p_newPassword)
         {
             DataConnection con = DBFactory.Instance();
@@ -281,6 +288,12 @@ namespace OverSurgery
             }
         }
 
+        /// <summary>
+        /// Get the patients details from searching just their name
+        /// </summary>
+        /// <param name="p_forename"></param>
+        /// <param name="p_surname"></param>
+        /// <returns></returns>
         public Patient GetPatientByName(string p_forename, string p_surname)
         {
             DataConnection con = DBFactory.Instance();
@@ -302,6 +315,7 @@ namespace OverSurgery
             }
             return pf.CreatePatient(d);
         }
+
         /// <summary>
         /// Get appointment details from the database
         /// </summary>
