@@ -21,9 +21,9 @@ namespace OverSurgery2
                 switch (Console.ReadKey(true).KeyChar)
                 {
                     case 's':
-                        Application.EnableVisualStyles();
-                        Application.SetCompatibleTextRenderingDefault(false);
-                        Application.Run(new LoginForm());
+                            Application.EnableVisualStyles();
+                            Application.SetCompatibleTextRenderingDefault(false);
+                            Application.Run(new LoginForm());
                         break;
                     case 'h':
                         Console.Write("Password to be Hashed: ");
