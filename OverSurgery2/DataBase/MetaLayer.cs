@@ -127,7 +127,6 @@ namespace OverSurgery2
         /// <returns>Returns a Patient</returns>
         public Patient GetPatientByID(int p_id)
         {
-            #region Declaration
             Patient p;
             Dictionary<string, object> d;
             d = null;

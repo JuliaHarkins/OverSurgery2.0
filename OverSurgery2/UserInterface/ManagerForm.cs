@@ -17,8 +17,9 @@ namespace OverSurgery2
         Staff currentUserLoggedIn = null;
         MetaLayer ml = MetaLayer.Instance();
         FormController fc = FormController.Instance();
-        public ManagerForm()
+        public ManagerForm(Staff p_currentUser)
         {
+            currentUserLoggedIn = p_currentUser;
             InitializeComponent();
         }
     }
