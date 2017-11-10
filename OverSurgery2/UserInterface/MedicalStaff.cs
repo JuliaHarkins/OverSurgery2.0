@@ -16,5 +16,15 @@ namespace OverSurgery2.UserInterface
         {
             InitializeComponent();
         }
+
+        private void medHSymtom_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
