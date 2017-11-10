@@ -26,5 +26,10 @@ namespace OverSurgery2.UserInterface
         {
 
         }
+
+        private void medHDate_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
