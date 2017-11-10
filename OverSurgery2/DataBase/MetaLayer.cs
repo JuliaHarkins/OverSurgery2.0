@@ -136,7 +136,6 @@ namespace OverSurgery2
         /// <returns>Returns a Patient</returns>
         public Patient GetPatientByID(int p_id)
         {
-            Patient p;
             Dictionary<string, object> d;
             d = null;
             DataConnection con = DBFactory.Instance();
@@ -377,23 +376,11 @@ namespace OverSurgery2
                         { "MedStaffID", dr.GetInt16(5) },
                         { "PatientID", dr.GetInt16(6)},
                     };
+                    return null;
                     //return new Appointment(d);
                 }
-
-            //    // Find patient specific data
-            //    DbDataReader dr2 = con.Select("SELECT * FROM Patient WHERE PatientID = " + id + ";");
-            //    while (dr.Read())
-            //    {
-            //        patientForename = dr.GetInt32(1);
-            //        patientSurname = dr.GetInt32(2);
-            //        patientDOB = dr.GetInt32(2);
-                    
-            //    }
-
-            //    dr.Close();
-            //    con.CloseConnection();
-            //    a = new Appointment(appID, appTime, medicalStaffID, patientID, patientForename, patientSurname, appNote, patientDOB, appID, appAttend);
             }
+            return null;
             //return verificationcode;
 
         }

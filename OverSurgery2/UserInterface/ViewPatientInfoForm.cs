@@ -29,7 +29,7 @@ namespace OverSurgery2
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " +currentPatient.Surname;
             lbl_Forename.Text = currentPatient.Forename;
             lbl_Surname.Text = currentPatient.Surname;
-            lbl_address.Text = ml.GetAddressByID(currentPatient.Address);
+            lbl_address.Text = ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
 
         }
 

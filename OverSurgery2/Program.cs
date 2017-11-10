@@ -13,26 +13,33 @@ namespace OverSurgery2
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        private static char c = 'x';
         [STAThread]
         static void Main()
         {
-            System.Threading.Timer t = new System.Threading.Timer(TimerCallback, null, 0, 2000);
-            while (c != 's')
+            bool testB = false;
+            do
             {
-                ConsoleKeyInfo keypress = Console.ReadKey();
-                c = keypress.KeyChar;
-                TimerCallback(null);
-            }
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new LoginForm());
+                switch (Console.ReadKey(true).KeyChar)
+                {
+                    case 's':
+                        Application.EnableVisualStyles();
+                        Application.SetCompatibleTextRenderingDefault(false);
+                        Application.Run(new LoginForm());
+                        break;
+                    case 'h':
+                        Console.Write("Password to be Hashed: ");
+                        Console.WriteLine(LoginController.Instance().HashPassword(Console.ReadLine()));
+                        break;
+                    default:
+                        break;
+                }
+            } while (!testB);
 
         }
-        private static void TimerCallback(Object o)
-        {
-            Console.Write("Password to be Hashed: ");
-            Console.WriteLine(LoginController.Instance().HashPassword(Console.ReadLine()));
-        }
+
+        /// <summary>
+        /// Return a Hashed String
+        /// </summary>
+        /// <param name="o"></param>
     }
 }
