@@ -127,12 +127,10 @@ namespace OverSurgery2
         /// <returns>Returns a Patient</returns>
         public Patient GetPatientByID(int p_id)
         {
-            int Id = 0;
-            string FirstN = null;
-            string LastN = null;
-            int Addr = 0;
-
+            #region Declaration
             Patient p;
+            Dictionary<string, object> d;
+            d = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
@@ -140,17 +138,21 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    Id = dr.GetInt32(0);
-                    FirstN = dr.GetString(1);
-                    LastN = dr.GetString(2);
-                    Addr = dr.GetInt16(4);
+                    d = new Dictionary<string, object>
+                    {
+                        { "ID", dr.GetInt16(0) },
+                        { "Forename", dr.GetString(1) },
+                        { "Surname", dr.GetString(2) },
+                        { "RegisteredDoctorID", dr.GetInt16(3) },
+                        { "AddressID", dr.GetInt16(4) },
+                        //{ "DateOfBirth", dr.GetDateTime(5) }
+                    };
+
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            //p = new Patient { ID = Id, Forename = FirstN, Surname = LastN, Address = Addr };
-            return p;
-
+            return pf.CreatePatient(d);
         }
 
         /// <summary>
@@ -222,6 +224,7 @@ namespace OverSurgery2
                         { "UserName", dr.GetString(5) },
                         { "Password", dr.GetString(6)},
                         { "Type", dr.GetInt16(7) }
+                       
                     };
                 }
                 dr.Close();
@@ -304,7 +307,7 @@ namespace OverSurgery2
                         { "Surname", dr.GetString(2) },
                         { "RegisteredDoctorID", dr.GetInt16(3) },
                         { "AddressID", dr.GetInt16(4) },
-                        //{ "DataOfBirth", dr.GetInt16(5) },
+                        { "DateOfBirth", dr.GetDateTime(5) }
                     }; 
                 }
             }
