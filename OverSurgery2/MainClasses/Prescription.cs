@@ -70,12 +70,14 @@ namespace OverSurgery.Main_Classes
         /// <param name="p_months"></param>
         public void Extend(int p_months)
         {
+#region Execution
             int addMonth = m_extentionCouter + p_months;
             if ( addMonth<= m_maxExtention)
             {
                 m_enddate.AddMonths(addMonth);
                 m_extentionCouter += addMonth;
             }
+#endregion
         }
 #endregion
 
