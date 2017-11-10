@@ -38,13 +38,22 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT PatientID, Forename, Surname, AddressID FROM patient;");
+                DbDataReader dr = con.Select("SELECT * FROM patient;");
                 Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
-                    patients.Add(new Patient(values)
-                }
+                    values = new Dictionary<string, object>
+                    {
+                        { "ID", dr.GetInt16(0) },
+                        { "Forename", dr.GetString(1) },
+                        { "Surname", dr.GetString(2) },
+                        { "RegisteredDoctorID", dr.GetInt16(3) },
+                        { "AddressID", dr.GetInt16(4) },
+                        //{ "DateOfBirth", dr.GetDateTime(5) }
+                    };
+                    patients.Add(pf.CreatePatient(values));
+                };
                 // Close Data Reader
                 dr.Close();
                 con.CloseConnection();

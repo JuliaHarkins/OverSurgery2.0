@@ -41,6 +41,7 @@ namespace OverSurgery2
                 case 2:
                     break;
                 case 3:
+                    new DoctorForm(currentUser);
                     break;
                 case 4:
                     new ReceptionistForm(currentUser);

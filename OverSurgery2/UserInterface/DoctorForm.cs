@@ -12,9 +12,16 @@ namespace OverSurgery2
 {
     public partial class DoctorForm : Form
     {
-        public DoctorForm()
+        Staff currentUserLoggedin = null;
+        public DoctorForm(Staff currentUser)
         {
+            currentUserLoggedin = currentUser;
             InitializeComponent();
+        }
+
+        public void SetListOfAppointments()
+        {
+
         }
     }
 }
