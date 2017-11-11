@@ -38,12 +38,13 @@
             this.lbl_DateOfBirth = new System.Windows.Forms.Label();
             this.lbl_PatientDateOfBirth = new System.Windows.Forms.Label();
             this.lbl_PatientDoctor = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_Forename
             // 
             this.lbl_Forename.AutoSize = true;
-            this.lbl_Forename.Location = new System.Drawing.Point(78, 34);
+            this.lbl_Forename.Location = new System.Drawing.Point(46, 9);
             this.lbl_Forename.Name = "lbl_Forename";
             this.lbl_Forename.Size = new System.Drawing.Size(57, 13);
             this.lbl_Forename.TabIndex = 0;
@@ -52,7 +53,7 @@
             // lbl_Surname
             // 
             this.lbl_Surname.AutoSize = true;
-            this.lbl_Surname.Location = new System.Drawing.Point(83, 47);
+            this.lbl_Surname.Location = new System.Drawing.Point(51, 22);
             this.lbl_Surname.Name = "lbl_Surname";
             this.lbl_Surname.Size = new System.Drawing.Size(52, 13);
             this.lbl_Surname.TabIndex = 1;
@@ -61,7 +62,7 @@
             // lbl_address
             // 
             this.lbl_address.AutoSize = true;
-            this.lbl_address.Location = new System.Drawing.Point(87, 73);
+            this.lbl_address.Location = new System.Drawing.Point(55, 48);
             this.lbl_address.Name = "lbl_address";
             this.lbl_address.Size = new System.Drawing.Size(48, 13);
             this.lbl_address.TabIndex = 2;
@@ -80,7 +81,7 @@
             // lbl_PatientForeName
             // 
             this.lbl_PatientForeName.AutoSize = true;
-            this.lbl_PatientForeName.Location = new System.Drawing.Point(141, 34);
+            this.lbl_PatientForeName.Location = new System.Drawing.Point(109, 9);
             this.lbl_PatientForeName.Name = "lbl_PatientForeName";
             this.lbl_PatientForeName.Size = new System.Drawing.Size(0, 13);
             this.lbl_PatientForeName.TabIndex = 4;
@@ -88,7 +89,7 @@
             // lbl_PatientSurName
             // 
             this.lbl_PatientSurName.AutoSize = true;
-            this.lbl_PatientSurName.Location = new System.Drawing.Point(141, 47);
+            this.lbl_PatientSurName.Location = new System.Drawing.Point(109, 22);
             this.lbl_PatientSurName.Name = "lbl_PatientSurName";
             this.lbl_PatientSurName.Size = new System.Drawing.Size(0, 13);
             this.lbl_PatientSurName.TabIndex = 5;
@@ -96,7 +97,7 @@
             // lbl_PatientAddress
             // 
             this.lbl_PatientAddress.AutoSize = true;
-            this.lbl_PatientAddress.Location = new System.Drawing.Point(141, 73);
+            this.lbl_PatientAddress.Location = new System.Drawing.Point(109, 48);
             this.lbl_PatientAddress.Name = "lbl_PatientAddress";
             this.lbl_PatientAddress.Size = new System.Drawing.Size(0, 13);
             this.lbl_PatientAddress.TabIndex = 6;
@@ -104,7 +105,7 @@
             // lbl_DateOfBirth
             // 
             this.lbl_DateOfBirth.AutoSize = true;
-            this.lbl_DateOfBirth.Location = new System.Drawing.Point(66, 60);
+            this.lbl_DateOfBirth.Location = new System.Drawing.Point(34, 35);
             this.lbl_DateOfBirth.Name = "lbl_DateOfBirth";
             this.lbl_DateOfBirth.Size = new System.Drawing.Size(69, 13);
             this.lbl_DateOfBirth.TabIndex = 7;
@@ -113,7 +114,7 @@
             // lbl_PatientDateOfBirth
             // 
             this.lbl_PatientDateOfBirth.AutoSize = true;
-            this.lbl_PatientDateOfBirth.Location = new System.Drawing.Point(141, 60);
+            this.lbl_PatientDateOfBirth.Location = new System.Drawing.Point(109, 35);
             this.lbl_PatientDateOfBirth.Name = "lbl_PatientDateOfBirth";
             this.lbl_PatientDateOfBirth.Size = new System.Drawing.Size(0, 13);
             this.lbl_PatientDateOfBirth.TabIndex = 8;
@@ -121,17 +122,26 @@
             // lbl_PatientDoctor
             // 
             this.lbl_PatientDoctor.AutoSize = true;
-            this.lbl_PatientDoctor.Location = new System.Drawing.Point(100, 86);
+            this.lbl_PatientDoctor.Location = new System.Drawing.Point(112, 61);
             this.lbl_PatientDoctor.Name = "lbl_PatientDoctor";
-            this.lbl_PatientDoctor.Size = new System.Drawing.Size(35, 13);
+            this.lbl_PatientDoctor.Size = new System.Drawing.Size(0, 13);
             this.lbl_PatientDoctor.TabIndex = 9;
-            this.lbl_PatientDoctor.Text = "label1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(10, 61);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Registered Doctor:";
             // 
             // ViewPatientInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 261);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.lbl_PatientDoctor);
             this.Controls.Add(this.lbl_PatientDateOfBirth);
             this.Controls.Add(this.lbl_DateOfBirth);
@@ -162,5 +172,6 @@
         private System.Windows.Forms.Label lbl_DateOfBirth;
         private System.Windows.Forms.Label lbl_PatientDateOfBirth;
         private System.Windows.Forms.Label lbl_PatientDoctor;
+        private System.Windows.Forms.Label label1;
     }
 }
