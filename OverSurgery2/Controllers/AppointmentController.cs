@@ -31,8 +31,8 @@ namespace OverSurgery2.Class_Diagram_Classes
         private int AppointmentID;
         private bool AppAttend;
         MetaLayer instance = MetaLayer.Instance();
+#endregion
 
-        #endregion
         /// <summary>
         /// Gives appointment details to the Appointment class to be stored
         /// </summary>
@@ -47,12 +47,12 @@ namespace OverSurgery2.Class_Diagram_Classes
         /// <param name="AppointmentID"></param>
         /// <param name="AppAttend"></param>
         /// 
-        public void UpdateAppointment(Dictionary<string, object> p_AppValues, int AppDate, int AppTime, int PatientID, string Notes, bool AppAttend)
+        public void UpdateAppointment()
         {
-            //AppointmentList.Add(new Appointment(p_AppValues, AppDate, AppTime, PatientID, Notes, AppAttend));            
+                    
         }
 
-        public void AddNewAppointment(Dictionary<string,object> AppValues)
+        public void AddNewAppointment()
         {
 
         }
