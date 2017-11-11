@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery2.Class_Diagram_Classes
+namespace OverSurgery2
 {
     /// <summary>
     /// Handles interaction with appointment
