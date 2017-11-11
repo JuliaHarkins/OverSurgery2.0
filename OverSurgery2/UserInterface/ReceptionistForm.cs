@@ -17,6 +17,7 @@ namespace OverSurgery2
         Staff currentUserLoggedIn = null;
         MetaLayer ml = MetaLayer.Instance();
         FormController fc = FormController.Instance();
+        AppointmentController ac;
         public ReceptionistForm(Staff currentUser)
         {
             currentUserLoggedIn = currentUser;
@@ -32,8 +33,7 @@ namespace OverSurgery2
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
             PatientBinding = new BindingSource();
-            PatientBinding.DataSource = ml.getPatients();
-            DataGridPatients.DataSource = PatientBinding;
+            DataGridPatients.DataSource = PatientBinding.DataSource = ml.getPatients();
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
             DataGridPatients.Columns["AddressID"].Visible = false;

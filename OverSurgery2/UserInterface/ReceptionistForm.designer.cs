@@ -28,17 +28,20 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btn_Logout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AppointmentsTab = new System.Windows.Forms.TabPage();
             this.DataGridAppointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
+            this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
             this.PatientsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPatients)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Logout
@@ -79,12 +82,20 @@
             // 
             // DataGridAppointments
             // 
+            this.DataGridAppointments.AllowUserToAddRows = false;
+            this.DataGridAppointments.AllowUserToDeleteRows = false;
+            this.DataGridAppointments.AllowUserToResizeColumns = false;
+            this.DataGridAppointments.AllowUserToResizeRows = false;
             this.DataGridAppointments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataGridAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
+            this.DataGridAppointments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.DataGridAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridAppointments.Location = new System.Drawing.Point(6, 6);
             this.DataGridAppointments.Name = "DataGridAppointments";
+            this.DataGridAppointments.ReadOnly = true;
+            this.DataGridAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DataGridAppointments.Size = new System.Drawing.Size(899, 336);
             this.DataGridAppointments.TabIndex = 0;
             // 
@@ -111,6 +122,10 @@
             this.DataGridPatients.TabIndex = 1;
             this.DataGridPatients.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridPatients_CellMouseClick);
             // 
+            // patientBindingSource
+            // 
+            this.patientBindingSource.DataSource = typeof(OverSurgery2.Patient);
+            // 
             // ReceptionistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -128,6 +143,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).EndInit();
             this.PatientsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPatients)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -140,5 +156,6 @@
         private System.Windows.Forms.TabPage PatientsTab;
         private System.Windows.Forms.DataGridView DataGridAppointments;
         private System.Windows.Forms.DataGridView DataGridPatients;
+        private System.Windows.Forms.BindingSource patientBindingSource;
     }
 }
