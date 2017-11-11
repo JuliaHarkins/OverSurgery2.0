@@ -21,7 +21,9 @@ namespace OverSurgery2
 
         public Patient(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
         {
-
+            m_ID = Convert.ToInt16(p_PersonValues["ID"]);
+            m_registeredDoctorID = Convert.ToInt16(p_PersonValues["RegisteredDoctorID"]);
+            m_dateOfBirth = "e";
         }
 
         public int ID { get { return m_ID; } set { m_ID = value; } }
