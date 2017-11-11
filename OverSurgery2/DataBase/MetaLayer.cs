@@ -128,8 +128,7 @@ namespace OverSurgery2
 
         public Staff GetMedicalStaffByID(int p_id)
         {
-            Dictionary<string, object> d;
-            d = null;
+            Dictionary<string, object> values = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
@@ -137,7 +136,7 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    d = new Dictionary<string, object>
+                    values = new Dictionary<string, object>
                     {
                         { "ID", dr.GetInt16(0) },
                         { "Forename", dr.GetString(1) },
@@ -151,10 +150,10 @@ namespace OverSurgery2
                         {"PhoneNumber", " " }
 
                     };
-                    Console.WriteLine(d["Forename"]);
+                    Console.WriteLine(values["Forename"]);
                 }
             }
-            return null;
+            return pf.CreateStaff(values);
         }
 
         /// <summary>
