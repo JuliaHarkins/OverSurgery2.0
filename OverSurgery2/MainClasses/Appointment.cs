@@ -15,9 +15,8 @@ namespace OverSurgery2
     /// <summary>
     /// Handles appointment data
     /// </summary>
-    class Appointment
+    public class Appointment
     {
-        MetaLayer ml = MetaLayer.Instance();
 #region Member Variables
         private string m_notes;
         private int m_medicalStaffID;
@@ -30,7 +29,6 @@ namespace OverSurgery2
         private int m_appointmentID;
         private bool m_appAttend;
 #endregion
-
 #region Properties
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
@@ -65,9 +63,9 @@ namespace OverSurgery2
             AppDate = Convert.ToInt16(p_AppValues["Date"]);
             AppTime = Convert.ToInt16(p_AppValues["Time"]);
             Notes = Convert.ToString(p_AppValues["Notes"]);
-            PatientForename = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Forename);
-            PatientSurname = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Surname);
-            PatientDOB = Convert.ToInt16(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).DateOfBirth);
+            PatientForename = Convert.ToString(Singletons.ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Forename);
+            PatientSurname = Convert.ToString(Singletons.ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Surname);
+            PatientDOB = Convert.ToInt16(Singletons.ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).DateOfBirth);
             AppAttend = Convert.ToBoolean(p_AppValues["Attend"]);
         }
 
