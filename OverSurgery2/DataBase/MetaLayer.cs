@@ -224,6 +224,7 @@ namespace OverSurgery2
         /// <returns>Returns an address string</returns>
         public string GetAddressByID(int p_id)
         {
+            string houseName = null;
             string address = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
@@ -232,8 +233,12 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
+                    if (dr.GetString(1) == null)
+                    {
 
-                    address = dr.GetString(1) + " " + Convert.ToString(dr.GetInt16(2)) + " " + dr.GetString(3) + " " + dr.GetString(4);
+                        houseName = " ";
+                    }
+                    address = houseName + " " + Convert.ToString(dr.GetInt16(2)) + " " + dr.GetString(3) + " " + dr.GetString(4);
                 }
                 dr.Close();
                 con.CloseConnection();
