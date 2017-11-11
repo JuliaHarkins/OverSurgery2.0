@@ -59,7 +59,7 @@ namespace OverSurgery2
         public Appointment(Dictionary <string,object> p_AppValues)
         {
             AppointmentID = Convert.ToInt16(p_AppValues["AppID"]);
-            MedicalStaffID = Convert.ToInt16(p_AppValues["MedStaffID"]);
+            MedicalStaffID = Convert.ToInt16(p_AppValues["RegisteredDoctorID"]);
             PatientID = Convert.ToInt16(p_AppValues["PatientID"]);
             AppDate = Convert.ToInt16(p_AppValues["Date"]);
             AppTime = Convert.ToInt16(p_AppValues["Time"]);
