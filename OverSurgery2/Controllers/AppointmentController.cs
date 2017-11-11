@@ -49,7 +49,7 @@ namespace OverSurgery2.Class_Diagram_Classes
         /// 
         public void UpdateAppointment(Dictionary<string, object> p_AppValues, int AppDate, int AppTime, int PatientID, string Notes, bool AppAttend)
         {
-            AppointmentList.Add(new Appointment(p_AppValues, AppDate, AppTime, PatientID, Notes, AppAttend));            
+            //AppointmentList.Add(new Appointment(p_AppValues, AppDate, AppTime, PatientID, Notes, AppAttend));            
         }
 
         public void AddNewAppointment(Dictionary<string,object> AppValues)

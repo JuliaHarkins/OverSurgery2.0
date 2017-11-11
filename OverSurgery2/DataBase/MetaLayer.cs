@@ -48,12 +48,12 @@ namespace OverSurgery2
                         { "ID", dr.GetInt16(0) },
                         { "Forename", dr.GetString(1) },
                         { "Surname", dr.GetString(2) },
-                        {"Gender", dr.GetInt16(3) },
+                        { "Gender", dr.GetInt16(3) },
                         { "DateOfBirth", dr.GetDateTime(4) },
-                        {"PhoneNumber", dr.GetString(5) },
+                        { "PhoneNumber", dr.GetString(5) },
                         { "RegisteredDoctorID", dr.GetInt16(6) },
                         { "AddressID", dr.GetInt16(7) },
-                        {"Email", dr.GetString(8) }
+                        { "Email", dr.GetString(8) }
                     };
                     patients.Add(pf.CreatePatient(values));
                 };
@@ -170,8 +170,8 @@ namespace OverSurgery2
         /// <returns>Returns a Patient</returns>
         public Patient GetPatientByID(int p_id)
         {
-            Dictionary<string, object> d;
-            d = null;
+            Dictionary<string, object> id;
+            id = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
@@ -179,24 +179,24 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    d = new Dictionary<string, object>
+                    id = new Dictionary<string, object>
                     {
                         { "ID", dr.GetInt16(0) },
                         { "Forename", dr.GetString(1) },
                         { "Surname", dr.GetString(2) },
-                        {"Gender", dr.GetInt16(3) },
+                        { "Gender", dr.GetInt16(3) },
                         { "DateOfBirth", dr.GetDateTime(4) },
-                        {"PhoneNumber", dr.GetString(5) },
+                        { "PhoneNumber", dr.GetString(5) },
                         { "RegisteredDoctorID", dr.GetInt16(6) },
                         { "AddressID", dr.GetInt16(7) },
-                        {"Email", dr.GetString(8) }
+                        { "Email", dr.GetString(8) }
                     };
 
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            return pf.CreatePatient(d);
+            return pf.CreatePatient(id);
         }
 
         public bool InsertNewPatient(Dictionary<string,object> p_PatientValues)
@@ -291,8 +291,8 @@ namespace OverSurgery2
                         { "UserName", dr.GetString(5) },
                         { "Password", dr.GetString(6)},
                         { "Type", dr.GetInt16(7) },
-                        {"Gender", 0 },
-                        {"PhoneNumber", " " }
+                        { "Gender", 0 },
+                        { "PhoneNumber", " " }
                        
                     };
                 }
@@ -386,17 +386,17 @@ namespace OverSurgery2
         /// <summary>
         /// Get appointment details from the database
         /// </summary>
-        public Appointment GetAppointmentByPatientId(int id)
+        public Appointment GetAppointmentByPatientId(int patientid)
         {
-            
-            Dictionary<string, object> d;
-            d = null;
+            // Read appointment values
+            Dictionary<string, object> appValues;
+            appValues = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 // Find appointment specific data
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE PatientID = " + id + ";");
-                while (dr.Read())
+                DbDataReader dr1 = con.Select("SELECT * FROM Appointment WHERE PatientID = " + patientid + ";");
+                while (dr1.Read())
                 {
                     // AppointmentID 
                     // AppointmentDate
@@ -405,22 +405,64 @@ namespace OverSurgery2
                     // AppointmentAttended
                     // MedicalStaffID
                     // PatientID
-                    d = new Dictionary<string, object>
+                    appValues = new Dictionary<string, object>
                     {
-                        { "ID", dr.GetInt16(0) },
-                        { "Date", dr.GetString(1) },
-                        { "Time", dr.GetString(2) },
-                        { "Notes", dr.GetString(3) },
-                        { "Attend", dr.GetBoolean(4) },
-                        { "MedStaffID", dr.GetInt16(5) },
-                        { "PatientID", dr.GetInt16(6)},
+                        { "AppID", dr1.GetInt16(0) },
+                        { "Date", dr1.GetString(1) },
+                        { "Time", dr1.GetString(2) },
+                        { "Notes", dr1.GetString(3) },
+                        { "Attend", dr1.GetBoolean(4) },
+                        { "MedStaffID", dr1.GetInt16(5) },
+                        { "PatientID", dr1.GetInt16(6) },
                     };
-                    return null;
-                    //return new Appointment(d);
+                    
                 }
+                dr1.Close();
             }
-            return null;
-            //return verificationcode;
+
+            // Read patient values
+            Dictionary<string, object> patientValues;
+            patientValues = null;
+            if (con.OpenConnection())
+            {
+                // Find patient specific data
+                DbDataReader dr2 = con.Select("SELECT * FROM PATIENT WHERE PatientID = '" + patientid + "';");
+                while (dr2.Read())
+                {
+                    patientValues = new Dictionary<string, object>
+                    {
+                        { "PatientID", dr2.GetInt16(0) },
+                        { "Forename", dr2.GetString(1) },
+                        { "Surname", dr2.GetString(2) },
+                        { "Gender", dr2.GetInt16(3) },
+                        { "DateOfBirth", dr2.GetDateTime(4) },
+                        { "PhoneNumber", dr2.GetString(5) },
+                        { "RegisteredDoctorID", dr2.GetInt16(6) },
+                        { "AddressID", dr2.GetInt16(7) },
+                        { "Email", dr2.GetString(8) }
+                    };
+
+                }
+                dr2.Close();
+                con.CloseConnection();
+            }
+
+            // Add together collected dictionaries, Discard unwanted fields and pass them as a new dictionary
+            Dictionary<string, object> fullApp; 
+            fullApp = new Dictionary<string, object>
+            {
+                { "AppID", (appValues["AppID"]) },
+                { "Date", (appValues["Date"]) },
+                { "Time", (appValues["Time"]) },
+                { "Notes", (appValues["Notes"]) },
+                { "Attend", (appValues["Attend"]) },
+                { "MedStaffID", (appValues["MedStaffID"]) },
+                { "PatientID", (patientValues["PatientID"]) },
+                { "Forename", (patientValues["Forename"]) },
+                { "Surname", (patientValues["Surname"]) },
+                { "DateOfBirth", (patientValues["DateOfBirth"]) },
+            };
+            return new Appointment(fullApp);
 
         }
     }
