@@ -33,7 +33,7 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AppointmentsTab = new System.Windows.Forms.TabPage();
             this.btn_NewPat = new System.Windows.Forms.Button();
-            this.btn_SearchPatient = new System.Windows.Forms.Button();
+            this.btn_SearchApp = new System.Windows.Forms.Button();
             this.btn_ViewAllPatient = new System.Windows.Forms.Button();
             this.DataGridAppointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
@@ -41,7 +41,7 @@
             this.lbl_SearchForPatient = new System.Windows.Forms.Label();
             this.txt_SearchForename = new System.Windows.Forms.TextBox();
             this.txt_SearchSurname = new System.Windows.Forms.TextBox();
-            this.btn_Search = new System.Windows.Forms.Button();
+            this.btn_SearchPatient = new System.Windows.Forms.Button();
             this.btn_NewPatient = new System.Windows.Forms.Button();
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -82,7 +82,7 @@
             // AppointmentsTab
             // 
             this.AppointmentsTab.Controls.Add(this.btn_NewPat);
-            this.AppointmentsTab.Controls.Add(this.btn_SearchPatient);
+            this.AppointmentsTab.Controls.Add(this.btn_SearchApp);
             this.AppointmentsTab.Controls.Add(this.btn_ViewAllPatient);
             this.AppointmentsTab.Controls.Add(this.DataGridAppointments);
             this.AppointmentsTab.Location = new System.Drawing.Point(4, 22);
@@ -104,16 +104,16 @@
             this.btn_NewPat.Text = "New Patient";
             this.btn_NewPat.UseVisualStyleBackColor = true;
             // 
-            // btn_SearchPatient
+            // btn_SearchApp
             // 
-            this.btn_SearchPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SearchPatient.Location = new System.Drawing.Point(849, 6);
-            this.btn_SearchPatient.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_SearchPatient.Name = "btn_SearchPatient";
-            this.btn_SearchPatient.Size = new System.Drawing.Size(56, 19);
-            this.btn_SearchPatient.TabIndex = 3;
-            this.btn_SearchPatient.Text = "Search";
-            this.btn_SearchPatient.UseVisualStyleBackColor = true;
+            this.btn_SearchApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SearchApp.Location = new System.Drawing.Point(849, 6);
+            this.btn_SearchApp.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_SearchApp.Name = "btn_SearchApp";
+            this.btn_SearchApp.Size = new System.Drawing.Size(56, 19);
+            this.btn_SearchApp.TabIndex = 3;
+            this.btn_SearchApp.Text = "Search";
+            this.btn_SearchApp.UseVisualStyleBackColor = true;
             // 
             // btn_ViewAllPatient
             // 
@@ -151,7 +151,7 @@
             this.PatientsTab.Controls.Add(this.lbl_SearchForPatient);
             this.PatientsTab.Controls.Add(this.txt_SearchForename);
             this.PatientsTab.Controls.Add(this.txt_SearchSurname);
-            this.PatientsTab.Controls.Add(this.btn_Search);
+            this.PatientsTab.Controls.Add(this.btn_SearchPatient);
             this.PatientsTab.Controls.Add(this.btn_NewPatient);
             this.PatientsTab.Controls.Add(this.DataGridPatients);
             this.PatientsTab.Location = new System.Drawing.Point(4, 22);
@@ -203,17 +203,17 @@
             this.txt_SearchSurname.Enter += new System.EventHandler(this.txt_SearchSurname_Enter);
             this.txt_SearchSurname.Leave += new System.EventHandler(this.txt_SearchSurname_Leave);
             // 
-            // btn_Search
+            // btn_SearchPatient
             // 
-            this.btn_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Search.Location = new System.Drawing.Point(825, 7);
-            this.btn_Search.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Search.Name = "btn_Search";
-            this.btn_Search.Size = new System.Drawing.Size(80, 19);
-            this.btn_Search.TabIndex = 3;
-            this.btn_Search.Text = "Search";
-            this.btn_Search.UseVisualStyleBackColor = true;
-            
+            this.btn_SearchPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SearchPatient.Location = new System.Drawing.Point(825, 7);
+            this.btn_SearchPatient.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_SearchPatient.Name = "btn_SearchPatient";
+            this.btn_SearchPatient.Size = new System.Drawing.Size(80, 19);
+            this.btn_SearchPatient.TabIndex = 3;
+            this.btn_SearchPatient.Text = "Search";
+            this.btn_SearchPatient.UseVisualStyleBackColor = true;
+            this.btn_SearchPatient.Click += new System.EventHandler(this.btn_SearchPatient_Click);
             // 
             // btn_NewPatient
             // 
@@ -289,13 +289,13 @@
         private System.Windows.Forms.DataGridView DataGridPatients;
         private System.Windows.Forms.BindingSource patientBindingSource;
         private System.Windows.Forms.Button btn_NewPatient;
-        private System.Windows.Forms.Button btn_Search;
+        private System.Windows.Forms.Button btn_SearchPatient;
         private System.Windows.Forms.TextBox txt_SearchForename;
         private System.Windows.Forms.TextBox txt_SearchSurname;
         private System.Windows.Forms.Label lbl_SearchForPatient;
         private System.Windows.Forms.Button btn_ViewAllPatients;
         private System.Windows.Forms.Button btn_NewPat;
-        private System.Windows.Forms.Button btn_SearchPatient;
+        private System.Windows.Forms.Button btn_SearchApp;
         private System.Windows.Forms.Button btn_ViewAllPatient;
         private System.Windows.Forms.Button btn_Reload;
     }
