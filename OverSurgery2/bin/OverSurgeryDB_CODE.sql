@@ -27,6 +27,7 @@ CREATE TABLE `Staff` (
 CREATE TABLE `MedicalStaff` (
     `MedicalStaffID` INT(8) NOT NULL auto_increment,
     `MedicalPracticeNumber` VARCHAR(35) NOT NULL default '',
+    `PermissionLevel` TINYINT(1) NOT NULL default 0,
     `StaffID` INT(8) NOT NULL,
     `Gender` TINYINT NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),
@@ -37,7 +38,8 @@ CREATE TABLE `Patient` (
     `PatientID` INT(8) NOT NULL auto_increment,
     `Forename` VARCHAR(35) NOT NULL default '',
     `Surname` VARCHAR(35) NOT NULL default '',
-    `Gender` TINYINT(4) NOT NULL default 0,
+    `Gender` TINYINT(1) NOT NULL default 0,
+    `DateOfBirth` DATE NOT NULL default 19001231,
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
     `RegesteredDoctorID` INT(8) NOT NULL default 0,
     `AddressID` INT(8) NOT NULL default 0,
@@ -135,27 +137,62 @@ INSERT INTO Address VALUES (3, null, 16, "Q THIS IS A TEST", "01 TEST 10");
 INSERT INTO Address VALUES (4, null, 19, "Z THIS IS A TEST", "01 TEST 10");
 INSERT INTO Address VALUES (5, "Trial", null, "B THIS IS A TEST", "01 TEST 10");
 
-INSERT INTO Staff VALUES (1, 'Linus', 'Torvild', 'Test.OverSurgery@gmail.com',1 , 'Linus', '', );
-INSERT INTO Staff VALUES (2, 'Bill', 'Gates', 'Someone.OverSurgery@gmail.com',1 , 'Bill', '', );
-INSERT INTO Staff VALUES (3, 'Steve', 'Jobs', 'Test.OverSurgery@gmail.com',2 , 'Steve', '', );
-INSERT INTO Staff VALUES (4, 'Test', 'Trial', 'Someone.OverSurgery@gmail.com',2 , 'Test', '', );
-INSERT INTO Staff VALUES (5, 'Manager', 'Test', 'Test.OverSurgery@gmail.com',1 , 'Manager', '', );
-INSERT INTO Staff VALUES (6, 'Receptionist', 'Test', 'Someone.OverSurgery@gmail.com',1 , 'Receptionist', '', );
-INSERT INTO Staff VALUES (7, 'Doctor', 'Test', 'Test.OverSurgery@gmail.com',2 , 'Doctor', '', );
-INSERT INTO Staff VALUES (8, 'Nurse', 'Test', 'Someone.OverSurgery@gmail.com',2 , 'Nurse', '', );
-INSERT INTO Staff VALUES (9, 'Locum', 'Test', 'Test.OverSurgery@gmail.com',3 , 'Locum', '', );
+INSERT INTO Staff VALUES (1, 'Linus', 'Torvild', 'Test.OverSurgery@gmail.com',1 , 'Linus', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 3);
+INSERT INTO Staff VALUES (2, 'Bill', 'Gates', 'Someone.OverSurgery@gmail.com',1 , 'Bill', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 1);
+INSERT INTO Staff VALUES (3, 'Steve', 'Jobs', 'Test.OverSurgery@gmail.com',2 , 'Steve', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 4);
+INSERT INTO Staff VALUES (4, 'Test', 'Trial', 'Someone.OverSurgery@gmail.com',2 , 'Test', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 1);
+INSERT INTO Staff VALUES (5, 'Manager', 'Test', 'Test.OverSurgery@gmail.com',1 , 'Manager', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 5);
+INSERT INTO Staff VALUES (6, 'Receptionist', 'Test', 'Someone.OverSurgery@gmail.com',1 , 'Receptionist', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 4);
+INSERT INTO Staff VALUES (7, 'Doctor', 'Test', 'Test.OverSurgery@gmail.com',2 , 'Doctor', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 3);
+INSERT INTO Staff VALUES (8, 'Nurse', 'Test', 'Someone.OverSurgery@gmail.com',2 , 'Nurse', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 1);
+INSERT INTO Staff VALUES (9, 'Locum', 'Test', 'Test.OverSurgery@gmail.com',3 , 'Locum', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 2);
 
-INSERT INTO MedicalStaff VALUES (1, '123456789AB',1 ,0);
-INSERT INTO MedicalStaff VALUES (2, '987654321BA',9 ,1);
-INSERT INTO MedicalStaff VALUES (3, '159753824QW',8 ,0);
-INSERT INTO MedicalStaff VALUES (4, '953718462BV',7 ,1);
+INSERT INTO MedicalStaff VALUES (1, '123456789AB', 3, 1, 0);
+INSERT INTO MedicalStaff VALUES (2, '987654321BA', 3, 9, 1);
+INSERT INTO MedicalStaff VALUES (3, '159753824QW', 1, 8, 0);
+INSERT INTO MedicalStaff VALUES (4, '953718462BV', 3, 7, 1);
+INSERT INTO MedicalStaff VALUES (5, '464868461WH', 1, 4, 1);
+INSERT INTO MedicalStaff VALUES (6, '764281546PX', 2, 2, 0);
 
-INSERT INTO Patient VALUES (1, 'steven', 'smith', 1, '+447634395183', 1, 3);
-INSERT INTO Patient VALUES (2, 'Jane', 'Hollo', 0, '01563572805', 4, 4);
-INSERT INTO Patient VALUES (3, 'Amy','Adams', 1,'07829405285', 4, 5);
-INSERT INTO Patient VALUES (4, 'Thomas', 'William', 0, '01553490294', 3, 2);
-INSERT INTO Patient VALUES (5, 'Andy', 'Potato', 0, '+447911363901', 3, 1);
+INSERT INTO Patient VALUES (1, 'steven', 'smith', 1, 19800615, '+447634395183', 1, 3);
+INSERT INTO Patient VALUES (2, 'Jane', 'Hollo', 0, 19451112, '01563572805', 4, 4);
+INSERT INTO Patient VALUES (3, 'Amy','Adams', 1, 19980317, '07829405285', 4, 5);
+INSERT INTO Patient VALUES (4, 'Thomas', 'William', 0, 20050501, '01553490294', 3, 2);
+INSERT INTO Patient VALUES (5, 'Andy', 'Potato', 0, 19900720, '+447911363901', 3, 1);
 
-INSERT INTO Appointment VALUES (1,20171109, 093000,'blood test',1,1,1);
-INSERT INTO Appointment VALUES (2,20171109, 161500,'',1,4,2);
-INSERT INTO Appointment VALUES (3,20171110, 161500,'',0,4,5);
+INSERT INTO Appointment VALUES (1, 20171109, 093000, 'blood test', 0, 1, 1);
+INSERT INTO Appointment VALUES (2, 20171109, 161500, '', 0, 4, 2);
+INSERT INTO Appointment VALUES (3, 20171110, 161500, '', 0, 4, 5);
+INSERT INTO Appointment VALUES (4, 20171109, 161500, '', 0, 3, 6);
+
+INSERT INTO MedicalHistory VALUES (1);
+INSERT INTO MedicalHistory VALUES (2);
+INSERT INTO MedicalHistory VALUES (3);
+INSERT INTO MedicalHistory VALUES (4);
+INSERT INTO MedicalHistory VALUES (5);
+INSERT INTO MedicalHistory VALUES (6);
+INSERT INTO MedicalHistory VALUES (7);
+
+INSERT INTO Medication VALUES (1, 1, '', '');
+INSERT INTO Medication VALUES (2, 1, '', '');
+INSERT INTO Medication VALUES (3, 2, '', '');
+INSERT INTO Medication VALUES (4, 2, '', '');
+INSERT INTO Medication VALUES (5, 3, '', '');
+INSERT INTO Medication VALUES (6, 3, '', '');
+INSERT INTO Medication VALUES (7, 1, '', '');
+INSERT INTO Medication VALUES (8, 2, '', '');
+INSERT INTO Medication VALUES (9, 3, '', '');
+
+INSERT INTO OnCall VALUES (1, 20171120, 20171210, 4);
+
+INSERT INTO Prescription VALUES ();
+INSERT INTO Prescription VALUES ();
+INSERT INTO Prescription VALUES ();
+INSERT INTO Prescription VALUES ();
+INSERT INTO Prescription VALUES ();
+INSERT INTO Prescription VALUES ();
+
+INSERT INTO Extension VALUES ();
+INSERT INTO Extension VALUES ();
+INSERT INTO Extension VALUES ();
+INSERT INTO Extension VALUES ();
