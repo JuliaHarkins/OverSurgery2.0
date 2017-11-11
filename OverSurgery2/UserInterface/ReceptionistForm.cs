@@ -40,7 +40,9 @@ namespace OverSurgery2
             DataGridPatients.Columns["Surname"].ReadOnly = true;
             DataGridPatients.Columns["DateOfBirth"].ReadOnly = true;
             DataGridPatients.Columns["GenderDisplay"].ReadOnly = true;
+            DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].ReadOnly = true;
+            DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
             DataGridPatients.Columns["ID"].Visible = false;
