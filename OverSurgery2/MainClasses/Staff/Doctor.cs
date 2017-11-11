@@ -37,16 +37,9 @@ namespace OverSurgery2
         
          public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues)
              {
-                m_Forename = Convert.ToString(p_medicalStaffValues["Forename"]);
-                m_Surname = Convert.ToString(p_medicalStaffValues["Surname"]);
-                m_email = Convert.ToString(p_medicalStaffValues["Email"]);
-                m_staffID = Convert.ToInt16(p_medicalStaffValues["ID"]);
-                m_username = Convert.ToString(p_medicalStaffValues["UserName"]);
-                m_password = Convert.ToString(p_medicalStaffValues["Password"]);
-                m_prescriptionLevel = Convert.ToInt16(p_medicalStaffValues["PrescriptionLevel"]);
-                m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
+                
+                //m_prescriptionLevel = Convert.ToInt16(p_medicalStaffValues["PrescriptionLevel"]);
                 m_onCall = false;
-                m_gender = Convert.ToInt16(p_medicalStaffValues["Gender"]);
              }
         
         #endregion

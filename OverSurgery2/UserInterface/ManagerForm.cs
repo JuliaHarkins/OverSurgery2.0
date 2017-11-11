@@ -21,6 +21,7 @@ namespace OverSurgery2
         {
             currentUserLoggedIn = p_currentUser;
             InitializeComponent();
+            this.ShowDialog();
         }
     }
 }

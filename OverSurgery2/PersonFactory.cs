@@ -46,6 +46,8 @@ namespace OverSurgery2
                     return CreateDoctor(values);
                 case 4:
                     return CreateReceptionist(values);
+                case 5:
+                    return CreateManager(values);
                 default:
                     break;
             }

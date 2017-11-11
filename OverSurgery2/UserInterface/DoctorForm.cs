@@ -17,6 +17,7 @@ namespace OverSurgery2
         {
             currentUserLoggedin = currentUser;
             InitializeComponent();
+            this.ShowDialog();
         }
 
         public void SetListOfAppointments()
