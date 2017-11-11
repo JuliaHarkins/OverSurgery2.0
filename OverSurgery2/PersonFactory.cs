@@ -15,6 +15,8 @@ namespace OverSurgery2
     public class PersonFactory
     {
         private static PersonFactory m_instance;
+        MetaLayer ml = MetaLayer.Instance();
+        PatientController pc = PatientController.Instance();
         public enum Gender { Male, Female };
         public static PersonFactory Instance()
         {
@@ -41,7 +43,7 @@ namespace OverSurgery2
                 case 1:
                     break;
                 case 2:
-                    return CreateLocum(values); // Temporarily nulled as not fully implemented
+                    return CreateLocum(values);
                 case 3:
                     return CreateDoctor(values);
                 case 4:
@@ -71,6 +73,8 @@ namespace OverSurgery2
                 throw e;
             }
         }
+
+
 
         //Return a new doctor
         /// <summary>

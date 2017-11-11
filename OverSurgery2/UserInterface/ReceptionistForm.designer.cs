@@ -32,9 +32,8 @@
             this.btn_Logout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AppointmentsTab = new System.Windows.Forms.TabPage();
-            this.btn_NewPat = new System.Windows.Forms.Button();
+            this.btn_NewAppointment = new System.Windows.Forms.Button();
             this.btn_SearchPatient = new System.Windows.Forms.Button();
-            this.btn_ViewAllPatient = new System.Windows.Forms.Button();
             this.DataGridAppointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
             this.btn_ViewAllPatients = new System.Windows.Forms.Button();
@@ -45,6 +44,10 @@
             this.btn_NewPatient = new System.Windows.Forms.Button();
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btn_ViewAllAppointment = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
@@ -80,9 +83,12 @@
             // 
             // AppointmentsTab
             // 
-            this.AppointmentsTab.Controls.Add(this.btn_NewPat);
+            this.AppointmentsTab.Controls.Add(this.label1);
+            this.AppointmentsTab.Controls.Add(this.textBox1);
+            this.AppointmentsTab.Controls.Add(this.textBox2);
+            this.AppointmentsTab.Controls.Add(this.btn_NewAppointment);
             this.AppointmentsTab.Controls.Add(this.btn_SearchPatient);
-            this.AppointmentsTab.Controls.Add(this.btn_ViewAllPatient);
+            this.AppointmentsTab.Controls.Add(this.btn_ViewAllAppointment);
             this.AppointmentsTab.Controls.Add(this.DataGridAppointments);
             this.AppointmentsTab.Location = new System.Drawing.Point(4, 22);
             this.AppointmentsTab.Name = "AppointmentsTab";
@@ -92,20 +98,20 @@
             this.AppointmentsTab.Text = "Appointments";
             this.AppointmentsTab.UseVisualStyleBackColor = true;
             // 
-            // btn_NewPat
+            // btn_NewAppointment
             // 
-            this.btn_NewPat.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_NewPat.Location = new System.Drawing.Point(6, 322);
-            this.btn_NewPat.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_NewPat.Name = "btn_NewPat";
-            this.btn_NewPat.Size = new System.Drawing.Size(74, 19);
-            this.btn_NewPat.TabIndex = 2;
-            this.btn_NewPat.Text = "New Patient";
-            this.btn_NewPat.UseVisualStyleBackColor = true;
+            this.btn_NewAppointment.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_NewAppointment.Location = new System.Drawing.Point(6, 322);
+            this.btn_NewAppointment.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_NewAppointment.Name = "btn_NewAppointment";
+            this.btn_NewAppointment.Size = new System.Drawing.Size(104, 19);
+            this.btn_NewAppointment.TabIndex = 2;
+            this.btn_NewAppointment.Text = "New Appointment";
+            this.btn_NewAppointment.UseVisualStyleBackColor = true;
             // 
             // btn_SearchPatient
             // 
-            this.btn_SearchPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SearchPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_SearchPatient.Location = new System.Drawing.Point(849, 6);
             this.btn_SearchPatient.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SearchPatient.Name = "btn_SearchPatient";
@@ -113,17 +119,6 @@
             this.btn_SearchPatient.TabIndex = 3;
             this.btn_SearchPatient.Text = "Search";
             this.btn_SearchPatient.UseVisualStyleBackColor = true;
-            // 
-            // btn_ViewAllPatient
-            // 
-            this.btn_ViewAllPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ViewAllPatient.Location = new System.Drawing.Point(6, 6);
-            this.btn_ViewAllPatient.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_ViewAllPatient.Name = "btn_ViewAllPatient";
-            this.btn_ViewAllPatient.Size = new System.Drawing.Size(56, 19);
-            this.btn_ViewAllPatient.TabIndex = 2;
-            this.btn_ViewAllPatient.Text = "View All";
-            this.btn_ViewAllPatient.UseVisualStyleBackColor = true;
             // 
             // DataGridAppointments
             // 
@@ -237,6 +232,44 @@
             this.DataGridPatients.TabIndex = 1;
             this.DataGridPatients.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridPatients_CellMouseClick);
             // 
+            // btn_ViewAllAppointment
+            // 
+            this.btn_ViewAllAppointment.Location = new System.Drawing.Point(6, 6);
+            this.btn_ViewAllAppointment.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_ViewAllAppointment.Name = "btn_ViewAllAppointment";
+            this.btn_ViewAllAppointment.Size = new System.Drawing.Size(56, 19);
+            this.btn_ViewAllAppointment.TabIndex = 2;
+            this.btn_ViewAllAppointment.Text = "View All";
+            this.btn_ViewAllAppointment.UseVisualStyleBackColor = true;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(433, 9);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(200, 13);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Search for Appointment by Patient name:";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox1.Location = new System.Drawing.Point(639, 6);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.TabIndex = 8;
+            this.textBox1.Text = "Forename";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.textBox2.Location = new System.Drawing.Point(745, 6);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(100, 20);
+            this.textBox2.TabIndex = 7;
+            this.textBox2.Text = "Surname";
+            // 
             // ReceptionistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -251,6 +284,7 @@
             this.Load += new System.EventHandler(this.ReceptionistForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.AppointmentsTab.ResumeLayout(false);
+            this.AppointmentsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).EndInit();
             this.PatientsTab.ResumeLayout(false);
             this.PatientsTab.PerformLayout();
@@ -275,8 +309,11 @@
         private System.Windows.Forms.TextBox txt_SearchSurname;
         private System.Windows.Forms.Label lbl_SearchForPatient;
         private System.Windows.Forms.Button btn_ViewAllPatients;
-        private System.Windows.Forms.Button btn_NewPat;
+        private System.Windows.Forms.Button btn_NewAppointment;
         private System.Windows.Forms.Button btn_SearchPatient;
-        private System.Windows.Forms.Button btn_ViewAllPatient;
+        private System.Windows.Forms.Button btn_ViewAllAppointment;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
     }
 }

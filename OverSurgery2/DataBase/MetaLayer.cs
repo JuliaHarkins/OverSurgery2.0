@@ -182,10 +182,11 @@ namespace OverSurgery2
                 {
                     try
                     {
-                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["RegisteredDoctorID"] +
-                            p_PatientValues["AddressID"] + "," + p_PatientValues["DateOfBirth"] + ");");
+                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["Gender"] + ","+ p_PatientValues["DateOfBirth"]+ "," + p_PatientValues["PhoneNumber"]+","+
+                            p_PatientValues["RegisteredDoctorID"] + p_PatientValues["AddressID"] + ");");
                         con.CloseConnection();
                         return true;
+                        
                     }
                     catch(Exception e)
                     {
