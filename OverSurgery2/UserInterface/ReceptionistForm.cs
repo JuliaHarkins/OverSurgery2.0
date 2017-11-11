@@ -45,9 +45,6 @@ namespace OverSurgery2
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
-
-            DataGridPatients.Columns.Add("RegisteredDoctor", "Registered Doctor");
-            DataGridPatients.Columns["RegisteredDoctor"].DisplayIndex = 5;
         }
 
 
