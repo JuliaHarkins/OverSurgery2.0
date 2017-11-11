@@ -38,12 +38,6 @@ namespace OverSurgery2
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
             DataGridPatients.Columns["AddressID"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
-            DataGridPatients.Columns["EmailAddress"].Visible = false;
-            DataGridPatients.Columns["Gender"].Visible = false;
-            DataGridPatients.Columns["ID"].Visible = false;
-            DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
-            DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Doctor";
-            DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
         }
 
@@ -68,11 +62,7 @@ namespace OverSurgery2
 
         private void txt_SearchSurname_Leave(object sender, EventArgs e)
         {
-            if(txt_SearchSurname.Text == "")
-            {
-                txt_SearchSurname.Text = "Surname";
-            }
-            
+            txt_SearchSurname.Text = "Surname";
         }
 
         private void txt_SearchForename_Enter(object sender, EventArgs e)
@@ -82,34 +72,12 @@ namespace OverSurgery2
 
         private void txt_SearchForename_Leave(object sender, EventArgs e)
         {
-            if (txt_SearchForename.Text == "")
-            {
-                txt_SearchForename.Text = "Forename";
-            }
-            
+            txt_SearchForename.Text = "Forename";
         }
 
         private void btn_NewPatient_Click(object sender, EventArgs e)
         {
             fc.OpenNewPatientForm();
-        }
-
-        private void btn_Search_Click(object sender, EventArgs e)
-        {
-            PatientBinding = new BindingSource();
-            PatientBinding.DataSource = ml.GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
-            DataGridPatients.DataSource = PatientBinding;
-            DataGridPatients.Update();
-            DataGridPatients.Refresh();
-        }
-
-        private void btn_ViewAllPatients_Click(object sender, EventArgs e)
-        {
-            PatientBinding = new BindingSource();
-            PatientBinding.DataSource = ml.getPatients();
-            DataGridPatients.DataSource = PatientBinding;
-            DataGridPatients.Update();
-            DataGridPatients.Refresh();
         }
     }
 }
