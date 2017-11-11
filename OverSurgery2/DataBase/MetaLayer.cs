@@ -388,7 +388,7 @@ namespace OverSurgery2
         /// </summary>
         public Appointment GetAppointmentByPatientId(int patientid)
         {
-            // Read appointment values
+            // Read appointment values into dictionary
             Dictionary<string, object> appValues;
             appValues = null;
             DataConnection con = DBFactory.Instance();
@@ -398,13 +398,14 @@ namespace OverSurgery2
                 DbDataReader dr1 = con.Select("SELECT * FROM Appointment WHERE PatientID = " + patientid + ";");
                 while (dr1.Read())
                 {
-                    // AppointmentID 
-                    // AppointmentDate
-                    // AppointmentTime
-                    // AppointmentNote
-                    // AppointmentAttended
-                    // MedicalStaffID
-                    // PatientID
+                    /* AppointmentID 
+                     * AppointmentDate
+                     * AppointmentTime
+                     * AppointmentNote
+                     * AppointmentAttended
+                     * MedicalStaffID
+                     * PatientID
+                     */
                     appValues = new Dictionary<string, object>
                     {
                         { "AppID", dr1.GetInt16(0) },
@@ -420,7 +421,7 @@ namespace OverSurgery2
                 dr1.Close();
             }
 
-            // Read patient values
+            // Read patient values into dictionary
             Dictionary<string, object> patientValues;
             patientValues = null;
             if (con.OpenConnection())
