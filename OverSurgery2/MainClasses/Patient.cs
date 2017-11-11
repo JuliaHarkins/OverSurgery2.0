@@ -16,18 +16,18 @@ namespace OverSurgery2
     public class Patient : Person
     {
         private int m_ID;
-        private string m_dateOfBirth;
+        private DateTime m_dateOfBirth;
         private int m_registeredDoctorID;
 
         public Patient(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
         {
             m_ID = Convert.ToInt16(p_PersonValues["ID"]);
             m_registeredDoctorID = Convert.ToInt16(p_PersonValues["RegisteredDoctorID"]);
-            m_dateOfBirth = "e";
+            m_dateOfBirth = Convert.ToDateTime(p_PersonValues["DateOfBirth"]);
         }
 
         public int ID { get { return m_ID; } set { m_ID = value; } }
-        public string DateOfBirth
+        public DateTime DateOfBirth
         {
             get
             {
