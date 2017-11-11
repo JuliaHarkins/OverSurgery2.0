@@ -27,7 +27,6 @@ namespace OverSurgery2.Tests
             };
             Patient TestPatient = Singletons.pf.CreatePatient(values);
             Assert.IsInstanceOfType(TestPatient, typeof(Patient));
-
         }
     }
 }
