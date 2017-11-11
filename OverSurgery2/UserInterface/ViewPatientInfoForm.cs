@@ -26,15 +26,21 @@ namespace OverSurgery2
         public void LoadPatientInfo()
         {
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " +currentPatient.Surname;
-            lbl_Forename.Text = currentPatient.Forename;
-            lbl_Surname.Text = currentPatient.Surname;
-            lbl_address.Text = ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            lbl_PatientForeName.Text = currentPatient.Forename;
+            lbl_PatientSurName.Text = currentPatient.Surname;
+            lbl_PatientDateOfBirth.Text = currentPatient.DateOfBirth.Date.ToShortDateString();
+            lbl_PatientAddress.Text = ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
 
         }
 
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
             fc.OpenEditPatientForm(currentPatient);
+        }
+
+        private void ViewPatientInfoForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
