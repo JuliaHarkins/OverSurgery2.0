@@ -81,7 +81,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_args">Forename, Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
-        private Doctor CreateDoctor(Dictionary<string, object> p_values)
+        public Doctor CreateDoctor(Dictionary<string, object> p_values)
         {
             if (p_values == null)
             {

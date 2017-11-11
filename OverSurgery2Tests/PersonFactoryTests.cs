@@ -16,17 +16,98 @@ namespace OverSurgery2.Tests
         {
             Dictionary<string, object> values = new Dictionary<string, object>
             {
-                        { "ID", 1 },
-                        { "Forename", "Jacob" },
-                        { "Surname", "Smith" },
-                        { "Gender", 0 },
-                        { "DateOfBirth", "17/09/1996" },
-                        { "PhoneNumber", "056742097654" },
-                        { "RegisteredDoctorID", 2 },
-                        { "AddressID", 1 }
+                { "ID", 1 },
+                { "Forename", "Jacob" },
+                { "Surname", "Smith" },
+                { "Gender", 0 },
+                { "DateOfBirth", "17/09/1996" },
+                { "PhoneNumber", "056742097654" },
+                { "RegisteredDoctorID", 2 },
+                { "AddressID", 1 }
             };
             Patient TestPatient = Singletons.pf.CreatePatient(values);
             Assert.IsInstanceOfType(TestPatient, typeof(Patient));
+        }
+
+        [TestMethod()]
+        public void CreateStaffTestIsOfTypeStaff()
+        {
+            Dictionary<string, object> values = new Dictionary<string, object>
+            {
+                { "ID", "1" },
+                { "Forename", "Jacob" },
+                { "Surname", "Smith" },
+                { "Email", "test@email.com" },
+                { "AddressID", 2 },
+                { "UserName", "testuser"},
+                { "Password", "testpass"},
+                { "Type", 3 },
+                { "Gender", 0 },
+                { "PhoneNumber", "056742097654"  }
+            };
+            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Assert.IsInstanceOfType(TestStaff, typeof(Staff));
+        }
+
+        [TestMethod()]
+        public void CreateStaffTestIsOfTypeDoctor()
+        {
+            Dictionary<string, object> values = new Dictionary<string, object>
+            {
+                { "ID", "1" },
+                { "Forename", "Jacob" },
+                { "Surname", "Smith" },
+                { "Email", "test@email.com" },
+                { "AddressID", 2 },
+                { "UserName", "testuser"},
+                { "Password", "testpass"},
+                { "Type", 3 },
+                { "Gender", 0 },
+                { "PhoneNumber", "056742097654"  }
+            };
+            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Assert.IsInstanceOfType(TestStaff, typeof(Doctor));
+        }
+
+        [TestMethod()]
+        public void CreateStaffTestIsOfTypeReceptionist()
+        {
+            Dictionary<string, object> values = new Dictionary<string, object>
+            {
+                { "ID", "1" },
+                { "Forename", "Jacob" },
+                { "Surname", "Smith" },
+                { "Email", "test@email.com" },
+                { "AddressID", 2 },
+                { "UserName", "testuser"},
+                { "Password", "testpass"},
+                { "Type", 4 },
+                { "Gender", 0 },
+                { "PhoneNumber", "056742097654"  }
+            };
+            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Assert.IsInstanceOfType(TestStaff, typeof(Receptionist));
+        }
+
+        [TestMethod()]
+        public void CreateStaffTestIsOfTypeLocum()
+        {
+
+            Dictionary<string, object> values = new Dictionary<string, object>
+            {
+                { "ID", "1" },
+                { "Forename", "Jacob" },
+                { "Surname", "Smith" },
+                { "Email", "test@email.com" },
+                { "AddressID", 2 },
+                { "UserName", "testuser"},
+                { "Password", "testpass"},
+                { "Type", 2 },
+                { "Gender", 0 },
+                { "PhoneNumber", "056742097654"  }
+            };
+            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Assert.IsInstanceOfType(TestStaff, typeof(Locum));
         }
     }
 }
