@@ -17,6 +17,7 @@ namespace OverSurgery2
     /// </summary>
     class Appointment
     {
+        MetaLayer ml = MetaLayer.Instance();
 #region Member Variables
         private string m_notes;
         private int m_medicalStaffID;
@@ -64,9 +65,9 @@ namespace OverSurgery2
             AppDate = Convert.ToInt16(p_AppValues["Date"]);
             AppTime = Convert.ToInt16(p_AppValues["Time"]);
             Notes = Convert.ToString(p_AppValues["Notes"]);
-            PatientForename = Convert.ToString(p_AppValues["Forename"]);
-            PatientSurname = Convert.ToString(p_AppValues["Surname"]);
-            PatientDOB = Convert.ToInt16(p_AppValues["DateOfBirth"]);
+            PatientForename = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Forename);
+            PatientSurname = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Surname);
+            PatientDOB = Convert.ToInt16(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).DateOfBirth);
             AppAttend = Convert.ToBoolean(p_AppValues["Attend"]);
         }
 
