@@ -15,6 +15,7 @@ namespace OverSurgery2
         MetaLayer ml = MetaLayer.Instance();
         public List<Patient> patients;
         private static PatientController m_getInstance;
+        PersonFactory pf = PersonFactory.Instance();
         private PatientController()
         {
             patients = ml.getPatients();
@@ -28,9 +29,10 @@ namespace OverSurgery2
             return m_getInstance;
         }
 
-        public void AddNewPatient(Patient p_Patient)
+        public void AddNewPatient(Dictionary<string,object> p_PatientValues)
         {
-
+            patients.Add(pf.CreatePatient(p_PatientValues));
+            ml.InsertNewPatient(p_PatientValues);
         }
 
         public void UpdatePatientDoctorDisplay()
