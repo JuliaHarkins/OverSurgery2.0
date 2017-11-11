@@ -213,6 +213,7 @@
             this.btn_Search.TabIndex = 3;
             this.btn_Search.Text = "Search";
             this.btn_Search.UseVisualStyleBackColor = true;
+            this.btn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // btn_NewPatient
             // 
@@ -253,7 +254,6 @@
             this.btn_Reload.TabIndex = 4;
             this.btn_Reload.Text = "Reload";
             this.btn_Reload.UseVisualStyleBackColor = true;
-            this.btn_Reload.Click += new System.EventHandler(this.btn_Reload_Click);
             // 
             // ReceptionistForm
             // 
