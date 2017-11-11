@@ -40,8 +40,8 @@
             this.txt_SearchSurname = new System.Windows.Forms.TextBox();
             this.txt_SearchForename = new System.Windows.Forms.TextBox();
             this.lbl_SearchForPatient = new System.Windows.Forms.Label();
+            this.btn_ViewAllPatients = new System.Windows.Forms.Button();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
@@ -107,7 +107,7 @@
             // 
             // PatientsTab
             // 
-            this.PatientsTab.Controls.Add(this.button1);
+            this.PatientsTab.Controls.Add(this.btn_ViewAllPatients);
             this.PatientsTab.Controls.Add(this.lbl_SearchForPatient);
             this.PatientsTab.Controls.Add(this.txt_SearchForename);
             this.PatientsTab.Controls.Add(this.txt_SearchSurname);
@@ -156,6 +156,7 @@
             this.btn_Search.TabIndex = 3;
             this.btn_Search.Text = "Search";
             this.btn_Search.UseVisualStyleBackColor = true;
+            this.btn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // txt_SearchSurname
             // 
@@ -189,18 +190,19 @@
             this.lbl_SearchForPatient.TabIndex = 6;
             this.lbl_SearchForPatient.Text = "Search for Patient:";
             // 
+            // btn_ViewAllPatients
+            // 
+            this.btn_ViewAllPatients.Location = new System.Drawing.Point(6, 4);
+            this.btn_ViewAllPatients.Name = "btn_ViewAllPatients";
+            this.btn_ViewAllPatients.Size = new System.Drawing.Size(75, 23);
+            this.btn_ViewAllPatients.TabIndex = 7;
+            this.btn_ViewAllPatients.Text = "View All";
+            this.btn_ViewAllPatients.UseVisualStyleBackColor = true;
+            this.btn_ViewAllPatients.Click += new System.EventHandler(this.btn_ViewAllPatients_Click);
+            // 
             // patientBindingSource
             // 
             this.patientBindingSource.DataSource = typeof(OverSurgery2.Patient);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(6, 4);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "View All";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // ReceptionistForm
             // 
@@ -239,6 +241,6 @@
         private System.Windows.Forms.TextBox txt_SearchForename;
         private System.Windows.Forms.TextBox txt_SearchSurname;
         private System.Windows.Forms.Label lbl_SearchForPatient;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_ViewAllPatients;
     }
 }
