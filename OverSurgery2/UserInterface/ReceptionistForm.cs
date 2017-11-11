@@ -36,23 +36,21 @@ namespace OverSurgery2
             pc.UpdatePatientDoctorDisplay();
             PatientBinding = new BindingSource();
             DataGridPatients.DataSource = PatientBinding.DataSource = pc.patients;
-            DataGridPatients.Columns["Forename"].ReadOnly = true;
-            DataGridPatients.Columns["Surname"].ReadOnly = true;
-            DataGridPatients.Columns["DateOfBirth"].ReadOnly = true;
-            DataGridPatients.Columns["GenderDisplay"].ReadOnly = true;
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
-            DataGridPatients.Columns["DoctorDisplay"].ReadOnly = true;
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
+            DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date od Birth";
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
+            DataGridPatients.RowHeadersVisible = false;
+            DataGridPatients.Columns[0].Visible = false;
             DataGridPatients.Columns["ID"].Visible = false;
             DataGridPatients.Columns["Gender"].Visible = false;
             DataGridPatients.Columns["AddressID"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
+
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
         }
-
 
         private void DataGridPatients_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -90,6 +88,12 @@ namespace OverSurgery2
         private void btn_NewPatient_Click(object sender, EventArgs e)
         {
             fc.OpenNewPatientForm();
+        }
+
+        private void btn_Reload_Click(object sender, EventArgs e)
+        {
+            DataGridPatients.Refresh();
+            DataGridAppointments.Refresh();
         }
     }
 }

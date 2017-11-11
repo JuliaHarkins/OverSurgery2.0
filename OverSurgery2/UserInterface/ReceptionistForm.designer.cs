@@ -45,6 +45,7 @@
             this.btn_NewPatient = new System.Windows.Forms.Button();
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.btn_Reload = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
@@ -134,8 +135,8 @@
             this.DataGridAppointments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataGridAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.DataGridAppointments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.DataGridAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.DataGridAppointments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.DataGridAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridAppointments.Location = new System.Drawing.Point(6, 30);
             this.DataGridAppointments.Name = "DataGridAppointments";
@@ -227,21 +228,39 @@
             // 
             // DataGridPatients
             // 
+            this.DataGridPatients.AllowUserToAddRows = false;
+            this.DataGridPatients.AllowUserToDeleteRows = false;
+            this.DataGridPatients.AllowUserToResizeColumns = false;
+            this.DataGridPatients.AllowUserToResizeRows = false;
             this.DataGridPatients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DataGridPatients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DataGridPatients.Location = new System.Drawing.Point(6, 30);
             this.DataGridPatients.Name = "DataGridPatients";
+            this.DataGridPatients.ReadOnly = true;
             this.DataGridPatients.Size = new System.Drawing.Size(899, 286);
             this.DataGridPatients.TabIndex = 1;
             this.DataGridPatients.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridPatients_CellMouseClick);
+            // 
+            // btn_Reload
+            // 
+            this.btn_Reload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Reload.Location = new System.Drawing.Point(815, 389);
+            this.btn_Reload.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Reload.Name = "btn_Reload";
+            this.btn_Reload.Size = new System.Drawing.Size(56, 19);
+            this.btn_Reload.TabIndex = 4;
+            this.btn_Reload.Text = "Reload";
+            this.btn_Reload.UseVisualStyleBackColor = true;
+            this.btn_Reload.Click += new System.EventHandler(this.btn_Reload_Click);
             // 
             // ReceptionistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(942, 419);
+            this.Controls.Add(this.btn_Reload);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_Logout);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -278,5 +297,6 @@
         private System.Windows.Forms.Button btn_NewPat;
         private System.Windows.Forms.Button btn_SearchPatient;
         private System.Windows.Forms.Button btn_ViewAllPatient;
+        private System.Windows.Forms.Button btn_Reload;
     }
 }
