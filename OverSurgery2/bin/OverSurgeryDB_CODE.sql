@@ -43,7 +43,6 @@ CREATE TABLE `Patient` (
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
     `RegesteredDoctorID` INT(8) NOT NULL default 0,
     `AddressID` INT(8) NOT NULL default 0,
-	`Email` VARCHAR(96) NOT NULL default ' ',
     PRIMARY KEY(`PatientID`),
     FOREIGN KEY(`RegesteredDoctorID`) REFERENCES MedicalStaff(`MedicalStaffID`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`AddressID`) REFERENCES Address(`AddressID`) ON DELETE CASCADE ON UPDATE CASCADE

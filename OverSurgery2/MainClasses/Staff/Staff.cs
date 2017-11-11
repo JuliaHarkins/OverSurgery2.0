@@ -15,9 +15,11 @@ namespace OverSurgery2
         private int m_staffID;
         private string m_username;
         private string m_password;
+        private string m_email;
 
         public string Password { get { return m_password; } set { m_password = value; } }
         public string Username { get { return m_username; } set { m_username = value; } }
+        public string EmailAddress { get { return m_email; } set { m_email = value; } }
         LoginController lc = LoginController.Instance();
 
         public Staff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
@@ -26,6 +28,7 @@ namespace OverSurgery2
             m_staffID = Convert.ToInt16(p_PersonValues["ID"]);
             m_username = Convert.ToString(p_PersonValues["UserName"]);
             m_password = Convert.ToString(p_PersonValues["Password"]);
+            m_email = Convert.ToString(p_PersonValues["Email"]);
         }
         //public bool Login(string p_username, string p_attemptedPassword)
         //{
