@@ -156,7 +156,6 @@
             this.btn_Search.TabIndex = 3;
             this.btn_Search.Text = "Search";
             this.btn_Search.UseVisualStyleBackColor = true;
-            this.btn_Search.Click += new System.EventHandler(this.btn_Search_Click);
             // 
             // txt_SearchSurname
             // 
@@ -198,11 +197,9 @@
             this.btn_ViewAllPatients.TabIndex = 7;
             this.btn_ViewAllPatients.Text = "View All";
             this.btn_ViewAllPatients.UseVisualStyleBackColor = true;
-            this.btn_ViewAllPatients.Click += new System.EventHandler(this.btn_ViewAllPatients_Click);
             // 
             // patientBindingSource
             // 
-            this.patientBindingSource.DataSource = typeof(OverSurgery2.Patient);
             // 
             // ReceptionistForm
             // 
