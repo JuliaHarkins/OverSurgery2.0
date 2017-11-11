@@ -15,7 +15,7 @@ namespace OverSurgery2
     /// Last Edit by: Lewis Barnes (362490@edu.cwa.ac.uk)
     /// MetaLayer interfaces with database connection to insert and select from the database
     /// </summary>
-    class MetaLayer
+    public class MetaLayer
     {
         static private MetaLayer m_Instance = null;
         PersonFactory pf = PersonFactory.Instance();

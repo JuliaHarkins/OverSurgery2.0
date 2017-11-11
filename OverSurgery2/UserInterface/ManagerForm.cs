@@ -15,8 +15,6 @@ namespace OverSurgery2
         BindingSource StaffBinding;
         BindingSource RotaBinding;
         Staff currentUserLoggedIn = null;
-        MetaLayer ml = MetaLayer.Instance();
-        FormController fc = FormController.Instance();
         public ManagerForm(Staff p_currentUser)
         {
             currentUserLoggedIn = p_currentUser;

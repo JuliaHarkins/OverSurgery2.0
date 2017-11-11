@@ -12,13 +12,12 @@ namespace OverSurgery2
         /// Created By: J
         /// Date Created : 31/10/17
         /// </summary>
-        MetaLayer ml = MetaLayer.Instance();
+
         public List<Patient> patients;
         private static PatientController m_getInstance;
-        PersonFactory pf = PersonFactory.Instance();
         private PatientController()
         {
-            patients = ml.getPatients();
+            patients = Singletons.ml.getPatients();
         }
         public static PatientController Instance()
         {
@@ -31,8 +30,8 @@ namespace OverSurgery2
 
         public void AddNewPatient(Dictionary<string,object> p_PatientValues)
         {
-            patients.Add(pf.CreatePatient(p_PatientValues));
-            ml.InsertNewPatient(p_PatientValues);
+            patients.Add(Singletons.pf.CreatePatient(p_PatientValues));
+            Singletons.ml.InsertNewPatient(p_PatientValues);
         }
 
         public void UpdatePatientDoctorDisplay()

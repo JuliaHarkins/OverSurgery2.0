@@ -15,7 +15,6 @@ namespace OverSurgery2
     /// </summary>
     public class Patient : Person
     {
-        MetaLayer ml = MetaLayer.Instance();
         private int m_ID;
         private DateTime m_dateOfBirth;
         private int m_registeredDoctorID;
@@ -29,7 +28,7 @@ namespace OverSurgery2
         }
 
         public int ID { get { return m_ID; } set { m_ID = value; } }
-        public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
+        public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = Singletons.ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
         public DateTime DateOfBirth
         {
             get
@@ -45,7 +44,7 @@ namespace OverSurgery2
 
         public void SetDoctorDisplay()
         {
-            m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID);
+            m_doctorDisplay = Singletons.ml.GetMedicalStaffNameByID(m_registeredDoctorID);
         }
     }
 }

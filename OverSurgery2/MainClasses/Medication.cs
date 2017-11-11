@@ -12,7 +12,7 @@ namespace OverSurgery2
     /// Last Edit: 21/10/17 14:22
     /// Last Edit by: Lewis Barnes (362490@edu.cwa.ac.uk)
     /// </summary>
-    class Medication
+    public class Medication
     {
 #region Member Variables
         private int m_id;

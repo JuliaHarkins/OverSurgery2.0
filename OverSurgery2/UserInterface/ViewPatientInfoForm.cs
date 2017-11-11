@@ -13,8 +13,6 @@ namespace OverSurgery2
     public partial class ViewPatientInfoForm : Form
     {
         Patient currentPatient;
-        MetaLayer ml = MetaLayer.Instance();
-        FormController fc = FormController.Instance();
         public ViewPatientInfoForm(Patient p_Patient)
         {
             currentPatient = p_Patient;
@@ -29,14 +27,14 @@ namespace OverSurgery2
             lbl_PatientForeName.Text = currentPatient.Forename;
             lbl_PatientSurName.Text = currentPatient.Surname;
             lbl_PatientDateOfBirth.Text = currentPatient.DateOfBirth.Date.ToShortDateString();
-            lbl_PatientAddress.Text = ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
-            lbl_PatientDoctor.Text = "Dr. " + ml.GetMedicalStaffNameByID(currentPatient.ID);
+            lbl_PatientAddress.Text = Singletons.ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            lbl_PatientDoctor.Text = "Dr. " + Singletons.ml.GetMedicalStaffNameByID(currentPatient.ID);
 
         }
 
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
-            fc.OpenEditPatientForm(currentPatient);
+            Singletons.fc.OpenEditPatientForm(currentPatient);
         }
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)

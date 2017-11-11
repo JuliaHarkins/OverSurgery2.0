@@ -15,14 +15,13 @@ namespace OverSurgery2
     public class PersonFactory
     {
         private static PersonFactory m_instance;
-        MetaLayer ml = MetaLayer.Instance();
-        PatientController pc = PatientController.Instance();
         public enum Gender { Male, Female };
         public static PersonFactory Instance()
         {
             if(null == m_instance)
             {
                 m_instance = new PersonFactory();
+
             }
             return m_instance;
         }
@@ -32,7 +31,7 @@ namespace OverSurgery2
         /// </summary>
         /// <example>
         /// This example shows you how to use the <see cref="CreateStaff(object[])"/> method.
-        /// <c>Staff st = pf.CreateStaff(3, "Lewis", "Barnes", null, "test@email.com", "LewisB", "7a8l48u2g/5ur837", "07658885433", 0);</c>
+        /// <c></c>
         /// </example>
         /// <param name="values">Type(1-5),Forename,Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>

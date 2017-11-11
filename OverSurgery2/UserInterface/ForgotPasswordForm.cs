@@ -12,9 +12,6 @@ namespace OverSurgery2
 {
     public partial class ForgotPasswordForm : Form
     {
-        MetaLayer ml = MetaLayer.Instance();
-        LoginController lc = LoginController.Instance();
-        FormController fc = FormController.Instance();
         public ForgotPasswordForm()
         {
             InitializeComponent();
@@ -23,11 +20,11 @@ namespace OverSurgery2
 
         private void btn_SendEmail_Click(object sender, EventArgs e)
         {
-            string verification = lc.GenerateVerification(8);
+            string verification = Singletons.lc.GenerateVerification(8);
             
-            if(ml.NewResetRequest(txt_UserName.Text, verification))
+            if(Singletons.ml.NewResetRequest(txt_UserName.Text, verification))
             {
-                lc.SendPasswordResetEmail(ml.GetStaffEmailByUserName(txt_UserName.Text), verification);
+                Singletons.lc.SendPasswordResetEmail(Singletons.ml.GetStaffEmailByUserName(txt_UserName.Text), verification);
             }
             else
             {
@@ -37,12 +34,12 @@ namespace OverSurgery2
 
         private void btn_Verify_Click(object sender, EventArgs e)
         {
-            Staff user = ml.GetStaffByUserName(txt_UserName.Text);
-            if(lc.VerifyPasswordReset(user, txt_VerificationCode.Text))
+            Staff user = Singletons.ml.GetStaffByUserName(txt_UserName.Text);
+            if(Singletons.lc.VerifyPasswordReset(user, txt_VerificationCode.Text))
             {
                 this.Close();
                 this.Dispose();
-                fc.OpenPasswordResetForm(user);
+                Singletons.fc.OpenPasswordResetForm(user);
             }
             else
             {

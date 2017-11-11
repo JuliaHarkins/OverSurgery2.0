@@ -69,6 +69,7 @@
     <Compile Include="NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Singletons.cs" />
     <Compile Include="UserInterface\ManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>

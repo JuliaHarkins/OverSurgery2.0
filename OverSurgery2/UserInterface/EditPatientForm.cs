@@ -13,7 +13,6 @@ namespace OverSurgery2
     public partial class EditPatientForm : Form
     {
         Patient m_currentPatient;
-        MetaLayer ml = MetaLayer.Instance();
         public EditPatientForm(Patient p_Patient)
         {
             InitializeComponent();

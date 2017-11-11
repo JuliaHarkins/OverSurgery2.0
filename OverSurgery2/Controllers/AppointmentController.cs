@@ -15,7 +15,7 @@ namespace OverSurgery2
     /// <summary>
     /// Handles interaction with appointment
     /// </summary>
-    class AppointmentController
+    public class AppointmentController
     {
         Appointment a;
 #region Properties
@@ -30,23 +30,16 @@ namespace OverSurgery2
         private int AppTime;
         private int AppointmentID;
         private bool AppAttend;
-        MetaLayer instance = MetaLayer.Instance();
-#endregion
-
-        /// <summary>
-        /// Gives appointment details to the Appointment class to be stored
-        /// </summary>
-        /// <param name="AppDate"></param>
-        /// <param name="AppTime"></param>
-        /// <param name="MedicalStaffID"></param>
-        /// <param name="PatientID"></param>
-        /// <param name="PatientForename"></param>
-        /// <param name="PatientSurname"></param>
-        /// <param name="Notes"></param>
-        /// <param name="PatientDOB"></param>
-        /// <param name="AppointmentID"></param>
-        /// <param name="AppAttend"></param>
-        /// 
+        #endregion
+        private static AppointmentController m_instance;
+        public static AppointmentController Instance()
+        {
+            if(null == m_instance)
+            {
+                m_instance = new AppointmentController();
+            }
+            return m_instance;
+        }
         public void UpdateAppointment()
         {
                     

@@ -15,10 +15,6 @@ namespace OverSurgery2
     {
         BindingSource PatientBinding;
         Staff currentUserLoggedIn = null;
-        MetaLayer ml = MetaLayer.Instance();
-        FormController fc = FormController.Instance();
-        PatientController pc = PatientController.Instance();
-        AppointmentController ac;
         public ReceptionistForm(Staff currentUser)
         {
             currentUserLoggedIn = currentUser;
@@ -33,9 +29,9 @@ namespace OverSurgery2
 
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
-            pc.UpdatePatientDoctorDisplay();
+            Singletons.pc.UpdatePatientDoctorDisplay();
             PatientBinding = new BindingSource();
-            DataGridPatients.DataSource = PatientBinding.DataSource = pc.patients;
+            DataGridPatients.DataSource = PatientBinding.DataSource = Singletons.pc.patients;
             DataGridPatients.Columns["Forename"].ReadOnly = true;
             DataGridPatients.Columns["Surname"].ReadOnly = true;
             DataGridPatients.Columns["DateOfBirth"].ReadOnly = true;
@@ -58,7 +54,7 @@ namespace OverSurgery2
         {
                 try
                 {
-                    fc.OpenPatientViewForm(ml.GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
+                    Singletons.fc.OpenPatientViewForm(Singletons.ml.GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
                 }
                 catch (Exception ex)
                 {
@@ -89,7 +85,7 @@ namespace OverSurgery2
 
         private void btn_NewPatient_Click(object sender, EventArgs e)
         {
-            fc.OpenNewPatientForm();
+            Singletons.fc.OpenNewPatientForm();
         }
     }
 }
