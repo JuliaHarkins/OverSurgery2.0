@@ -382,7 +382,7 @@ namespace OverSurgery2
                         { "Notes", dr1.GetString(3) },
                         { "Attend", dr1.GetBoolean(4) },
                         { "MedStaffID", dr1.GetInt16(5) },
-                        { "PatientID", dr1.GetInt16(6)},
+                        { "PatientID", dr1.GetInt16(6) },
                     };
                     
                 }
@@ -416,9 +416,21 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
 
-            // add together collected dictionaries and pass them
-            Dictionary<string, object> fullApp;
-            fullApp = Convert.ToString(appValues) + Convert.ToString(patientValues);
+            // Add together collected dictionaries, Discard unwanted fields and pass them as a new dictionary
+            Dictionary<string, object> fullApp; 
+            fullApp = new Dictionary<string, object>
+            {
+                { "AppID", (appValues["AppID"]) },
+                { "Date", (appValues["Date"]) },
+                { "Time", (appValues["Time"]) },
+                { "Notes", (appValues["Notes"]) },
+                { "Attend", (appValues["Attend"]) },
+                { "MedStaffID", (appValues["MedStaffID"]) },
+                { "PatientID", (patientValues["PatientID"]) },
+                { "Forename", (patientValues["Forename"]) },
+                { "Surname", (patientValues["Surname"]) },
+                { "DateOfBirth", (patientValues["DateOfBirth"]) },
+            };
             return new Appointment(fullApp);
 
         }

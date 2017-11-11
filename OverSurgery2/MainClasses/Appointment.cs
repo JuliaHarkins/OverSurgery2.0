@@ -56,31 +56,18 @@ namespace OverSurgery2
         /// <param name="p_patientDOB"></param>
         /// <param name="p_appointmentID"></param>
         /// <param name="p_appAttend"></param>
-        public Appointment(Dictionary <string,object> p_AppValues, int p_appDate, int p_appTime, int p_patientID, string p_notes, bool p_appAttend)
+        public Appointment(Dictionary <string,object> p_AppValues)
         {
-            /*
-             * What needs to be done:
-             * Remove everything but the dictionary from the objects that are passed to the constructor
-             * Change the assignments of the variables to take the values from the dictionary
-            */
-            // AppointmentID 
-            // AppointmentDate
-            // AppointmentTime
-            // AppointmentNote
-            // AppointmentAttended
-            // MedicalStaffID
-            // PatientID
-
-            AppointmentID = Convert.ToInt16(p_AppValues["ID"]);
-            MedicalStaffID = Convert.ToInt16(p_AppValues["RegisteredDoctorID"]);
-            PatientID = p_patientID;
-            AppDate = p_appDate;
-            AppTime = p_appTime;
-            Notes = p_notes;
+            AppointmentID = Convert.ToInt16(p_AppValues["AppID"]);
+            MedicalStaffID = Convert.ToInt16(p_AppValues["MedStaffID"]);
+            PatientID = Convert.ToInt16(p_AppValues["PatientID"]);
+            AppDate = Convert.ToInt16(p_AppValues["Date"]);
+            AppTime = Convert.ToInt16(p_AppValues["Time"]);
+            Notes = Convert.ToString(p_AppValues["Notes"]);
             PatientForename = Convert.ToString(p_AppValues["Forename"]);
             PatientSurname = Convert.ToString(p_AppValues["Surname"]);
-            //PatientDOB = Convert.ToString(p_AppValues["DateOfBirth"]);
-            AppAttend = p_appAttend;
+            PatientDOB = Convert.ToInt16(p_AppValues["DateOfBirth"]);
+            AppAttend = Convert.ToBoolean(p_AppValues["Attend"]);
         }
 
 
