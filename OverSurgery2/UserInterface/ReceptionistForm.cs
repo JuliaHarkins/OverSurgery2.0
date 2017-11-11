@@ -54,5 +54,30 @@ namespace OverSurgery2
                     throw ex;
                 }
         }
+
+        private void txt_SearchSurname_Enter(object sender, EventArgs e)
+        {
+            txt_SearchSurname.Text = "";
+        }
+
+        private void txt_SearchSurname_Leave(object sender, EventArgs e)
+        {
+            txt_SearchSurname.Text = "Surname";
+        }
+
+        private void txt_SearchForename_Enter(object sender, EventArgs e)
+        {
+            txt_SearchForename.Text = "";
+        }
+
+        private void txt_SearchForename_Leave(object sender, EventArgs e)
+        {
+            txt_SearchForename.Text = "Forename";
+        }
+
+        private void btn_NewPatient_Click(object sender, EventArgs e)
+        {
+            fc.OpenNewPatientForm();
+        }
     }
 }

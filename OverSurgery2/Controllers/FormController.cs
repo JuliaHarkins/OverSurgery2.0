@@ -76,5 +76,10 @@ namespace OverSurgery2
         {
             new EditPatientForm(p_Patient);
         }
+
+        public void OpenNewPatientForm()
+        {
+            new NewPatientForm();
+        }
     }
 }

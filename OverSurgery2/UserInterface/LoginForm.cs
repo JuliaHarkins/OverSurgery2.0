@@ -52,5 +52,31 @@ namespace OverSurgery2
             fc.OpenForgotPasswordForm();
             this.Show();
         }
+
+        private void txt_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                LoginObserver lo = new LoginObserver();
+
+
+                Dictionary<string, string> test = lo.LoginPassThrough(txt_Username.Text, txt_Password.Text);
+                bool flg = LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text));
+                if (LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text)))
+                {
+                    Console.WriteLine("\t\tLOGGED IN");
+                    this.Hide();
+                    fc.SetCurrentUser(test["Username"]);
+                    fc.OpenMainForm();
+                    txt_Username.Clear();
+                    txt_Password.Clear();
+                    this.Show();
+                }
+                else
+                {
+                    NonValidLogin();
+                }
+            }
+        }
     }
 }
