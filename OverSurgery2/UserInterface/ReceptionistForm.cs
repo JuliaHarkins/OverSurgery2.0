@@ -38,7 +38,7 @@ namespace OverSurgery2
             DataGridPatients.DataSource = PatientBinding.DataSource = pc.patients;
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
-            DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date od Birth";
+            DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date of Birth";
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
             DataGridPatients.RowHeadersVisible = false;
