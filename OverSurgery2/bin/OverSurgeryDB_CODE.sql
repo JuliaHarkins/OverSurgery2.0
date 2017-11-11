@@ -188,11 +188,11 @@ INSERT INTO OnCall VALUES (1, 20171120, 20171210, 4);
 
 INSERT INTO Prescription VALUES (1, 20170901, 20170930, 32, 1, 8, 1, 4);
 INSERT INTO Prescription VALUES (2, 20171001, 20171101, 32, 1, 6, 2, 1);
-INSERT INTO Prescription VALUES (3, 20171001, null, 28, 0, 2, 4, 2);
+INSERT INTO Prescription VALUES (3, 20171001, 20171101, 28, 1, 2, 4, 2);
 INSERT INTO Prescription VALUES (4, 20170912, 20171001, 28, 1, 1, 4, 6);
 INSERT INTO Prescription VALUES (5, 20170912, null, 14, 0, 2, 3, 6);
 INSERT INTO Prescription VALUES (6, 20171001, 20171101, 32, 1, 3, 4, 5);
 
 INSERT INTO Extension VALUES (1, 0, 1, null, 4, null);
-INSERT INTO Extension VALUES (2, 0, 4, 20171001, 1, 'Doctor Unavailable');
+INSERT INTO Extension VALUES (2, 0, 3, 20171001, 1, 'Doctor Unavailable');
 INSERT INTO Extension VALUES (3, 0, 2, null, 1, null);
