@@ -153,9 +153,14 @@ namespace OverSurgery2
                         { "ID", dr.GetInt16(0) },
                         { "Forename", dr.GetString(1) },
                         { "Surname", dr.GetString(2) },
-                        { "RegisteredDoctorID", dr.GetInt16(3) },
-                        { "AddressID", dr.GetInt16(4) },
-                        //{ "DateOfBirth", dr.GetDateTime(5) }
+                        {"Gender", dr.GetInt16(3) },
+                        { "DateOfBirth", dr.GetDateTime(4) },
+                        {"PhoneNumber", dr.GetString(5) },
+                        { "RegisteredDoctorID", dr.GetInt16(6) },
+                        { "AddressID", dr.GetInt16(7) },
+                        {"PhoneNumber", " " },
+                        {"Email", " " },
+                        
                     };
 
                 }

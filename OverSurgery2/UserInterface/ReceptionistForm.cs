@@ -47,7 +47,7 @@ namespace OverSurgery2
         {
                 try
                 {
-                    fc.OpenPatientViewForm(ml.GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value);));
+                    fc.OpenPatientViewForm(ml.GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
                 }
                 catch (Exception ex)
                 {
