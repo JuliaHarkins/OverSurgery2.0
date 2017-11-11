@@ -30,6 +30,7 @@ namespace OverSurgery2
             lbl_PatientSurName.Text = currentPatient.Surname;
             lbl_PatientDateOfBirth.Text = currentPatient.DateOfBirth.Date.ToShortDateString();
             lbl_PatientAddress.Text = ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            lbl_PatientDoctor.Text = Convert.ToString(ml.GetMedicalStaffByID(Convert.ToInt16(currentPatient.RegisteredDoctorID)));
 
         }
 

@@ -37,6 +37,7 @@
             this.lbl_PatientAddress = new System.Windows.Forms.Label();
             this.lbl_DateOfBirth = new System.Windows.Forms.Label();
             this.lbl_PatientDateOfBirth = new System.Windows.Forms.Label();
+            this.lbl_PatientDoctor = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // lbl_Forename
@@ -117,11 +118,21 @@
             this.lbl_PatientDateOfBirth.Size = new System.Drawing.Size(0, 13);
             this.lbl_PatientDateOfBirth.TabIndex = 8;
             // 
+            // lbl_PatientDoctor
+            // 
+            this.lbl_PatientDoctor.AutoSize = true;
+            this.lbl_PatientDoctor.Location = new System.Drawing.Point(100, 86);
+            this.lbl_PatientDoctor.Name = "lbl_PatientDoctor";
+            this.lbl_PatientDoctor.Size = new System.Drawing.Size(35, 13);
+            this.lbl_PatientDoctor.TabIndex = 9;
+            this.lbl_PatientDoctor.Text = "label1";
+            // 
             // ViewPatientInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(602, 261);
+            this.Controls.Add(this.lbl_PatientDoctor);
             this.Controls.Add(this.lbl_PatientDateOfBirth);
             this.Controls.Add(this.lbl_DateOfBirth);
             this.Controls.Add(this.lbl_PatientAddress);
@@ -150,5 +161,6 @@
         private System.Windows.Forms.Label lbl_PatientAddress;
         private System.Windows.Forms.Label lbl_DateOfBirth;
         private System.Windows.Forms.Label lbl_PatientDateOfBirth;
+        private System.Windows.Forms.Label lbl_PatientDoctor;
     }
 }

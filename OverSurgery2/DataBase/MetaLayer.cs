@@ -126,6 +126,37 @@ namespace OverSurgery2
             return medication;
         }
 
+        public Staff GetMedicalStaffByID(int p_id)
+        {
+            Dictionary<string, object> d;
+            d = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid ="+p_id+" and staff.staffid = medicalstaff.staffid);");
+
+                while (dr.Read())
+                {
+                    d = new Dictionary<string, object>
+                    {
+                        { "ID", dr.GetInt16(0) },
+                        { "Forename", dr.GetString(1) },
+                        { "Surname", dr.GetString(2) },
+                        { "Email", dr.GetString(3) },
+                        { "AddressID", dr.GetInt16(4) },
+                        { "UserName", dr.GetString(5) },
+                        { "Password", dr.GetString(6)},
+                        { "Type", dr.GetInt16(7) },
+                        {"Gender", 0 },
+                        {"PhoneNumber", " " }
+
+                    };
+                    Console.WriteLine(d["Forename"]);
+                }
+            }
+            return null;
+        }
+
         /// <summary>
         /// Return a Patient by their ID.
         /// </summary>
