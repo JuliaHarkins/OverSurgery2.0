@@ -10,9 +10,9 @@ namespace OverSurgery2
     /// Created By: J
     /// Date Created : 31/10/17
     /// </summary>
-    public class Manager
+    public class Manager : Staff
     {
-        public Manager()
+        public Manager(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
         {
 
         }

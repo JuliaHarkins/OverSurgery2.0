@@ -12,20 +12,19 @@ namespace OverSurgery2
 {
     public partial class ViewPatientInfoForm : Form
     {
-        private int selectedPatient;
+        Patient currentPatient;
         MetaLayer ml = MetaLayer.Instance();
         FormController fc = FormController.Instance();
-        public ViewPatientInfoForm(int p_id)
+        public ViewPatientInfoForm(Patient p_Patient)
         {
+            currentPatient = p_Patient;
             InitializeComponent();
-            selectedPatient = p_id;
             LoadPatientInfo();
             this.Show();
         }
 
         public void LoadPatientInfo()
         {
-            Patient currentPatient = ml.GetPatientByID(selectedPatient);
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " +currentPatient.Surname;
             lbl_Forename.Text = currentPatient.Forename;
             lbl_Surname.Text = currentPatient.Surname;
@@ -35,7 +34,7 @@ namespace OverSurgery2
 
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
-            fc.OpenEditPatientForm(selectedPatient);
+            fc.OpenEditPatientForm(currentPatient);
         }
     }
 }

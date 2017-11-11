@@ -37,7 +37,7 @@ namespace OverSurgery2
 
         private void btn_Verify_Click(object sender, EventArgs e)
         {
-            string user = txt_UserName.Text;
+            Staff user = ml.GetStaffByUserName(txt_UserName.Text);
             if(lc.VerifyPasswordReset(user, txt_VerificationCode.Text))
             {
                 this.Close();

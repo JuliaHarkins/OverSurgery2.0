@@ -14,10 +14,10 @@ namespace OverSurgery2
     {
         Patient m_currentPatient;
         MetaLayer ml = MetaLayer.Instance();
-        public EditPatientForm(int p_patientID)
+        public EditPatientForm(Patient p_Patient)
         {
             InitializeComponent();
-            m_currentPatient = ml.GetPatientByID(p_patientID);
+            m_currentPatient = p_Patient;
             LoadCurrentPatientInfo();
             this.ShowDialog();
         }

@@ -15,11 +15,13 @@ namespace OverSurgery2
         private int m_staffID;
         private string m_username;
         private string m_password;
-        public string Password { get { return m_password; } }
+
+        public string Password { get { return m_password; } set { m_password = value; } }
+        public string Username { get { return m_username; } set { m_username = value; } }
         LoginController lc = LoginController.Instance();
 
         public Staff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
-             {
+        {
             
             m_staffID = Convert.ToInt16(p_PersonValues["ID"]);
             m_username = Convert.ToString(p_PersonValues["UserName"]);

@@ -101,7 +101,7 @@ namespace OverSurgery2
             client.Send(mail);
         }
 
-        public bool VerifyPasswordReset(string p_user, string p_verificationCode)
+        public bool VerifyPasswordReset(Staff p_user, string p_verificationCode)
         {
             
             if(ml.GetResetRequestCode(p_user) != p_verificationCode)

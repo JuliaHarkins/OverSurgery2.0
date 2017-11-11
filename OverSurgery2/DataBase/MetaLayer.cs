@@ -50,6 +50,9 @@ namespace OverSurgery2
                         { "Surname", dr.GetString(2) },
                         { "RegisteredDoctorID", dr.GetInt16(3) },
                         { "AddressID", dr.GetInt16(4) },
+                        {"PhoneNumber", " " },
+                        {"Email", " " },
+                        {"Gender", 0 }
                         //{ "DateOfBirth", dr.GetDateTime(5) }
                     };
                     patients.Add(pf.CreatePatient(values));
@@ -250,10 +253,12 @@ namespace OverSurgery2
                         { "Forename", dr.GetString(1) },
                         { "Surname", dr.GetString(2) },
                         { "Email", dr.GetString(3) },
-                        { "Address", dr.GetInt16(4) },
+                        { "AddressID", dr.GetInt16(4) },
                         { "UserName", dr.GetString(5) },
                         { "Password", dr.GetString(6)},
-                        { "Type", dr.GetInt16(7) }
+                        { "Type", dr.GetInt16(7) },
+                        {"Gender", 0 },
+                        {"PhoneNumber", " " }
                        
                     };
                 }
@@ -263,13 +268,13 @@ namespace OverSurgery2
             return pf.CreateStaff(d);
         }
 
-        public string GetResetRequestCode(string username)
+        public string GetResetRequestCode(Staff p_user)
         {
             string verificationcode = null;
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT verificationcode FROM resetrequests WHERE username = '" + username + "';");
+                DbDataReader dr = con.Select("SELECT verificationcode FROM resetrequests WHERE username = '" + p_user.Username + "';");
 
                 while (dr.Read())
                 {
@@ -293,12 +298,12 @@ namespace OverSurgery2
             return false;
         }
 
-        public bool UpdateStaffPassword(string p_username, string p_newPassword)
+        public bool UpdateStaffPassword(Staff p_Staff, string p_newPassword)
         {
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                con.Update("UPDATE Staff Set password ='" + p_newPassword + "' WHERE username ='" + p_username + "';");
+                con.Update("UPDATE Staff Set password ='" + p_newPassword + "' WHERE username ='" + p_Staff.Username + "';");
                 con.CloseConnection();
                 return true;
             }

@@ -41,13 +41,11 @@ namespace OverSurgery2
                 case 1:
                     break;
                 case 2:
-                    CreateLocum(values); // Temporarily nulled as not fully implemented
-                    break;
+                    return CreateLocum(values); // Temporarily nulled as not fully implemented
                 case 3:
                     return CreateDoctor(values);
                 case 4:
-                    //return CreateReceptionist(values);
-                    break;
+                    return CreateReceptionist(values);
                 default:
                     break;
             }
@@ -57,7 +55,19 @@ namespace OverSurgery2
         // Return a new patient
         public Patient CreatePatient(Dictionary<string,object> p_values)
         {
-            return new Patient(p_values);
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Patient(p_values);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
         }
 
         //Return a new doctor
@@ -66,11 +76,16 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_args">Forename, Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
-        private Doctor CreateDoctor(Dictionary<string, object> values)
+        private Doctor CreateDoctor(Dictionary<string, object> p_values)
         {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+
             try
             {
-                return new Doctor(values);
+                return new Doctor(p_values);
             }
             catch (Exception e)
             {
@@ -80,11 +95,16 @@ namespace OverSurgery2
         }
 
         //// Return a new receptionist
-        public Receptionist CreateReceptionist(Dictionary<string,object> values)
+        public Receptionist CreateReceptionist(Dictionary<string,object> p_values)
         {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+
             try
             {
-               return new Receptionist(values);
+               return new Receptionist(p_values);
             }
             catch (Exception e)
             {
@@ -93,9 +113,38 @@ namespace OverSurgery2
             }
         }
 
-        public Locum CreateLocum(Dictionary<string, object> values)
+        public Locum CreateLocum(Dictionary<string, object> p_values)
         {
-            return null;
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Locum(p_values);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public Manager CreateManager(Dictionary<string,object> p_values)
+        {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Manager(p_values);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
         }
     }
 }
