@@ -131,8 +131,7 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT forename, surname FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid ="
-                    +p_id+" and staff.staffid = medicalstaff.staffid);");
+                DbDataReader dr = con.Select("SELECT forename, surname FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid ="+p_id+" and staff.staffid = medicalstaff.staffid);");
 
                 while (dr.Read())
                 {
@@ -145,17 +144,6 @@ namespace OverSurgery2
             return firstname + " " + lastname;
         }
 
-        /// <summary>
-        /// Return a Patient by their ID.
-        /// </summary>
-        /// <param name="p_id">Use Patient ID</param>
-        /// <example>
-        /// This example shows you how to use the <see cref="GetPatientByID(int)"/> method.
-        /// <code>
-        /// Patient p = ml.GetPatientByID(1);
-        /// </code>
-        /// </example>
-        /// <returns>Returns a Patient</returns>
         public Patient GetPatientByID(int p_id)
         {
             Dictionary<string, object> id;
