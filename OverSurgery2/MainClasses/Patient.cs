@@ -26,7 +26,7 @@ namespace OverSurgery2
             m_ID = Convert.ToInt16(p_PersonValues["ID"]);
             m_registeredDoctorID = Convert.ToInt16(p_PersonValues["RegisteredDoctorID"]);
             m_dateOfBirth = Convert.ToDateTime(p_PersonValues["DateOfBirth"]);
-            //m_doctorDisplay = ml.GetMedicalStaffNameByID(Convert.ToInt16(p_PersonValues["RegisteredDoctorID"]));
+            m_doctorDisplay = ml.GetMedicalStaffNameByID(Convert.ToInt16(p_PersonValues["RegisteredDoctorID"]));
         }
 
         public int ID { get { return m_ID; } set { m_ID = value; } }
