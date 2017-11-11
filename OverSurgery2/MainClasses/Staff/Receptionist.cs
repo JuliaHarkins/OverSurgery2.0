@@ -14,12 +14,6 @@ namespace OverSurgery2
     public class Receptionist : Staff
     {
 #region Member Variables
-        string m_Forename;
-        string m_Surname;
-        string m_email;
-        int m_staffID;
-        string m_username;
-        string m_password;
         List<Prescription> m_extension;
         FormController fc = FormController.Instance();
 #endregion

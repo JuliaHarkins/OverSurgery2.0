@@ -14,11 +14,11 @@ namespace OverSurgery2
     {
         MetaLayer ml = MetaLayer.Instance();
         LoginController lc = LoginController.Instance();
-        string m_currentUser;
-        public PasswordResetForm(string user)
+        Staff m_currentUser;
+        public PasswordResetForm(Staff p_Staff)
         {
             InitializeComponent();
-            m_currentUser = user;
+            m_currentUser = p_Staff;
             this.ShowDialog();
         }
 

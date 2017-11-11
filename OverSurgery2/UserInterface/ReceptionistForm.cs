@@ -36,7 +36,7 @@ namespace OverSurgery2
             DataGridPatients.DataSource = PatientBinding;
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
-            DataGridPatients.Columns["Address"].Visible = false;
+            DataGridPatients.Columns["AddressID"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["EmailAddress"].Visible = false;
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
@@ -48,7 +48,7 @@ namespace OverSurgery2
                 try
                 {
                     int id = Convert.ToInt32(DataGridPatients.CurrentRow.Cells[0].Value);
-                    fc.OpenPatientViewForm(id);
+                    fc.OpenPatientViewForm(ml.GetPatientByID(id));
                 }
                 catch (Exception ex)
                 {

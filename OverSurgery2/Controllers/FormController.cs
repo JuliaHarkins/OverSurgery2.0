@@ -57,9 +57,9 @@ namespace OverSurgery2
            currentUser = ml.GetStaffByUserName(p_username);
         }
 
-        public void OpenPatientViewForm(int id)
+        public void OpenPatientViewForm(Patient p_Patient)
         {
-            new ViewPatientInfoForm(id);
+            new ViewPatientInfoForm(p_Patient);
         }
 
         public void OpenForgotPasswordForm()
@@ -67,15 +67,14 @@ namespace OverSurgery2
             new ForgotPasswordForm();
         }
         
-        public void OpenPasswordResetForm(string p_user)
+        public void OpenPasswordResetForm(Staff p_user)
         {
-            Console.WriteLine(p_user);
             new PasswordResetForm(p_user);
         }
 
-        public void OpenEditPatientForm(int p_PatientID)
+        public void OpenEditPatientForm(Patient p_Patient)
         {
-            new EditPatientForm(p_PatientID);
+            new EditPatientForm(p_Patient);
         }
     }
 }
