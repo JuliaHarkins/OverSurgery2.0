@@ -163,7 +163,7 @@ INSERT INTO Patient VALUES (5, 'Andy', 'Potato', 0, 19900720, '+447911363901', 3
 INSERT INTO Appointment VALUES (1, 20171109, 093000, 'blood test', 0, 1, 1);
 INSERT INTO Appointment VALUES (2, 20171109, 161500, '', 0, 4, 2);
 INSERT INTO Appointment VALUES (3, 20171110, 161500, '', 0, 4, 5);
-INSERT INTO Appointment VALUES (4, 20171109, 161500, '', 0, 3, 6);
+INSERT INTO Appointment VALUES (4, 20171109, 161500, '', 0, 3, 3);
 
 -- INSERT INTO MedicalHistory VALUES (1, '');
 -- INSERT INTO MedicalHistory VALUES (2, '');
@@ -185,11 +185,11 @@ INSERT INTO Medication VALUES (9, 3, 'Tramadol', '25mg');
 
 INSERT INTO OnCall VALUES (1, 20171120, 20171210, 4);
 
-INSERT INTO Prescription VALUES (1, 20171901, 20170930, 32, 1, 8, 1, 4);
+INSERT INTO Prescription VALUES (1, 20170901, 20170930, 32, 1, 8, 1, 4);
 INSERT INTO Prescription VALUES (2, 20171001, 20171101, 32, 1, 6, 2, 1);
 INSERT INTO Prescription VALUES (3, 20171001, null, 28, 0, 2, 4, 2);
-INSERT INTO Prescription VALUES (4, 20170912, 20171001, 28, 1, 4, 2);
-INSERT INTO Prescription VALUES (5, 20170912, null, 14, 0, 7, 6, 2);
+INSERT INTO Prescription VALUES (4, 20170912, 20171001, 28, 1, 1, 4, 6);
+INSERT INTO Prescription VALUES (5, 20170912, null, 14, 0, 2, 3, 6);
 INSERT INTO Prescription VALUES (6, 20171001, 20171101, 32, 1, 3, 4, 5);
 
 INSERT INTO Extension VALUES (1, 0, 1, null, 4, null);
