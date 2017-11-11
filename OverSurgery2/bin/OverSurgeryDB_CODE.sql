@@ -137,6 +137,7 @@ INSERT INTO Address VALUES (3, null, 16, "Q THIS IS A TEST", "01 TEST 10");
 INSERT INTO Address VALUES (4, null, 19, "Z THIS IS A TEST", "01 TEST 10");
 INSERT INTO Address VALUES (5, "Trial", null, "B THIS IS A TEST", "01 TEST 10");
 
+#All passwords = password123 as test data defaults
 INSERT INTO Staff VALUES (1, 'Linus', 'Torvild', 'Test.OverSurgery@gmail.com',1 , 'Linus', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 3);
 INSERT INTO Staff VALUES (2, 'Bill', 'Gates', 'Someone.OverSurgery@gmail.com',1 , 'Bill', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 1);
 INSERT INTO Staff VALUES (3, 'Steve', 'Jobs', 'Test.OverSurgery@gmail.com',2 , 'Steve', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 4);
