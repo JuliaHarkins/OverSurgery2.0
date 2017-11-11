@@ -26,7 +26,7 @@ namespace OverSurgery2
             return m_getInstance;
         }
 
-        public void AddPatient(Patient p_Patient)
+        public void AddNewPatient(Patient p_Patient)
         {
 
         }

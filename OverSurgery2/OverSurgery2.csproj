@@ -63,6 +63,12 @@
     <Compile Include="MainClasses\Staff\Doctor.cs" />
     <Compile Include="MainClasses\LoginObserver.cs" />
     <Compile Include="MainClasses\Staff\Locum.cs" />
+    <Compile Include="NewPatientForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewPatientForm.Designer.cs">
+      <DependentUpon>NewPatientForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\ManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>

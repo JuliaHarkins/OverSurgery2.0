@@ -35,7 +35,13 @@
             this.DataGridAppointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
+            this.btn_NewPatient = new System.Windows.Forms.Button();
+            this.btn_Search = new System.Windows.Forms.Button();
+            this.txt_SearchSurname = new System.Windows.Forms.TextBox();
+            this.txt_SearchForename = new System.Windows.Forms.TextBox();
+            this.lbl_SearchForPatient = new System.Windows.Forms.Label();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.button1 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
@@ -47,7 +53,7 @@
             // btn_Logout
             // 
             this.btn_Logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Logout.Location = new System.Drawing.Point(875, 391);
+            this.btn_Logout.Location = new System.Drawing.Point(875, 389);
             this.btn_Logout.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Logout.Name = "btn_Logout";
             this.btn_Logout.Size = new System.Drawing.Size(56, 19);
@@ -66,7 +72,7 @@
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(919, 374);
+            this.tabControl1.Size = new System.Drawing.Size(919, 372);
             this.tabControl1.TabIndex = 1;
             // 
             // AppointmentsTab
@@ -75,7 +81,7 @@
             this.AppointmentsTab.Location = new System.Drawing.Point(4, 22);
             this.AppointmentsTab.Name = "AppointmentsTab";
             this.AppointmentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AppointmentsTab.Size = new System.Drawing.Size(911, 348);
+            this.AppointmentsTab.Size = new System.Drawing.Size(911, 346);
             this.AppointmentsTab.TabIndex = 0;
             this.AppointmentsTab.Text = "Appointments";
             this.AppointmentsTab.UseVisualStyleBackColor = true;
@@ -96,16 +102,22 @@
             this.DataGridAppointments.Name = "DataGridAppointments";
             this.DataGridAppointments.ReadOnly = true;
             this.DataGridAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.DataGridAppointments.Size = new System.Drawing.Size(899, 336);
+            this.DataGridAppointments.Size = new System.Drawing.Size(899, 334);
             this.DataGridAppointments.TabIndex = 0;
             // 
             // PatientsTab
             // 
+            this.PatientsTab.Controls.Add(this.button1);
+            this.PatientsTab.Controls.Add(this.lbl_SearchForPatient);
+            this.PatientsTab.Controls.Add(this.txt_SearchForename);
+            this.PatientsTab.Controls.Add(this.txt_SearchSurname);
+            this.PatientsTab.Controls.Add(this.btn_Search);
+            this.PatientsTab.Controls.Add(this.btn_NewPatient);
             this.PatientsTab.Controls.Add(this.DataGridPatients);
             this.PatientsTab.Location = new System.Drawing.Point(4, 22);
             this.PatientsTab.Name = "PatientsTab";
             this.PatientsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PatientsTab.Size = new System.Drawing.Size(911, 348);
+            this.PatientsTab.Size = new System.Drawing.Size(911, 346);
             this.PatientsTab.TabIndex = 1;
             this.PatientsTab.Text = "Patients";
             this.PatientsTab.UseVisualStyleBackColor = true;
@@ -116,21 +128,85 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DataGridPatients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridPatients.Location = new System.Drawing.Point(6, 6);
+            this.DataGridPatients.Location = new System.Drawing.Point(6, 30);
             this.DataGridPatients.Name = "DataGridPatients";
-            this.DataGridPatients.Size = new System.Drawing.Size(899, 336);
+            this.DataGridPatients.Size = new System.Drawing.Size(899, 286);
             this.DataGridPatients.TabIndex = 1;
             this.DataGridPatients.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridPatients_CellMouseClick);
+            // 
+            // btn_NewPatient
+            // 
+            this.btn_NewPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_NewPatient.Location = new System.Drawing.Point(5, 321);
+            this.btn_NewPatient.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_NewPatient.Name = "btn_NewPatient";
+            this.btn_NewPatient.Size = new System.Drawing.Size(80, 19);
+            this.btn_NewPatient.TabIndex = 2;
+            this.btn_NewPatient.Text = "New Patient";
+            this.btn_NewPatient.UseVisualStyleBackColor = true;
+            this.btn_NewPatient.Click += new System.EventHandler(this.btn_NewPatient_Click);
+            // 
+            // btn_Search
+            // 
+            this.btn_Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_Search.Location = new System.Drawing.Point(825, 7);
+            this.btn_Search.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_Search.Name = "btn_Search";
+            this.btn_Search.Size = new System.Drawing.Size(80, 19);
+            this.btn_Search.TabIndex = 3;
+            this.btn_Search.Text = "Search";
+            this.btn_Search.UseVisualStyleBackColor = true;
+            // 
+            // txt_SearchSurname
+            // 
+            this.txt_SearchSurname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_SearchSurname.Location = new System.Drawing.Point(720, 6);
+            this.txt_SearchSurname.Name = "txt_SearchSurname";
+            this.txt_SearchSurname.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchSurname.TabIndex = 4;
+            this.txt_SearchSurname.Text = "Surname";
+            this.txt_SearchSurname.Enter += new System.EventHandler(this.txt_SearchSurname_Enter);
+            this.txt_SearchSurname.Leave += new System.EventHandler(this.txt_SearchSurname_Leave);
+            // 
+            // txt_SearchForename
+            // 
+            this.txt_SearchForename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_SearchForename.Location = new System.Drawing.Point(614, 6);
+            this.txt_SearchForename.Name = "txt_SearchForename";
+            this.txt_SearchForename.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchForename.TabIndex = 5;
+            this.txt_SearchForename.Text = "Forename";
+            this.txt_SearchForename.Enter += new System.EventHandler(this.txt_SearchForename_Enter);
+            this.txt_SearchForename.Leave += new System.EventHandler(this.txt_SearchForename_Leave);
+            // 
+            // lbl_SearchForPatient
+            // 
+            this.lbl_SearchForPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_SearchForPatient.AutoSize = true;
+            this.lbl_SearchForPatient.Location = new System.Drawing.Point(513, 9);
+            this.lbl_SearchForPatient.Name = "lbl_SearchForPatient";
+            this.lbl_SearchForPatient.Size = new System.Drawing.Size(95, 13);
+            this.lbl_SearchForPatient.TabIndex = 6;
+            this.lbl_SearchForPatient.Text = "Search for Patient:";
             // 
             // patientBindingSource
             // 
             this.patientBindingSource.DataSource = typeof(OverSurgery2.Patient);
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(6, 4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "View All";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // ReceptionistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(942, 421);
+            this.ClientSize = new System.Drawing.Size(942, 419);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_Logout);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -142,6 +218,7 @@
             this.AppointmentsTab.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).EndInit();
             this.PatientsTab.ResumeLayout(false);
+            this.PatientsTab.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridPatients)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
             this.ResumeLayout(false);
@@ -157,5 +234,11 @@
         private System.Windows.Forms.DataGridView DataGridAppointments;
         private System.Windows.Forms.DataGridView DataGridPatients;
         private System.Windows.Forms.BindingSource patientBindingSource;
+        private System.Windows.Forms.Button btn_NewPatient;
+        private System.Windows.Forms.Button btn_Search;
+        private System.Windows.Forms.TextBox txt_SearchForename;
+        private System.Windows.Forms.TextBox txt_SearchSurname;
+        private System.Windows.Forms.Label lbl_SearchForPatient;
+        private System.Windows.Forms.Button button1;
     }
 }
