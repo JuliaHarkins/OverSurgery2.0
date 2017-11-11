@@ -143,6 +143,7 @@
             this.btn_ViewAllPatients.TabIndex = 7;
             this.btn_ViewAllPatients.Text = "View All";
             this.btn_ViewAllPatients.UseVisualStyleBackColor = true;
+            this.btn_ViewAllPatients.Click += new System.EventHandler(this.btn_ViewAllPatients_Click);
             // 
             // lbl_SearchForPatient
             // 

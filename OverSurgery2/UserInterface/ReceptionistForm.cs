@@ -30,8 +30,7 @@ namespace OverSurgery2
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
             Singletons.pc.UpdatePatientDoctorDisplay();
-            PatientBinding = new BindingSource();
-            DataGridPatients.DataSource = PatientBinding.DataSource = Singletons.pc.patients;
+            LoadAllPatientInfo();
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
@@ -43,6 +42,13 @@ namespace OverSurgery2
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
+        }
+        private void LoadAllPatientInfo()
+        {
+            PatientBinding = new BindingSource();
+            DataGridPatients.DataSource = PatientBinding.DataSource = Singletons.pc.patients;
+            DataGridPatients.Update();
+            DataGridPatients.Refresh();
         }
 
 
@@ -99,10 +105,17 @@ namespace OverSurgery2
         private void btn_SearchPatient_Click(object sender, EventArgs e)
         {
             PatientBinding = new BindingSource();
-            PatientBinding.DataSource = Singletons.ml.GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
+            var s = Singletons.ml.GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
+            s.SetDoctorDisplay();
+            PatientBinding.DataSource = s;
             DataGridPatients.DataSource = PatientBinding;
             DataGridPatients.Update();
             DataGridPatients.Refresh();
+        }
+
+        private void btn_ViewAllPatients_Click(object sender, EventArgs e)
+        {
+            LoadAllPatientInfo();
         }
     }
 }
