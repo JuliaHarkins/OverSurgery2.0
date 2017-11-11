@@ -42,5 +42,10 @@ namespace OverSurgery2
             }
         }
         public int RegisteredDoctorID {get { return m_registeredDoctorID; } set { m_registeredDoctorID = value; } }
+
+        public void SetDoctorDisplay()
+        {
+            m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID);
+        }
     }
 }

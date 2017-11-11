@@ -17,6 +17,7 @@ namespace OverSurgery2
         Staff currentUserLoggedIn = null;
         MetaLayer ml = MetaLayer.Instance();
         FormController fc = FormController.Instance();
+        PatientController pc = PatientController.Instance();
         AppointmentController ac;
         public ReceptionistForm(Staff currentUser)
         {
@@ -32,8 +33,9 @@ namespace OverSurgery2
 
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
+            pc.UpdatePatientDoctorDisplay();
             PatientBinding = new BindingSource();
-            DataGridPatients.DataSource = PatientBinding.DataSource = ml.getPatients();
+            DataGridPatients.DataSource = PatientBinding.DataSource = pc.patients;
             DataGridPatients.Columns["Forename"].ReadOnly = true;
             DataGridPatients.Columns["Surname"].ReadOnly = true;
             DataGridPatients.Columns["DateOfBirth"].ReadOnly = true;
