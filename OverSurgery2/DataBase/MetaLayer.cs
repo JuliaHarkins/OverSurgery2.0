@@ -383,7 +383,7 @@ namespace OverSurgery2
             Dictionary<string, object> d = null;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM patient WHERE forename = '" + p_forename + "' AND surname = '" + p_surname + "' LIMIT 1;");
+                DbDataReader dr = con.Select("SELECT * FROM patient WHERE forename = '" + p_forename + "' AND surname = '" + p_surname + "';");
                 while (dr.Read())
                 {
                     d = new Dictionary<string, object>
@@ -391,9 +391,12 @@ namespace OverSurgery2
                         { "ID", dr.GetInt16(0) },
                         { "Forename", dr.GetString(1) },
                         { "Surname", dr.GetString(2) },
-                        { "RegisteredDoctorID", dr.GetInt16(3) },
-                        { "AddressID", dr.GetInt16(4) },
-                        { "DateOfBirth", dr.GetDateTime(5) }
+                        { "Gender", dr.GetInt16(3) },
+                        { "DateOfBirth", dr.GetDateTime(4) },
+                        { "PhoneNumber", dr.GetString(5) },
+                        { "RegisteredDoctorID", dr.GetInt16(6) },
+                        { "AddressID", dr.GetInt16(7) },
+                        { "Email", dr.GetString(8) }
                     }; 
                 }
                 dr.Close();
@@ -440,49 +443,7 @@ namespace OverSurgery2
                 dr1.Close();
                 con.CloseConnection();
             }
-
-            // Read patient values into dictionary
-            Dictionary<string, object> patientValues;
-            patientValues = null;
-            if (con.OpenConnection())
-            {
-                // Find patient specific data
-                DbDataReader dr2 = con.Select("SELECT * FROM PATIENT WHERE PatientID = '" + patientid + "';");
-                while (dr2.Read())
-                {
-                    patientValues = new Dictionary<string, object>
-                    {
-                        { "PatientID", dr2.GetInt16(0) },
-                        { "Forename", dr2.GetString(1) },
-                        { "Surname", dr2.GetString(2) },
-                        { "Gender", dr2.GetInt16(3) },
-                        { "DateOfBirth", dr2.GetDateTime(4) },
-                        { "PhoneNumber", dr2.GetString(5) },
-                        { "RegisteredDoctorID", dr2.GetInt16(6) },
-                        { "AddressID", dr2.GetInt16(7) },
-                    };
-
-                }
-                dr2.Close();
-                con.CloseConnection();
-            }
-
-            // Add together collected dictionaries, Discard unwanted fields and pass them as a new dictionary
-            Dictionary<string, object> fullApp; 
-            fullApp = new Dictionary<string, object>
-            {
-                { "AppID", (appValues["AppID"]) },
-                { "Date", (appValues["Date"]) },
-                { "Time", (appValues["Time"]) },
-                { "Notes", (appValues["Notes"]) },
-                { "Attend", (appValues["Attend"]) },
-                { "MedStaffID", (appValues["MedStaffID"]) },
-                { "PatientID", (patientValues["PatientID"]) },
-                { "Forename", (patientValues["Forename"]) },
-                { "Surname", (patientValues["Surname"]) },
-                { "DateOfBirth", (patientValues["DateOfBirth"]) },
-            };
-            return new Appointment(fullApp);
+            return new Appointment(appValues);
 
         }
     }
