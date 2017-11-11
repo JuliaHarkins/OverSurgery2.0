@@ -38,7 +38,7 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM patient;");
+                DbDataReader dr = con.Select("SELECT * FROM patient ORDER BY Surname;");
                 Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())

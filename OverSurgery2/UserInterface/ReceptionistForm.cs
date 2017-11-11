@@ -34,10 +34,18 @@ namespace OverSurgery2
         {
             PatientBinding = new BindingSource();
             DataGridPatients.DataSource = PatientBinding.DataSource = ml.getPatients();
+            DataGridPatients.Columns["Forename"].ReadOnly = true;
+            DataGridPatients.Columns["Surname"].ReadOnly = true;
+            DataGridPatients.Columns["DateOfBirth"].ReadOnly = true;
+            DataGridPatients.Columns["Gender"].ReadOnly = true;
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
+            DataGridPatients.Columns.Add("RegisteredDoctor", "Registered Doctor");
+            DataGridPatients.Columns["RegisteredDoctor"].DisplayIndex = 5;
+            DataGridPatients.Columns["ID"].Visible = false;
             DataGridPatients.Columns["AddressID"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
+            DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
         }
 

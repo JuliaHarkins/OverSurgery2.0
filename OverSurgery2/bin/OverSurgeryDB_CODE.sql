@@ -155,7 +155,7 @@ INSERT INTO MedicalStaff VALUES (4, '953718462BV', 3, 7, 1);
 INSERT INTO MedicalStaff VALUES (5, '464868461WH', 1, 4, 1);
 INSERT INTO MedicalStaff VALUES (6, '764281546PX', 2, 2, 0);
 
-INSERT INTO Patient VALUES (1, 'steven', 'smith', 1, 19800615, '+447634395183', 1, 3);
+INSERT INTO Patient VALUES (1, 'Steven', 'Smith', 1, 19800615, '+447634395183', 1, 3);
 INSERT INTO Patient VALUES (2, 'Jane', 'Hollo', 0, 19451112, '01563572805', 4, 4);
 INSERT INTO Patient VALUES (3, 'Amy','Adams', 1, 19980317, '07829405285', 4, 5);
 INSERT INTO Patient VALUES (4, 'Thomas', 'William', 0, 20050501, '01553490294', 3, 2);
