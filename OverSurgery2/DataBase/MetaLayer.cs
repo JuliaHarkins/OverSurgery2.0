@@ -32,7 +32,7 @@ namespace OverSurgery2
             return m_Instance;
         }
 
-        public List<Patient> getPatients()
+        public List<Patient> GetPatients()
         {
             List<Patient> patients = new List<Patient>();
 
@@ -351,14 +351,16 @@ namespace OverSurgery2
             return false;
         }
 
-        public void DeleteResetRequest(string user)
+        public bool DeleteResetRequest(string user)
         {
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 con.Delete("DELETE FROM resetrequests WHERE username ='" + user + "';");
                 con.CloseConnection();
+                return true;
             }
+            return false;
         }
 
         /// <summary>

@@ -17,7 +17,7 @@ namespace OverSurgery2
         private static PatientController m_getInstance;
         private PatientController()
         {
-            patients = MetaLayer.Instance().getPatients();
+            patients = MetaLayer.Instance().GetPatients();
         }
         public static PatientController Instance()
         {
