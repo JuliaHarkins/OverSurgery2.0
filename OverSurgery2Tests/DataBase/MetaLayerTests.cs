@@ -14,7 +14,7 @@ namespace OverSurgery2.Tests
         [TestMethod()]
         public void InstanceTest()
         {
-            Assert.Fail();
+            Assert.IsNotNull(MetaLayer.Instance());
         }
 
         [TestMethod()]
