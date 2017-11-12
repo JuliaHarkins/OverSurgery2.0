@@ -10,9 +10,10 @@ namespace OverSurgery2
     {
         Staff currentUser;
         private static FormController m_getInstance;
+        MetaLayer ml;
         private FormController()
         {
-
+            ml = MetaLayer.Instance();
         }
         public static FormController Instance()
         {
@@ -53,7 +54,7 @@ namespace OverSurgery2
 
         public void SetCurrentUser(string p_username)
         {
-           currentUser = Singletons.ml.GetStaffByUserName(p_username);
+           currentUser = ml.GetStaffByUserName(p_username);
         }
 
         public void OpenPatientViewForm(Patient p_Patient)

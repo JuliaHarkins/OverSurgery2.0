@@ -16,6 +16,10 @@ namespace OverSurgery2
     /// </summary>
     public class LoginController
     {
+        MetaLayer ml;
+        PatientController pc;
+        FormController fc;
+        PersonFactory pf;
         Staff userLoggedIn;
         private static Random random = new Random();
         private int? m_type;
@@ -30,6 +34,10 @@ namespace OverSurgery2
             Client.DeliveryMethod = SmtpDeliveryMethod.Network;
             Client.EnableSsl = true;
             Client.Credentials = new NetworkCredential("oversurgeryresetpass@gmail.com", "oversurgery1");
+            ml = MetaLayer.Instance();
+            pc = PatientController.Instance();
+            fc = FormController.Instance();
+            pf = PersonFactory.Instance();
 
         }
         public int? Type
@@ -66,7 +74,7 @@ namespace OverSurgery2
             m_login = new Tuple<string, string, int?>(null, null, null);
 #endregion
 #region Execution
-            m_login = Singletons.ml.GetLogin(p_username);
+            m_login = ml.GetLogin(p_username);
 
             if (p_username == m_login.Item1)
             {
@@ -112,7 +120,7 @@ namespace OverSurgery2
         public bool VerifyPasswordReset(Staff p_user, string p_verificationCode)
         {
             
-            if(Singletons.ml.GetResetRequestCode(p_user) != p_verificationCode)
+            if(ml.GetResetRequestCode(p_user) != p_verificationCode)
             {
                 return false;
             }
@@ -132,7 +140,7 @@ namespace OverSurgery2
 
         public Staff GetLoggedInUser(string p_username)
         {
-            Staff s = Singletons.ml.GetStaffByUserName(p_username);
+            Staff s = ml.GetStaffByUserName(p_username);
             return s;
         }
     }

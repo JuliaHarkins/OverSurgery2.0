@@ -19,16 +19,18 @@ namespace OverSurgery2
         private DateTime m_dateOfBirth;
         private int m_registeredDoctorID;
         private string m_doctorDisplay;
+        MetaLayer ml;
 
         public Patient(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
         {
+            ml = MetaLayer.Instance();
             m_ID = Convert.ToInt16(p_PersonValues["ID"]);
             m_registeredDoctorID = Convert.ToInt16(p_PersonValues["RegisteredDoctorID"]);
             m_dateOfBirth = Convert.ToDateTime(p_PersonValues["DateOfBirth"]);
         }
 
         public int ID { get { return m_ID; } set { m_ID = value; } }
-        public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = Singletons.ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
+        public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
         public DateTime DateOfBirth
         {
             get
@@ -44,7 +46,7 @@ namespace OverSurgery2
 
         public void SetDoctorDisplay()
         {
-            m_doctorDisplay = Singletons.ml.GetMedicalStaffNameByID(m_registeredDoctorID);
+            m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID);
         }
     }
 }

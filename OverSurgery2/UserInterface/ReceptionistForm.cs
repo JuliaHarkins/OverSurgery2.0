@@ -29,7 +29,7 @@ namespace OverSurgery2
 
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
-            Singletons.pc.UpdatePatientDoctorDisplay();
+            PatientController.Instance().UpdatePatientDoctorDisplay();
             LoadAllPatientInfo();
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
@@ -46,7 +46,7 @@ namespace OverSurgery2
         private void LoadAllPatientInfo()
         {
             PatientBinding = new BindingSource();
-            DataGridPatients.DataSource = PatientBinding.DataSource = Singletons.pc.patients;
+            DataGridPatients.DataSource = PatientBinding.DataSource = PatientController.Instance().patients;
             DataGridPatients.Update();
             DataGridPatients.Refresh();
         }
@@ -56,7 +56,7 @@ namespace OverSurgery2
         {
                 try
                 {
-                    Singletons.fc.OpenPatientViewForm(Singletons.ml.GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
+                FormController.Instance().OpenPatientViewForm(MetaLayer.Instance().GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +93,7 @@ namespace OverSurgery2
 
         private void btn_NewPatient_Click(object sender, EventArgs e)
         {
-            Singletons.fc.OpenNewPatientForm();
+            FormController.Instance().OpenNewPatientForm();
         }
 
         private void btn_Reload_Click(object sender, EventArgs e)
@@ -105,7 +105,7 @@ namespace OverSurgery2
         private void btn_SearchPatient_Click(object sender, EventArgs e)
         {
             PatientBinding = new BindingSource();
-            var s = Singletons.ml.GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
+            var s = MetaLayer.Instance().GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
             s.SetDoctorDisplay();
             PatientBinding.DataSource = s;
             DataGridPatients.DataSource = PatientBinding;

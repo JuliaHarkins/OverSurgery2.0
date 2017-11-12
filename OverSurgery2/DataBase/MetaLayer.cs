@@ -18,8 +18,10 @@ namespace OverSurgery2
     public class MetaLayer
     {
         static private MetaLayer m_Instance = null;
-
-        private MetaLayer() { }
+        PersonFactory pf;
+        private MetaLayer() {
+            pf = PersonFactory.Instance();
+        }
 
         static public MetaLayer Instance()
         {
@@ -53,7 +55,7 @@ namespace OverSurgery2
                         { "RegisteredDoctorID", dr.GetInt16(6) },
                         { "AddressID", dr.GetInt16(7) },
                     };
-                    patients.Add(Singletons.pf.CreatePatient(values));
+                    patients.Add(pf.CreatePatient(values));
                 };
                 // Close Data Reader
                 dr.Close();
@@ -170,7 +172,7 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-            return Singletons.pf.CreatePatient(id);
+            return pf.CreatePatient(id);
         }
 
         public bool InsertNewPatient(Dictionary<string,object> p_PatientValues)
@@ -304,7 +306,7 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-            return Singletons.pf.CreateStaff(d);
+            return pf.CreateStaff(d);
         }
 
         public string GetResetRequestCode(Staff p_user)
@@ -390,7 +392,7 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-            return Singletons.pf.CreatePatient(d);
+            return pf.CreatePatient(d);
 
         }
 

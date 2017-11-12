@@ -13,10 +13,14 @@ namespace OverSurgery2
     public partial class PasswordResetForm : Form
     {
         Staff m_currentUser;
+        MetaLayer ml;
+        LoginController lc;
         public PasswordResetForm(Staff p_Staff)
         {
             InitializeComponent();
             m_currentUser = p_Staff;
+            ml = MetaLayer.Instance();
+            lc = LoginController.Instance();
             this.ShowDialog();
         }
 
@@ -24,7 +28,7 @@ namespace OverSurgery2
         {
             if (txt_NewPassword.Text == txt_VerifyPassword.Text)
             {
-                if(Singletons.ml.UpdateStaffPassword(m_currentUser, Singletons.lc.HashPassword(txt_VerifyPassword.Text)))
+                if(ml.UpdateStaffPassword(m_currentUser, lc.HashPassword(txt_VerifyPassword.Text)))
                 {
                     MessageBox.Show("Password Reset!");
                 }

@@ -25,7 +25,7 @@ namespace OverSurgery2.Tests
                 { "RegisteredDoctorID", 2 },
                 { "AddressID", 1 }
             };
-            Patient TestPatient = Singletons.pf.CreatePatient(values);
+            Patient TestPatient = PersonFactory.Instance().CreatePatient(values);
             Assert.IsInstanceOfType(TestPatient, typeof(Patient));
         }
 
@@ -45,7 +45,7 @@ namespace OverSurgery2.Tests
                 { "Gender", 0 },
                 { "PhoneNumber", "056742097654"  }
             };
-            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Staff TestStaff = PersonFactory.Instance().CreateStaff(values);
             Assert.IsInstanceOfType(TestStaff, typeof(Staff));
         }
 
@@ -65,7 +65,7 @@ namespace OverSurgery2.Tests
                 { "Gender", 0 },
                 { "PhoneNumber", "056742097654"  }
             };
-            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Staff TestStaff = PersonFactory.Instance().CreateStaff(values);
             Assert.IsInstanceOfType(TestStaff, typeof(Doctor));
         }
 
@@ -85,7 +85,7 @@ namespace OverSurgery2.Tests
                 { "Gender", 0 },
                 { "PhoneNumber", "056742097654"  }
             };
-            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Staff TestStaff = PersonFactory.Instance().CreateStaff(values);
             Assert.IsInstanceOfType(TestStaff, typeof(Receptionist));
         }
 
@@ -106,7 +106,7 @@ namespace OverSurgery2.Tests
                 { "Gender", 0 },
                 { "PhoneNumber", "056742097654"  }
             };
-            Staff TestStaff = Singletons.pf.CreateStaff(values);
+            Staff TestStaff = PersonFactory.Instance().CreateStaff(values);
             Assert.IsInstanceOfType(TestStaff, typeof(Locum));
         }
     }
