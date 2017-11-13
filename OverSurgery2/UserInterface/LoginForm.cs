@@ -12,12 +12,15 @@ namespace OverSurgery2
 {
     public partial class LoginForm : Form
     {
+        LoginController lc;
+        FormController fc;
         public LoginForm()
         {
             InitializeComponent();
+            fc = FormController.Instance();
+            lc = LoginController.Instance();
+
         }
-            LoginController lc = LoginController.Instance();
-            FormController fc = FormController.Instance();
         private void btn_Login_Click(object sender, EventArgs e)
         {
             LoginObserver lo = new LoginObserver();

@@ -15,24 +15,11 @@ namespace OverSurgery2
         /// </summary>
         [STAThread]
         static void Main()
-        {
-            while (true)
-            {
-                switch (Console.ReadKey(true).KeyChar)
-                {
-                    case 's':
-                            Application.EnableVisualStyles();
-                            Application.SetCompatibleTextRenderingDefault(false);
-                            Application.Run(new LoginForm());
-                        break;
-                    case 'h':
-                        Console.Write("Password to be Hashed: ");
-                        Console.WriteLine(LoginController.Instance().HashPassword(Console.ReadLine()));
-                        break;
-                    default:
-                        break;
-                }
-            }
+        {          
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new LoginForm());
+        }
 
         }
 
@@ -41,4 +28,4 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="o"></param>
     }
-}
+

@@ -1,5 +1,5 @@
 Provider=MySQL
-Server=127.0.0.1
+Server=lewisbarnes.ddns.net
 User=DBAccess
 Password=Nricb
 Database=OverSurgery
