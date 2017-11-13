@@ -30,6 +30,7 @@ namespace OverSurgery2
         private bool m_appAttend;
         MetaLayer ml;
 #endregion
+
 #region Properties
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
@@ -41,10 +42,10 @@ namespace OverSurgery2
         public int AppTime { get { return m_appTime; } set { m_appTime = value; } }                                                                               // Stores the date and time of the appointment
         public int AppointmentID { get { return m_appTime; } set { m_appTime = value; } }
         public bool AppAttend { get { return m_appAttend; } set { m_appAttend = value; } }
-        #endregion
+#endregion
 
         /// <summary>
-        /// Gets the details of the appointment from the AppointmentControler and patient details from the database
+        /// Gets the details of the appointment and patient from the database
         /// </summary>
         /// <param name="p_appDate"></param>
         /// <param name="p_appTime"></param>
