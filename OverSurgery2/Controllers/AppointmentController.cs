@@ -54,20 +54,13 @@ namespace OverSurgery2
         /// </summary>
         public void UpdateAppointment(Appointment app)
         {
-            /* Collect data from receptionist
-             * Send data to appointment
-             * Collect existing data from that appointment from metalayer to appointment
-             * Merge the data
-             * Update Database
-             */
-
             ml.UpdateAppointment(app);
         }
 
         /// <summary>
         /// Add a brand new appointment to the database
         /// </summary>
-        public void AddNewAppointment()
+        public void AddNewAppointment(Appointment app)
         {
            /* Collect data from receptionist
             * Send data to appointment

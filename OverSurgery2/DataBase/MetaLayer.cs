@@ -492,10 +492,30 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                Console.WriteLine(Convert.ToInt16(app.AppDate.ToString("yyyymmdd")));
-                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt16(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = " 
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = " 
                     + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes +"', appointmentAttended = " 
                     + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
+
+        public void AddAppointment(Appointment app)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                //`AppointmentID
+                //`AppointmentDate
+                //`AppointmentTime
+                //`AppointmentNote
+                //`AppointmentAttended
+                //`MedicalStaffID
+                //`PatientID`
+
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " + 
+                    Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
                 con.CloseConnection();
             }
         }
