@@ -500,6 +500,10 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// Add new appointment to the database
+        /// </summary>
+        /// <param name="app"></param>
         public void AddAppointment(Appointment app)
         {
             DataConnection con = DBFactory.Instance();
