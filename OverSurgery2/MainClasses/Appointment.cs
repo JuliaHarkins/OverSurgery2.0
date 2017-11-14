@@ -1,6 +1,6 @@
 ﻿/* Created by: L
  * First Created: 20/10/17
- * Last Edit: 07/11/17 16:22
+ * Last Edit: 14/11/17 16:22
  * Last Edit by: R
  */
 
@@ -30,7 +30,6 @@ namespace OverSurgery2
         private bool m_appAttend;
         MetaLayer ml;
 #endregion
-
 #region Properties
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
@@ -42,10 +41,10 @@ namespace OverSurgery2
         public int AppTime { get { return m_appTime; } set { m_appTime = value; } }                                                                               // Stores the date and time of the appointment
         public int AppointmentID { get { return m_appTime; } set { m_appTime = value; } }
         public bool AppAttend { get { return m_appAttend; } set { m_appAttend = value; } }
-#endregion
+        #endregion
 
         /// <summary>
-        /// Gets the details of the appointment and patient from the database
+        /// Gets the details of the appointment from the AppointmentControler and patient details from the database
         /// </summary>
         /// <param name="p_appDate"></param>
         /// <param name="p_appTime"></param>
@@ -57,19 +56,19 @@ namespace OverSurgery2
         /// <param name="p_patientDOB"></param>
         /// <param name="p_appointmentID"></param>
         /// <param name="p_appAttend"></param>
-        public Appointment(Dictionary <string,object> p_AppValues)
+        public Appointment(Dictionary <string,object> p_appValues)
         {
             ml = MetaLayer.Instance();
-            AppointmentID = Convert.ToInt16(p_AppValues["AppID"]);
-            MedicalStaffID = Convert.ToInt16(p_AppValues["RegisteredDoctorID"]);
-            PatientID = Convert.ToInt16(p_AppValues["PatientID"]);
-            AppDate = Convert.ToInt16(p_AppValues["Date"]);
-            AppTime = Convert.ToInt16(p_AppValues["Time"]);
-            Notes = Convert.ToString(p_AppValues["Notes"]);
-            PatientForename = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Forename);
-            PatientSurname = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Surname);
-            PatientDOB = Convert.ToInt16(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).DateOfBirth);
-            AppAttend = Convert.ToBoolean(p_AppValues["Attend"]);
+            AppointmentID = Convert.ToInt16(p_appValues["AppID"]);
+            MedicalStaffID = Convert.ToInt16(p_appValues["RegisteredDoctorID"]);
+            PatientID = Convert.ToInt16(p_appValues["PatientID"]);
+            AppDate = Convert.ToInt16(p_appValues["Date"]);
+            AppTime = Convert.ToInt16(p_appValues["Time"]);
+            Notes = Convert.ToString(p_appValues["Notes"]);
+            PatientForename = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_appValues["PatientID"])).Forename);
+            PatientSurname = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_appValues["PatientID"])).Surname);
+            PatientDOB = Convert.ToInt16(ml.GetPatientByID(Convert.ToInt16(p_appValues["PatientID"])).DateOfBirth);
+            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);
         }
 
 
