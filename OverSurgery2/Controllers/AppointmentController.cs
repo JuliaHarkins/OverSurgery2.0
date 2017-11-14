@@ -18,6 +18,7 @@ namespace OverSurgery2
     public class AppointmentController
     {
         Appointment a;
+
 #region Properties
         List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved
         private string Notes;
@@ -30,7 +31,8 @@ namespace OverSurgery2
         private int AppTime;
         private int AppointmentID;
         private bool AppAttend;
-        #endregion
+#endregion
+
         private static AppointmentController m_instance;
         public static AppointmentController Instance()
         {
@@ -40,13 +42,43 @@ namespace OverSurgery2
             }
             return m_instance;
         }
+
+        /// <summary>
+        /// Update an existing appointment with new data
+        /// </summary>
         public void UpdateAppointment()
         {
-                    
+           /* Collect data from receptionist
+            * Send data to appointment
+            * Collect existing data from that appointment from metalayer to appointment
+            * Merge the data
+            * Update Database
+            */
         }
 
+        /// <summary>
+        /// Add a brand new appointment to the database
+        /// </summary>
         public void AddNewAppointment()
         {
+           /* Collect data from receptionist
+            * Send data to appointment
+            * Forward onto metalayer and update Database
+            */
+        }
+
+        /// <summary>
+        /// Find data about an existing appointment
+        /// </summary>
+        public void GetExistingAppointment()
+        {
+            /* Collect ID from receptionist
+             * Send ID to appointment
+             * Collect existing data from that appointment from metalayer to appointment
+             * Send data from appointment to controller
+             */
+
+            //PatientID = Receptionist.p_patientID;
 
         }
 
