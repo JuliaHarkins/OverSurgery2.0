@@ -8,24 +8,16 @@ using OverSurgery2.Main_Classes;
 namespace OverSurgery2
 {
    /*
-    
-         
-   */
+    * The Doctor class Holds the list of extentions along with all of the
+    * doctors information. The doctor class is inherited from MedicalStaff
+    * 
+    */
     public class Doctor : MedicalStaff
     {
         #region Member Variables 
-        string m_Forename;
-        string m_Surname;
-        string m_email;
-        int m_staffID;
-        string m_username;
-        string m_password;
-        int m_prescriptionLevel;
-        int m_gender;
-        string m_phoneNumber;
         bool m_onCall;
         List<Prescription> m_extension;
-
+        MetaLayer ml;
 
         #endregion
 
@@ -34,11 +26,8 @@ namespace OverSurgery2
         /// 07/11/2017 - j
         /// </summary>
         #region Constructor
-        
-         public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues)
+        public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues)
              {
-                
-                //m_prescriptionLevel = Convert.ToInt16(p_medicalStaffValues["PrescriptionLevel"]);
                 m_onCall = false;
              }
         
@@ -65,7 +54,7 @@ namespace OverSurgery2
         /// takes the perscription, returns a bool, then removes it from the doctors extention requests
         /// 01/11/2017 - j
         /// </summary>
-        /// <param name="p_prescription"></param>
+        /// <param name="p_prescription">the perscription object that is to be extended</param>
         /// <returns></returns>
         private bool ExtendMedication(Prescription p_prescription)
         {
@@ -77,7 +66,7 @@ namespace OverSurgery2
         /// Removes the perscription from the extend list without updating it.
         /// 07/11/2017 - j
         /// </summary>
-        /// <param name="p_prescription"></param>
+        /// <param name="p_prescription">the perscription object that isn't to be extented</param>
         private void RemoveExtention(Prescription p_prescription)
         {
             m_extension.Remove(p_prescription);

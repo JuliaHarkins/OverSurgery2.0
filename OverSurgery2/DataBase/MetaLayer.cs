@@ -492,12 +492,67 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                Console.WriteLine(Convert.ToInt16(app.AppDate.ToString("yyyymmdd")));
-                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt16(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = " 
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = " 
                     + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes +"', appointmentAttended = " 
                     + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
                 con.CloseConnection();
             }
+        }
+
+        /// <summary>
+        /// Add new appointment to the database
+        /// </summary>
+        /// <param name="app"></param>
+        public void AddAppointment(Appointment app)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+               /* AppointmentID
+                * AppointmentDate
+                * AppointmentTime
+                * AppointmentNote
+                * AppointmentAttended
+                * MedicalStaffID
+                * PatientID
+                */
+
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " + 
+                    Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
+                con.CloseConnection();
+            }
+        }
+        public List<Appointment> GetStaffAppointments(int p_staffID)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+        DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
+        Dictionary<string, object> values = null;
+                //Read the data and store them in the list
+                while (dr.Read())
+                {
+                    values = new Dictionary<string, object>
+                    {
+                        { "AppID", dr.GetInt16(0) },
+                        { "Date", dr.GetString(1) },
+                        { "Time", dr.GetString(2) },
+                        { "Notes", dr.GetString(3) },
+                        { "Attend", dr.GetBoolean(4) },
+                        { "MedStaffID", dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6) },
+                    };
+                    appointments.Add(new Appointment(values));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
+            }
+            return appointments;
         }
     }
 }
