@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OverSurgery2
 {
@@ -31,7 +28,7 @@ namespace OverSurgery2
         /// </summary>
         /// <example>
         /// This example shows you how to use the <see cref="CreateStaff(object[])"/> method.
-        /// <c></c>
+        /// <c>CreateStaff</c>
         /// </example>
         /// <param name="values">Type(1-5),Forename,Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
@@ -79,7 +76,7 @@ namespace OverSurgery2
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="p_args">Forename, Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <param name="p_values">Forename, Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
         /// <returns></returns>
         public Doctor CreateDoctor(Dictionary<string, object> p_values)
         {

@@ -1,6 +1,6 @@
 ﻿/* Created by: J
  * Date Created : 31/10/17
- * Last Edit: 07/11/17 16:22
+ * Last Edit: 14/11/17 16:22
  * Last Edit by: R
  */
 
@@ -20,18 +20,14 @@ namespace OverSurgery2
         Appointment a;
 
 #region Properties
-        List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved
-        private string Notes;
-        private int MedicalStaffID;
-        private int PatientID;
-        private string PatientForename;
-        private string PatientSurname;
-        private int PatientDOB;
-        private int AppDate;
-        private int AppTime;
-        private int AppointmentID;
-        private bool AppAttend;
+        List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved       
+        MetaLayer ml;
 #endregion
+
+        private AppointmentController()
+        {
+            ml = MetaLayer.Instance();
+        }
 
         private static AppointmentController m_instance;
         public static AppointmentController Instance()
@@ -46,46 +42,25 @@ namespace OverSurgery2
         /// <summary>
         /// Update an existing appointment with new data
         /// </summary>
-        public void UpdateAppointment()
+        public void UpdateAppointment(Appointment app)
         {
-           /* Collect data from receptionist
-            * Send data to appointment
-            * Collect existing data from that appointment from metalayer to appointment
-            * Merge the data
-            * Update Database
-            */
+            ml.UpdateAppointment(app);
         }
 
         /// <summary>
         /// Add a brand new appointment to the database
         /// </summary>
-        public void AddNewAppointment()
+        public void AddNewAppointment(Appointment app)
         {
-           /* Collect data from receptionist
-            * Send data to appointment
-            * Forward onto metalayer and update Database
-            */
+            ml.AddAppointment(app);
         }
 
         /// <summary>
         /// Find data about an existing appointment
         /// </summary>
-        public void GetExistingAppointment()
+        public void GetExistingAppointment(int p_patientID)
         {
-            /* Collect ID from receptionist
-             * Send ID to appointment
-             * Collect existing data from that appointment from metalayer to appointment
-             * Send data from appointment to controller
-             */
-
-            //PatientID = Receptionist.p_patientID;
-
+            ml.GetAppointmentById(p_patientID);
         }
-
-        //public void test()
-        //{
-        //    a = new Appointment(20170101,03033000, 12, 12, "12", "12", "12", 20121212, 4326645);
-        //    string testNotes = a.Notes;
-        //}
     }
 }

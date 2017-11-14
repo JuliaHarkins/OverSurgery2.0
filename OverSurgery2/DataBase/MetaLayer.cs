@@ -132,7 +132,7 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT forename, surname FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid ="+p_id+" and staff.staffid = medicalstaff.staffid);");
+                DbDataReader dr = con.Select("SELECT forename, surname FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
 
                 while (dr.Read())
                 {
@@ -175,7 +175,7 @@ namespace OverSurgery2
             return pf.CreatePatient(id);
         }
 
-        public bool InsertNewPatient(Dictionary<string,object> p_PatientValues)
+        public bool InsertNewPatient(Dictionary<string, object> p_PatientValues)
         {
             {
                 DataConnection con = DBFactory.Instance();
@@ -183,13 +183,13 @@ namespace OverSurgery2
                 {
                     try
                     {
-                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["Gender"] + ","+ p_PatientValues["DateOfBirth"]+ "," + p_PatientValues["PhoneNumber"]+","+
+                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["Gender"] + "," + p_PatientValues["DateOfBirth"] + "," + p_PatientValues["PhoneNumber"] + "," +
                             p_PatientValues["RegisteredDoctorID"] + p_PatientValues["AddressID"] + ");");
                         con.CloseConnection();
                         return true;
-                        
+
                     }
-                    catch(Exception e)
+                    catch (Exception e)
                     {
                         Console.WriteLine(e.Message);
                         throw e;
@@ -300,7 +300,7 @@ namespace OverSurgery2
                         { "Type", dr.GetInt16(7) },
                         { "Gender", 0 },
                         { "PhoneNumber", " " }
-                       
+
                     };
                 }
                 dr.Close();
@@ -389,7 +389,7 @@ namespace OverSurgery2
                         { "RegisteredDoctorID", dr.GetInt16(6) },
                         { "AddressID", dr.GetInt16(7) },
                         { "Email", dr.GetString(8) }
-                    }; 
+                    };
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -431,13 +431,94 @@ namespace OverSurgery2
                         { "MedStaffID", dr1.GetInt16(5) },
                         { "PatientID", dr1.GetInt16(6) },
                     };
-                    
+
                 }
                 dr1.Close();
                 con.CloseConnection();
             }
             return new Appointment(appValues);
 
+        }
+
+        /// <summary>
+        /// Get appointment from the database using a given id for a specific appointment
+        /// </summary>
+        /// <param name="appointmentid"></param>
+        /// <returns></returns>
+        public Appointment GetAppointmentById(int appointmentid)
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> appValues;
+            appValues = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                // Find appointment specific data
+                DbDataReader dr1 = con.Select("SELECT * FROM Appointment WHERE appointmentID = " + appointmentid + ";");
+                while (dr1.Read())
+                {
+                    /* AppointmentID 
+                     * AppointmentDate
+                     * AppointmentTime
+                     * AppointmentNote
+                     * AppointmentAttended
+                     * MedicalStaffID
+                     * PatientID
+                     */
+                    appValues = new Dictionary<string, object>
+                    {
+                        { "AppID", dr1.GetInt16(0) },
+                        { "Date", dr1.GetString(1) },
+                        { "Time", dr1.GetString(2) },
+                        { "Notes", dr1.GetString(3) },
+                        { "Attend", dr1.GetBoolean(4) },
+                        { "MedStaffID", dr1.GetInt16(5) },
+                        { "PatientID", dr1.GetInt16(6) },
+                    };
+
+                }
+                dr1.Close();
+                con.CloseConnection();
+            }
+            return new Appointment(appValues);
+        }
+
+        /// <summary>
+        /// Update Appointment in the database to take new values
+        /// </summary>
+        /// <param name="app"></param>
+        public void UpdateAppointment(Appointment app)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = " 
+                    + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes +"', appointmentAttended = " 
+                    + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
+
+        public void AddAppointment(Appointment app)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+               /* AppointmentID
+                * AppointmentDate
+                * AppointmentTime
+                * AppointmentNote
+                * AppointmentAttended
+                * MedicalStaffID
+                * PatientID
+                */
+
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " + 
+                    Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
+                con.CloseConnection();
+            }
         }
         public List<Appointment> GetStaffAppointments(int staffID)
         {
