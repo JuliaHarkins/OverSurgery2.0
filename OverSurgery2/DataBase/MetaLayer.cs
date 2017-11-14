@@ -113,12 +113,6 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    medication.Add(new Medication
-                    {
-                        ID = dr.GetInt32(0),
-                        Name = dr.GetString(1),
-                        PermissionLevel = dr.GetInt32(2)
-                    });
                 }
                 dr.Close();
                 con.CloseConnection();
