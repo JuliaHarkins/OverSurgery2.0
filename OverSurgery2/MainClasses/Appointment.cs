@@ -33,7 +33,7 @@ namespace OverSurgery2
         public int PatientID { get { return m_patientID; } set { m_patientID = value; } }        
         public int AppDate { get { return m_appDate; } set { m_appDate = value; } }
         public int AppTime { get { return m_appTime; } set { m_appTime = value; } }                                                                               // Stores the date and time of the appointment
-        public int AppointmentID { get { return m_appTime; } set { m_appTime = value; } }
+        public int AppointmentID { get { return m_appointmentID; } set { m_appointmentID = value; } }
         public bool AppAttend { get { return m_appAttend; } set { m_appAttend = value; } }
         #endregion
 
