@@ -8,20 +8,27 @@ namespace OverSurgery2.Main_Classes
 {
     public class Rota
     {
+#region Member Variables
         List<Rota> StaffTimes = new List<Rota>();
         MetaLayer ml;
-
+        private static Rota m_instance;
         private int m_rotaEntryID;
         private int m_medicalStaffID;
         private int m_startTime;
         private int m_endTime;
+#endregion
 
+#region Properties
         public int RotaEntryID { get { return m_rotaEntryID; } set { m_rotaEntryID = value; } }
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
+#endregion
+        private Rota()
+        {
+            ml = MetaLayer.Instance();
+        }
 
-        private static Rota m_instance;
         public static Rota Instance()
         {
             if (null == m_instance)
