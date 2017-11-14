@@ -56,6 +56,7 @@ namespace OverSurgery
             }
             return patients;
         }
+
         public Tuple<string, string, int?> GetLogin(string p_username)
         {
             #region Declaration
@@ -93,6 +94,7 @@ namespace OverSurgery
             return m_login;
             #endregion
         }
+
         public List<Medication> getMedication()
         {
             List<Medication> medication = new List<Medication>();
@@ -116,6 +118,7 @@ namespace OverSurgery
             }
             return medication;
         }
+
         public Patient getPatientByID(int id)
         {
             int Id = 0;
@@ -141,6 +144,7 @@ namespace OverSurgery
             return p;
 
         }
+
         public string getAddressByID(int id)
         {
             string address = null;
@@ -195,6 +199,7 @@ namespace OverSurgery
             }
             return verificationcode;
         }
+
         public void NewResetRequest(string username, string verificationcode)
         {
             DataConnection con = DBFactory.Instance();
@@ -205,6 +210,7 @@ namespace OverSurgery
                 con.CloseConnection();
             }
         }
+
         public bool UpdateStaffPassword(string user, string newPassword)
         {
             DataConnection con = DBFactory.Instance();
