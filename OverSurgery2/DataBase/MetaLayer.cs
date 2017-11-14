@@ -520,14 +520,14 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
-        public List<Appointment> GetStaffAppointments(int staffID)
+        public List<Appointment> GetStaffAppointments(int p_staffID)
         {
             List<Appointment> appointments = new List<Appointment>();
 
         DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM patient ORDER BY AppointmentTime;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
         Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())

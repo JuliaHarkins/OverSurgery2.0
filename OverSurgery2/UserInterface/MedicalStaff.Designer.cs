@@ -1,6 +1,6 @@
 ﻿namespace OverSurgery2.UserInterface
 {
-    partial class MedicalStaff
+    partial class MedicalStaffFrom
     {
         /// <summary>
         /// Required designer variable.
@@ -36,18 +36,14 @@
             this.lb_appnotes = new System.Windows.Forms.Label();
             this.btn_addPerscription = new System.Windows.Forms.Button();
             this.btn_saveNotes = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.appTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patientForname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.patientLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.appNotes = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.grd_AppointmentList = new System.Windows.Forms.DataGridView();
             this.btn_nextPatient = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.lb_appList = new System.Windows.Forms.Label();
             this.lb_MedHistory = new System.Windows.Forms.Label();
             this.btn_extRequest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicalHistory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grd_AppointmentList)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_CurrentNotes
@@ -128,52 +124,19 @@
             this.btn_saveNotes.UseVisualStyleBackColor = true;
             this.btn_saveNotes.Click += new System.EventHandler(this.btn_saveNotes_Click);
             // 
-            // dataGridView1
+            // grd_AppointmentList
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.AllowUserToDeleteRows = false;
-            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.appTime,
-            this.patientForname,
-            this.patientLastName,
-            this.appNotes});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 93);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(830, 150);
-            this.dataGridView1.TabIndex = 12;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // appTime
-            // 
-            this.appTime.HeaderText = "Time";
-            this.appTime.Name = "appTime";
-            this.appTime.ReadOnly = true;
-            this.appTime.Width = 55;
-            // 
-            // patientForname
-            // 
-            this.patientForname.HeaderText = "Forname";
-            this.patientForname.Name = "patientForname";
-            this.patientForname.ReadOnly = true;
-            this.patientForname.Width = 73;
-            // 
-            // patientLastName
-            // 
-            this.patientLastName.HeaderText = "Surname";
-            this.patientLastName.Name = "patientLastName";
-            this.patientLastName.ReadOnly = true;
-            this.patientLastName.Width = 74;
-            // 
-            // appNotes
-            // 
-            this.appNotes.HeaderText = "Notes";
-            this.appNotes.Name = "appNotes";
-            this.appNotes.ReadOnly = true;
-            this.appNotes.Width = 60;
+            this.grd_AppointmentList.AllowUserToAddRows = false;
+            this.grd_AppointmentList.AllowUserToDeleteRows = false;
+            this.grd_AppointmentList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.grd_AppointmentList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.grd_AppointmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.grd_AppointmentList.Location = new System.Drawing.Point(12, 93);
+            this.grd_AppointmentList.Name = "grd_AppointmentList";
+            this.grd_AppointmentList.ReadOnly = true;
+            this.grd_AppointmentList.Size = new System.Drawing.Size(830, 150);
+            this.grd_AppointmentList.TabIndex = 12;
+            this.grd_AppointmentList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grd_AppointmentList_CellContentClick);
             // 
             // btn_nextPatient
             // 
@@ -225,7 +188,7 @@
             this.btn_extRequest.UseVisualStyleBackColor = true;
             this.btn_extRequest.Click += new System.EventHandler(this.btn_extRequest_Click);
             // 
-            // MedicalStaff
+            // MedicalStaffFrom
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -235,17 +198,17 @@
             this.Controls.Add(this.lb_appList);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btn_nextPatient);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.grd_AppointmentList);
             this.Controls.Add(this.btn_saveNotes);
             this.Controls.Add(this.btn_addPerscription);
             this.Controls.Add(this.lb_appnotes);
             this.Controls.Add(this.dgv_medicalHistory);
             this.Controls.Add(this.txt_CurrentNotes);
-            this.Name = "MedicalStaff";
+            this.Name = "MedicalStaffFrom";
             this.Text = "MedicalStaff";
             this.Load += new System.EventHandler(this.MedicalStaff_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicalHistory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.grd_AppointmentList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -260,11 +223,7 @@
         private System.Windows.Forms.Label lb_appnotes;
         private System.Windows.Forms.Button btn_addPerscription;
         private System.Windows.Forms.Button btn_saveNotes;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn appTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patientForname;
-        private System.Windows.Forms.DataGridViewTextBoxColumn patientLastName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn appNotes;
+        private System.Windows.Forms.DataGridView grd_AppointmentList;
         private System.Windows.Forms.Button btn_nextPatient;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label lb_appList;

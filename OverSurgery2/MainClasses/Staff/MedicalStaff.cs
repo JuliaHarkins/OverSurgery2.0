@@ -38,6 +38,17 @@ namespace OverSurgery2
                 m_prescriptionLevel = value;
             }
         }
+        public uint? MedicalStaffID
+        {
+            get
+            {
+                return m_medicalStaffID;
+            }
+            set
+            {
+                m_medicalStaffID = value;
+            }
+        }
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {

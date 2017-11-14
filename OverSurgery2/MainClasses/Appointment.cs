@@ -25,6 +25,8 @@ namespace OverSurgery2
         private int m_appTime;
         private int m_appointmentID;
         private bool m_appAttend;
+        private string m_forenameDisplay;
+        private string m_surnameDisplay;
         MetaLayer ml;
 #endregion
 #region Properties
@@ -35,7 +37,10 @@ namespace OverSurgery2
         public int AppTime { get { return m_appTime; } set { m_appTime = value; } }                                                                               // Stores the date and time of the appointment
         public int AppointmentID { get { return m_appointmentID; } set { m_appointmentID = value; } }
         public bool AppAttend { get { return m_appAttend; } set { m_appAttend = value; } }
+        public string ForeNameDisplay { get { return m_forenameDisplay; } }
+        public string SurNameDisplay { get { return m_surnameDisplay; } }
         #endregion
+
 
         /// <summary>
         /// Gets the details of the appointment from the AppointmentControler and patient details from the database
@@ -59,7 +64,13 @@ namespace OverSurgery2
             AppDate = Convert.ToInt16(p_appValues["Date"]);
             AppTime = Convert.ToInt16(p_appValues["Time"]);
             Notes = Convert.ToString(p_appValues["Notes"]);
-            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);         
+            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);
+            
+        }
+        public void SetNameDisplay()
+        {
+            m_forenameDisplay = ml.GetPatientByID(m_patientID).Forename;
+            m_surnameDisplay = ml.GetPatientByID(m_patientID).Surname;
         }
 
 
