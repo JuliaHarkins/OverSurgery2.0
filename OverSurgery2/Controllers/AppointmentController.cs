@@ -20,17 +20,7 @@ namespace OverSurgery2
         Appointment a;
 
 #region Properties
-        List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved
-        private string m_notes;
-        private int m_medicalStaffID;
-        private int m_patientID;
-        private string m_patientForename;
-        private string m_patientSurname;
-        private int m_patientDOB;
-        private int m_appDate;
-        private int m_appTime;
-        private int m_appointmentID;
-        private bool m_appAttend;
+        List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved       
         MetaLayer ml;
 #endregion
 
@@ -62,34 +52,15 @@ namespace OverSurgery2
         /// </summary>
         public void AddNewAppointment(Appointment app)
         {
-           /* Collect data from receptionist
-            * Send data to appointment
-            * Forward onto metalayer and update Database
-            */
-
-
+            ml.AddAppointment(app);
         }
 
         /// <summary>
         /// Find data about an existing appointment
         /// </summary>
-        public void GetExistingAppointment()
+        public void GetExistingAppointment(int p_patientID)
         {
-            /* Collect ID from receptionist
-             * Send ID to appointment
-             * Collect existing data from that appointment from metalayer to appointment
-             * Send data from appointment to controller
-             */
-
-            //PatientID = Receptionist.p_patientID;
-
-
+            ml.GetAppointmentById(p_patientID);
         }
-
-        //public void test()
-        //{
-        //    a = new Appointment(20170101,03033000, 12, 12, "12", "12", "12", 20121212, 4326645);
-        //    string testNotes = a.Notes;
-        //}
     }
 }

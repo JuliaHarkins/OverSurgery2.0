@@ -59,7 +59,7 @@ namespace OverSurgery2
             AppDate = Convert.ToInt16(p_appValues["Date"]);
             AppTime = Convert.ToInt16(p_appValues["Time"]);
             Notes = Convert.ToString(p_appValues["Notes"]);
-            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);
+            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);         
         }
 
 

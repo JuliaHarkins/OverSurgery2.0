@@ -505,13 +505,14 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                //`AppointmentID
-                //`AppointmentDate
-                //`AppointmentTime
-                //`AppointmentNote
-                //`AppointmentAttended
-                //`MedicalStaffID
-                //`PatientID`
+               /* AppointmentID
+                * AppointmentDate
+                * AppointmentTime
+                * AppointmentNote
+                * AppointmentAttended
+                * MedicalStaffID
+                * PatientID
+                */
 
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
                 con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " + 
