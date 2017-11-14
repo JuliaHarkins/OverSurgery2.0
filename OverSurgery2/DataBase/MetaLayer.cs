@@ -554,6 +554,40 @@ namespace OverSurgery2
             }
             return appointments;
         }
+
+        /// <summary>
+        /// Get rota information from the database
+        /// </summary>
+        /// <param name="p_rotaEntryID"></param>
+        /// <returns></returns>
+        public Rota GetStaffRota(int p_rotaEntryID)
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                // Find appointment specific data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rotaEntryID + ";");
+                while (dr1.Read())
+                {
+                    
+                    rotaValues = new Dictionary<string, object>
+                    {
+                        { "RotaID", dr1.GetInt16(0) },
+                        { "MedicalStaffID", dr1.GetString(1) },
+                        { "StartDateTime", dr1.GetString(2) },
+                        { "EndDateTime", dr1.GetString(3) },
+    
+                    };
+
+                }
+                dr1.Close();
+                con.CloseConnection();
+            }
+            return new Rota(rotaValues);
+        }
     }
 }
 
