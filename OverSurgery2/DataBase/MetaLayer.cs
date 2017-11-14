@@ -556,11 +556,11 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Get rota information from the database
+        /// Get all rota information from the database
         /// </summary>
         /// <param name="p_rotaEntryID"></param>
         /// <returns></returns>
-        public Rota GetStaffRota(int p_rotaEntryID)
+        public Rota GetStaffRota()
         {
             // Read appointment values into dictionary
             Dictionary<string, object> rotaValues;
@@ -568,8 +568,8 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-                // Find appointment specific data
-                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rotaEntryID + ";");
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota;");
                 while (dr1.Read())
                 {
                     

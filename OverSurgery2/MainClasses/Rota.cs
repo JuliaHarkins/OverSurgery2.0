@@ -21,6 +21,16 @@ namespace OverSurgery2.Main_Classes
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
 
+        private static Rota m_instance;
+        public static Rota Instance()
+        {
+            if (null == m_instance)
+            {
+                m_instance = new Rota();
+            }
+            return m_instance;
+        }
+
         /// <summary>
         /// Collect rota information from the metalayer
         /// </summary>
@@ -48,6 +58,14 @@ namespace OverSurgery2.Main_Classes
         public void UpdateRota()
         {
 
+        }
+
+        /// <summary>
+        /// Get the rota from the metalayer
+        /// </summary>
+        public void GetRota()
+        {
+            ml.GetStaffRota();
         }
     }
 }
