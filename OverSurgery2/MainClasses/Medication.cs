@@ -15,15 +15,65 @@ namespace OverSurgery2
     public class Medication
     {
 #region Member Variables
-        private int m_id;
-        private string m_name;
-        private int m_permissionLevel;
-
-        public string Name { get { return m_name; } set { m_name = value; } }
-        public int PermissionLevel { get { return m_permissionLevel; } set { m_permissionLevel = value; } }
-        public int ID { get { return m_id; } set { m_id = value; } }
+        private uint? m_id;
+        private string m_medicationName;
+        private uint? m_permissionLevel;
+        private uint? m_dosage;
 #endregion
 #region Constructors
+        public Medication(Dictionary<string, object> p_medicationData)
+        {
+            m_id = Convert.ToUInt16(p_medicationData["MedicationID"]);
+            m_medicationName = Convert.ToString(p_medicationData["MedicationName"]);
+            m_permissionLevel = Convert.ToUInt16(p_medicationData["PermissionLevel"]);
+            m_dosage = Convert.ToUInt16(p_medicationData["Dosage"]);
+        }
+#endregion
+#region Properties
+        public string Name
+        {
+            get
+            {
+                return m_medicationName;
+            }
+            set
+            {
+                m_medicationName = value;
+            }
+        }
+        public uint? PermissionLevel
+        {
+            get
+            {
+                return m_permissionLevel;
+            }
+            set
+            {
+                m_permissionLevel = value;
+            }
+        }
+        public uint? ID
+        {
+            get
+            {
+                return m_id;
+            }
+            set
+            {
+                m_id = value;
+            }
+        }
+        public uint? Dosage
+        {
+            get
+            {
+                return m_dosage;
+            }
+            set
+            {
+                m_dosage = value;
+            }
+        }
 #endregion
     }
 }
