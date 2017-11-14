@@ -1,6 +1,6 @@
 ﻿/* Created by: L
  * First Created: 20/10/17
- * Last Edit: 14/11/17 16:22
+ * Last Edit: 07/11/17 16:22
  * Last Edit by: R
  */
 
@@ -56,19 +56,19 @@ namespace OverSurgery2
         /// <param name="p_patientDOB"></param>
         /// <param name="p_appointmentID"></param>
         /// <param name="p_appAttend"></param>
-        public Appointment(Dictionary <string,object> p_appValues)
+        public Appointment(Dictionary <string,object> p_AppValues)
         {
             ml = MetaLayer.Instance();
-            AppointmentID = Convert.ToInt16(p_appValues["AppID"]);
-            MedicalStaffID = Convert.ToInt16(p_appValues["RegisteredDoctorID"]);
-            PatientID = Convert.ToInt16(p_appValues["PatientID"]);
-            AppDate = Convert.ToInt16(p_appValues["Date"]);
-            AppTime = Convert.ToInt16(p_appValues["Time"]);
-            Notes = Convert.ToString(p_appValues["Notes"]);
-            PatientForename = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_appValues["PatientID"])).Forename);
-            PatientSurname = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_appValues["PatientID"])).Surname);
-            PatientDOB = Convert.ToInt16(ml.GetPatientByID(Convert.ToInt16(p_appValues["PatientID"])).DateOfBirth);
-            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);
+            AppointmentID = Convert.ToInt16(p_AppValues["AppID"]);
+            MedicalStaffID = Convert.ToInt16(p_AppValues["RegisteredDoctorID"]);
+            PatientID = Convert.ToInt16(p_AppValues["PatientID"]);
+            AppDate = Convert.ToInt16(p_AppValues["Date"]);
+            AppTime = Convert.ToInt16(p_AppValues["Time"]);
+            Notes = Convert.ToString(p_AppValues["Notes"]);
+            PatientForename = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Forename);
+            PatientSurname = Convert.ToString(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).Surname);
+            PatientDOB = Convert.ToInt16(ml.GetPatientByID(Convert.ToInt16(p_AppValues["PatientID"])).DateOfBirth);
+            AppAttend = Convert.ToBoolean(p_AppValues["Attend"]);
         }
 
 

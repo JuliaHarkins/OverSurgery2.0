@@ -154,6 +154,7 @@
             this.Controls.Add(this.lbl_Forename);
             this.Name = "ViewPatientInfoForm";
             this.Text = "ViewPatientInfoForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ViewPatientInfoForm_FormClosing);
             this.Load += new System.EventHandler(this.ViewPatientInfoForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

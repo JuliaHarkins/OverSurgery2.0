@@ -45,5 +45,10 @@ namespace OverSurgery2
         {
 
         }
+
+        private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            currentPatient.Dispose();
+        }
     }
 }
