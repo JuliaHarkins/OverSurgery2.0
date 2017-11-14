@@ -21,9 +21,8 @@ namespace OverSurgery2
         #region Constructors
         public MedicalStaff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
         {
-           
-            //m_medicalStaffID = Convert.ToUInt16(p_PersonValues["MedicalStaffID"]);
-            //m_prescriptionLevel = Convert.ToUInt16(p_PersonValues["PrescriptionLevel"]);
+            PrescriptionLevel = 1;
+            m_medicalStaffID = Convert.ToUInt16(p_PersonValues["MedicalStaffID"]);
             
         }
         #endregion
