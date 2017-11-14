@@ -53,10 +53,11 @@
             // txt_CurrentNotes
             // 
             this.txt_CurrentNotes.FormattingEnabled = true;
-            this.txt_CurrentNotes.Location = new System.Drawing.Point(12, 318);
+            this.txt_CurrentNotes.Location = new System.Drawing.Point(12, 265);
             this.txt_CurrentNotes.Name = "txt_CurrentNotes";
             this.txt_CurrentNotes.Size = new System.Drawing.Size(830, 160);
             this.txt_CurrentNotes.TabIndex = 3;
+            this.txt_CurrentNotes.SelectedIndexChanged += new System.EventHandler(this.txt_CurrentNotes_SelectedIndexChanged);
             // 
             // dgv_medicalHistory
             // 
@@ -69,11 +70,12 @@
             this.date,
             this.notes,
             this.prescriptions});
-            this.dgv_medicalHistory.Location = new System.Drawing.Point(12, 497);
+            this.dgv_medicalHistory.Location = new System.Drawing.Point(12, 444);
             this.dgv_medicalHistory.Name = "dgv_medicalHistory";
             this.dgv_medicalHistory.ReadOnly = true;
             this.dgv_medicalHistory.Size = new System.Drawing.Size(960, 280);
             this.dgv_medicalHistory.TabIndex = 8;
+            this.dgv_medicalHistory.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_medicalHistory_CellContentClick);
             // 
             // date
             // 
@@ -99,7 +101,7 @@
             // lb_appnotes
             // 
             this.lb_appnotes.AutoSize = true;
-            this.lb_appnotes.Location = new System.Drawing.Point(9, 299);
+            this.lb_appnotes.Location = new System.Drawing.Point(9, 246);
             this.lb_appnotes.Name = "lb_appnotes";
             this.lb_appnotes.Size = new System.Drawing.Size(97, 13);
             this.lb_appnotes.TabIndex = 9;
@@ -108,7 +110,7 @@
             // 
             // btn_addPerscription
             // 
-            this.btn_addPerscription.Location = new System.Drawing.Point(848, 424);
+            this.btn_addPerscription.Location = new System.Drawing.Point(848, 371);
             this.btn_addPerscription.Name = "btn_addPerscription";
             this.btn_addPerscription.Size = new System.Drawing.Size(124, 25);
             this.btn_addPerscription.TabIndex = 10;
@@ -118,12 +120,13 @@
             // 
             // btn_saveNotes
             // 
-            this.btn_saveNotes.Location = new System.Drawing.Point(848, 453);
+            this.btn_saveNotes.Location = new System.Drawing.Point(848, 400);
             this.btn_saveNotes.Name = "btn_saveNotes";
             this.btn_saveNotes.Size = new System.Drawing.Size(124, 25);
             this.btn_saveNotes.TabIndex = 11;
             this.btn_saveNotes.Text = "Save Notes";
             this.btn_saveNotes.UseVisualStyleBackColor = true;
+            this.btn_saveNotes.Click += new System.EventHandler(this.btn_saveNotes_Click);
             // 
             // dataGridView1
             // 
@@ -137,11 +140,12 @@
             this.patientForname,
             this.patientLastName,
             this.appNotes});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 146);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 93);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(830, 150);
             this.dataGridView1.TabIndex = 12;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // appTime
             // 
@@ -173,17 +177,18 @@
             // 
             // btn_nextPatient
             // 
-            this.btn_nextPatient.Location = new System.Drawing.Point(848, 271);
+            this.btn_nextPatient.Location = new System.Drawing.Point(848, 218);
             this.btn_nextPatient.Name = "btn_nextPatient";
             this.btn_nextPatient.Size = new System.Drawing.Size(126, 25);
             this.btn_nextPatient.TabIndex = 13;
             this.btn_nextPatient.Text = "Next Patient";
             this.btn_nextPatient.UseVisualStyleBackColor = true;
+            this.btn_nextPatient.Click += new System.EventHandler(this.btn_nextPatient_Click);
             // 
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(822, 793);
+            this.button1.Location = new System.Drawing.Point(822, 740);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(150, 30);
             this.button1.TabIndex = 14;
@@ -193,29 +198,32 @@
             // lb_appList
             // 
             this.lb_appList.AutoSize = true;
-            this.lb_appList.Location = new System.Drawing.Point(12, 130);
+            this.lb_appList.Location = new System.Drawing.Point(12, 77);
             this.lb_appList.Name = "lb_appList";
             this.lb_appList.Size = new System.Drawing.Size(85, 13);
             this.lb_appList.TabIndex = 15;
             this.lb_appList.Text = "Appointment List";
+            this.lb_appList.Click += new System.EventHandler(this.lb_appList_Click);
             // 
             // lb_MedHistory
             // 
             this.lb_MedHistory.AutoSize = true;
-            this.lb_MedHistory.Location = new System.Drawing.Point(9, 481);
+            this.lb_MedHistory.Location = new System.Drawing.Point(9, 428);
             this.lb_MedHistory.Name = "lb_MedHistory";
             this.lb_MedHistory.Size = new System.Drawing.Size(79, 13);
             this.lb_MedHistory.TabIndex = 16;
             this.lb_MedHistory.Text = "Medical History";
+            this.lb_MedHistory.Click += new System.EventHandler(this.lb_MedHistory_Click);
             // 
             // btn_extRequest
             // 
-            this.btn_extRequest.Location = new System.Drawing.Point(12, 793);
+            this.btn_extRequest.Location = new System.Drawing.Point(12, 740);
             this.btn_extRequest.Name = "btn_extRequest";
             this.btn_extRequest.Size = new System.Drawing.Size(150, 30);
             this.btn_extRequest.TabIndex = 17;
             this.btn_extRequest.Text = "Extention Requests: ";
             this.btn_extRequest.UseVisualStyleBackColor = true;
+            this.btn_extRequest.Click += new System.EventHandler(this.btn_extRequest_Click);
             // 
             // MedicalStaff
             // 

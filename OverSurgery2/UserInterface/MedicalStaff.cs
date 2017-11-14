@@ -17,31 +17,6 @@ namespace OverSurgery2.UserInterface
             InitializeComponent();
         }
 
-        private void medHSymtom_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void medHDate_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void lb_notes_Click(object sender, EventArgs e)
         {
 
@@ -49,10 +24,50 @@ namespace OverSurgery2.UserInterface
 
         private void btn_addPerscription_Click(object sender, EventArgs e)
         {
-
+            new AddPrescription();
         }
 
         private void MedicalStaff_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_extRequest_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_MedHistory_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_appList_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dgv_medicalHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txt_CurrentNotes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
+
+        private void btn_saveNotes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btn_nextPatient_Click(object sender, EventArgs e)
         {
 
         }
