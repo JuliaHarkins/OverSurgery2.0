@@ -439,6 +439,36 @@ namespace OverSurgery2
             return new Appointment(appValues);
 
         }
+        public List<Appointment> GetStaffAppointments(int staffID)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+        DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM patient ORDER BY AppointmentTime;");
+        Dictionary<string, object> values = null;
+                //Read the data and store them in the list
+                while (dr.Read())
+                {
+                    values = new Dictionary<string, object>
+                    {
+                        { "AppID", dr.GetInt16(0) },
+                        { "Date", dr.GetString(1) },
+                        { "Time", dr.GetString(2) },
+                        { "Notes", dr.GetString(3) },
+                        { "Attend", dr.GetBoolean(4) },
+                        { "MedStaffID", dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6) },
+                    };
+                    appointments.Add(new Appointment(values));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
+            }
+            return appointments;
+        }
     }
 }
 
