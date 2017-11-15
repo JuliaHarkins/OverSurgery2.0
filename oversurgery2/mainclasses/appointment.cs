@@ -27,6 +27,7 @@ namespace OverSurgery2
         private bool m_appAttend;
         private string m_forenameDisplay;
         private string m_surnameDisplay;
+        private string m_timeDisplay;
         MetaLayer ml;
 #endregion
 #region Properties
@@ -39,6 +40,7 @@ namespace OverSurgery2
         public bool AppAttend { get { return m_appAttend; } set { m_appAttend = value; } }
         public string ForeNameDisplay { get { return m_forenameDisplay; } }
         public string SurNameDisplay { get { return m_surnameDisplay; } }
+        public string TimeDisplay { get { return m_timeDisplay; } set { m_timeDisplay = value; } }
         #endregion
 
 
@@ -52,8 +54,9 @@ namespace OverSurgery2
             AppointmentID = Convert.ToInt16(p_appValues["AppID"]);
             MedicalStaffID = Convert.ToInt16(p_appValues["MedStaffID"]);
             PatientID = Convert.ToInt16(p_appValues["PatientID"]);
-            AppDate = Convert.ToDateTime(p_appValues["Date"]);
+            AppDate = DateTime.Parse(p_appValues["Date"].ToString());
             AppTime = DateTime.Parse(p_appValues["Time"].ToString());
+            TimeDisplay = AppTime.ToShortTimeString();
             Notes = Convert.ToString(p_appValues["Notes"]);
             AppAttend = Convert.ToBoolean(p_appValues["Attend"]);
             
