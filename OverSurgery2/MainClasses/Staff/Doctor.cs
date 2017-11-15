@@ -7,11 +7,13 @@ using OverSurgery2.Main_Classes;
 
 namespace OverSurgery2
 {
-   /*
-    * The Doctor class Holds the list of extentions along with all of the
-    * doctors information. The doctor class is inherited from MedicalStaff
-    * 
-    */
+    /*
+     * The Doctor class Holds the list of extentions along with all of the
+     * doctors information. The doctor class is inherited from MedicalStaff
+     * 
+     * Last Updated : 15/11/17
+     * By: J
+     */
     public class Doctor : MedicalStaff
     {
         #region Member Variables 

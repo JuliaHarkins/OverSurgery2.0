@@ -7,10 +7,14 @@ using OverSurgery2.Main_Classes;
 
 namespace OverSurgery2
 {
-    /// <summary>
-    /// Created By: J
-    /// Date Created : 31/10/17
-    /// </summary>
+    /*
+    * The object used to update patient details and appointments,
+    * this also includes the creation of appointments, and sends 
+    * extention requests for the doctor to sign off on.
+    * 
+    * Created By: J
+    * Last Updated : 14/11/17
+    */
     public class Receptionist : Staff
     {
 #region Member Variables
@@ -43,21 +47,36 @@ namespace OverSurgery2
             //MetaLayer.Instance().AddPerscription(m_extension);
 
         }
+        /// <summary>
+        /// The operation used to Create Appointments.
+        /// </summary>
         public void SetAppointment()
         {
 
         }
+        /// <summary>
+        /// Adds a new patient to the clinic
+        /// </summary>
         public void AddPatient()
         {
 
         }
+        /// <summary>
+        /// edits a patient
+        /// </summary>
         public void EditPatient()
         {
         }
+        /// <summary>
+        /// removes an appointment
+        /// </summary>
         public void CancelAppointment()
         {
 
         }
+        /// <summary>
+        /// sets patients ti 'inactive'
+        /// </summary>
         public void RemovePatient()
         {
 
