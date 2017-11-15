@@ -58,6 +58,10 @@ namespace OverSurgery2
             grd_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
 
             this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname;
+            AppointmentListCounter = 0;
+            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+            grd_AppointmentList.CurrentRow.Selected = true;
+            
             //name, last name, time, notes, DOB
             
 
@@ -112,15 +116,21 @@ namespace OverSurgery2
 
         private void btn_nextPatient_Click(object sender, EventArgs e)
         {
-            if (AppointmentListCounter < grd_AppointmentList.Rows.Count)
-            {
-                if (AppointmentListCounter > 0 && AppointmentListCounter < grd_AppointmentList.Rows.Count)
-                {
-                    grd_AppointmentList.Rows[AppointmentListCounter - 1].Selected = false;
-                }
-                grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
-                AppointmentListCounter++;
-            }
+            //if (grd_AppointmentList.Rows.GetNextRow.Select <= grd_AppointmentList.RowCount)
+            //{
+            //    if (AppointmentListCounter > 0)
+            //    {
+            //        grd_AppointmentList.Rows[AppointmentListCounter - 1].Selected = false;
+            //    }
+            //    grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
+
+            //}
+            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+            grd_AppointmentList.CurrentRow.Selected = false;
+            AppointmentListCounter++;
+            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+            grd_AppointmentList.CurrentRow.Selected = true;
+
 
 
         }
@@ -132,11 +142,10 @@ namespace OverSurgery2
 
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
-            if (AppointmentListCounter > 0)
-            {
-                grd_AppointmentList.Rows[AppointmentListCounter-1].Selected = true;
-                
-            }
+            AppointmentListCounter--;
+            grd_AppointmentList.CurrentRow.Selected = false;
+            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+            grd_AppointmentList.CurrentRow.Selected = true;
 
         }
     }
