@@ -114,7 +114,7 @@ namespace OverSurgery2
         {
             if (AppointmentListCounter < grd_AppointmentList.Rows.Count)
             {
-                if (AppointmentListCounter > 0)
+                if (AppointmentListCounter > 0 && AppointmentListCounter < grd_AppointmentList.Rows.Count)
                 {
                     grd_AppointmentList.Rows[AppointmentListCounter - 1].Selected = false;
                 }
@@ -134,9 +134,7 @@ namespace OverSurgery2
         {
             if (AppointmentListCounter > 0)
             {
-                grd_AppointmentList.Rows[AppointmentListCounter].Selected = false;
-                AppointmentListCounter--;
-                grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
+                grd_AppointmentList.Rows[AppointmentListCounter-1].Selected = true;
                 
             }
 
