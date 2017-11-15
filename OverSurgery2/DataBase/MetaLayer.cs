@@ -302,6 +302,58 @@ namespace OverSurgery2
             }
             return pf.CreateStaff(d);
         }
+        public Staff GetMedicalStaffByStaffID(int p_id)
+        {
+            Dictionary<string, object> d;
+            d = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
+
+                while (dr.Read())
+                {
+                    d = new Dictionary<string, object>
+                    {
+                        {"MedicalStaffID", dr.GetInt16(0) },
+                        { "PracticeNumber", dr.GetInt32(1) },
+                        { "ID", dr.GetString(3) },
+                        { "Gender", dr.GetInt16(4) },
+                        { "Forename", dr.GetString(6) },
+                        { "Surname", dr.GetString(7) },
+                        { "AddressID", dr.GetString(9) },
+                        {"Email", dr.GetString(8) },
+                        {"UserName", dr.GetString(10) },
+                        { "Password", dr.GetString(11)},
+                        {"Type", dr.GetInt16(12) }
+                        
+
+                    };
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return pf.CreateStaff(d);
+        }
+        public int GetMedicalStaffIDByStaffID(int p_id)
+        {
+            int id = 0;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT medicalstaffid FROM medicalstaff WHERE exists(SELECT * FROM staff where staffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
+                
+                while(dr.Read())
+                {
+                    id = dr.GetInt32(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return id;
+            
+
+        }
 
         public string GetResetRequestCode(Staff p_user)
         {

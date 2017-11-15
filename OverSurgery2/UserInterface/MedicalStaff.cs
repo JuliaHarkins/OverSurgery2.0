@@ -8,19 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery2.UserInterface
+namespace OverSurgery2
 {
-    public partial class MedicalStaffFrom : Form
+    public partial class MedicalStaffForm : Form
     {
         MetaLayer ml = MetaLayer.Instance();
-        MedicalStaff m_currentUser;
         BindingSource AppointmentBinding;
         List<Appointment> appointments;
-        public MedicalStaffFrom(MedicalStaff p_currentUser)
+        MedicalStaff m_currentUser;
+
+        public MedicalStaffForm(Staff p_currentUser)
         {
-            m_currentUser = p_currentUser;
+
+            m_currentUser = ml.GetMedicalStaffByStaffID(p_currentUser.StaffID) as MedicalStaff;
             InitializeComponent();
         }
+
 
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
@@ -54,7 +57,7 @@ namespace OverSurgery2.UserInterface
 
         private void btn_addPerscription_Click(object sender, EventArgs e)
         {
-            new AddPrescription();
+            //new AddPrescription();
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)

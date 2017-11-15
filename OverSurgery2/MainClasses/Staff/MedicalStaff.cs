@@ -17,12 +17,14 @@ namespace OverSurgery2
 
         private uint? m_medicalStaffID;
         private uint? m_prescriptionLevel;
+        private uint? m_practiceNumber;
         #endregion
         #region Constructors
         public MedicalStaff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
         {
             PrescriptionLevel = 1;
             m_medicalStaffID = Convert.ToUInt16(p_PersonValues["MedicalStaffID"]);
+            m_practiceNumber = Convert.ToUInt16(p_PersonValues["PracticeNumber"]);
             
         }
         #endregion
@@ -49,6 +51,8 @@ namespace OverSurgery2
                 m_medicalStaffID = value;
             }
         }
+
+        public uint? PracticeNumber { get { return m_practiceNumber; } set { m_practiceNumber = value; } }
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {

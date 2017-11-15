@@ -1,6 +1,6 @@
-﻿namespace OverSurgery2.UserInterface
+﻿namespace OverSurgery2
 {
-    partial class MedicalStaffFrom
+    partial class MedicalStaffForm
     {
         /// <summary>
         /// Required designer variable.

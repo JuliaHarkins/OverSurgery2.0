@@ -37,6 +37,7 @@ namespace OverSurgery2
             switch(Convert.ToInt16(values["Type"]))
             {
                 case 1:
+                    return CreateMedicalStaff(values);
                     break;
                 case 2:
                     return CreateLocum(values);
@@ -126,6 +127,23 @@ namespace OverSurgery2
                 return new Locum(p_values);
             }
             catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public MedicalStaff CreateMedicalStaff(Dictionary<string, object> p_values)
+        {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Staff(p_values) as MedicalStaff;
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw e;
