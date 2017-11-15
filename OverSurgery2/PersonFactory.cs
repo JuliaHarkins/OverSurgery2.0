@@ -12,7 +12,12 @@ namespace OverSurgery2
     public class PersonFactory
     {
         private static PersonFactory m_instance;
+        MetaLayer ml;
         public enum Gender { Male, Female };
+        private PersonFactory()
+        {
+            ml = MetaLayer.Instance();
+        }
         public static PersonFactory Instance()
         {
             if(null == m_instance)
@@ -38,7 +43,6 @@ namespace OverSurgery2
             {
                 case 1:
                     return CreateMedicalStaff(values);
-                    break;
                 case 2:
                     return CreateLocum(values);
                 case 3:
