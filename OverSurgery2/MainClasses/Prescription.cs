@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * this object is used to hold all information needed for a perscription,
+ * this object is used to hold all information needed for a Prescription,
  * and allow for their extention
  * 
  * Last Updated : 15/11/17
@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace OverSurgery2.Main_Classes
 {
     /// <summary>
-    /// this object is used to hold all information needed for a perscription,
+    /// this object is used to hold all information needed for a Prescription,
     ///and allow for their extention.
     /// </summary>
     public class Prescription
@@ -37,7 +37,7 @@ namespace OverSurgery2.Main_Classes
         /// </summary>
         /// <param name="p_PrescriptionValues">The MedicaltionID, PatientID, ExterationDate, 
         /// Ammount, MedicalStaffID, DateIssued, and DateOfNextIssue are used to create the
-        /// perscriptions </param>
+        /// Prescriptions </param>
         #region Constructor
         public Prescription(Dictionary<string, object> p_PrescriptionValues)
         {
@@ -53,7 +53,7 @@ namespace OverSurgery2.Main_Classes
         #endregion
         #region Methods
         /// <summary>
-        /// extents the perscription by one month
+        /// extents the Prescription by one month
         /// </summary>
         public void Extend()
         {
@@ -70,7 +70,7 @@ namespace OverSurgery2.Main_Classes
         /// <summary>
         /// extends by a given amount of months.
         /// </summary>
-        /// <param name="p_months">the amout of months the perscription is to be extended by.</param>
+        /// <param name="p_months">the amout of months the Prescription is to be extended by.</param>
         public void Extend(int p_months)
         {
 #region Execution

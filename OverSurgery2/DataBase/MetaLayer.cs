@@ -303,6 +303,10 @@ namespace OverSurgery2
                 {
                     return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
                 }
+                else if(Convert.ToInt16(d["Type"]) == 1)
+                {
+                    return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
+                }
 
                 }
             return pf.CreateStaff(d);

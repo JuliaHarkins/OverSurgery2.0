@@ -37,6 +37,12 @@ namespace OverSurgery2
 
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
+            if(m_currentUser.GetType() == typeof(MedicalStaff))
+            {
+                var tempLoc = btn_addPrescription.Location;
+                btn_addPrescription.Visible = false;
+                btn_saveNotes.Location = tempLoc;
+            }
             AppointmentBinding = new BindingSource();
             appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
             foreach(Appointment a in appointments)
@@ -57,7 +63,7 @@ namespace OverSurgery2
             grd_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
             grd_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
 
-            this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname;
+            this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname +" - OverSurgery Management System";
             AppointmentListCounter = 0;
             grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
             grd_AppointmentList.CurrentRow.Selected = true;
@@ -75,7 +81,7 @@ namespace OverSurgery2
 
         }
 
-        private void btn_addPerscription_Click(object sender, EventArgs e)
+        private void btn_addPrescription_Click(object sender, EventArgs e)
         {
         }
 
@@ -114,25 +120,32 @@ namespace OverSurgery2
 
         }
 
+        /// <summary>
+        /// Get next patient appointment upon click of button
+        /// </summary>
+        /// <param name="sender">MedicalStaffForm</param>
+        /// <param name="e">KYS PLZ</param>
         private void btn_nextPatient_Click(object sender, EventArgs e)
         {
-            //if (grd_AppointmentList.Rows.GetNextRow.Select <= grd_AppointmentList.RowCount)
-            //{
-            //    if (AppointmentListCounter > 0)
-            //    {
-            //        grd_AppointmentList.Rows[AppointmentListCounter - 1].Selected = false;
-            //    }
-            //    grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
-
-            //}
-            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-            grd_AppointmentList.CurrentRow.Selected = false;
-            AppointmentListCounter++;
-            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-            grd_AppointmentList.CurrentRow.Selected = true;
-
-
-
+            // If current cell index less than or equals row count and current cell index is less than count of all rows
+            if (grd_AppointmentList.CurrentCell.RowIndex <= grd_AppointmentList.RowCount 
+                && grd_AppointmentList.CurrentCell.RowIndex >= 0)
+            {
+                // Set currentcell to AppointmentListCounter value
+                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter]; 
+                // Deselect current row
+                grd_AppointmentList.CurrentRow.Selected = false; 
+                // If AppointmentListCounter less than total row count - 1
+                if (AppointmentListCounter < grd_AppointmentList.RowCount - 1)
+                {
+                    //Increment AppointmentListCounter
+                    AppointmentListCounter++;
+                }
+                // Set currentcell to AppointmentListCounter values
+                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+                //Select the current row
+                grd_AppointmentList.CurrentRow.Selected = true;
+            }
         }
 
         private void grd_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -142,10 +155,17 @@ namespace OverSurgery2
 
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
-            AppointmentListCounter--;
-            grd_AppointmentList.CurrentRow.Selected = false;
-            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-            grd_AppointmentList.CurrentRow.Selected = true;
+            if (grd_AppointmentList.CurrentCell.RowIndex <= grd_AppointmentList.RowCount && grd_AppointmentList.CurrentCell.RowIndex > 0)
+            {
+                // Decrement AppointmentListCounter
+                AppointmentListCounter--;
+                // Deselect the current row
+                grd_AppointmentList.CurrentRow.Selected = false;
+                // Set currentcell to AppointmentListCounter value
+                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+                // Select current row
+                grd_AppointmentList.CurrentRow.Selected = true;
+            }
 
         }
     }

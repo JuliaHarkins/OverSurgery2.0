@@ -145,7 +145,7 @@ namespace OverSurgery2
             }
             try
             {
-                return new Staff(p_values) as MedicalStaff;
+                return new MedicalStaff(p_values);
             }
             catch (Exception e)
             {

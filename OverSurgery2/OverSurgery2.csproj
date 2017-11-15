@@ -122,11 +122,11 @@
     <Compile Include="UserInterface\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\MedicalStaff.cs">
+    <Compile Include="UserInterface\MedicalStaffForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserInterface\MedicalStaff.Designer.cs">
-      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    <Compile Include="UserInterface\MedicalStaffForm.Designer.cs">
+      <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\PasswordResetForm.cs">
       <SubType>Form</SubType>
@@ -170,8 +170,8 @@
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\MedicalStaff.resx">
-      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
+      <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>

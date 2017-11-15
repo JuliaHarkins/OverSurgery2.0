@@ -53,10 +53,10 @@ namespace OverSurgery2
         #endregion
         #region Methoods
         /// <summary>
-        /// takes the perscription, returns a bool, then removes it from the doctors extention requests
+        /// takes the Prescription, returns a bool, then removes it from the doctors extention requests
         /// 01/11/2017 - j
         /// </summary>
-        /// <param name="p_prescription">the perscription object that is to be extended</param>
+        /// <param name="p_prescription">the Prescription object that is to be extended</param>
         /// <returns></returns>
         private bool ExtendMedication(Prescription p_prescription)
         {
@@ -65,10 +65,10 @@ namespace OverSurgery2
 
         }
         /// <summary>
-        /// Removes the perscription from the extend list without updating it.
+        /// Removes the Prescription from the extend list without updating it.
         /// 07/11/2017 - j
         /// </summary>
-        /// <param name="p_prescription">the perscription object that isn't to be extented</param>
+        /// <param name="p_prescription">the Prescription object that isn't to be extented</param>
         private void RemoveExtention(Prescription p_prescription)
         {
             m_extension.Remove(p_prescription);
