@@ -55,7 +55,7 @@ namespace OverSurgery2
 
         public void SetCurrentUser(string p_username)
         {
-           currentUser = ml.GetStaffByUserName(p_username);
+            currentUser = ml.GetStaffByUserName(p_username);
         }
 
         public void OpenPatientViewForm(Patient p_Patient)

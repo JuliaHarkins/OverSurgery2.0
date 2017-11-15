@@ -137,11 +137,5 @@ namespace OverSurgery2
             p_password = BCrypt.Net.BCrypt.HashPassword(p_password, salt);
             return p_password;
         }
-
-        public Staff GetLoggedInUser(string p_username)
-        {
-            Staff s = ml.GetStaffByUserName(p_username);
-            return s;
-        }
     }
 }

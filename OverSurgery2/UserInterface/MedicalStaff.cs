@@ -29,8 +29,9 @@ namespace OverSurgery2
         public MedicalStaffForm(Staff p_currentUser)
         {
 
-            m_currentUser = ml.GetMedicalStaffByStaffID(p_currentUser.StaffID) as MedicalStaff;
+            m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
+            this.ShowDialog();
         }
 
 
@@ -42,6 +43,7 @@ namespace OverSurgery2
             {
                 a.SetNameDisplay();
             }
+            grd_AppointmentList.DataSource = AppointmentBinding.DataSource = appointments;
             grd_AppointmentList.Columns["ForeNameDisplay"].HeaderText = "Forename";
             grd_AppointmentList.Columns["SurNameDisplay"].HeaderText = "Surname";
             grd_AppointmentList.Columns["AppointmentID"].Visible = false;
@@ -50,7 +52,7 @@ namespace OverSurgery2
             grd_AppointmentList.Columns["PatientID"].Visible = false;
             grd_AppointmentList.Columns["AppDate"].Visible = false;
             grd_AppointmentList.Columns["AppAttend"].Visible = false;
-            grd_AppointmentList.DataSource = AppointmentBinding.DataSource = appointments;
+            
             this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname;
             //name, last name, time, notes, DOB
             
