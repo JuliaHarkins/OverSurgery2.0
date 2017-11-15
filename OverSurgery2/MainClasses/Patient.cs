@@ -47,7 +47,7 @@ namespace OverSurgery2
 
         public void SetDoctorDisplay()
         {
-           
+            m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID);
         }
         public void DisposePatient()
         {
