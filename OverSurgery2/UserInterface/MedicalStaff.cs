@@ -52,7 +52,11 @@ namespace OverSurgery2
             grd_AppointmentList.Columns["PatientID"].Visible = false;
             grd_AppointmentList.Columns["AppDate"].Visible = false;
             grd_AppointmentList.Columns["AppAttend"].Visible = false;
-            
+
+            grd_AppointmentList.Columns["AppTime"].Visible = false;
+            grd_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
+            grd_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
+
             this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname;
             //name, last name, time, notes, DOB
             
@@ -110,9 +114,12 @@ namespace OverSurgery2
         {
             if (AppointmentListCounter < grd_AppointmentList.Rows.Count)
             {
+                if (AppointmentListCounter > 0)
+                {
+                    grd_AppointmentList.Rows[AppointmentListCounter - 1].Selected = false;
+                }
                 grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
                 AppointmentListCounter++;
-
             }
 
 
@@ -120,6 +127,18 @@ namespace OverSurgery2
 
         private void grd_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void btn_previousPatient_Click(object sender, EventArgs e)
+        {
+            if (AppointmentListCounter > 0)
+            {
+                grd_AppointmentList.Rows[AppointmentListCounter].Selected = false;
+                AppointmentListCounter--;
+                grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
+                
+            }
 
         }
     }

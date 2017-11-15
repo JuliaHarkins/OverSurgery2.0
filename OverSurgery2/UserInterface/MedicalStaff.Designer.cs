@@ -42,6 +42,7 @@
             this.lb_appList = new System.Windows.Forms.Label();
             this.lb_MedHistory = new System.Windows.Forms.Label();
             this.btn_extRequest = new System.Windows.Forms.Button();
+            this.btn_previousPatient = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicalHistory)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.grd_AppointmentList)).BeginInit();
             this.SuspendLayout();
@@ -188,11 +189,22 @@
             this.btn_extRequest.UseVisualStyleBackColor = true;
             this.btn_extRequest.Click += new System.EventHandler(this.btn_extRequest_Click);
             // 
-            // MedicalStaffFrom
+            // btn_previousPatient
+            // 
+            this.btn_previousPatient.Location = new System.Drawing.Point(848, 187);
+            this.btn_previousPatient.Name = "btn_previousPatient";
+            this.btn_previousPatient.Size = new System.Drawing.Size(126, 25);
+            this.btn_previousPatient.TabIndex = 18;
+            this.btn_previousPatient.Text = "Previous Patient";
+            this.btn_previousPatient.UseVisualStyleBackColor = true;
+            this.btn_previousPatient.Click += new System.EventHandler(this.btn_previousPatient_Click);
+            // 
+            // MedicalStaffForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1005, 838);
+            this.Controls.Add(this.btn_previousPatient);
             this.Controls.Add(this.btn_extRequest);
             this.Controls.Add(this.lb_MedHistory);
             this.Controls.Add(this.lb_appList);
@@ -204,8 +216,8 @@
             this.Controls.Add(this.lb_appnotes);
             this.Controls.Add(this.dgv_medicalHistory);
             this.Controls.Add(this.txt_CurrentNotes);
-            this.Name = "MedicalStaffFrom";
-            this.Text = "MedicalStaff";
+            this.Name = "MedicalStaffForm";
+            this.Text = "Todays Appointments";
             this.Load += new System.EventHandler(this.MedicalStaff_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicalHistory)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.grd_AppointmentList)).EndInit();
@@ -229,5 +241,6 @@
         private System.Windows.Forms.Label lb_appList;
         private System.Windows.Forms.Label lb_MedHistory;
         private System.Windows.Forms.Button btn_extRequest;
+        private System.Windows.Forms.Button btn_previousPatient;
     }
 }
