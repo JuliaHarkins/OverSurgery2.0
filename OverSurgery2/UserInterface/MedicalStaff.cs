@@ -8,6 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+ * This form is from all medical staff allowing them to prefrom 
+ * their dayly functuions while creating and updating records.
+ * 
+ * Last Updated : 15/11/17
+ * By: J
+ */
+
 namespace OverSurgery2
 {
     public partial class MedicalStaffForm : Form
@@ -16,6 +24,7 @@ namespace OverSurgery2
         BindingSource AppointmentBinding;
         List<Appointment> appointments;
         MedicalStaff m_currentUser;
+        int AppointmentListCounter;
 
         public MedicalStaffForm(Staff p_currentUser)
         {
@@ -48,6 +57,7 @@ namespace OverSurgery2
 
 
 
+
         }
 
         private void lb_notes_Click(object sender, EventArgs e)
@@ -57,7 +67,6 @@ namespace OverSurgery2
 
         private void btn_addPerscription_Click(object sender, EventArgs e)
         {
-            //new AddPrescription();
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)
@@ -97,6 +106,13 @@ namespace OverSurgery2
 
         private void btn_nextPatient_Click(object sender, EventArgs e)
         {
+            if (AppointmentListCounter < grd_AppointmentList.Rows.Count)
+            {
+                grd_AppointmentList.Rows[AppointmentListCounter].Selected = true;
+                AppointmentListCounter++;
+
+            }
+
 
         }
 

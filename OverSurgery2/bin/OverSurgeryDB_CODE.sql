@@ -115,8 +115,10 @@ CREATE TABLE `Extension` (
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ResetRequests` (
-	`UserName` varchar(255) NOT NULL,
-	`VerificationCode` varchar(8) NOT NULL
+	`RequestID` INT(6) NOT NULL auto_increment,
+	`UserName` varchar(255) NOT NULL default '',
+	`VerificationCode` varchar(8) NOT NULL default '',
+	PRIMARY KEY(`RequestID`)
 	); ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- TESTING ACCOUNT --

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * Created By: J
- * Date Created : 1/11/17
- *  this object is used to hold all information needed for a perscription,
- *   and allow for their extention
+ * this object is used to hold all information needed for a perscription,
+ * and allow for their extention
+ * 
+ * Last Updated : 15/11/17
+ * By: J
  */
 
 namespace OverSurgery2.Main_Classes
@@ -23,7 +24,6 @@ namespace OverSurgery2.Main_Classes
         MetaLayer ml;
         int m_medicationID; 
         int m_patientID;
-        int m_extentionCouter;
         DateTime m_DateOfNextIssue;
         bool m_allowExtention;
         DateTime m_DateIssued;
@@ -50,16 +50,20 @@ namespace OverSurgery2.Main_Classes
             m_DateIssued = Convert.ToDateTime(p_PrescriptionValues["DateIssued"]);
             m_DateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]); 
         }
-#endregion
-#region Methods
+        #endregion
+        #region Methods
         /// <summary>
         /// extents the perscription by one month
         /// </summary>
         public void Extend()
         {
-#region Execution
-            if (m_DateOfNextIssue < DateTime.Now) {
-                m_expirationDate.AddMonths(1);
+            #region Execution
+                if (m_DateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
+                {
+                    m_expirationDate.AddMonths(1);
+                }
+            else {
+
             }
 #endregion
         }
@@ -70,9 +74,22 @@ namespace OverSurgery2.Main_Classes
         public void Extend(int p_months)
         {
 #region Execution
-            if (m_DateOfNextIssue > DateTime.Now)
+
+            if (m_DateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
                 m_expirationDate.AddMonths(p_months);
+            }
+#endregion
+        }
+        private bool CheckIfExtenable()
+        {
+#region Exicution
+            if (m_allowExtention == true)
+            {
+                return true;
+            }
+            else{
+                return false;
             }
 #endregion
         }

@@ -434,7 +434,7 @@ namespace OverSurgery2
                         { "PhoneNumber", dr.GetString(5) },
                         { "RegisteredDoctorID", dr.GetInt16(6) },
                         { "AddressID", dr.GetInt16(7) },
-                        { "Email", dr.GetString(8) }
+                        //{ "Email", dr.GetString(8) }
                     };
                 }
                 dr.Close();
