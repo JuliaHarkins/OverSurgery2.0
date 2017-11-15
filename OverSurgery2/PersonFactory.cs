@@ -12,7 +12,12 @@ namespace OverSurgery2
     public class PersonFactory
     {
         private static PersonFactory m_instance;
+        MetaLayer ml;
         public enum Gender { Male, Female };
+        private PersonFactory()
+        {
+            ml = MetaLayer.Instance();
+        }
         public static PersonFactory Instance()
         {
             if(null == m_instance)
@@ -37,7 +42,7 @@ namespace OverSurgery2
             switch(Convert.ToInt16(values["Type"]))
             {
                 case 1:
-                    break;
+                    return CreateMedicalStaff(values);
                 case 2:
                     return CreateLocum(values);
                 case 3:
@@ -126,6 +131,23 @@ namespace OverSurgery2
                 return new Locum(p_values);
             }
             catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public MedicalStaff CreateMedicalStaff(Dictionary<string, object> p_values)
+        {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Staff(p_values) as MedicalStaff;
+            }
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 throw e;

@@ -20,7 +20,6 @@ namespace OverSurgery2
         static private MetaLayer m_Instance = null;
         PersonFactory pf;
         private MetaLayer() {
-            pf = PersonFactory.Instance();
         }
 
         static public MetaLayer Instance()
@@ -34,6 +33,7 @@ namespace OverSurgery2
 
         public List<Patient> GetPatients()
         {
+            pf = PersonFactory.Instance();
             List<Patient> patients = new List<Patient>();
 
             DataConnection con = DBFactory.Instance();
@@ -113,12 +113,6 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    medication.Add(new Medication
-                    {
-                        ID = dr.GetInt32(0),
-                        Name = dr.GetString(1),
-                        PermissionLevel = dr.GetInt32(2)
-                    });
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -305,8 +299,93 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-            }
+                if (Convert.ToInt16(d["Type"]) == 3)
+                {
+                    return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
+                }
+
+                }
             return pf.CreateStaff(d);
+            }
+           
+        public Staff GetMedicalStaffByStaffID(int p_id)
+        {
+            Dictionary<string, object> d;
+            d = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
+
+                while (dr.Read())
+                {
+                    d = new Dictionary<string, object>
+                    {
+                        {"MedicalStaffID", dr.GetInt16(0) },
+                        { "PracticeNumber", dr.GetString(1) },
+                        { "ID", dr.GetInt16(3) },
+                        { "Gender", dr.GetInt16(4) },
+                        { "Forename", dr.GetString(6) },
+                        { "Surname", dr.GetString(7) },
+                        { "AddressID", dr.GetString(9) },
+                        {"Email", dr.GetString(8) },
+                        {"UserName", dr.GetString(10) },
+                        { "Password", dr.GetString(11)},
+                        {"Type", dr.GetInt16(12) },
+                        {"PhoneNumber", " " }
+                        
+
+                    };
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+        return PersonFactory.Instance().CreateStaff(d);
+        }
+
+        public bool GetMedicalIfExists(int p_id)
+        {
+            Dictionary<string, object> d;
+            d = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT COUNT(*) FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
+
+                while (dr.Read())
+                {
+                    if(dr.GetInt16(0) == 0)
+                    {
+                        dr.Close();
+                        con.CloseConnection();
+                        return false;
+                    }
+                }
+                dr.Close();
+                con.CloseConnection();
+                return true;
+            }
+            return false;
+            
+        }
+        public int GetMedicalStaffIDByStaffID(int p_id)
+        {
+            int id = 0;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT medicalstaffid FROM medicalstaff WHERE exists(SELECT * FROM staff where staffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
+                
+                while(dr.Read())
+                {
+                    id = dr.GetInt32(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return id;
+            
+
         }
 
         public string GetResetRequestCode(Staff p_user)
@@ -388,7 +467,7 @@ namespace OverSurgery2
                         { "PhoneNumber", dr.GetString(5) },
                         { "RegisteredDoctorID", dr.GetInt16(6) },
                         { "AddressID", dr.GetInt16(7) },
-                        { "Email", dr.GetString(8) }
+                        //{ "Email", dr.GetString(8) }
                     };
                 }
                 dr.Close();
@@ -500,6 +579,10 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// Add new appointment to the database
+        /// </summary>
+        /// <param name="app"></param>
         public void AddAppointment(Appointment app)
         {
             DataConnection con = DBFactory.Instance();
@@ -519,6 +602,70 @@ namespace OverSurgery2
                     Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
                 con.CloseConnection();
             }
+        }
+        public List<Appointment> GetStaffAppointments(int p_staffID)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+
+        DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
+        Dictionary<string, object> values = null;
+                //Read the data and store them in the list
+                while (dr.Read())
+                {
+                    values = new Dictionary<string, object>
+                    {
+                        { "AppID", dr.GetInt16(0) },
+                        { "Date", dr.GetFieldValue<object>(1) },
+                        { "Time", dr.GetFieldValue<object>(2) },
+                        { "Notes", dr.GetString(3) },
+                        { "Attend", dr.GetBoolean(4) },
+                        { "MedStaffID", dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6) },
+                    };
+                    appointments.Add(new Appointment(values));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
+            }
+            return appointments;
+        }
+
+        /// <summary>
+        /// Get all rota information from the database
+        /// </summary>
+        /// <param name="p_rotaEntryID"></param>
+        /// <returns></returns>
+        public Rota GetStaffRota()
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota;");
+                while (dr1.Read())
+                {
+                    
+                    rotaValues = new Dictionary<string, object>
+                    {
+                        { "RotaID", dr1.GetInt16(0) },
+                        { "MedicalStaffID", dr1.GetString(1) },
+                        { "StartDateTime", dr1.GetString(2) },
+                        { "EndDateTime", dr1.GetString(3) },
+    
+                    };
+
+                }
+                dr1.Close();
+                con.CloseConnection();
+            }
+            return new Rota(rotaValues);
         }
     }
 }

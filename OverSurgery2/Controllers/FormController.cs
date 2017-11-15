@@ -37,11 +37,12 @@ namespace OverSurgery2
             switch(StaffTypes[currentUser.GetType()])
             {
                 case 1:
+                    new MedicalStaffForm(currentUser);
                     break;
                 case 2:
                     break;
                 case 3:
-                    new DoctorForm(currentUser);
+                    new MedicalStaffForm(currentUser);
                     break;
                 case 4:
                     new ReceptionistForm(currentUser);
@@ -54,7 +55,7 @@ namespace OverSurgery2
 
         public void SetCurrentUser(string p_username)
         {
-           currentUser = ml.GetStaffByUserName(p_username);
+            currentUser = ml.GetStaffByUserName(p_username);
         }
 
         public void OpenPatientViewForm(Patient p_Patient)

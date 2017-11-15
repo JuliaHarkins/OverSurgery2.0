@@ -33,6 +33,7 @@ namespace OverSurgery2
             LoadAllPatientInfo();
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
+            DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date Of Birth";
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
             DataGridPatients.RowHeadersVisible = false;
@@ -40,6 +41,7 @@ namespace OverSurgery2
             DataGridPatients.Columns["Gender"].Visible = false;
             DataGridPatients.Columns["AddressID"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
+            DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
             this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
         }

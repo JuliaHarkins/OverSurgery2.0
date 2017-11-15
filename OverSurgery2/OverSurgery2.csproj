@@ -69,6 +69,12 @@
     <Compile Include="NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\AddPrescription.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\AddPrescription.Designer.cs">
+      <DependentUpon>AddPrescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\ManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,6 +155,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserInterface\AddPrescription.resx">
+      <DependentUpon>AddPrescription.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\DoctorForm.resx">
       <DependentUpon>DoctorForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -173,6 +182,7 @@
     <EmbeddedResource Include="UserInterface\ViewPatientInfoForm.resx">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
     <None Include="Properties\DataSources\Patient.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
