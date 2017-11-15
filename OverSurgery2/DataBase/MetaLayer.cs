@@ -637,8 +637,6 @@ namespace OverSurgery2
         /// <summary>
         /// Get all rota information from the database
         /// </summary>
-        /// <param name="p_rotaEntryID"></param>
-        /// <returns></returns>
         public Rota GetStaffRota()
         {
             // Read appointment values into dictionary
@@ -658,7 +656,6 @@ namespace OverSurgery2
                         { "MedicalStaffID", dr1.GetString(1) },
                         { "StartDateTime", dr1.GetString(2) },
                         { "EndDateTime", dr1.GetString(3) },
-    
                     };
 
                 }
@@ -666,6 +663,72 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return new Rota(rotaValues);
+        }
+
+        /// <summary>
+        /// Get all rota information for a specific staff member from the database
+        /// </summary>
+        /// <param name="p_rotaEntryID"></param>
+        /// <returns></returns>
+        public Rota GetStaffRotaByID(int p_rotaEntryID)
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rotaEntryID + ";");
+                while (dr1.Read())
+                {
+
+                    rotaValues = new Dictionary<string, object>
+                    {
+                        { "RotaID", dr1.GetInt16(0) },
+                        { "MedicalStaffID", dr1.GetString(1) },
+                        { "StartDateTime", dr1.GetString(2) },
+                        { "EndDateTime", dr1.GetString(3) },
+                        
+                    };
+
+                }
+                dr1.Close();
+                con.CloseConnection();
+            }
+            return new Rota(rotaValues);
+        }
+
+        /// <summary>
+        /// Add new rota entry to the database
+        /// </summary>
+        /// <param name="rota"></param>
+        public void AddRota(Rota rota)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("INSERT INTO Rota VALUES (null, " + rota.MedicalStaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
+                    Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Update an existing rota
+        /// </summary>
+        /// <param name="rota"></param>
+        public void UpdateRota(Rota rota)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
+                    + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
+                con.CloseConnection();
+            }
         }
     }
 }

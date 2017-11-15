@@ -10,7 +10,7 @@ namespace OverSurgery2
     /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)
     /// First Created: 20/10/17
     /// Last Edit: 21/10/17 14:22
-    /// Last Edit by: Lewis Barnes (362490@edu.cwa.ac.uk)
+    /// Last Edit by: E
     /// </summary>
     public class Medication
     {

@@ -56,7 +56,7 @@ namespace OverSurgery2
         /// </summary>
         public void AddNewRotaEntry()
         {
-
+            ml.AddRota(m_instance);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace OverSurgery2
         /// </summary>
         public void UpdateRota()
         {
-
+            ml.UpdateRota(m_instance);
         }
 
         /// <summary>
@@ -73,6 +73,14 @@ namespace OverSurgery2
         public void GetRota()
         {
             ml.GetStaffRota();
+        }
+
+        /// <summary>
+        /// Get a specific rota entry
+        /// </summary>
+        public void GetRotaEntry()
+        {
+            ml.GetStaffRotaByID(RotaEntryID);
         }
     }
 }
