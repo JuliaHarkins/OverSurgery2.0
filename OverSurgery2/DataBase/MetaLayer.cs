@@ -20,6 +20,7 @@ namespace OverSurgery2
         static private MetaLayer m_Instance = null;
         PersonFactory pf;
         private MetaLayer() {
+            pf = PersonFactory.Instance();
         }
 
         static public MetaLayer Instance()
@@ -33,7 +34,6 @@ namespace OverSurgery2
 
         public List<Patient> GetPatients()
         {
-            pf = PersonFactory.Instance();
             List<Patient> patients = new List<Patient>();
 
             DataConnection con = DBFactory.Instance();
@@ -299,15 +299,9 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-                if (Convert.ToInt16(d["Type"]) == 3)
-                {
-                    return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
-                }
-
-                }
-            return pf.CreateStaff(d);
             }
-           
+            return pf.CreateStaff(d);
+        }
         public Staff GetMedicalStaffByStaffID(int p_id)
         {
             Dictionary<string, object> d;
@@ -322,8 +316,8 @@ namespace OverSurgery2
                     d = new Dictionary<string, object>
                     {
                         {"MedicalStaffID", dr.GetInt16(0) },
-                        { "PracticeNumber", dr.GetString(1) },
-                        { "ID", dr.GetInt16(3) },
+                        { "PracticeNumber", dr.GetInt32(1) },
+                        { "ID", dr.GetString(3) },
                         { "Gender", dr.GetInt16(4) },
                         { "Forename", dr.GetString(6) },
                         { "Surname", dr.GetString(7) },
@@ -331,8 +325,7 @@ namespace OverSurgery2
                         {"Email", dr.GetString(8) },
                         {"UserName", dr.GetString(10) },
                         { "Password", dr.GetString(11)},
-                        {"Type", dr.GetInt16(12) },
-                        {"PhoneNumber", " " }
+                        {"Type", dr.GetInt16(12) }
                         
 
                     };
@@ -340,33 +333,7 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-        return PersonFactory.Instance().CreateStaff(d);
-        }
-
-        public bool GetMedicalIfExists(int p_id)
-        {
-            Dictionary<string, object> d;
-            d = null;
-            DataConnection con = DBFactory.Instance();
-            if (con.OpenConnection())
-            {
-                DbDataReader dr = con.Select("SELECT COUNT(*) FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
-
-                while (dr.Read())
-                {
-                    if(dr.GetInt16(0) == 0)
-                    {
-                        dr.Close();
-                        con.CloseConnection();
-                        return false;
-                    }
-                }
-                dr.Close();
-                con.CloseConnection();
-                return true;
-            }
-            return false;
-            
+            return pf.CreateStaff(d);
         }
         public int GetMedicalStaffIDByStaffID(int p_id)
         {
@@ -618,8 +585,8 @@ namespace OverSurgery2
                     values = new Dictionary<string, object>
                     {
                         { "AppID", dr.GetInt16(0) },
-                        { "Date", dr.GetFieldValue<object>(1) },
-                        { "Time", dr.GetFieldValue<object>(2) },
+                        { "Date", dr.GetString(1) },
+                        { "Time", dr.GetString(2) },
                         { "Notes", dr.GetString(3) },
                         { "Attend", dr.GetBoolean(4) },
                         { "MedStaffID", dr.GetInt16(5) },
