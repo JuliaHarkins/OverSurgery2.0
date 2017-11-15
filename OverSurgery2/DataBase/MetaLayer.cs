@@ -299,18 +299,15 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-                if (Convert.ToInt16(d["Type"]) == 3)
+                int[] types = { 1, 2, 3 };
+                if (types.Contains(Convert.ToInt16(d["Type"])))
                 {
                     return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
                 }
-                else if(Convert.ToInt16(d["Type"]) == 1)
-                {
-                    return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
-                }
-
-                }
-            return pf.CreateStaff(d);
+                return pf.CreateStaff(d);
             }
+            return pf.CreateStaff(d);
+        }
            
         public Staff GetMedicalStaffByStaffID(int p_id)
         {

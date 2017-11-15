@@ -137,7 +137,6 @@
             this.grd_AppointmentList.ReadOnly = true;
             this.grd_AppointmentList.Size = new System.Drawing.Size(830, 150);
             this.grd_AppointmentList.TabIndex = 12;
-            this.grd_AppointmentList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grd_AppointmentList_CellContentClick);
             // 
             // btn_nextPatient
             // 

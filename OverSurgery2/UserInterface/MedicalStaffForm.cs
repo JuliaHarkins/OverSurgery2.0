@@ -25,6 +25,7 @@ namespace OverSurgery2
         List<Appointment> appointments;
         MedicalStaff m_currentUser;
         int AppointmentListCounter;
+        Patient m_selectedPatient;
 
         public MedicalStaffForm(Staff p_currentUser)
         {
@@ -58,15 +59,19 @@ namespace OverSurgery2
             grd_AppointmentList.Columns["PatientID"].Visible = false;
             grd_AppointmentList.Columns["AppDate"].Visible = false;
             grd_AppointmentList.Columns["AppAttend"].Visible = false;
-
             grd_AppointmentList.Columns["AppTime"].Visible = false;
             grd_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
             grd_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
 
             this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname +" - OverSurgery Management System";
-            AppointmentListCounter = 0;
-            grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-            grd_AppointmentList.CurrentRow.Selected = true;
+
+            //grd_AppointmentList.Columns["PatientID"].DisplayIndex = 0;
+            if (grd_AppointmentList.RowCount > 0)
+            {
+                AppointmentListCounter = 0;
+                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
+                grd_AppointmentList.CurrentRow.Selected = true;
+            }
             
             //name, last name, time, notes, DOB
             
@@ -145,16 +150,19 @@ namespace OverSurgery2
                 grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
                 //Select the current row
                 grd_AppointmentList.CurrentRow.Selected = true;
+                //Get selected patient based on PatientID column
+                //m_selectedPatient = ml.GetPatientByID(Convert.ToInt16(grd_AppointmentList.CurrentRow.Cells[0].Value));
+                //Console.WriteLine(m_selectedPatient.Forename);
             }
         }
-
-        private void grd_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
+         /// <summary>
+         /// Get Previous Patient upon click of button
+         /// </summary>
+         /// <param name="sender">MedicalStaffForm</param>
+         /// <param name="e">PLS NO THE CODE</param>
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
+            // If current cell index less than total row count and current cell index greater than 0
             if (grd_AppointmentList.CurrentCell.RowIndex <= grd_AppointmentList.RowCount && grd_AppointmentList.CurrentCell.RowIndex > 0)
             {
                 // Decrement AppointmentListCounter

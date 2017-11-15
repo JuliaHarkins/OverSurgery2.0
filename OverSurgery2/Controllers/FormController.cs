@@ -37,10 +37,7 @@ namespace OverSurgery2
             switch(StaffTypes[currentUser.GetType()])
             {
                 case 1:
-                    new MedicalStaffForm(currentUser);
-                    break;
                 case 2:
-                    break;
                 case 3:
                     new MedicalStaffForm(currentUser);
                     break;
