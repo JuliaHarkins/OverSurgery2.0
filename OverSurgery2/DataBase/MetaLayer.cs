@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
+using OverSurgery2.Main_Classes;
 
 namespace OverSurgery2
 {
@@ -308,7 +309,7 @@ namespace OverSurgery2
             }
             return pf.CreateStaff(d);
         }
-           
+
         public Staff GetMedicalStaffByStaffID(int p_id)
         {
             Dictionary<string, object> d;
@@ -334,14 +335,14 @@ namespace OverSurgery2
                         { "Password", dr.GetString(11)},
                         {"Type", dr.GetInt16(12) },
                         {"PhoneNumber", " " }
-                        
+
 
                     };
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-        return PersonFactory.Instance().CreateStaff(d);
+            return PersonFactory.Instance().CreateStaff(d);
         }
 
         public bool GetMedicalIfExists(int p_id)
@@ -355,7 +356,7 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    if(dr.GetInt16(0) == 0)
+                    if (dr.GetInt16(0) == 0)
                     {
                         dr.Close();
                         con.CloseConnection();
@@ -367,7 +368,7 @@ namespace OverSurgery2
                 return true;
             }
             return false;
-            
+
         }
 
         public int GetMedicalStaffIDByStaffID(int p_id)
@@ -377,8 +378,8 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT medicalstaffid FROM medicalstaff WHERE exists(SELECT * FROM staff where staffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
-                
-                while(dr.Read())
+
+                while (dr.Read())
                 {
                     id = dr.GetInt32(0);
                 }
@@ -386,7 +387,7 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return id;
-            
+
 
         }
 
@@ -574,8 +575,8 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
-                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = " 
-                    + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes +"', appointmentAttended = " 
+                con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = "
+                    + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
                     + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
                 con.CloseConnection();
             }
@@ -590,31 +591,35 @@ namespace OverSurgery2
             DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
-               /* AppointmentID
-                * AppointmentDate
-                * AppointmentTime
-                * AppointmentNote
-                * AppointmentAttended
-                * MedicalStaffID
-                * PatientID
-                */
+                /* AppointmentID
+                 * AppointmentDate
+                 * AppointmentTime
+                 * AppointmentNote
+                 * AppointmentAttended
+                 * MedicalStaffID
+                 * PatientID
+                 */
 
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
-                con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " + 
+                con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " +
                     Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
                 con.CloseConnection();
             }
         }
-
+        /// <summary>
+        /// Finds the appointments for one medical staff member for a given day.
+        /// </summary>
+        /// <param name="p_staffID"></param>
+        /// <returns></returns>
         public List<Appointment> GetStaffAppointments(int p_staffID)
         {
             List<Appointment> appointments = new List<Appointment>();
 
-        DataConnection con = DBFactory.Instance();
+            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
-        Dictionary<string, object> values = null;
+                Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
@@ -636,6 +641,68 @@ namespace OverSurgery2
             }
             return appointments;
         }
+        /// <summary>
+        /// finds all perscriptions based on the patient id
+        /// ast Updated : 16/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_patientID"></param>
+        /// <returns></returns>
+        public List<Prescription> GetPatientsPerscriptions(int p_patientID)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID = " + p_patientID + " ORDER BY DateIssued;");
+                Dictionary<string, object> values = null;
+                while (dr.Read())
+                {
+                    values = new Dictionary<string, object>
+                    {
+                        {"PrescriptionID",dr.GetInt16(0) },
+                        {"DateIssued", dr.GetFieldValue<object>(1)},
+                        {"DateOfNextIssue", dr.GetFieldValue<object>(2) },
+                        { "Ammount", dr.GetInt16(3) },
+                        { "Extenable", dr.GetBoolean(4) },
+                        { "MedicationID",dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6) },
+                        { "MedicalStaffID",dr.GetInt16(7) }
+                    };
+                    prescriptions.Add(new Prescription(values));
+                }
+            }
+            return prescriptions;
+        }
+
+            public List<Prescription> GetPatientsMedicalHiatory(int p_patientID)
+            {
+                List<Prescription> medicalHistoy = new List<Prescription>();
+                DataConnection con = DBFactory.Instance();
+                if (con.OpenConnection())
+                {
+                    DbDataReader dr = con.Select("SELECT * FROM  WHERE PatientID = " + p_patientID + " ORDER BY DateIssued;");
+                    Dictionary<string, object> values = null;
+                    while (dr.Read())
+                    {
+                        values = new Dictionary<string, object>
+                        {
+                            {"MedicalHistoryID",dr.GetInt16(0) },
+                            {"DateIssued", dr.GetFieldValue<object>(1)},
+                            {"DateOfNextIssue", dr.GetFieldValue<object>(2) },
+                            { "Ammount", dr.GetInt16(3) },
+                            { "Extenable", dr.GetBoolean(4) },
+                            { "MedicationID",dr.GetInt16(5) },
+                            { "PatientID", dr.GetInt16(6) },
+                            { "MedicalStaffID",dr.GetInt16(7) }
+                        };
+                        medicalHistoy.Add(new MedicalHistory(values));
+                    }
+
+                }
+                return null;
+            }
+
         public List<Appointment> GetAppointments()
         {
             List<Appointment> appointments = new List<Appointment>();
