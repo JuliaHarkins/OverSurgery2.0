@@ -24,13 +24,20 @@ namespace OverSurgery2
         BindingSource AppointmentBinding;
         List<Appointment> appointments;
         MedicalStaff m_currentUser;
+        Doctor m_currentDoctor;
         int AppointmentListCounter;
         Patient m_selectedPatient;
 
         public MedicalStaffForm(Staff p_currentUser)
         {
-
-            m_currentUser = p_currentUser as MedicalStaff;
+            if(m_currentUser.GetType() == typeof(Doctor))
+            {
+                m_currentDoctor = p_currentUser as Doctor;
+            }
+            else if(m_currentUser.GetType() == typeof(MedicalStaff))
+            {
+                m_currentUser = p_currentUser as MedicalStaff;
+            }
             InitializeComponent();
             this.ShowDialog();
         }
@@ -129,7 +136,7 @@ namespace OverSurgery2
         /// Get next patient appointment upon click of button
         /// </summary>
         /// <param name="sender">MedicalStaffForm</param>
-        /// <param name="e">KYS PLZ</param>
+        /// <param name="e"></param>
         private void btn_nextPatient_Click(object sender, EventArgs e)
         {
             // If current cell index less than or equals row count and current cell index is less than count of all rows
@@ -159,7 +166,7 @@ namespace OverSurgery2
          /// Get Previous Patient upon click of button
          /// </summary>
          /// <param name="sender">MedicalStaffForm</param>
-         /// <param name="e">PLS NO THE CODE</param>
+         /// <param name="e"></param>
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
             // If current cell index less than total row count and current cell index greater than 0
