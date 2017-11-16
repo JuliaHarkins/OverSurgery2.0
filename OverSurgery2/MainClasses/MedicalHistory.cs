@@ -19,7 +19,7 @@ namespace OverSurgery2.Main_Classes
        int  m_patientID;
 #endregion
 #region Properties
-        DateTime Date
+        public DateTime Date
         {
             get
             {
@@ -28,6 +28,17 @@ namespace OverSurgery2.Main_Classes
             set
             {
                 m_date = value;
+            }
+        }
+        public string Notes
+        {
+            get
+            {
+                return m_notes;
+            }
+            set
+            {
+                m_notes = value;
             }
         }
         #endregion

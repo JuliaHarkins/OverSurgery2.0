@@ -203,9 +203,37 @@ namespace OverSurgery2
                 dgv_AppointmentList.CurrentRow.Selected = true;
                 //m_selectedPatient = ml.GetPatientByID(Convert.ToInt16(grd_AppointmentList.CurrentRow.Cells[0].Value));
                 //Console.WriteLine(m_selectedPatient.Forename);
+                SelectMedicalHistory();
             }
 
         }
+        private void SelectMedicalHistory()
+        {
+            if (dgv_AppointmentList != null)
+            {
+
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_perscriptions = ml.GetPatientsPerscriptions(m_appointments[m_appointmentListCounter].PatientID);
+                foreach (MedicalHistory mh in m_medicalHistory)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = mh.Date.ToString();
+                    lvi.SubItems.Add(mh.Notes);
+                    lst_MedicalHistory.Items.Add(lvi);
+                }
+                foreach (Prescription p in m_perscriptions)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = p.Date.ToString();
+                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                    lvi.SubItems.Add(p.Amount.ToString());
+                    lvi.SubItems.Add(p.MedicalStaffID.ToString());
+                    lst_Prescriptions.Items.Add(lvi);
+
+                }
+            }
+        }
+
         /// <summary>
         /// Highlights the Previous Patient, and updates the list position upon click of button.
         /// </summary>
@@ -224,6 +252,7 @@ namespace OverSurgery2
                 dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
 
                 dgv_AppointmentList.CurrentRow.Selected = true;
+                SelectMedicalHistory();
             }
 
         }
@@ -238,11 +267,6 @@ namespace OverSurgery2
         }
         #endregion
 #region DataGridView
-        private void dgv_medicalHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void dgv_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -257,20 +281,17 @@ namespace OverSurgery2
 
         public void updateMedicalHistory()
         {
-            m_medicalBinding = new BindingSource();
-            if (m_currentDoctor != null)
-            {
-                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
-            }
-            else if (m_currentUser != null)
-            {
+            
 
-                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
-            }
-            foreach (Appointment a in m_appointments)
-            {
-                a.SetNameDisplay();
-            }
+        }
+
+        private void lst_MedicalHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lst_Prescriptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
 
         }
     }

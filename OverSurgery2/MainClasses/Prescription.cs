@@ -20,17 +20,64 @@ namespace OverSurgery2.Main_Classes
     /// </summary>
     public class Prescription
     {
-#region member Varibles 
+#region Members 
         MetaLayer ml;
         int m_medicationID; 
         int m_patientID;
-        DateTime m_DateOfNextIssue;
+        DateTime m_dateOfNextIssue;
         bool m_allowExtention;
         DateTime m_DateIssued;
         DateTime m_expirationDate;
-        int m_Amount;
-        int m_MedicalStaffID;
-#endregion
+        int m_amount;
+        int m_medicalStaffID;
+        #endregion
+        #region Properties
+        public DateTime Date
+        {
+            get
+            {
+                return m_DateIssued;
+            }
+            set
+            {
+                m_DateIssued = value;
+            }
+        }
+        public int MedicationID
+        {
+            get
+            {
+                return m_medicationID;
+            }
+            set
+            {
+                m_medicationID = value;
+            }
+        }
+        public int Amount
+        {
+            get
+            {
+                return m_amount;
+            }
+            set
+            {
+                m_amount = value;
+            }
+        }
+        public int MedicalStaffID
+        {
+            get
+            {
+                return m_medicalStaffID;
+            }
+            set
+            {
+                m_medicalStaffID = value;
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// Creates the prescriptions 
@@ -45,10 +92,10 @@ namespace OverSurgery2.Main_Classes
             m_medicationID = Convert.ToInt16(p_PrescriptionValues["PrescriptionID"]);
             m_patientID = Convert.ToInt16(p_PrescriptionValues["PatientID"]);
             m_expirationDate = Convert.ToDateTime(p_PrescriptionValues["ExpirationDate"]);
-            m_Amount = Convert.ToInt16(p_PrescriptionValues["Amount"]);
-            m_MedicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
+            m_amount = Convert.ToInt16(p_PrescriptionValues["Amount"]);
+            m_medicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
             m_DateIssued = Convert.ToDateTime(p_PrescriptionValues["DateIssued"]);
-            m_DateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]); 
+            m_dateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]); 
         }
         #endregion
         #region Methods
@@ -58,7 +105,7 @@ namespace OverSurgery2.Main_Classes
         public void Extend()
         {
             #region Execution
-                if (m_DateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
+                if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
                 {
                     m_expirationDate.AddMonths(1);
                 }
@@ -75,7 +122,7 @@ namespace OverSurgery2.Main_Classes
         {
 #region Execution
 
-            if (m_DateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
+            if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
                 m_expirationDate.AddMonths(p_months);
             }
