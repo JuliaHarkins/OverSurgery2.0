@@ -23,6 +23,7 @@ namespace OverSurgery2
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
+
 #endregion
         private Rota()
         {
