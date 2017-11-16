@@ -369,6 +369,7 @@ namespace OverSurgery2
             return false;
             
         }
+
         public int GetMedicalStaffIDByStaffID(int p_id)
         {
             int id = 0;
@@ -604,6 +605,7 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+
         public List<Appointment> GetStaffAppointments(int p_staffID)
         {
             List<Appointment> appointments = new List<Appointment>();
@@ -665,6 +667,7 @@ namespace OverSurgery2
             return appointments;
         }
 
+#region Rota
         /// <summary>
         /// Get all rota information from the database
         /// </summary>
@@ -761,6 +764,7 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+#endregion
     }
 }
 
