@@ -734,7 +734,6 @@ namespace OverSurgery2
             return appointments;
         }
 
-#region Rota
         /// <summary>
         /// Get all rota information from the database
         /// </summary>
@@ -831,7 +830,41 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
-#endregion
+
+        /// <summary>
+        /// Get appointments that have been missed from the database
+        /// </summary>
+        public void GetMissedAppointments()
+        {
+            List<Appointment> missedApp = new List<Appointment>();
+
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend == 0;");
+                Dictionary<string, object> values = null;
+                //Read the data and store them in the list
+                while (dr.Read())
+                {
+                    values = new Dictionary<string, object>
+                    {
+                        { "AppID", dr.GetInt16(0) },
+                        { "Date", dr.GetFieldValue<object>(1) },
+                        { "Time", dr.GetFieldValue<object>(2) },
+                        { "Notes", dr.GetString(3) },
+                        { "Attend", dr.GetBoolean(4) },
+                        { "MedStaffID", dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6) },
+                    };
+                    missedApp.Add(new Appointment(values));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
+            }
+            return missedApp;
+        }
+
     }
 }
 
