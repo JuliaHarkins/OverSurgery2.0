@@ -41,10 +41,10 @@ namespace OverSurgery2
         /// 01/11/2017 -j
         /// </summary>
         /// <param name="p_prescription"></param>
-        public void AddPerscription(Prescription p_prescription)
+        public void AddPrescription(Prescription p_prescription)
         {
             m_extension.Add(p_prescription);
-            //MetaLayer.Instance().AddPerscription(m_extension);
+            //MetaLayer.Instance().AddPrescription(m_extension);
 
         }
         /// <summary>

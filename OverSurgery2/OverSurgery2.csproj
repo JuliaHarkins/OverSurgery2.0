@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2A20432E-C343-4DA9-99DA-9A0CD1B53691}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>OverSurgery2</RootNamespace>
     <AssemblyName>OverSurgery2</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -33,6 +33,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>syringe.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BCrypt.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -128,11 +131,11 @@
     <Compile Include="UserInterface\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\MedicalStaff.cs">
+    <Compile Include="UserInterface\MedicalStaffForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserInterface\MedicalStaff.Designer.cs">
-      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    <Compile Include="UserInterface\MedicalStaffForm.Designer.cs">
+      <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\PasswordResetForm.cs">
       <SubType>Form</SubType>
@@ -179,8 +182,8 @@
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\MedicalStaff.resx">
-      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
+      <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>
@@ -206,6 +209,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="syringe.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

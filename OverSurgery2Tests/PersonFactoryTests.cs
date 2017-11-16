@@ -65,7 +65,7 @@ namespace OverSurgery2.Tests
                 { "Gender", 0 },
                 { "PhoneNumber", "056742097654"  }
             };
-            Staff TestStaff = PersonFactory.Instance().CreateStaff(values);
+            var TestStaff = PersonFactory.Instance().CreateStaff(values);
             Assert.IsInstanceOfType(TestStaff, typeof(Doctor));
         }
 

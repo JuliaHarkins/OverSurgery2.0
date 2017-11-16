@@ -56,7 +56,7 @@ namespace OverSurgery2
                         { "AddressID", dr.GetInt16(7) },
                     };
                     patients.Add(pf.CreatePatient(values));
-                };
+                }
                 // Close Data Reader
                 dr.Close();
                 con.CloseConnection();
@@ -299,14 +299,15 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-                if (Convert.ToInt16(d["Type"]) == 3)
+                int[] types = { 1, 2, 3 };
+                if (types.Contains(Convert.ToInt16(d["Type"])))
                 {
                     return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
                 }
-
-                }
-            return pf.CreateStaff(d);
+                return pf.CreateStaff(d);
             }
+            return pf.CreateStaff(d);
+        }
            
         public Staff GetMedicalStaffByStaffID(int p_id)
         {
@@ -368,6 +369,7 @@ namespace OverSurgery2
             return false;
             
         }
+
         public int GetMedicalStaffIDByStaffID(int p_id)
         {
             int id = 0;
@@ -603,6 +605,7 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+
         public List<Appointment> GetStaffAppointments(int p_staffID)
         {
             List<Appointment> appointments = new List<Appointment>();
@@ -633,12 +636,41 @@ namespace OverSurgery2
             }
             return appointments;
         }
+        public List<Appointment> GetAppointments()
+        {
+            List<Appointment> appointments = new List<Appointment>();
 
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Appointment ORDER BY AppointmentTime, AppointmentDate;");
+                Dictionary<string, object> values = null;
+                //Read the data and store them in the list
+                while (dr.Read())
+                {
+                    values = new Dictionary<string, object>
+                    {
+                        { "AppID", dr.GetInt16(0) },
+                        { "Date", dr.GetFieldValue<object>(1) },
+                        { "Time", dr.GetFieldValue<object>(2) },
+                        { "Notes", dr.GetString(3) },
+                        { "Attend", dr.GetBoolean(4) },
+                        { "MedStaffID", dr.GetInt16(5) },
+                        { "PatientID", dr.GetInt16(6) },
+                    };
+                    appointments.Add(new Appointment(values));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
+            }
+            return appointments;
+        }
+
+#region Rota
         /// <summary>
         /// Get all rota information from the database
         /// </summary>
-        /// <param name="p_rotaEntryID"></param>
-        /// <returns></returns>
         public Rota GetStaffRota()
         {
             // Read appointment values into dictionary
@@ -658,7 +690,6 @@ namespace OverSurgery2
                         { "MedicalStaffID", dr1.GetString(1) },
                         { "StartDateTime", dr1.GetString(2) },
                         { "EndDateTime", dr1.GetString(3) },
-    
                     };
 
                 }
@@ -667,6 +698,73 @@ namespace OverSurgery2
             }
             return new Rota(rotaValues);
         }
+
+        /// <summary>
+        /// Get all rota information for a specific staff member from the database
+        /// </summary>
+        /// <param name="p_rotaEntryID"></param>
+        /// <returns></returns>
+        public Rota GetStaffRotaByID(int p_rotaEntryID)
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rotaEntryID + ";");
+                while (dr1.Read())
+                {
+
+                    rotaValues = new Dictionary<string, object>
+                    {
+                        { "RotaID", dr1.GetInt16(0) },
+                        { "MedicalStaffID", dr1.GetString(1) },
+                        { "StartDateTime", dr1.GetString(2) },
+                        { "EndDateTime", dr1.GetString(3) },
+                        
+                    };
+
+                }
+                dr1.Close();
+                con.CloseConnection();
+            }
+            return new Rota(rotaValues);
+        }
+
+        /// <summary>
+        /// Add new rota entry to the database
+        /// </summary>
+        /// <param name="rota"></param>
+        public void AddRota(Rota rota)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("INSERT INTO Rota VALUES (null, " + rota.MedicalStaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
+                    Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Update an existing rota
+        /// </summary>
+        /// <param name="rota"></param>
+        public void UpdateRota(Rota rota)
+        {
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
+                    + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
+#endregion
     }
 }
 

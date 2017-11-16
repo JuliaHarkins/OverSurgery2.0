@@ -14,6 +14,7 @@ namespace OverSurgery2
     public partial class ReceptionistForm : Form
     {
         BindingSource PatientBinding;
+        BindingSource AppointmentBinding;
         Staff currentUserLoggedIn = null;
         public ReceptionistForm(Staff currentUser)
         {
@@ -31,6 +32,7 @@ namespace OverSurgery2
         {
             PatientController.Instance().UpdatePatientDoctorDisplay();
             LoadAllPatientInfo();
+            LoadAllAppointments();
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
             DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date Of Birth";
@@ -53,6 +55,13 @@ namespace OverSurgery2
             DataGridPatients.Refresh();
         }
 
+        private void LoadAllAppointments()
+        {
+            AppointmentBinding = new BindingSource();
+            DataGridAppointments.DataSource = AppointmentBinding.DataSource = MetaLayer.Instance().GetAppointments();
+            DataGridAppointments.Update();
+            DataGridAppointments.Refresh();
+        }
 
         private void DataGridPatients_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {

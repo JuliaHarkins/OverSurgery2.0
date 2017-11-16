@@ -23,6 +23,7 @@ namespace OverSurgery2
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
+
 #endregion
         private Rota()
         {
@@ -56,7 +57,7 @@ namespace OverSurgery2
         /// </summary>
         public void AddNewRotaEntry()
         {
-
+            ml.AddRota(m_instance);
         }
 
         /// <summary>
@@ -64,7 +65,7 @@ namespace OverSurgery2
         /// </summary>
         public void UpdateRota()
         {
-
+            ml.UpdateRota(m_instance);
         }
 
         /// <summary>
@@ -73,6 +74,14 @@ namespace OverSurgery2
         public void GetRota()
         {
             ml.GetStaffRota();
+        }
+
+        /// <summary>
+        /// Get a specific rota entry
+        /// </summary>
+        public void GetRotaEntry()
+        {
+            ml.GetStaffRotaByID(RotaEntryID);
         }
     }
 }

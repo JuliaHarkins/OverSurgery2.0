@@ -34,25 +34,26 @@
             this.notes = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.prescriptions = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.lb_appnotes = new System.Windows.Forms.Label();
-            this.btn_addPerscription = new System.Windows.Forms.Button();
+            this.btn_addPrescription = new System.Windows.Forms.Button();
             this.btn_saveNotes = new System.Windows.Forms.Button();
-            this.grd_AppointmentList = new System.Windows.Forms.DataGridView();
+            this.dgv_AppointmentList = new System.Windows.Forms.DataGridView();
             this.btn_nextPatient = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btn_logOff = new System.Windows.Forms.Button();
             this.lb_appList = new System.Windows.Forms.Label();
             this.lb_MedHistory = new System.Windows.Forms.Label();
             this.btn_extRequest = new System.Windows.Forms.Button();
             this.btn_previousPatient = new System.Windows.Forms.Button();
+            this.lb_currentUser = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicalHistory)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grd_AppointmentList)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AppointmentList)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_CurrentNotes
             // 
             this.txt_CurrentNotes.FormattingEnabled = true;
-            this.txt_CurrentNotes.Location = new System.Drawing.Point(12, 265);
+            this.txt_CurrentNotes.Location = new System.Drawing.Point(12, 252);
             this.txt_CurrentNotes.Name = "txt_CurrentNotes";
-            this.txt_CurrentNotes.Size = new System.Drawing.Size(830, 160);
+            this.txt_CurrentNotes.Size = new System.Drawing.Size(957, 160);
             this.txt_CurrentNotes.TabIndex = 3;
             this.txt_CurrentNotes.SelectedIndexChanged += new System.EventHandler(this.txt_CurrentNotes_SelectedIndexChanged);
             // 
@@ -67,7 +68,7 @@
             this.date,
             this.notes,
             this.prescriptions});
-            this.dgv_medicalHistory.Location = new System.Drawing.Point(12, 444);
+            this.dgv_medicalHistory.Location = new System.Drawing.Point(9, 462);
             this.dgv_medicalHistory.Name = "dgv_medicalHistory";
             this.dgv_medicalHistory.ReadOnly = true;
             this.dgv_medicalHistory.Size = new System.Drawing.Size(960, 280);
@@ -98,26 +99,26 @@
             // lb_appnotes
             // 
             this.lb_appnotes.AutoSize = true;
-            this.lb_appnotes.Location = new System.Drawing.Point(9, 246);
+            this.lb_appnotes.Location = new System.Drawing.Point(9, 236);
             this.lb_appnotes.Name = "lb_appnotes";
             this.lb_appnotes.Size = new System.Drawing.Size(97, 13);
             this.lb_appnotes.TabIndex = 9;
             this.lb_appnotes.Text = "Appointment Notes";
             this.lb_appnotes.Click += new System.EventHandler(this.lb_notes_Click);
             // 
-            // btn_addPerscription
+            // btn_addPrescription
             // 
-            this.btn_addPerscription.Location = new System.Drawing.Point(848, 371);
-            this.btn_addPerscription.Name = "btn_addPerscription";
-            this.btn_addPerscription.Size = new System.Drawing.Size(124, 25);
-            this.btn_addPerscription.TabIndex = 10;
-            this.btn_addPerscription.Text = "Add Perscription";
-            this.btn_addPerscription.UseVisualStyleBackColor = true;
-            this.btn_addPerscription.Click += new System.EventHandler(this.btn_addPerscription_Click);
+            this.btn_addPrescription.Location = new System.Drawing.Point(9, 418);
+            this.btn_addPrescription.Name = "btn_addPrescription";
+            this.btn_addPrescription.Size = new System.Drawing.Size(124, 25);
+            this.btn_addPrescription.TabIndex = 10;
+            this.btn_addPrescription.Text = "Add Prescription";
+            this.btn_addPrescription.UseVisualStyleBackColor = true;
+            this.btn_addPrescription.Click += new System.EventHandler(this.btn_addPrescription_Click);
             // 
             // btn_saveNotes
             // 
-            this.btn_saveNotes.Location = new System.Drawing.Point(848, 400);
+            this.btn_saveNotes.Location = new System.Drawing.Point(139, 418);
             this.btn_saveNotes.Name = "btn_saveNotes";
             this.btn_saveNotes.Size = new System.Drawing.Size(124, 25);
             this.btn_saveNotes.TabIndex = 11;
@@ -125,23 +126,23 @@
             this.btn_saveNotes.UseVisualStyleBackColor = true;
             this.btn_saveNotes.Click += new System.EventHandler(this.btn_saveNotes_Click);
             // 
-            // grd_AppointmentList
+            // dgv_AppointmentList
             // 
-            this.grd_AppointmentList.AllowUserToAddRows = false;
-            this.grd_AppointmentList.AllowUserToDeleteRows = false;
-            this.grd_AppointmentList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.grd_AppointmentList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
-            this.grd_AppointmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.grd_AppointmentList.Location = new System.Drawing.Point(12, 93);
-            this.grd_AppointmentList.Name = "grd_AppointmentList";
-            this.grd_AppointmentList.ReadOnly = true;
-            this.grd_AppointmentList.Size = new System.Drawing.Size(830, 150);
-            this.grd_AppointmentList.TabIndex = 12;
-            this.grd_AppointmentList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grd_AppointmentList_CellContentClick);
+            this.dgv_AppointmentList.AllowUserToAddRows = false;
+            this.dgv_AppointmentList.AllowUserToDeleteRows = false;
+            this.dgv_AppointmentList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgv_AppointmentList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dgv_AppointmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_AppointmentList.Location = new System.Drawing.Point(12, 52);
+            this.dgv_AppointmentList.Name = "dgv_AppointmentList";
+            this.dgv_AppointmentList.ReadOnly = true;
+            this.dgv_AppointmentList.Size = new System.Drawing.Size(957, 150);
+            this.dgv_AppointmentList.TabIndex = 12;
+            this.dgv_AppointmentList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_AppointmentList_CellContentClick);
             // 
             // btn_nextPatient
             // 
-            this.btn_nextPatient.Location = new System.Drawing.Point(848, 218);
+            this.btn_nextPatient.Location = new System.Drawing.Point(144, 208);
             this.btn_nextPatient.Name = "btn_nextPatient";
             this.btn_nextPatient.Size = new System.Drawing.Size(126, 25);
             this.btn_nextPatient.TabIndex = 13;
@@ -149,20 +150,21 @@
             this.btn_nextPatient.UseVisualStyleBackColor = true;
             this.btn_nextPatient.Click += new System.EventHandler(this.btn_nextPatient_Click);
             // 
-            // button1
+            // btn_logOff
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(822, 740);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 30);
-            this.button1.TabIndex = 14;
-            this.button1.Text = "Log Off";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btn_logOff.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_logOff.Location = new System.Drawing.Point(9, 748);
+            this.btn_logOff.Name = "btn_logOff";
+            this.btn_logOff.Size = new System.Drawing.Size(150, 30);
+            this.btn_logOff.TabIndex = 14;
+            this.btn_logOff.Text = "Log Off";
+            this.btn_logOff.UseVisualStyleBackColor = true;
+            this.btn_logOff.Click += new System.EventHandler(this.btn_logOff_Click);
             // 
             // lb_appList
             // 
             this.lb_appList.AutoSize = true;
-            this.lb_appList.Location = new System.Drawing.Point(12, 77);
+            this.lb_appList.Location = new System.Drawing.Point(9, 36);
             this.lb_appList.Name = "lb_appList";
             this.lb_appList.Size = new System.Drawing.Size(85, 13);
             this.lb_appList.TabIndex = 15;
@@ -172,7 +174,7 @@
             // lb_MedHistory
             // 
             this.lb_MedHistory.AutoSize = true;
-            this.lb_MedHistory.Location = new System.Drawing.Point(9, 428);
+            this.lb_MedHistory.Location = new System.Drawing.Point(6, 446);
             this.lb_MedHistory.Name = "lb_MedHistory";
             this.lb_MedHistory.Size = new System.Drawing.Size(79, 13);
             this.lb_MedHistory.TabIndex = 16;
@@ -181,7 +183,7 @@
             // 
             // btn_extRequest
             // 
-            this.btn_extRequest.Location = new System.Drawing.Point(12, 740);
+            this.btn_extRequest.Location = new System.Drawing.Point(165, 748);
             this.btn_extRequest.Name = "btn_extRequest";
             this.btn_extRequest.Size = new System.Drawing.Size(150, 30);
             this.btn_extRequest.TabIndex = 17;
@@ -191,7 +193,7 @@
             // 
             // btn_previousPatient
             // 
-            this.btn_previousPatient.Location = new System.Drawing.Point(848, 187);
+            this.btn_previousPatient.Location = new System.Drawing.Point(12, 208);
             this.btn_previousPatient.Name = "btn_previousPatient";
             this.btn_previousPatient.Size = new System.Drawing.Size(126, 25);
             this.btn_previousPatient.TabIndex = 18;
@@ -199,28 +201,41 @@
             this.btn_previousPatient.UseVisualStyleBackColor = true;
             this.btn_previousPatient.Click += new System.EventHandler(this.btn_previousPatient_Click);
             // 
+            // lb_currentUser
+            // 
+            this.lb_currentUser.AutoSize = true;
+            this.lb_currentUser.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lb_currentUser.Location = new System.Drawing.Point(12, 9);
+            this.lb_currentUser.Name = "lb_currentUser";
+            this.lb_currentUser.Size = new System.Drawing.Size(81, 16);
+            this.lb_currentUser.TabIndex = 19;
+            this.lb_currentUser.Text = "Temp name";
+            this.lb_currentUser.Click += new System.EventHandler(this.lb_currentUser_Click);
+            // 
             // MedicalStaffForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1005, 838);
+            this.ClientSize = new System.Drawing.Size(977, 783);
+            this.Controls.Add(this.lb_currentUser);
             this.Controls.Add(this.btn_previousPatient);
             this.Controls.Add(this.btn_extRequest);
             this.Controls.Add(this.lb_MedHistory);
             this.Controls.Add(this.lb_appList);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btn_logOff);
             this.Controls.Add(this.btn_nextPatient);
-            this.Controls.Add(this.grd_AppointmentList);
+            this.Controls.Add(this.dgv_AppointmentList);
             this.Controls.Add(this.btn_saveNotes);
-            this.Controls.Add(this.btn_addPerscription);
+            this.Controls.Add(this.btn_addPrescription);
             this.Controls.Add(this.lb_appnotes);
             this.Controls.Add(this.dgv_medicalHistory);
             this.Controls.Add(this.txt_CurrentNotes);
             this.Name = "MedicalStaffForm";
             this.Text = "Todays Appointments";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MedicalStaff_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgv_medicalHistory)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.grd_AppointmentList)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_AppointmentList)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,14 +248,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn notes;
         private System.Windows.Forms.DataGridViewTextBoxColumn prescriptions;
         private System.Windows.Forms.Label lb_appnotes;
-        private System.Windows.Forms.Button btn_addPerscription;
+        private System.Windows.Forms.Button btn_addPrescription;
         private System.Windows.Forms.Button btn_saveNotes;
-        private System.Windows.Forms.DataGridView grd_AppointmentList;
+        private System.Windows.Forms.DataGridView dgv_AppointmentList;
         private System.Windows.Forms.Button btn_nextPatient;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btn_logOff;
         private System.Windows.Forms.Label lb_appList;
         private System.Windows.Forms.Label lb_MedHistory;
         private System.Windows.Forms.Button btn_extRequest;
         private System.Windows.Forms.Button btn_previousPatient;
+        private System.Windows.Forms.Label lb_currentUser;
     }
 }
