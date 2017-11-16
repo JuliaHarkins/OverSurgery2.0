@@ -30,11 +30,11 @@ namespace OverSurgery2
 
         public MedicalStaffForm(Staff p_currentUser)
         {
-            if(m_currentUser.GetType() == typeof(Doctor))
+            if(p_currentUser.GetType() == typeof(Doctor))
             {
                 m_currentDoctor = p_currentUser as Doctor;
             }
-            else if(m_currentUser.GetType() == typeof(MedicalStaff))
+            else if(p_currentUser.GetType() == typeof(MedicalStaff))
             {
                 m_currentUser = p_currentUser as MedicalStaff;
             }
@@ -45,14 +45,22 @@ namespace OverSurgery2
 
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
-            if(m_currentUser.GetType() == typeof(MedicalStaff))
+            if(m_currentUser != null)
             {
                 var tempLoc = btn_addPrescription.Location;
                 btn_addPrescription.Visible = false;
                 btn_saveNotes.Location = tempLoc;
             }
             AppointmentBinding = new BindingSource();
-            appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
+            if (m_currentDoctor != null)
+            {
+                appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
+            }
+            else if(m_currentUser != null)
+            {
+
+                appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
+            }
             foreach(Appointment a in appointments)
             {
                 a.SetNameDisplay();
@@ -70,7 +78,10 @@ namespace OverSurgery2
             grd_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
             grd_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
 
-            this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname +" - OverSurgery Management System";
+            if (m_currentUser != null)
+            {
+                this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname + " - OverSurgery Management System";
+            }
 
             //grd_AppointmentList.Columns["PatientID"].DisplayIndex = 0;
             if (grd_AppointmentList.RowCount > 0)
