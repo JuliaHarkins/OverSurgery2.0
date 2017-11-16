@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 namespace OverSurgery2
 {
     /// <summary>
-    /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)
     /// First Created: 20/10/17
     /// Last Edit: 21/10/17 14:22
     /// Last Edit by: E
