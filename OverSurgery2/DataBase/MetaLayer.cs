@@ -798,6 +798,30 @@ namespace OverSurgery2
             return missedApp;
         }
 
+        /// <summary>
+        /// Add a new staff member to the database
+        /// </summary>
+        public void AddStaff(Staff staff)
+        {
+           /* `StaffID` 
+            * `Forename`
+            * `Surname`
+            * `Email` 
+            * `AddressID` 
+            * `Username` 
+            * `Password`
+            */
+
+            DataConnection con = DBFactory.Instance();
+            if (con.OpenConnection())
+            {
+               
+                con.Update("INSERT INTO Staff VALUES (null, " + staff.Forename + ", " + staff.Surname + ", " + staff.EmailAddress + ", " + 
+                    Convert.ToInt32(staff.AddressID) + ", " + staff.Username + ", " + staff.Password + ");");
+                con.CloseConnection();
+            }
+        }
+
     }
 }
 

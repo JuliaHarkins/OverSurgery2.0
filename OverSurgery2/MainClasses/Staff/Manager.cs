@@ -37,11 +37,11 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Add a staff member to the database
+        /// Add a staff member to the database from values in the 'Staff' class
         /// </summary>
-        public void AddStaff()
+        public void AddStaff(Staff staff)
         {
-            
+            ml.AddStaff(staff);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Update the staff rota with new data
+        /// Update the staff rota with new data from the 'Rota' class
         /// </summary>
         public void UpdateRota(Rota rota)
         {
