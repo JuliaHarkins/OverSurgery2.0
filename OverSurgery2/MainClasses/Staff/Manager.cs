@@ -17,23 +17,23 @@ namespace OverSurgery2
         MetaLayer ml;
         public static Manager m_instance;
 
-        //private Manager()
-        //{
-        //    ml = MetaLayer.Instance();
-        //}
+        private Manager()
+        {
+            ml = MetaLayer.Instance();
+        }
 
-        //public static Manager Instance()
-        //{
-        //    if (null == m_instance)
-        //    {
-        //        m_instance = new Manager();
-        //    }
-        //    return m_instance;
-        //}
+        public static Manager Instance()
+        {
+            if (null == m_instance)
+            {
+                m_instance = new Manager();
+            }
+            return m_instance;
+        }
 
         public Manager(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
         {
-
+            
         }
 
         /// <summary>

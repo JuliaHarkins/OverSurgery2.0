@@ -608,8 +608,6 @@ namespace OverSurgery2
         }
         /// <summary>
         /// Finds the appointments for one medical staff member for a given day.
-        /// Last Updated : 15/11/17,
-        /// By j
         /// </summary>
         /// <param name="p_staffID"></param>
         /// <returns></returns>
@@ -644,11 +642,11 @@ namespace OverSurgery2
             return appointments;
         }
         /// <summary>
-        /// finds all perscriptions based on the patient id.
-        /// Last Updated : 16/11/17,
+        /// finds all perscriptions based on the patient id
+        /// ast Updated : 16/11/17,
         /// By j
         /// </summary>
-        /// <param name="p_patientID">the </param>
+        /// <param name="p_patientID"></param>
         /// <returns></returns>
         public List<Prescription> GetPatientsPerscriptions(int p_patientID)
         {
@@ -676,36 +674,34 @@ namespace OverSurgery2
             }
             return prescriptions;
         }
-        /// <summary>
-        /// retrieves the medical history of the patient for the id given.
-        /// Last Updated : 16/11/17,
-        /// By j
-        /// </summary>
-        /// <param name="p_patientID">the id of the patient that you want to check</param>
-        /// <returns></returns>
-        public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
-        {
-            List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
-            DataConnection con = DBFactory.Instance();
-            if (con.OpenConnection())
-            {
-                DbDataReader dr = con.Select("SELECT * FROM MedicalHistory WHERE PatientID = " + p_patientID + " ORDER BY DateOf;");
-                Dictionary<string, object> values = null;
-                while (dr.Read())
-                {
-                    values = new Dictionary<string, object>
-                    {
-                        {"MedicalHistoryID",dr.GetInt16(0) },
-                        {"MedicalHistory", dr.GetString(1)},
-                        {"DateOf", dr.GetDateTime(2)},
-                        { "PatientID", dr.GetInt16(3)}
-                    };
-                    medicalHistoy.Add(new MedicalHistory(values));
-                }
 
+            public List<Prescription> GetPatientsMedicalHiatory(int p_patientID)
+            {
+                List<Prescription> medicalHistoy = new List<Prescription>();
+                DataConnection con = DBFactory.Instance();
+                if (con.OpenConnection())
+                {
+                    DbDataReader dr = con.Select("SELECT * FROM  WHERE PatientID = " + p_patientID + " ORDER BY DateIssued;");
+                    Dictionary<string, object> values = null;
+                    while (dr.Read())
+                    {
+                        values = new Dictionary<string, object>
+                        {
+                            {"MedicalHistoryID",dr.GetInt16(0) },
+                            {"DateIssued", dr.GetFieldValue<object>(1)},
+                            {"DateOfNextIssue", dr.GetFieldValue<object>(2) },
+                            { "Ammount", dr.GetInt16(3) },
+                            { "Extenable", dr.GetBoolean(4) },
+                            { "MedicationID",dr.GetInt16(5) },
+                            { "PatientID", dr.GetInt16(6) },
+                            { "MedicalStaffID",dr.GetInt16(7) }
+                        };
+                        medicalHistoy.Add(new MedicalHistory(values));
+                    }
+
+                }
+                return null;
             }
-            return null;
-        }
 
         public List<Appointment> GetAppointments()
         {
@@ -838,7 +834,7 @@ namespace OverSurgery2
         /// <summary>
         /// Get appointments that have been missed from the database
         /// </summary>
-        public List<Appointment> GetMissedAppointments()
+        public void GetMissedAppointments()
         {
             List<Appointment> missedApp = new List<Appointment>();
 
