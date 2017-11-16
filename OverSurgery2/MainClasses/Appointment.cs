@@ -30,6 +30,7 @@ namespace OverSurgery2
         private string m_timeDisplay;
         MetaLayer ml;
 #endregion
+
 #region Properties
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
@@ -42,7 +43,6 @@ namespace OverSurgery2
         public string SurNameDisplay { get { return m_surnameDisplay; } }
         public string TimeDisplay { get { return m_timeDisplay; } set { m_timeDisplay = value; } }
         #endregion
-
 
         /// <summary>
         /// Gets the details of the appointment from the AppointmentControler and patient details from the database

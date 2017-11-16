@@ -1,4 +1,9 @@
-﻿using System;
+﻿/* Created by: ???
+ * First Created: ???
+ * Last Edit: 14/11/17 16:22
+ * Last Edit by: R
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +30,7 @@ namespace OverSurgery2
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
 
 #endregion
+
         private Rota()
         {
             ml = MetaLayer.Instance();
