@@ -56,7 +56,7 @@ namespace OverSurgery2
                         { "AddressID", dr.GetInt16(7) },
                     };
                     patients.Add(pf.CreatePatient(values));
-                };
+                }
                 // Close Data Reader
                 dr.Close();
                 con.CloseConnection();

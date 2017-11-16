@@ -12,5 +12,7 @@ namespace OverSurgery2.Class_Diagram_Classes
     /// </summary>
     class MedicalHistory
     {
+        DateTime m_Date;
+        string notes;
     }
 }
