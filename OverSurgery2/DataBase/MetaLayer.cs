@@ -137,30 +137,27 @@ namespace OverSurgery2
         }
 
 
-        public bool InsertNewPatient(Patient p_Patient)
+        public bool InsertNewPatient(Dictionary<string, object> p_PatientValues)
         {
-            if (con.OpenConnection())
             {
-                try
+                if (con.OpenConnection())
                 {
-                    con.Insert("INSERT INTO patient VALUES (NULL," + p_Patient.Forename + "," 
-                        + p_Patient.Surname + "," 
-                        + p_Patient.Gender + "," 
-                        + p_Patient.DateOfBirth + "," 
-                        + p_Patient.PhoneNumber+ "," 
-                        + p_Patient.RegisteredDoctorID 
-                        + p_Patient.AddressID + ");");
-                    con.CloseConnection();
-                    return true;
+                    try
+                    {
+                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["Gender"] + "," + p_PatientValues["DateOfBirth"] + "," + p_PatientValues["PhoneNumber"] + "," +
+                            p_PatientValues["RegisteredDoctorID"] + p_PatientValues["AddressID"] + ");");
+                        con.CloseConnection();
+                        return true;
 
+                    }
+                    catch (Exception e)
+                    {
+                        Console.WriteLine(e.Message);
+                        throw e;
+                    }
                 }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    throw e;
-                }
+                return false;
             }
-            return false;
         }
 
         /// <summary>
@@ -174,30 +171,6 @@ namespace OverSurgery2
         /// </code>
         /// </example>
         /// <returns>Returns an address string</returns>
-        /// 
-    
-        public bool InsertNewAddress(Address p_Address)
-        {
-            if (con.OpenConnection())
-            {
-                try
-                {
-                    con.Insert("INSERT INTO ADDRESS VALUES (NULL," + p_Address.HouseName + ","
-                        + p_Address.HouseNumber + ","
-                        + p_Address.StreetName + ","
-                        + p_Address.PostCode +");");
-                    con.CloseConnection();
-                    return true;
-
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                    throw e;
-                }
-            }
-            return false;
-        }
         public string GetAddressByID(int p_id)
         {
             string houseName = null;
