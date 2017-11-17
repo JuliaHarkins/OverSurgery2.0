@@ -78,6 +78,12 @@
     <Compile Include="NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Rota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rota.Designer.cs">
+      <DependentUpon>Rota.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\AddPrescription.cs">
       <SubType>Form</SubType>
     </Compile>
