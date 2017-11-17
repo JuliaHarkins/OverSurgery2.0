@@ -65,6 +65,12 @@
     <Compile Include="DataBase\ManagerForm.Designer.cs">
       <DependentUpon>ManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\RotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\RotaForm.Designer.cs">
+      <DependentUpon>RotaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainClasses\Appointment.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="DataBase\DBConnect.cs" />
@@ -190,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ReceptionistForm.resx">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\RotaForm.resx">
+      <DependentUpon>RotaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ViewPatientInfoForm.resx">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>

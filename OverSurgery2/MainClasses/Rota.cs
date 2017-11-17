@@ -1,5 +1,5 @@
-﻿/* Created by: ???
- * First Created: ???
+﻿/* Created by: R
+ * First Created: 31/10/17
  * Last Edit: 14/11/17 16:22
  * Last Edit by: R
  */
@@ -13,7 +13,6 @@ namespace OverSurgery2
 {
     public class Rota
     {
-#region Member Variables
         List<Rota> StaffTimes = new List<Rota>();
         MetaLayer ml;
         private static Rota m_instance;
@@ -21,15 +20,11 @@ namespace OverSurgery2
         private int m_medicalStaffID;
         private int m_startTime;
         private int m_endTime;
-#endregion
 
-#region Properties
         public int RotaEntryID { get { return m_rotaEntryID; } set { m_rotaEntryID = value; } }
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
-
-#endregion
 
         private Rota()
         {

@@ -16,10 +16,12 @@ namespace OverSurgery2
         BindingSource PatientBinding;
         BindingSource AppointmentBinding;
         Staff currentUserLoggedIn = null;
+        PatientController pc;
         public ReceptionistForm(Staff currentUser)
         {
             currentUserLoggedIn = currentUser;
             InitializeComponent();
+            pc = PatientController.Instance();
             this.ShowDialog();
         }
 
@@ -33,6 +35,13 @@ namespace OverSurgery2
             PatientController.Instance().UpdatePatientDoctorDisplay();
             LoadAllPatientInfo();
             LoadAllAppointments();
+            
+            this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
+        }
+        private void LoadAllPatientInfo()
+        {
+            PatientBinding = new BindingSource();
+            DataGridPatients.DataSource = PatientBinding.DataSource = PatientController.Instance().patients;
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
             DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date Of Birth";
@@ -45,12 +54,6 @@ namespace OverSurgery2
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
-            this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
-        }
-        private void LoadAllPatientInfo()
-        {
-            PatientBinding = new BindingSource();
-            DataGridPatients.DataSource = PatientBinding.DataSource = PatientController.Instance().patients;
             DataGridPatients.Update();
             DataGridPatients.Refresh();
         }
@@ -58,7 +61,7 @@ namespace OverSurgery2
         private void LoadAllAppointments()
         {
             AppointmentBinding = new BindingSource();
-            DataGridAppointments.DataSource = AppointmentBinding.DataSource = MetaLayer.Instance().GetAppointments();
+            DataGridAppointments.DataSource = AppointmentBinding.DataSource = AppointmentController.Instance().Appointments;
             DataGridAppointments.Update();
             DataGridAppointments.Refresh();
         }
@@ -67,13 +70,25 @@ namespace OverSurgery2
         {
                 try
                 {
-                FormController.Instance().OpenPatientViewForm(MetaLayer.Instance().GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
+                FormController.Instance().OpenPatientViewForm(GetPatientByID());
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     throw ex;
                 }
+        }
+
+        private Patient GetPatientByID()
+        {
+            foreach (Patient p in PatientController.Instance().patients)
+            {
+                if (p.ID == Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value))
+                {
+                    return p;
+                }
+            }
+            return null;
         }
 
         private void txt_SearchSurname_Enter(object sender, EventArgs e)
@@ -115,10 +130,12 @@ namespace OverSurgery2
 
         private void btn_SearchPatient_Click(object sender, EventArgs e)
         {
+            string forename = txt_SearchForename.Text;
+            string surname = txt_SearchSurname.Text;
+            IEnumerable<Patient> EnumCurrentP;
             PatientBinding = new BindingSource();
-            var s = MetaLayer.Instance().GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
-            s.SetDoctorDisplay();
-            PatientBinding.DataSource = s;
+            EnumCurrentP = pc.patients.Where(p => (p.Forename == forename)).Where(p => (p.Surname == surname));
+            PatientBinding.DataSource = EnumCurrentP.Cast<Patient>().ToList();
             DataGridPatients.DataSource = PatientBinding;
             DataGridPatients.Update();
             DataGridPatients.Refresh();

@@ -74,5 +74,13 @@ namespace OverSurgery2
             }
         }
 #endregion
+        public void CheckPermission()
+        {
+            // GetPermission_Staff
+
+            //GetPermission_Medication
+
+            //Compare on med.permission <= staff.permission
+        }
     }
 }

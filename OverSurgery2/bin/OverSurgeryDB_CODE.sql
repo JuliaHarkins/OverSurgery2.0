@@ -134,19 +134,11 @@ CREATE TABLE `Rota` (
     PRIMARY KEY(`RotaID`),
     FOREIGN KEY(`DayID`) REFERENCES DayOfWeek(`DayID`) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`) ON DELETE CASCADE ON UPDATE CASCADE,
-)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- TESTING ACCOUNT --
 CREATE USER 'DBAccess'@localhost IDENTIFIED BY 'Nricb';
 GRANT ALL ON OverSurgery.* TO 'DBAccess'@localhost;
-
--- Access accounts to limit maximum data access --
-#CREATE USER 'PatientAccess'@ localhost IDENTIFIED BY 'Nricb';
-#CREATE USER 'DoctorAccess'@localhost IDENTIFIED BY 'Nricb';
-#CREATE USER 'StaffAccess'@localhost IDENTIFIED BY 'Nricb';
-#CREATE USER 'OtherAccess'@localhost IDENTIFIED BY 'Nricb';
-
-
 
 INSERT INTO Address VALUES (1, null, 2, "THIS IS A TEST", "01 TEST 10");
 INSERT INTO Address VALUES (2, null, 12, "X THIS IS A TEST", "01 TEST 10");

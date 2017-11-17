@@ -16,20 +16,6 @@ namespace OverSurgery2
     {
         MetaLayer ml;
         public static Manager m_instance;
-        //
-        //private Manager()
-        //{
-        //    ml = MetaLayer.Instance();
-        //}
-
-        //public static Manager Instance()
-        //{
-        //    if (null == m_instance)
-        //    {
-        //        m_instance = new Manager();
-        //    }
-        //    return m_instance;
-        //}
 
         public Manager(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
         {
@@ -75,7 +61,6 @@ namespace OverSurgery2
         {
             ml.UpdateRota(rota);
         }
-
 
         /// <summary>
         /// Book a locum
