@@ -629,13 +629,13 @@ namespace OverSurgery2
             return appointments;
         }
         /// <summary>
-        /// finds all perscriptions based on the patient id.
+        /// finds all prescriptions based on the patient id.
         /// Last Updated : 16/11/17,
         /// By j
         /// </summary>
         /// <param name="p_patientID">the id of the patient</param>
         /// <returns></returns>
-        public List<Prescription> GetPatientsPerscriptions(int p_patientID)
+        public List<Prescription> GetPatientsPrescriptions(int p_patientID)
         {
             List<Prescription> prescriptions = new List<Prescription>();
             if (con.OpenConnection())
@@ -647,8 +647,8 @@ namespace OverSurgery2
                     values = new Dictionary<string, object>
                     {
                         {"PrescriptionID",dr.GetInt16(0) },
-                        {"DateIssued", dr.GetFieldValue<object>(1)},
-                        {"DateOfNextIssue", dr.GetFieldValue<object>(2) },
+                        {"DateIssued", dr.GetDateTime(1)},
+                        {"DateOfNextIssue", dr.GetDateTime(2) },
                         { "Ammount", dr.GetInt16(3) },
                         { "Extenable", dr.GetBoolean(4) },
                         { "MedicationID",dr.GetInt16(5) },
@@ -656,7 +656,10 @@ namespace OverSurgery2
                         { "MedicalStaffID",dr.GetInt16(7) }
                     };
                     prescriptions.Add(new Prescription(values));
+                    
                 }
+            dr.Close();
+            con.CloseConnection();
             }
             return prescriptions;
         }
@@ -685,19 +688,103 @@ namespace OverSurgery2
                     };
                     medicalHistoy.Add(new MedicalHistory(values));
                 }
-
+            dr.Close();
+            con.CloseConnection();
             }
             return medicalHistoy;
         }
+        /// <summary>
+        /// finsds the name of the medication based off the id
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_medicationID">the id of the medication</param>
+        /// <returns></returns>
         public string GetMedicationName(int p_medicationID)
         {
             string med = "";
-            DbDataReader dr = con.Select("SELECT DISTINCT MedicationName FROM Medication  WHERE MedicationID =" + p_medicationID + ";");
-            while (dr.Read())
+            if(con.OpenConnection())
             {
-                med = dr.GetString(0);
+                DbDataReader dr = con.Select("SELECT DISTINCT MedicationName FROM Medication  WHERE MedicationID =" + p_medicationID + ";");
+                while (dr.Read())
+                {
+                    med = dr.GetString(0);
+                }
+            dr.Close();
+            con.CloseConnection();
             }
             return med;
+        }
+        /// <summary>
+        /// Finds The medical Staffs staffid form its medStaff id
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_staffID">the staff id</param>
+        /// <returns></returns>
+        public int GetStafIDFromMedStaffID(int p_staffID)
+        {
+            int staffid = 0;
+            if (con.OpenConnection())
+            {
+                //gets the staff id
+                
+                DbDataReader dr = con.Select("SELECT DISTINCT StaffID FROM MedicalStaff  WHERE MedicalStaffID =" + p_staffID + ";");
+                while (dr.Read())
+                {
+                    staffid = dr.GetInt16(0);
+                }
+                
+                dr.Close();
+                con.CloseConnection();
+            }
+            //returns the title and surname
+            
+            return staffid;
+        }
+
+        /// <summary>
+        /// Get StaffName With Title from the staffid
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="staffid">the staffmembers id</param>
+        /// <returns></returns>
+        public string GetStaffNameAndTitle(int staffid)
+        {
+            string medStaffName = "";
+            int medStaffType = 0;
+            string title = "";
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT DISTINCT Forename,Surname, Type FROM Staff  WHERE StaffID =" + staffid + ";");
+                while (dr.Read())
+                {
+                    medStaffName = dr.GetString(0) + " " + dr.GetString(1);
+                    medStaffType = dr.GetInt16(2);
+                }
+                //sets the title of the Staffmember
+                switch (medStaffType)
+                {
+                    case 1:
+                        title = "Nurse";
+                        break;
+                    case 2:
+                    case 3:
+                        title = "Dr";
+                        break;
+                    case 4:
+                        title = "Receptionist";
+                        break;
+                    case 5:
+                        title = "Manager";
+                        break;
+
+                }
+            dr.Close();
+            con.CloseConnection();
+            }
+            return title + " " + medStaffName;
         }
 
         public List<Appointment> GetAppointments()

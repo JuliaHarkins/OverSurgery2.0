@@ -22,12 +22,13 @@ namespace OverSurgery2.Main_Classes
     {
 #region Members 
         MetaLayer ml;
+        int m_prescriptionID;
         int m_medicationID; 
         int m_patientID;
         DateTime m_dateOfNextIssue;
         bool m_allowExtention;
         DateTime m_DateIssued;
-        DateTime m_expirationDate;
+        DateTime m_dateOfNetIssue;
         int m_amount;
         int m_medicalStaffID;
         #endregion
@@ -89,13 +90,16 @@ namespace OverSurgery2.Main_Classes
         public Prescription(Dictionary<string, object> p_PrescriptionValues)
         {
             ml = MetaLayer.Instance();
-            m_medicationID = Convert.ToInt16(p_PrescriptionValues["PrescriptionID"]);
-            m_patientID = Convert.ToInt16(p_PrescriptionValues["PatientID"]);
-            m_expirationDate = Convert.ToDateTime(p_PrescriptionValues["ExpirationDate"]);
-            m_amount = Convert.ToInt16(p_PrescriptionValues["Amount"]);
-            m_medicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
+            m_prescriptionID = Convert.ToInt16(p_PrescriptionValues["PrescriptionID"]);
             m_DateIssued = Convert.ToDateTime(p_PrescriptionValues["DateIssued"]);
-            m_dateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]); 
+            m_dateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]);
+            m_amount = Convert.ToInt16(p_PrescriptionValues["Ammount"]);
+            m_allowExtention = Convert.ToBoolean(p_PrescriptionValues["Extenable"]);
+            m_medicationID = Convert.ToInt16(p_PrescriptionValues["MedicationID"]);
+            m_patientID = Convert.ToInt16(p_PrescriptionValues["PatientID"]);
+            m_medicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
+            
+            
         }
         #endregion
         #region Methods
@@ -107,7 +111,7 @@ namespace OverSurgery2.Main_Classes
             #region Execution
                 if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
                 {
-                    m_expirationDate.AddMonths(1);
+                    m_dateOfNetIssue.AddMonths(1);
                 }
             else {
 
@@ -124,7 +128,7 @@ namespace OverSurgery2.Main_Classes
 
             if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
-                m_expirationDate.AddMonths(p_months);
+                m_dateOfNetIssue.AddMonths(p_months);
             }
 #endregion
         }

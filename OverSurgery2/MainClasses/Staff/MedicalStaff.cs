@@ -73,7 +73,6 @@ namespace OverSurgery2
             rand = new Random();
 #endregion
 #region Execution
-            //
 #endregion
 #region return
             return null;
