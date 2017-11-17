@@ -13,6 +13,7 @@ namespace OverSurgery2
         /// Date Created : 31/10/17
         /// </summary>
         private List<IObserver<Patient>> observers;
+        public List<Patient> patients;
         public IDisposable Subscribe(IObserver<Patient> observer)
         {
             if(!observers.Contains(observer))
@@ -26,7 +27,7 @@ namespace OverSurgery2
             }
             return new Unsubscriber<Patient>(observers, observer);
         }
-        public List<Patient> patients;
+
         private static PatientController m_getInstance;
         private PatientController()
         {
@@ -44,7 +45,7 @@ namespace OverSurgery2
         public void AddNewPatient(Dictionary<string,object> p_PatientValues)
         {
             patients.Add(PersonFactory.Instance().CreatePatient(p_PatientValues));
-            MetaLayer.Instance().InsertNewPatient(p_PatientValues);
+            MetaLayer.Instance().InsertNewPatient(null); //Sort this later;
         }
 
         public void UpdatePatientDoctorDisplay()
