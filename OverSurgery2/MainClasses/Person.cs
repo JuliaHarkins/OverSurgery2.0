@@ -13,6 +13,9 @@ using System.Runtime.InteropServices;
 
 namespace OverSurgery2
 {
+    /// <summary>
+    ///                              
+    /// </summary>
     public abstract class Person : IDisposable
     {
         private string m_forename;

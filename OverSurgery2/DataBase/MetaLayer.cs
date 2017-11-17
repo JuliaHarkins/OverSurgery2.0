@@ -633,7 +633,7 @@ namespace OverSurgery2
         /// Last Updated : 16/11/17,
         /// By j
         /// </summary>
-        /// <param name="p_patientID">the </param>
+        /// <param name="p_patientID">the id of the patient</param>
         /// <returns></returns>
         public List<Prescription> GetPatientsPerscriptions(int p_patientID)
         {

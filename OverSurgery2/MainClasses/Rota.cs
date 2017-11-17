@@ -26,20 +26,6 @@ namespace OverSurgery2
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
 
-        private Rota()
-        {
-            ml = MetaLayer.Instance();
-        }
-
-        public static Rota Instance()
-        {
-            if (null == m_instance)
-            {
-                m_instance = new Rota();
-            }
-            return m_instance;
-        }
-
         /// <summary>
         /// Collect rota information from the metalayer
         /// </summary>

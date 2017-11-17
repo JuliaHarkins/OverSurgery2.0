@@ -42,6 +42,7 @@ namespace OverSurgery2.Main_Classes
             }
         }
         #endregion
+#region Constructor
         public MedicalHistory(Dictionary<string, object> p_medicalHistoryValues)
         {
             m_id = Convert.ToInt16(p_medicalHistoryValues["MedicalHistoryID"]);
@@ -52,7 +53,7 @@ namespace OverSurgery2.Main_Classes
 
         }
     }
-
+#endregion
 }
 
 
