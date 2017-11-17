@@ -839,7 +839,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_rotaEntryID"></param>
         /// <returns></returns>
-        public Rota GetStaffRotaByID(int p_rotaEntryID)
+        public Rota GetStaffRotaByID(Rota p_rota)
         {
             // Read appointment values into dictionary
             Dictionary<string, object> rotaValues;
@@ -847,7 +847,7 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 // Find all rota data
-                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rotaEntryID + ";");
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
                 while (dr1.Read())
                 {
 

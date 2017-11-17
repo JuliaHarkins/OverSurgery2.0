@@ -38,37 +38,5 @@ namespace OverSurgery2
             StartTime = Convert.ToInt16(p_rotaValues["StartDateTime"]);
             EndTime = Convert.ToInt16(p_rotaValues["EndDateTime"]);
         }
-
-        /// <summary>
-        /// Create brand new rota entry
-        /// </summary>
-        public void AddNewRotaEntry()
-        {
-            ml.AddRota(m_instance);
-        }
-
-        /// <summary>
-        /// Update existing rota information
-        /// </summary>
-        public void UpdateRota()
-        {
-            ml.UpdateRota(m_instance);
-        }
-
-        /// <summary>
-        /// Get the rota from the metalayer
-        /// </summary>
-        public void GetRota()
-        {
-            ml.GetStaffRota();
-        }
-
-        /// <summary>
-        /// Get a specific rota entry
-        /// </summary>
-        public void GetRotaEntry()
-        {
-            ml.GetStaffRotaByID(RotaEntryID);
-        }
     }
 }
