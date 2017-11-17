@@ -65,6 +65,12 @@
     <Compile Include="DataBase\ManagerForm.Designer.cs">
       <DependentUpon>ManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\RotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\RotaForm.Designer.cs">
+      <DependentUpon>RotaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainClasses\Appointment.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="DataBase\DBConnect.cs" />
@@ -77,12 +83,6 @@
     </Compile>
     <Compile Include="NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Rota.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Rota.Designer.cs">
-      <DependentUpon>Rota.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\AddPrescription.cs">
       <SubType>Form</SubType>
@@ -188,9 +188,6 @@
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\ManagerForm.resx">
-      <DependentUpon>ManagerForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
       <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -199,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ReceptionistForm.resx">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\RotaForm.resx">
+      <DependentUpon>RotaForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ViewPatientInfoForm.resx">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
