@@ -22,10 +22,8 @@ namespace OverSurgery2
 
         public List<Appointment> Appointments { get { return m_appointments; } }
 
-#region Properties
         List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved       
         MetaLayer ml;
-#endregion
 
         private AppointmentController()
         {

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OverSurgery2.Main_Classes;
 
 /*
  * This form is from all medical staff allowing them to prefrom 
@@ -22,10 +23,13 @@ namespace OverSurgery2
     {
 #region Members
         MetaLayer ml = MetaLayer.Instance();            // the interface between the databae and the Application
-        BindingSource AppointmentBinding;               //binds the information from the database
-        List<Appointment> appointments;                 // the list of the current users appointments for today
+        BindingSource m_appointmentBinding;               //binds the information from the database
+        BindingSource m_medicalBinding;
+        List<Appointment> m_appointments;                 // the list of the current users appointments for today
+        List<MedicalHistory> m_medicalHistory;
+        List<Prescription> m_perscriptions;
         MedicalStaff m_currentUser; 
-        int AppointmentListCounter;                     //the current position in the appointment list.
+        int m_appointmentListCounter;                     //the current position in the appointment list.
         Patient m_selectedPatient;
         Doctor m_currentDoctor;
         #endregion
@@ -68,21 +72,21 @@ namespace OverSurgery2
             #endregion
             //checks there is information to load, and shows the relivent appointment information.
 #region LoadingAppointmentList
-            AppointmentBinding = new BindingSource();
+            m_appointmentBinding = new BindingSource();
             if (m_currentDoctor != null)
             {
-                appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
+                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
             }
             else if (m_currentUser != null)
             {
 
-                appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
+                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
             }
-            foreach (Appointment a in appointments)
+            foreach (Appointment a in m_appointments)
             {
                 a.SetNameDisplay();
             }
-            dgv_AppointmentList.DataSource = AppointmentBinding.DataSource = appointments;
+            dgv_AppointmentList.DataSource = m_appointmentBinding.DataSource = m_appointments;
             dgv_AppointmentList.Columns["ForeNameDisplay"].HeaderText = "Forename";
             dgv_AppointmentList.Columns["SurNameDisplay"].HeaderText = "Surname";
             dgv_AppointmentList.Columns["AppointmentID"].Visible = false;
@@ -101,14 +105,14 @@ namespace OverSurgery2
             //setting the first selected row in appointment List.
             if (dgv_AppointmentList.RowCount > 0)
             {
-                AppointmentListCounter = 0;
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, AppointmentListCounter];
+                m_appointmentListCounter = 0;
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
                 dgv_AppointmentList.CurrentRow.Selected = true;
             }
-        
-#endregion
+
+            #endregion
             //shows the current user
-#region ShowCurrentUser
+            #region ShowCurrentUser
             if (m_currentUser != null)
             {
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
@@ -187,21 +191,49 @@ namespace OverSurgery2
             if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
                 && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
             {
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, AppointmentListCounter];
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
                 dgv_AppointmentList.CurrentRow.Selected = false;
 
-                if (AppointmentListCounter < dgv_AppointmentList.RowCount - 1)
+                if (m_appointmentListCounter < dgv_AppointmentList.RowCount - 1)
                 {
-                    AppointmentListCounter++;
+                    m_appointmentListCounter++;
                 }
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, AppointmentListCounter];
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
 
                 dgv_AppointmentList.CurrentRow.Selected = true;
                 //m_selectedPatient = ml.GetPatientByID(Convert.ToInt16(grd_AppointmentList.CurrentRow.Cells[0].Value));
                 //Console.WriteLine(m_selectedPatient.Forename);
+                SelectMedicalHistory();
             }
 
         }
+        private void SelectMedicalHistory()
+        {
+            if (dgv_AppointmentList != null)
+            {
+
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_perscriptions = ml.GetPatientsPerscriptions(m_appointments[m_appointmentListCounter].PatientID);
+                foreach (MedicalHistory mh in m_medicalHistory)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = mh.Date.ToString();
+                    lvi.SubItems.Add(mh.Notes);
+                    lst_MedicalHistory.Items.Add(lvi);
+                }
+                foreach (Prescription p in m_perscriptions)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = p.Date.ToString();
+                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                    lvi.SubItems.Add(p.Amount.ToString());
+                    lvi.SubItems.Add(p.MedicalStaffID.ToString());
+                    lst_Prescriptions.Items.Add(lvi);
+
+                }
+            }
+        }
+
         /// <summary>
         /// Highlights the Previous Patient, and updates the list position upon click of button.
         /// </summary>
@@ -213,13 +245,14 @@ namespace OverSurgery2
             if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount && dgv_AppointmentList.CurrentCell.RowIndex > 0)
             {
 
-                AppointmentListCounter--;
+                m_appointmentListCounter--;
 
                 dgv_AppointmentList.CurrentRow.Selected = false;
 
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, AppointmentListCounter];
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
 
                 dgv_AppointmentList.CurrentRow.Selected = true;
+                SelectMedicalHistory();
             }
 
         }
@@ -234,11 +267,6 @@ namespace OverSurgery2
         }
         #endregion
 #region DataGridView
-        private void dgv_medicalHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void dgv_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
@@ -248,6 +276,23 @@ namespace OverSurgery2
         private void txt_CurrentNotes_SelectedIndexChanged(object sender, EventArgs e)
         {
         }
-#endregion
+        #endregion
+
+
+        public void updateMedicalHistory()
+        {
+            
+
+        }
+
+        private void lst_MedicalHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lst_Prescriptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
