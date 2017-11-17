@@ -59,7 +59,6 @@ namespace OverSurgery2
                 btn_addPrescription.Visible = false;
                 btn_saveNotes.Location = tempLoc;
             }
-#endregion
 
 #region LoadingAppointmentList
             AppointmentBinding = new BindingSource();
@@ -127,7 +126,7 @@ namespace OverSurgery2
         private void btn_extRequest_Click(object sender, EventArgs e)
         {
 
-                m_currentUser.Extension.count();
+               m_currentUser.Extension.count();
         }
 
         private void lb_MedHistory_Click(object sender, EventArgs e)

@@ -17,6 +17,8 @@ namespace OverSurgery2
     /// </summary>
     public class MetaLayer
     {
+        DataConnection con = DBFactory.Instance();
+
         static private MetaLayer m_Instance = null;
         PersonFactory pf;
         private MetaLayer() {
@@ -36,7 +38,6 @@ namespace OverSurgery2
             pf = PersonFactory.Instance();
             List<Patient> patients = new List<Patient>();
 
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM patient ORDER BY Surname;");
@@ -106,7 +107,6 @@ namespace OverSurgery2
         {
             List<Medication> medication = new List<Medication>();
 
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT MED_ID, MED_Name, MED_PermLevel FROM medication;");
@@ -123,7 +123,6 @@ namespace OverSurgery2
         public string GetMedicalStaffNameByID(int p_id)
         {
             string firstname = null, lastname = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT forename, surname FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
@@ -143,7 +142,6 @@ namespace OverSurgery2
         {
             Dictionary<string, object> id;
             id = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM PATIENT WHERE PatientID = '" + p_id + "';");
@@ -172,7 +170,6 @@ namespace OverSurgery2
         public bool InsertNewPatient(Dictionary<string, object> p_PatientValues)
         {
             {
-                DataConnection con = DBFactory.Instance();
                 if (con.OpenConnection())
                 {
                     try
@@ -210,7 +207,6 @@ namespace OverSurgery2
             int? houseNumber = null;
             string houseNumberStr = null;
             string address = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + p_id + ";");
@@ -256,7 +252,6 @@ namespace OverSurgery2
         public string GetStaffEmailByUserName(string p_username)
         {
             string email = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT email FROM Staff WHERE username = '" + p_username + "';");
@@ -275,7 +270,6 @@ namespace OverSurgery2
         {
             Dictionary<string, object> d;
             d = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Staff WHERE username = '" + p_username + "';");
@@ -313,7 +307,6 @@ namespace OverSurgery2
         {
             Dictionary<string, object> d;
             d = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
@@ -348,7 +341,6 @@ namespace OverSurgery2
         {
             Dictionary<string, object> d;
             d = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT COUNT(*) FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
@@ -373,7 +365,6 @@ namespace OverSurgery2
         public int GetMedicalStaffIDByStaffID(int p_id)
         {
             int id = 0;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT medicalstaffid FROM medicalstaff WHERE exists(SELECT * FROM staff where staffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
@@ -393,7 +384,6 @@ namespace OverSurgery2
         public string GetResetRequestCode(Staff p_user)
         {
             string verificationcode = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT verificationcode FROM resetrequests WHERE username = '" + p_user.Username + "';");
@@ -410,7 +400,6 @@ namespace OverSurgery2
 
         public bool NewResetRequest(string username, string verificationcode)
         {
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 con.Insert("INSERT INTO resetrequests VALUES ('" + username + "','" + verificationcode + "');");
@@ -422,7 +411,6 @@ namespace OverSurgery2
 
         public bool UpdateStaffPassword(Staff p_Staff, string p_newPassword)
         {
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 con.Update("UPDATE Staff Set password ='" + p_newPassword + "' WHERE username ='" + p_Staff.Username + "';");
@@ -434,7 +422,6 @@ namespace OverSurgery2
 
         public bool DeleteResetRequest(string user)
         {
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 con.Delete("DELETE FROM resetrequests WHERE username ='" + user + "';");
@@ -452,7 +439,6 @@ namespace OverSurgery2
         /// <returns></returns>
         public Patient GetPatientByName(string p_forename, string p_surname)
         {
-            DataConnection con = DBFactory.Instance();
             Dictionary<string, object> d = null;
             if (con.OpenConnection())
             {
@@ -487,7 +473,6 @@ namespace OverSurgery2
             // Read appointment values into dictionary
             Dictionary<string, object> appValues;
             appValues = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 // Find appointment specific data
@@ -531,7 +516,6 @@ namespace OverSurgery2
             // Read appointment values into dictionary
             Dictionary<string, object> appValues;
             appValues = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 // Find appointment specific data
@@ -570,7 +554,6 @@ namespace OverSurgery2
         /// <param name="app"></param>
         public void UpdateAppointment(Appointment app)
         {
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
@@ -587,7 +570,6 @@ namespace OverSurgery2
         /// <param name="app"></param>
         public void AddAppointment(Appointment app)
         {
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                /* AppointmentID
@@ -610,7 +592,6 @@ namespace OverSurgery2
         {
             List<Appointment> appointments = new List<Appointment>();
 
-        DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
@@ -640,7 +621,6 @@ namespace OverSurgery2
         {
             List<Appointment> appointments = new List<Appointment>();
 
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Appointment ORDER BY AppointmentTime, AppointmentDate;");
@@ -676,7 +656,6 @@ namespace OverSurgery2
             // Read appointment values into dictionary
             Dictionary<string, object> rotaValues;
             rotaValues = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 // Find all rota data
@@ -709,7 +688,6 @@ namespace OverSurgery2
             // Read appointment values into dictionary
             Dictionary<string, object> rotaValues;
             rotaValues = null;
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 // Find all rota data
@@ -739,7 +717,6 @@ namespace OverSurgery2
         /// <param name="rota"></param>
         public void AddRota(Rota rota)
         {
-            DataConnection con = DBFactory.Instance();
             if (con.OpenConnection())
             {
                 Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
