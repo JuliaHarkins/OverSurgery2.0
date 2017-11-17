@@ -75,11 +75,13 @@ namespace OverSurgery2
             if (m_currentDoctor != null)
             {
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
+                // m_appointments = ac.Appointments.Find(a = > a.MedicalStaffID == m_currentDoctor.MedicalStaffID);
             }
             else if (m_currentUser != null)
             {
 
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
+                // m_appointments = ac.Appointments.Find(a => a.MedicalStaffID == m_currentUser.MedicalStaffID);
             }
             foreach (Appointment a in m_appointments)
             {
