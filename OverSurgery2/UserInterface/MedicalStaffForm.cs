@@ -62,7 +62,7 @@ namespace OverSurgery2
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
 
-            #region gettingUser
+#region gettingUser
             if (m_currentUser != null)
             {
                 var tempLoc = btn_addPrescription.Location;
@@ -112,7 +112,7 @@ namespace OverSurgery2
 
             #endregion
             //shows the current user
-            #region ShowCurrentUser
+#region ShowCurrentUser
             if (m_currentUser != null)
             {
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
@@ -123,7 +123,7 @@ namespace OverSurgery2
             }
             #endregion
             //
-            #region SetsExtentionAmount
+#region SetsExtentionAmount
             //checks if the user is a doctor and shows the amount of extentions,
             //or it hites the button from non-doctors
             if (m_currentUser == null)
@@ -207,32 +207,7 @@ namespace OverSurgery2
             }
 
         }
-        private void SelectMedicalHistory()
-        {
-            if (dgv_AppointmentList != null)
-            {
-
-                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-                m_perscriptions = ml.GetPatientsPerscriptions(m_appointments[m_appointmentListCounter].PatientID);
-                foreach (MedicalHistory mh in m_medicalHistory)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = mh.Date.ToString();
-                    lvi.SubItems.Add(mh.Notes);
-                    lst_MedicalHistory.Items.Add(lvi);
-                }
-                foreach (Prescription p in m_perscriptions)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = p.Date.ToString();
-                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                    lvi.SubItems.Add(p.Amount.ToString());
-                    lvi.SubItems.Add(p.MedicalStaffID.ToString());
-                    lst_Prescriptions.Items.Add(lvi);
-
-                }
-            }
-        }
+        
 
         /// <summary>
         /// Highlights the Previous Patient, and updates the list position upon click of button.
@@ -278,12 +253,33 @@ namespace OverSurgery2
         }
         #endregion
 
-
-        public void updateMedicalHistory()
+        private void SelectMedicalHistory()
         {
-            
+            if (dgv_AppointmentList != null)
+            {
 
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_perscriptions = ml.GetPatientsPerscriptions(m_appointments[m_appointmentListCounter].PatientID);
+                foreach (MedicalHistory mh in m_medicalHistory)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = mh.Date.ToString();
+                    lvi.SubItems.Add(mh.Notes);
+                    lst_MedicalHistory.Items.Add(lvi);
+                }
+                foreach (Prescription p in m_perscriptions)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = p.Date.ToString();
+                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                    lvi.SubItems.Add(p.Amount.ToString());
+                    lvi.SubItems.Add(p.MedicalStaffID.ToString());
+                    lst_Prescriptions.Items.Add(lvi);
+
+                }
+            }
         }
+#region Lists
 
         private void lst_MedicalHistory_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -295,4 +291,5 @@ namespace OverSurgery2
 
         }
     }
+#endregion
 }

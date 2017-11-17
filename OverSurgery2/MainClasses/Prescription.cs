@@ -80,7 +80,7 @@ namespace OverSurgery2.Main_Classes
         #endregion
 
         /// <summary>
-        /// Creates the prescriptions 
+        /// Creates the prescriptions
         /// </summary>
         /// <param name="p_PrescriptionValues">The MedicaltionID, PatientID, ExterationDate, 
         /// Ammount, MedicalStaffID, DateIssued, and DateOfNextIssue are used to create the
