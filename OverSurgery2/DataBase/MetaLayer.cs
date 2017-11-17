@@ -731,6 +731,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get all rota information from the database
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         public Rota GetStaffRota()
         {
@@ -761,6 +763,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get all rota information for a specific staff member from the database
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         /// <param name="p_rotaEntryID"></param>
         /// <returns></returns>
