@@ -10,11 +10,18 @@ using System.Windows.Forms;
 
 namespace OverSurgery2
 {
-    public partial class Rota : Form
+    public partial class RotaForm : Form
     {
-        public Rota()
+        public RotaForm()
         {
             InitializeComponent();
+            dG_Rota.RowHeadersVisible = false;
+            LoadRota();
+        }
+
+        public void LoadRota()
+        {
+            //
         }
     }
 }
