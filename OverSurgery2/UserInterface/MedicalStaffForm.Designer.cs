@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txt_CurrentNotes = new System.Windows.Forms.ListBox();
             this.lb_appnotes = new System.Windows.Forms.Label();
             this.btn_addPrescription = new System.Windows.Forms.Button();
             this.btn_saveNotes = new System.Windows.Forms.Button();
@@ -48,17 +47,9 @@
             this.col_medication = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_amount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.col_MedStaff = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.txt_CurrentNotes = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_AppointmentList)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txt_CurrentNotes
-            // 
-            this.txt_CurrentNotes.FormattingEnabled = true;
-            this.txt_CurrentNotes.Location = new System.Drawing.Point(12, 252);
-            this.txt_CurrentNotes.Name = "txt_CurrentNotes";
-            this.txt_CurrentNotes.Size = new System.Drawing.Size(953, 160);
-            this.txt_CurrentNotes.TabIndex = 3;
-            this.txt_CurrentNotes.SelectedIndexChanged += new System.EventHandler(this.txt_CurrentNotes_SelectedIndexChanged);
             // 
             // lb_appnotes
             // 
@@ -72,7 +63,7 @@
             // 
             // btn_addPrescription
             // 
-            this.btn_addPrescription.Location = new System.Drawing.Point(9, 418);
+            this.btn_addPrescription.Location = new System.Drawing.Point(139, 418);
             this.btn_addPrescription.Name = "btn_addPrescription";
             this.btn_addPrescription.Size = new System.Drawing.Size(124, 25);
             this.btn_addPrescription.TabIndex = 10;
@@ -82,7 +73,7 @@
             // 
             // btn_saveNotes
             // 
-            this.btn_saveNotes.Location = new System.Drawing.Point(139, 418);
+            this.btn_saveNotes.Location = new System.Drawing.Point(9, 418);
             this.btn_saveNotes.Name = "btn_saveNotes";
             this.btn_saveNotes.Size = new System.Drawing.Size(124, 25);
             this.btn_saveNotes.TabIndex = 11;
@@ -97,7 +88,7 @@
             this.dgv_AppointmentList.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dgv_AppointmentList.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgv_AppointmentList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgv_AppointmentList.Location = new System.Drawing.Point(12, 52);
+            this.dgv_AppointmentList.Location = new System.Drawing.Point(9, 52);
             this.dgv_AppointmentList.Name = "dgv_AppointmentList";
             this.dgv_AppointmentList.ReadOnly = true;
             this.dgv_AppointmentList.Size = new System.Drawing.Size(957, 150);
@@ -181,7 +172,7 @@
             this.lst_MedicalHistory.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.col_medicalDate,
             this.col_medicalNotes});
-            this.lst_MedicalHistory.Location = new System.Drawing.Point(11, 477);
+            this.lst_MedicalHistory.Location = new System.Drawing.Point(9, 477);
             this.lst_MedicalHistory.Name = "lst_MedicalHistory";
             this.lst_MedicalHistory.Size = new System.Drawing.Size(475, 259);
             this.lst_MedicalHistory.TabIndex = 20;
@@ -234,11 +225,20 @@
             this.col_MedStaff.Text = "Prescribed By";
             this.col_MedStaff.Width = 97;
             // 
+            // txt_CurrentNotes
+            // 
+            this.txt_CurrentNotes.Location = new System.Drawing.Point(9, 252);
+            this.txt_CurrentNotes.Multiline = true;
+            this.txt_CurrentNotes.Name = "txt_CurrentNotes";
+            this.txt_CurrentNotes.Size = new System.Drawing.Size(955, 160);
+            this.txt_CurrentNotes.TabIndex = 22;
+            // 
             // MedicalStaffForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(977, 783);
+            this.Controls.Add(this.txt_CurrentNotes);
             this.Controls.Add(this.lst_Prescriptions);
             this.Controls.Add(this.lst_MedicalHistory);
             this.Controls.Add(this.lb_currentUser);
@@ -252,7 +252,6 @@
             this.Controls.Add(this.btn_saveNotes);
             this.Controls.Add(this.btn_addPrescription);
             this.Controls.Add(this.lb_appnotes);
-            this.Controls.Add(this.txt_CurrentNotes);
             this.Name = "MedicalStaffForm";
             this.Text = "Todays Appointments";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -264,7 +263,6 @@
         }
 
         #endregion
-        private System.Windows.Forms.ListBox txt_CurrentNotes;
         private System.Windows.Forms.Label lb_appnotes;
         private System.Windows.Forms.Button btn_addPrescription;
         private System.Windows.Forms.Button btn_saveNotes;
@@ -284,5 +282,6 @@
         private System.Windows.Forms.ColumnHeader col_medication;
         private System.Windows.Forms.ColumnHeader col_amount;
         private System.Windows.Forms.ColumnHeader col_MedStaff;
+        private System.Windows.Forms.TextBox txt_CurrentNotes;
     }
 }
