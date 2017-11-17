@@ -251,7 +251,9 @@
             this.cboType.Items.AddRange(new object[] {
             "1",
             "2",
-            "3"});
+            "3",
+            "4",
+            "5"});
             this.cboType.Location = new System.Drawing.Point(96, 254);
             this.cboType.Name = "cboType";
             this.cboType.Size = new System.Drawing.Size(121, 21);

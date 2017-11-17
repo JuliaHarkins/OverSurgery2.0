@@ -39,15 +39,23 @@ namespace OverSurgery2
             // Update helper label to inform user about type choices
             if (Convert.ToInt32(cboType.Text) == 1)
             {
-                lblTypeHelper.Text = "Manager";
+                lblTypeHelper.Text = "Medical Staff";
             }
             else if (Convert.ToInt32(cboType.Text) == 2)
             {
-                lblTypeHelper.Text = "Medical Staff";
+                lblTypeHelper.Text = "Locum";
             }
             else if (Convert.ToInt32(cboType.Text) == 3)
             {
-                lblTypeHelper.Text = "Normal Staff";
+                lblTypeHelper.Text = "Doctor";
+            }
+            else if (Convert.ToInt32(cboType.Text) == 4)
+            {
+                lblTypeHelper.Text = "Receptionist";
+            }
+            else if (Convert.ToInt32(cboType.Text) == 5)
+            {     
+                lblTypeHelper.Text = "Manager";
             }
             else
             {
@@ -94,7 +102,8 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnRemoveStaff_Click(object sender, EventArgs e)
         {
-
+            m_userName = txtUserName.Text;
+            ml.DeleteStaff(m_userName);
         }
 
         /// <summary>
