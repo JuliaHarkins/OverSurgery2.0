@@ -33,6 +33,17 @@ namespace OverSurgery2.Main_Classes
         int m_medicalStaffID;
         #endregion
         #region Properties
+        public int PatientID
+        {
+            get
+            {
+                return m_patientID;
+            }
+            set
+            {
+                m_patientID = value;
+            }
+        }
         public DateTime Date
         {
             get
@@ -75,6 +86,28 @@ namespace OverSurgery2.Main_Classes
             set
             {
                 m_medicalStaffID = value;
+            }
+        }
+        public DateTime DateOfNextIssue
+        {
+            get
+            {
+                return m_dateOfNextIssue;
+            }
+            set
+            {
+                m_dateOfNextIssue = value;
+            }
+        }
+        public bool Extendable
+        {
+            get
+            {
+                return m_allowExtention;
+            }
+            set
+            {
+                m_allowExtention = value;
             }
         }
 

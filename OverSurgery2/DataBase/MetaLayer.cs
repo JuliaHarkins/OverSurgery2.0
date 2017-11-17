@@ -578,6 +578,34 @@ namespace OverSurgery2
             }
         }
         /// <summary>
+        /// Uses the medicalHistory object to add a new medicalhistory to the databaes.
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_mh">the medical history</param>
+        public void AddMedicalHistoryToTheDatabase(MedicalHistory p_mh)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("INSERT INTO MedicalHistory VALUES (null" + ", '" + p_mh.Notes + "', " + p_mh.Date.ToString("yyyyMMdd")+", "+p_mh.PatientID+");");
+                con.CloseConnection();
+            }
+        }
+        /// <summary>
+        /// Uses the perscription object to add a new perscription to the databaes.
+        /// </summary>
+        /// <param name="p_p">the perscription</param>
+        public void AddPrescriptionToTheDatabase(Prescription p_p)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("INSERT INTO MedicalHistory VALUES (null, " + Convert.ToInt32(p_p.Date.ToString("yyyyMMdd"))+", " + Convert.ToInt32(p_p.DateOfNextIssue.ToString("yyyyMMdd")) +", " + p_p.Amount+ ", " + p_p.Extendable +
+                ", "+p_p.MedicationID + ", '" + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
         /// Finds the appointments for one medical staff member for a given day.
         /// Last Updated : 15/11/17,
         /// By j

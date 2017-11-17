@@ -41,6 +41,17 @@ namespace OverSurgery2.Main_Classes
                 m_notes = value;
             }
         }
+        public int PatientID
+        {
+            get
+            {
+                return m_patientID;
+            }
+            set
+            {
+                m_patientID = value;
+            }
+        }
         #endregion
 #region Constructor
         public MedicalHistory(Dictionary<string, object> p_medicalHistoryValues)

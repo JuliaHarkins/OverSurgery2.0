@@ -182,7 +182,18 @@ namespace OverSurgery2
         {
             if (btn_saveNotes.Text != null)
             {
+                Dictionary<string, object> values = null;
+                values = new Dictionary<string, object>
+                    {
+                        { "MedicalHistoryID", null },
+                        { "MedicalHistory",txt_CurrentNotes.Text},
+                        { "DateOf", DateTime.Now },
+                        { "PatientID", m_appointments[m_appointmentListCounter].PatientID}
+                    };
 
+                ml.AddMedicalHistoryToTheDatabase(new MedicalHistory(values));
+                txt_CurrentNotes.Clear();
+                SelectMedicalHistory();
             }
         }
         /// <summary>
