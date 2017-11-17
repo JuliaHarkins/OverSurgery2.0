@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OverSurgery2.Main_Classes;
 
 /*
  * This form is from all medical staff allowing them to prefrom 
@@ -30,6 +29,9 @@ namespace OverSurgery2
         MedicalStaff m_currentUser; 
         int m_appointmentListCounter;                     //the current position in the appointment list.
         Doctor m_currentDoctor;
+        Patient m_currentPatient;
+        AppointmentController ac;
+        PatientController pc;
         #endregion
 #region Constructor
         /// <summary>
@@ -194,6 +196,11 @@ namespace OverSurgery2
                 ml.AddMedicalHistoryToTheDatabase(new MedicalHistory(values));
                 txt_CurrentNotes.Clear();
                 SelectMedicalHistory();
+                /*
+                 * Neater solution
+                 * ml.AddMedicalHistoryToTheDatabase(
+                 * new Notes { PatientID = m_currentPatient.ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
+                 */
             }
         }
         /// <summary>
@@ -314,5 +321,18 @@ namespace OverSurgery2
 
         }
     }
-#endregion
+    #endregion
+    public class Notes
+    {
+        int m_medHistoryID;
+        string m_medHistory;
+        DateTime m_DateOf;
+        int m_patientID;
+
+        public int MedHistoryID { get { return m_medHistoryID; } set { m_medHistoryID = value; } }
+        public string MedHistory { get { return m_medHistory; } set { m_medHistory = value; } }
+        public DateTime DateOf { get { return m_DateOf; } set { m_DateOf = value; } }
+        public int PatientID { get { return m_patientID; } set { m_patientID = value; } }
+    }
+
 }
