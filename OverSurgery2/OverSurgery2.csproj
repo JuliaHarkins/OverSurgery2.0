@@ -188,6 +188,9 @@
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\ManagerForm.resx">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
       <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </EmbeddedResource>
