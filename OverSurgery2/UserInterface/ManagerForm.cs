@@ -28,7 +28,7 @@ namespace OverSurgery2
         private string m_password;
         private string m_phone;
         private int m_addressID;
-
+        
         BindingSource StaffBinding;
         BindingSource RotaBinding;
         Staff currentUserLoggedIn = null;
@@ -36,6 +36,7 @@ namespace OverSurgery2
         public ManagerForm(Staff p_currentUser)
         {
             currentUserLoggedIn = p_currentUser;
+            
             InitializeComponent();
             this.ShowDialog();
 
@@ -85,7 +86,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnUpdateStaff_Click(object sender, EventArgs e)
         {
-               
+            //ml.UpdateStaffMember();
         }
 
         /// <summary>

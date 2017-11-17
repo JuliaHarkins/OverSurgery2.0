@@ -867,7 +867,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_rotaEntryID"></param>
         /// <returns></returns>
-        public Rota GetStaffRotaByID(int p_rotaEntryID)
+        public Rota GetStaffRotaByID(Rota p_rota)
         {
             // Read appointment values into dictionary
             Dictionary<string, object> rotaValues;
@@ -875,7 +875,7 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 // Find all rota data
-                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rotaEntryID + ";");
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
                 while (dr1.Read())
                 {
 
@@ -1001,6 +1001,22 @@ namespace OverSurgery2
             return false;
         }
 
+        /// <summary>
+        /// Update a staff members details
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="staff"></param>
+        public void UpdateStaffMember(Staff staff)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Staff Set Forename = " + staff.Forename + ", Surname = "
+                    + staff.Surname + ", Email = '" + staff.EmailAddress + "', AddressID = "
+                    + staff.AddressID + ", Username = " + staff.Username + ", Password = "
+                    + staff.Password +  " WHERE StaffID = " + staff.StaffID+ " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
     }
 }
-

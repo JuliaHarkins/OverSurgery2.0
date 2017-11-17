@@ -60,7 +60,7 @@ namespace OverSurgery2
             DataGridAppointments.Columns["AppointmentID"].Visible = false;
             DataGridAppointments.Columns["AppointmentID"].DisplayIndex = 0;
             DataGridAppointments.Columns["AppTime"].Visible = false;
-            DataGridAppointments.Columns["AppTimes"].DisplayIndex = 0;
+            DataGridAppointments.Columns["AppTime"].DisplayIndex = 0;
             DataGridAppointments.Columns["MedicalStaffID"].Visible = false;
             DataGridAppointments.Columns["MedicalStaffID"].DisplayIndex = 0;
             DataGridAppointments.Columns["PatientID"].Visible = false;
