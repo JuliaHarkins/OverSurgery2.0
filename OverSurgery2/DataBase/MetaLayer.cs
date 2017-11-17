@@ -822,7 +822,7 @@ namespace OverSurgery2
             List<Appointment> missedApp = new List<Appointment>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend == 0;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend = 0;");
                 Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())
