@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OverSurgery2.Main_Classes;
 
 /*
  * This form is from all medical staff allowing them to prefrom 
@@ -20,16 +21,22 @@ namespace OverSurgery2
 {
     public partial class MedicalStaffForm : Form
     {
-        
+#region Members
         MetaLayer ml = MetaLayer.Instance();            // the interface between the databae and the Application
-        BindingSource AppointmentBinding;               //binds the information from the database
-        List<Appointment> appointments;                 // the list of the current users appointments for today
+        BindingSource m_appointmentBinding;               //binds the information from the database
+        BindingSource m_medicalBinding;
+        List<Appointment> m_appointments;                 // the list of the current users appointments for today
+        List<MedicalHistory> m_medicalHistory;
+        List<Prescription> m_perscriptions;
         MedicalStaff m_currentUser; 
-        int AppointmentListCounter;                     //the current position in the appointment list.
+        int m_appointmentListCounter;                     //the current position in the appointment list.
         Patient m_selectedPatient;
-
+        Doctor m_currentDoctor;
+        #endregion
+#region Constructor
         /// <summary>
-        /// 
+        /// Checks if the user is a doctor or a general medical staff member
+        /// so that the correct buttons are shown. 
         /// </summary>
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
@@ -45,88 +52,102 @@ namespace OverSurgery2
             InitializeComponent();
             this.ShowDialog();
         }
-
+#endregion
+#region Load
         /// <summary>
-        /// /what happens on the load of the form
+        /// what happens on the load of the form
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
-            if(m_currentUser != null)
+
+            #region gettingUser
+            if (m_currentUser != null)
             {
                 var tempLoc = btn_addPrescription.Location;
                 btn_addPrescription.Visible = false;
                 btn_saveNotes.Location = tempLoc;
             }
-
+            #endregion
+            //checks there is information to load, and shows the relivent appointment information.
 #region LoadingAppointmentList
-            AppointmentBinding = new BindingSource();
+            m_appointmentBinding = new BindingSource();
             if (m_currentDoctor != null)
             {
-                appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
+                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
             }
-            else if(m_currentUser != null)
+            else if (m_currentUser != null)
             {
 
-                appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
+                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
             }
-            foreach(Appointment a in appointments)
+            foreach (Appointment a in m_appointments)
             {
                 a.SetNameDisplay();
             }
-            grd_AppointmentList.DataSource = AppointmentBinding.DataSource = appointments;
-            grd_AppointmentList.Columns["ForeNameDisplay"].HeaderText = "Forename";
-            grd_AppointmentList.Columns["SurNameDisplay"].HeaderText = "Surname";
-            grd_AppointmentList.Columns["AppointmentID"].Visible = false;
-            grd_AppointmentList.RowHeadersVisible = false;
-            grd_AppointmentList.Columns["MedicalStaffID"].Visible = false;
-            grd_AppointmentList.Columns["PatientID"].Visible = false;
-            grd_AppointmentList.Columns["AppDate"].Visible = false;
-            grd_AppointmentList.Columns["AppAttend"].Visible = false;
-            grd_AppointmentList.Columns["AppTime"].Visible = false;
-            grd_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
-            grd_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
+            dgv_AppointmentList.DataSource = m_appointmentBinding.DataSource = m_appointments;
+            dgv_AppointmentList.Columns["ForeNameDisplay"].HeaderText = "Forename";
+            dgv_AppointmentList.Columns["SurNameDisplay"].HeaderText = "Surname";
+            dgv_AppointmentList.Columns["AppointmentID"].Visible = false;
+            dgv_AppointmentList.RowHeadersVisible = false;
+            dgv_AppointmentList.Columns["MedicalStaffID"].Visible = false;
+            dgv_AppointmentList.Columns["PatientID"].Visible = false;
+            dgv_AppointmentList.Columns["AppDate"].Visible = false;
+            dgv_AppointmentList.Columns["AppAttend"].Visible = false;
+            dgv_AppointmentList.Columns["AppTime"].Visible = false;
+            dgv_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
+            dgv_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
+            dgv_AppointmentList.Columns["Notes"].DisplayIndex = dgv_AppointmentList.ColumnCount -1;
+            
+            //grd_AppointmentList.Columns["PatientID"].DisplayIndex = 0;
 
+            //setting the first selected row in appointment List.
+            if (dgv_AppointmentList.RowCount > 0)
+            {
+                m_appointmentListCounter = 0;
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                dgv_AppointmentList.CurrentRow.Selected = true;
+            }
+
+            #endregion
+            //shows the current user
+            #region ShowCurrentUser
             if (m_currentUser != null)
             {
-                this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname + " - OverSurgery Management System";
+                lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
             }
-
-            //grd_AppointmentList.Columns["PatientID"].DisplayIndex = 0;
-            lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
-            if (grd_AppointmentList.RowCount > 0)
+            else if (m_currentDoctor != null)
             {
-                AppointmentListCounter = 0;
-                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-                grd_AppointmentList.CurrentRow.Selected = true;
+                lb_currentUser.Text = "Current User : " + m_currentDoctor.Forename + " " + m_currentDoctor.Surname;
             }
             #endregion
-
-#region ShowCurrentUser
-            this.Text = "Logged in: " + m_currentUser.Forename + " " + m_currentUser.Surname + " - OverSurgery Management System";
-            //name, last name, time, notes, DOB
+            //
+            #region SetsExtentionAmount
+            //checks if the user is a doctor and shows the amount of extentions,
+            //or it hites the button from non-doctors
+            if (m_currentUser == null)
+            {
+                if (m_currentDoctor.Extension !=null)
+                {
+                    btn_extRequest.Text = "Extention Requests : " + m_currentDoctor.Extension.Count;
+                }
+                else
+                {
+                    btn_extRequest.Text = "Extention Requests : 0";
+                }
+            }
+            else
+            {
+                btn_extRequest.Hide();
+            }
 #endregion
-
-
-
-
-
         }
-
+#endregion
+#region Lable
         private void lb_notes_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void btn_addPrescription_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btn_extRequest_Click(object sender, EventArgs e)
-        {
-
-               m_currentUser.Extension.count();
         }
 
         private void lb_MedHistory_Click(object sender, EventArgs e)
@@ -139,20 +160,21 @@ namespace OverSurgery2
 
         }
 
-        private void dgv_medicalHistory_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void lb_currentUser_Click(object sender, EventArgs e)
         {
 
         }
-
-        private void txt_CurrentNotes_SelectedIndexChanged(object sender, EventArgs e)
+ #endregion
+#region Button
+        private void btn_addPrescription_Click(object sender, EventArgs e)
         {
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void btn_extRequest_Click(object sender, EventArgs e)
         {
-            
-        }
 
+                
+        }
         private void btn_saveNotes_Click(object sender, EventArgs e)
         {
 
@@ -165,59 +187,112 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btn_nextPatient_Click(object sender, EventArgs e)
         {
-            //checks that there is a next position in the list and updates the lists appointmentListCounter 
-            //If current cell index less than or equals row count and current cell index is less than count of all rows
-            if (grd_AppointmentList.CurrentCell.RowIndex <= grd_AppointmentList.RowCount 
-                && grd_AppointmentList.CurrentCell.RowIndex >= 0)
+            //checks that there is a next position in the list and updates the lists position
+            if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
+                && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
             {
-                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter]; 
-                grd_AppointmentList.CurrentRow.Selected = false; 
-                //
-                // If AppointmentListCounter less than total row count - 1
-                if (AppointmentListCounter < grd_AppointmentList.RowCount - 1)
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                dgv_AppointmentList.CurrentRow.Selected = false;
+
+                if (m_appointmentListCounter < dgv_AppointmentList.RowCount - 1)
                 {
-                    //Increment AppointmentListCounter
-                    AppointmentListCounter++;
+                    m_appointmentListCounter++;
                 }
-                // Set currentcell to AppointmentListCounter values
-                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-                //Select the current row
-                grd_AppointmentList.CurrentRow.Selected = true;
-                //Get selected patient based on PatientID column
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+
+                dgv_AppointmentList.CurrentRow.Selected = true;
                 //m_selectedPatient = ml.GetPatientByID(Convert.ToInt16(grd_AppointmentList.CurrentRow.Cells[0].Value));
                 //Console.WriteLine(m_selectedPatient.Forename);
+                SelectMedicalHistory();
+            }
+
+        }
+        private void SelectMedicalHistory()
+        {
+            if (dgv_AppointmentList != null)
+            {
+
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_perscriptions = ml.GetPatientsPerscriptions(m_appointments[m_appointmentListCounter].PatientID);
+                foreach (MedicalHistory mh in m_medicalHistory)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = mh.Date.ToString();
+                    lvi.SubItems.Add(mh.Notes);
+                    lst_MedicalHistory.Items.Add(lvi);
+                }
+                foreach (Prescription p in m_perscriptions)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = p.Date.ToString();
+                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                    lvi.SubItems.Add(p.Amount.ToString());
+                    lvi.SubItems.Add(p.MedicalStaffID.ToString());
+                    lst_Prescriptions.Items.Add(lvi);
+
+                }
             }
         }
-         /// <summary>
-         /// Get Previous Patient upon click of button.
-         /// </summary>
-         /// <param name="sender">MedicalStaffForm</param>
-         /// <param name="e"></param>
+
+        /// <summary>
+        /// Highlights the Previous Patient, and updates the list position upon click of button.
+        /// </summary>
+        /// <param name="sender">MedicalStaffForm</param>
+        /// <param name="e"></param>
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
-            // If current cell index less than total row count and current cell index greater than 0
-            if (grd_AppointmentList.CurrentCell.RowIndex <= grd_AppointmentList.RowCount && grd_AppointmentList.CurrentCell.RowIndex > 0)
+
+            if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount && dgv_AppointmentList.CurrentCell.RowIndex > 0)
             {
-                // Decrement AppointmentListCounter
-                AppointmentListCounter--;
-                // Deselect the current row
-                grd_AppointmentList.CurrentRow.Selected = false;
-                // Set currentcell to AppointmentListCounter value
-                grd_AppointmentList.CurrentCell = grd_AppointmentList[0, AppointmentListCounter];
-                // Select current row
-                grd_AppointmentList.CurrentRow.Selected = true;
+
+                m_appointmentListCounter--;
+
+                dgv_AppointmentList.CurrentRow.Selected = false;
+
+                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+
+                dgv_AppointmentList.CurrentRow.Selected = true;
+                SelectMedicalHistory();
             }
 
         }
-
-        private void lb_currentUser_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+        /// <summary>
+        /// Exits 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_logOff_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+        #endregion
+#region DataGridView
+        private void dgv_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        #endregion
+#region TextBox
+        private void txt_CurrentNotes_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        }
+        #endregion
+
+
+        public void updateMedicalHistory()
+        {
+            
+
+        }
+
+        private void lst_MedicalHistory_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lst_Prescriptions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -21,5 +21,25 @@ namespace OverSurgery2
             InitializeComponent();
             this.ShowDialog();
         }
+
+        private void btnUpdateStaff_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnAddStaff_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnRemoveStaff_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnUpdateRota_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

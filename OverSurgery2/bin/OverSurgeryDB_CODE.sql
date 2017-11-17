@@ -63,8 +63,8 @@ CREATE TABLE `Appointment` (
 
 CREATE TABLE `MedicalHistory` (
     `MedicalHistoryID` INT(8) NOT NULL auto_increment,
-    `MedicalHistoryFileLocation` VARCHAR(50) NOT NULL default '',
-    `DateOfFile` DATE NOT NULL default 19991231,
+    `MedicalHistory` TEXT NOT NULL default '',
+    `DateOf` DATE NOT NULL default 19991231,
     `PatientID` INT(8) NOT NULL default 0,
     PRIMARY KEY(`MedicalHistoryID`),
     FOREIGN KEY(`PatientID`) REFERENCES Patient(`PatientID`)
@@ -119,7 +119,22 @@ CREATE TABLE `ResetRequests` (
 	`UserName` varchar(255) NOT NULL default '',
 	`VerificationCode` varchar(8) NOT NULL default '',
 	PRIMARY KEY(`RequestID`)
-	); ENGINE=InnoDB DEFAULT CHARSET=latin1;
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `DayOfWeek` (
+    `DayID` INT(6) NOT NULL auto_increment,
+    `DayName` VARCHAR(35) NOT NULL default '',
+    PRIMARY KEY(`DayID`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Rota` (
+    `RotaID` INT(6) NOT NULL auto_increment,
+    `DayID` INT(6) NOT NULL default 0,
+    `StaffID` INT(6) NOT NULL default 0,
+    PRIMARY KEY(`RotaID`),
+    FOREIGN KEY(`DayID`) REFERENCES DayOfWeek(`DayID`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`) ON DELETE CASCADE ON UPDATE CASCADE,
+)
 
 -- TESTING ACCOUNT --
 CREATE USER 'DBAccess'@localhost IDENTIFIED BY 'Nricb';

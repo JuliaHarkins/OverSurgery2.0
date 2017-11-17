@@ -59,6 +59,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBase\ManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBase\ManagerForm.Designer.cs">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainClasses\Appointment.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="DataBase\DBConnect.cs" />
@@ -71,6 +77,12 @@
     </Compile>
     <Compile Include="NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Rota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Rota.Designer.cs">
+      <DependentUpon>Rota.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\AddPrescription.cs">
       <SubType>Form</SubType>
@@ -149,6 +161,9 @@
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DataBase\ManagerForm.resx">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -172,6 +187,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\ManagerForm.resx">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
       <DependentUpon>MedicalStaffForm.cs</DependentUpon>
