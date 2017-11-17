@@ -50,7 +50,6 @@ namespace OverSurgery2
                 m_currentUser = p_currentUser as MedicalStaff;
             }
             InitializeComponent();
-            this.ShowDialog();
         }
 #endregion
 #region Load

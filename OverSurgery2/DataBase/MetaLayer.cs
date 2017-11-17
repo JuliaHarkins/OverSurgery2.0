@@ -136,34 +136,6 @@ namespace OverSurgery2
             return firstname + " " + lastname;
         }
 
-        public Patient GetPatientByID(int p_id)
-        {
-            Dictionary<string, object> id;
-            id = null;
-            if (con.OpenConnection())
-            {
-                DbDataReader dr = con.Select("SELECT * FROM PATIENT WHERE PatientID = '" + p_id + "';");
-
-                while (dr.Read())
-                {
-                    id = new Dictionary<string, object>
-                    {
-                        { "ID", dr.GetInt16(0) },
-                        { "Forename", dr.GetString(1) },
-                        { "Surname", dr.GetString(2) },
-                        { "Gender", dr.GetInt16(3) },
-                        { "DateOfBirth", dr.GetDateTime(4) },
-                        { "PhoneNumber", dr.GetString(5) },
-                        { "RegisteredDoctorID", dr.GetInt16(6) },
-                        { "AddressID", dr.GetInt16(7) },
-                    };
-
-                }
-                dr.Close();
-                con.CloseConnection();
-            }
-            return pf.CreatePatient(id);
-        }
 
         public bool InsertNewPatient(Dictionary<string, object> p_PatientValues)
         {
@@ -245,6 +217,45 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return address;
+        }
+
+        public Address NewGetAddressByID(int p_id)
+        {
+            Address a = null;
+            string houseName = null;
+            int? houseNumber = null;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + p_id + ";");
+                while (dr.Read())
+                {
+                    string temp;
+                    try
+                    {
+                        temp = dr.GetFieldValue<string>(1);
+                    }
+                    catch
+                    {
+                        temp = null;
+                    }
+                    if (temp == null)
+                    {
+                        houseName = "";
+                        houseNumber = dr.GetFieldValue<int?>(2);
+                    }
+                    a = new Address
+                    {
+                        HouseName = houseName,
+                        HouseNumber = houseNumber,
+                        StreetName = dr.GetString(3),
+                        PostCode = dr.GetString(4)
+
+                    };
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return a;
         }
 
         public string GetStaffEmailByUserName(string p_username)
@@ -435,33 +446,6 @@ namespace OverSurgery2
         /// <param name="p_forename"></param>
         /// <param name="p_surname"></param>
         /// <returns></returns>
-        public Patient GetPatientByName(string p_forename, string p_surname)
-        {
-            Dictionary<string, object> d = null;
-            if (con.OpenConnection())
-            {
-                DbDataReader dr = con.Select("SELECT * FROM patient WHERE forename = '" + p_forename + "' AND surname = '" + p_surname + "';");
-                while (dr.Read())
-                {
-                    d = new Dictionary<string, object>
-                    {
-                        { "ID", dr.GetInt16(0) },
-                        { "Forename", dr.GetString(1) },
-                        { "Surname", dr.GetString(2) },
-                        { "Gender", dr.GetInt16(3) },
-                        { "DateOfBirth", dr.GetDateTime(4) },
-                        { "PhoneNumber", dr.GetString(5) },
-                        { "RegisteredDoctorID", dr.GetInt16(6) },
-                        { "AddressID", dr.GetInt16(7) },
-                        //{ "Email", dr.GetString(8) }
-                    };
-                }
-                dr.Close();
-                con.CloseConnection();
-            }
-            return pf.CreatePatient(d);
-
-        }
 
         /// <summary>
         /// Get appointment details from the database

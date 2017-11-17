@@ -21,7 +21,6 @@ namespace OverSurgery2
             fc = FormController.Instance();
             ml = MetaLayer.Instance();
             lc = LoginController.Instance();
-            this.ShowDialog();
         }
 
         private void btn_SendEmail_Click(object sender, EventArgs e)
