@@ -465,6 +465,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get appointment details from the database
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         public Appointment GetAppointmentByPatientId(int patientid)
         {
@@ -506,6 +508,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get appointment from the database using a given id for a specific appointment
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         /// <param name="appointmentid"></param>
         /// <returns></returns>
@@ -548,6 +552,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Update Appointment in the database to take new values
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         /// <param name="app"></param>
         public void UpdateAppointment(Appointment app)
@@ -564,6 +570,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Add new appointment to the database
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         /// <param name="app"></param>
         public void AddAppointment(Appointment app)
@@ -786,6 +794,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Add new rota entry to the database
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         /// <param name="rota"></param>
         public void AddRota(Rota rota)
@@ -801,6 +811,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Update an existing rota
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         /// <param name="rota"></param>
         public void UpdateRota(Rota rota)
@@ -816,6 +828,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get appointments that have been missed from the database
+        /// Last Updated : 15/11/17,
+        /// By R
         /// </summary>
         public List<Appointment> GetMissedAppointments()
         {
