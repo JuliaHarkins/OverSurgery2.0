@@ -973,6 +973,22 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// Delete a staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        public bool DeleteStaff(string p_username)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
+                con.CloseConnection();
+                return true;
+            }
+            return false;
+        }
+
     }
 }
 

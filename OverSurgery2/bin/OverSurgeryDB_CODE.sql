@@ -175,7 +175,7 @@ INSERT INTO Appointment VALUES (2, 20171109, 161500, '', 0, 4, 2);
 INSERT INTO Appointment VALUES (3, 20171110, 161500, '', 0, 4, 5);
 INSERT INTO Appointment VALUES (4, 20171109, 161500, '', 0, 3, 3);
 
--- INSERT INTO MedicalHistory VALUES (1, '');
+INSERT INTO MedicalHistory VALUES (1, 'Test', 10171214, 1);
 -- INSERT INTO MedicalHistory VALUES (2, '');
 -- INSERT INTO MedicalHistory VALUES (3, '');
 -- INSERT INTO MedicalHistory VALUES (4, '');
