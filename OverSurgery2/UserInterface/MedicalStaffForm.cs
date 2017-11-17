@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using OverSurgery2.Main_Classes;
 
 /*
  * This form is from all medical staff allowing them to prefrom 
@@ -24,14 +23,15 @@ namespace OverSurgery2
 #region Members
         MetaLayer ml = MetaLayer.Instance();            // the interface between the databae and the Application
         BindingSource m_appointmentBinding;               //binds the information from the database
-        BindingSource m_medicalBinding;
         List<Appointment> m_appointments;                 // the list of the current users appointments for today
         List<MedicalHistory> m_medicalHistory;
-        List<Prescription> m_perscriptions;
+        List<Prescription> m_prescriptions;
         MedicalStaff m_currentUser; 
         int m_appointmentListCounter;                     //the current position in the appointment list.
-        Patient m_selectedPatient;
         Doctor m_currentDoctor;
+        Patient m_currentPatient;
+        AppointmentController ac;
+        PatientController pc;
         #endregion
 #region Constructor
         /// <summary>
@@ -50,7 +50,6 @@ namespace OverSurgery2
                 m_currentUser = p_currentUser as MedicalStaff;
             }
             InitializeComponent();
-            this.ShowDialog();
         }
 #endregion
 #region Load
@@ -76,11 +75,13 @@ namespace OverSurgery2
             if (m_currentDoctor != null)
             {
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
+                // m_appointments = ac.Appointments.Find(a = > a.MedicalStaffID == m_currentDoctor.MedicalStaffID);
             }
             else if (m_currentUser != null)
             {
 
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
+                // m_appointments = ac.Appointments.Find(a => a.MedicalStaffID == m_currentUser.MedicalStaffID);
             }
             foreach (Appointment a in m_appointments)
             {
@@ -111,8 +112,9 @@ namespace OverSurgery2
             }
 
             #endregion
+            SelectMedicalHistory();
             //shows the current user
-#region ShowCurrentUser
+            #region ShowCurrentUser
             if (m_currentUser != null)
             {
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
@@ -175,11 +177,34 @@ namespace OverSurgery2
 
                 
         }
+        /// <summary>
+        /// saves the new patient notes to the medical hsitory of the patient
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_saveNotes_Click(object sender, EventArgs e)
         {
+            if (btn_saveNotes.Text != null)
+            {
+                Dictionary<string, object> values = null;
+                values = new Dictionary<string, object>
+                    {
+                        { "MedicalHistoryID", null },
+                        { "MedicalHistory",txt_CurrentNotes.Text},
+                        { "DateOf", DateTime.Now },
+                        { "PatientID", m_appointments[m_appointmentListCounter].PatientID}
+                    };
 
+                ml.AddMedicalHistoryToTheDatabase(new MedicalHistory(values));
+                txt_CurrentNotes.Clear();
+                SelectMedicalHistory();
+                /*
+                 * Neater solution
+                 * ml.AddMedicalHistoryToTheDatabase(
+                 * new Notes { PatientID = m_currentPatient.ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
+                 */
+            }
         }
-
         /// <summary>
         /// highlights next patient appointment upon click of button and de selects the currently selected.
         /// </summary>
@@ -187,7 +212,6 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btn_nextPatient_Click(object sender, EventArgs e)
         {
-            //checks that there is a next position in the list and updates the lists position
             if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
                 && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
             {
@@ -201,8 +225,6 @@ namespace OverSurgery2
                 dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
 
                 dgv_AppointmentList.CurrentRow.Selected = true;
-                //m_selectedPatient = ml.GetPatientByID(Convert.ToInt16(grd_AppointmentList.CurrentRow.Cells[0].Value));
-                //Console.WriteLine(m_selectedPatient.Forename);
                 SelectMedicalHistory();
             }
 
@@ -252,33 +274,43 @@ namespace OverSurgery2
         {
         }
         #endregion
-
+#region Method
         private void SelectMedicalHistory()
         {
             if (dgv_AppointmentList != null)
             {
+                lst_MedicalHistory.Clear();
+                lst_MedicalHistory.Columns.Add("Date", 75);
+                lst_MedicalHistory.Columns.Add("Notes", 425);
+                lst_Prescriptions.Clear();
+                lst_Prescriptions.Columns.Add("Date", 75);
+                lst_Prescriptions.Columns.Add("Medication", 175);
+                lst_Prescriptions.Columns.Add("Amount", 75);
+                lst_Prescriptions.Columns.Add("By", 148);
 
                 m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-                m_perscriptions = ml.GetPatientsPerscriptions(m_appointments[m_appointmentListCounter].PatientID);
+                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
                 foreach (MedicalHistory mh in m_medicalHistory)
                 {
                     ListViewItem lvi = new ListViewItem();
-                    lvi.Text = mh.Date.ToString();
+                    lvi.Text = mh.Date.ToShortDateString();
                     lvi.SubItems.Add(mh.Notes);
                     lst_MedicalHistory.Items.Add(lvi);
                 }
-                foreach (Prescription p in m_perscriptions)
+                foreach (Prescription p in m_prescriptions)
                 {
                     ListViewItem lvi = new ListViewItem();
-                    lvi.Text = p.Date.ToString();
+                    lvi.Text = p.Date.ToShortDateString();
                     lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
                     lvi.SubItems.Add(p.Amount.ToString());
-                    lvi.SubItems.Add(p.MedicalStaffID.ToString());
+                    //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
+                    lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
                     lst_Prescriptions.Items.Add(lvi);
 
                 }
             }
         }
+#endregion
 #region Lists
 
         private void lst_MedicalHistory_SelectedIndexChanged(object sender, EventArgs e)
@@ -291,5 +323,18 @@ namespace OverSurgery2
 
         }
     }
-#endregion
+    #endregion
+    public class Notes
+    {
+        int m_medHistoryID;
+        string m_medHistory;
+        DateTime m_DateOf;
+        int m_patientID;
+
+        public int MedHistoryID { get { return m_medHistoryID; } set { m_medHistoryID = value; } }
+        public string MedHistory { get { return m_medHistory; } set { m_medHistory = value; } }
+        public DateTime DateOf { get { return m_DateOf; } set { m_DateOf = value; } }
+        public int PatientID { get { return m_patientID; } set { m_patientID = value; } }
+    }
+
 }

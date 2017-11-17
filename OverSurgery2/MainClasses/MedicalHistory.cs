@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery2.Main_Classes
+namespace OverSurgery2
 {
     /// <summary>
     /// Created By: J
@@ -39,6 +39,17 @@ namespace OverSurgery2.Main_Classes
             set
             {
                 m_notes = value;
+            }
+        }
+        public int PatientID
+        {
+            get
+            {
+                return m_patientID;
+            }
+            set
+            {
+                m_patientID = value;
             }
         }
         #endregion

@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\RotaController.cs" />
     <Compile Include="DataBase\ManagerForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,6 +189,9 @@
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\ManagerForm.resx">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
       <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -204,6 +208,7 @@
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\DataSources\Appointment.datasource" />
     <None Include="Properties\DataSources\Patient.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

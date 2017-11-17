@@ -28,6 +28,7 @@ namespace OverSurgery2
         private string m_surnameDisplay;
         private string m_timeDisplay;
         MetaLayer ml;
+        PatientController pc = PatientController.Instance();
 
         public string Notes { get { return m_notes; } set { m_notes = value; } } //Appointment.Notes;  
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
@@ -59,8 +60,8 @@ namespace OverSurgery2
         }
         public void SetNameDisplay()
         {
-            m_forenameDisplay = ml.GetPatientByID(m_patientID).Forename;
-            m_surnameDisplay = ml.GetPatientByID(m_patientID).Surname;
+            m_forenameDisplay = pc.patients.Find(p => (p.ID == m_patientID)).Forename;
+            m_surnameDisplay = pc.patients.Find(p => (p.ID == m_patientID)).Surname;
         }
 
 
