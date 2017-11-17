@@ -39,13 +39,13 @@ namespace OverSurgery2
                 case 1:
                 case 2:
                 case 3:
-                    new MedicalStaffForm(currentUser);
+                    new MedicalStaffForm(currentUser).ShowDialog();
                     break;
                 case 4:
-                    new ReceptionistForm(currentUser);
+                    new ReceptionistForm(currentUser).ShowDialog();
                     break;
                 case 5:
-                    new ManagerForm(currentUser);
+                    new ManagerForm(currentUser).ShowDialog();
                     break;
             }
         }
@@ -57,27 +57,27 @@ namespace OverSurgery2
 
         public void OpenPatientViewForm(Patient p_Patient)
         {
-            new ViewPatientInfoForm(p_Patient);
+            new ViewPatientInfoForm(p_Patient).ShowDialog();
         }
 
         public void OpenForgotPasswordForm()
         {
-            new ForgotPasswordForm();
+            new ForgotPasswordForm().ShowDialog();
         }
         
         public void OpenPasswordResetForm(Staff p_user)
         {
-            new PasswordResetForm(p_user);
+            new PasswordResetForm(p_user).ShowDialog();
         }
 
         public void OpenEditPatientForm(Patient p_Patient)
         {
-            new EditPatientForm(p_Patient);
+            new EditPatientForm(p_Patient).ShowDialog();
         }
 
         public void OpenNewPatientForm()
         {
-            new NewPatientForm();
+            new NewPatientForm().ShowDialog();
         }
     }
 }

@@ -207,6 +207,7 @@
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\DataSources\Appointment.datasource" />
     <None Include="Properties\DataSources\Patient.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

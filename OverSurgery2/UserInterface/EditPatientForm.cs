@@ -18,7 +18,6 @@ namespace OverSurgery2
             InitializeComponent();
             m_currentPatient = p_Patient;
             LoadCurrentPatientInfo();
-            this.ShowDialog();
         }
 
         private void LoadCurrentPatientInfo()
