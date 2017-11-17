@@ -32,13 +32,14 @@
             this.btnRemoveStaff = new System.Windows.Forms.Button();
             this.btnUpdateStaff = new System.Windows.Forms.Button();
             this.btnUpdateRota = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnAddStaff
             // 
-            this.btnAddStaff.Location = new System.Drawing.Point(24, 325);
+            this.btnAddStaff.Location = new System.Drawing.Point(12, 400);
             this.btnAddStaff.Name = "btnAddStaff";
-            this.btnAddStaff.Size = new System.Drawing.Size(75, 23);
+            this.btnAddStaff.Size = new System.Drawing.Size(91, 23);
             this.btnAddStaff.TabIndex = 0;
             this.btnAddStaff.Text = "Add Staff";
             this.btnAddStaff.UseVisualStyleBackColor = true;
@@ -46,7 +47,7 @@
             // 
             // btnRemoveStaff
             // 
-            this.btnRemoveStaff.Location = new System.Drawing.Point(266, 325);
+            this.btnRemoveStaff.Location = new System.Drawing.Point(12, 342);
             this.btnRemoveStaff.Name = "btnRemoveStaff";
             this.btnRemoveStaff.Size = new System.Drawing.Size(91, 23);
             this.btnRemoveStaff.TabIndex = 1;
@@ -56,9 +57,9 @@
             // 
             // btnUpdateStaff
             // 
-            this.btnUpdateStaff.Location = new System.Drawing.Point(146, 325);
+            this.btnUpdateStaff.Location = new System.Drawing.Point(12, 371);
             this.btnUpdateStaff.Name = "btnUpdateStaff";
-            this.btnUpdateStaff.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateStaff.Size = new System.Drawing.Size(91, 23);
             this.btnUpdateStaff.TabIndex = 2;
             this.btnUpdateStaff.Text = "Update Staff";
             this.btnUpdateStaff.UseVisualStyleBackColor = true;
@@ -66,19 +67,30 @@
             // 
             // btnUpdateRota
             // 
-            this.btnUpdateRota.Location = new System.Drawing.Point(420, 325);
+            this.btnUpdateRota.Location = new System.Drawing.Point(12, 313);
             this.btnUpdateRota.Name = "btnUpdateRota";
-            this.btnUpdateRota.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateRota.Size = new System.Drawing.Size(91, 23);
             this.btnUpdateRota.TabIndex = 3;
             this.btnUpdateRota.Text = "Update Rota";
             this.btnUpdateRota.UseVisualStyleBackColor = true;
             this.btnUpdateRota.Click += new System.EventHandler(this.btnUpdateRota_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Location = new System.Drawing.Point(449, 400);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(91, 23);
+            this.btnExit.TabIndex = 4;
+            this.btnExit.Text = "Exit";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(552, 435);
+            this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdateRota);
             this.Controls.Add(this.btnUpdateStaff);
             this.Controls.Add(this.btnRemoveStaff);
@@ -95,5 +107,6 @@
         private System.Windows.Forms.Button btnRemoveStaff;
         private System.Windows.Forms.Button btnUpdateStaff;
         private System.Windows.Forms.Button btnUpdateRota;
+        private System.Windows.Forms.Button btnExit;
     }
 }
