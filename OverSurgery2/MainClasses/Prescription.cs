@@ -12,7 +12,7 @@ using System.Threading.Tasks;
  * By: J
  */
 
-namespace OverSurgery2.Main_Classes
+namespace OverSurgery2
 {
     /// <summary>
     /// this object is used to hold all information needed for a Prescription,
