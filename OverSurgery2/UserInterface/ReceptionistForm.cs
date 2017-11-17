@@ -13,7 +13,7 @@ namespace OverSurgery2
 {
     public partial class ReceptionistForm : Form
     {
-        BindingSource PatientBinding;
+        BindingSource PatientBinding = new BindingSource();
         BindingSource AppointmentBinding;
         Staff currentUserLoggedIn = null;
         PatientController pc;
@@ -40,7 +40,6 @@ namespace OverSurgery2
         }
         private void LoadAllPatientInfo()
         {
-            PatientBinding = new BindingSource();
             DataGridPatients.DataSource = PatientBinding.DataSource = PatientController.Instance().patients;
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
@@ -81,14 +80,7 @@ namespace OverSurgery2
 
         private Patient GetPatientByID()
         {
-            foreach (Patient p in PatientController.Instance().patients)
-            {
-                if (p.ID == Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value))
-                {
-                    return p;
-                }
-            }
-            return null;
+            return pc.patients.Find(p => (p.ID == Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
         }
 
         private void txt_SearchSurname_Enter(object sender, EventArgs e)
@@ -130,12 +122,8 @@ namespace OverSurgery2
 
         private void btn_SearchPatient_Click(object sender, EventArgs e)
         {
-            string forename = txt_SearchForename.Text;
-            string surname = txt_SearchSurname.Text;
-            IEnumerable<Patient> EnumCurrentP;
-            PatientBinding = new BindingSource();
-            EnumCurrentP = pc.patients.Where(p => (p.Forename == forename)).Where(p => (p.Surname == surname));
-            PatientBinding.DataSource = EnumCurrentP.Cast<Patient>().ToList();
+
+            PatientBinding.DataSource = pc.patients.Find(p => (p.Forename == txt_SearchForename.Text) && (p.Surname == txt_SearchSurname.Text));
             DataGridPatients.DataSource = PatientBinding;
             DataGridPatients.Update();
             DataGridPatients.Refresh();
