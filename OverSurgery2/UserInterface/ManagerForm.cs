@@ -25,6 +25,9 @@ namespace OverSurgery2
         private int m_Gender;
         private string m_email;
         private int m_type;
+        private string m_password;
+        private string m_phone;
+        private int m_addressID;
 
         BindingSource StaffBinding;
         BindingSource RotaBinding;
@@ -61,6 +64,18 @@ namespace OverSurgery2
             {
                 lblTypeHelper.Text = "";
             }
+
+            m_userName = txtUserName.Text;
+            m_forename = txtForename.Text;
+            m_surname = txtSurname.Text;
+            m_practiceNumber = Convert.ToInt32(txtPracticeNumber.Text);
+            m_Gender = Convert.ToInt32(txtGender.Text);
+            m_email = txtEmail.Text;
+            m_type = Convert.ToInt32(cboType.Text);
+            m_password = txtPassword.Text;
+            m_phone = txtPhone.Text;
+            m_addressID = Convert.ToInt32(txtAddress.Text);
+
         }
 
         /// <summary>
@@ -70,13 +85,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnUpdateStaff_Click(object sender, EventArgs e)
         {
-            m_userName = txtUserName.Text;
-            m_forename = txtForename.Text;
-            m_surname = txtSurname.Text;
-            m_practiceNumber = Convert.ToInt32(txtPracticeNumber.Text);
-            m_Gender = Convert.ToInt32(txtGender.Text);
-            m_email = txtEmail.Text;
-            m_type = Convert.ToInt32(cboType.Text);
+               
         }
 
         /// <summary>
@@ -86,13 +95,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnAddStaff_Click(object sender, EventArgs e)
         {
-            m_userName = txtUserName.Text;
-            m_forename = txtForename.Text;
-            m_surname = txtSurname.Text;
-            m_practiceNumber = Convert.ToInt32(txtPracticeNumber.Text);
-            m_Gender = Convert.ToInt32(txtGender.Text);
-            m_email = txtEmail.Text;
-            m_type = Convert.ToInt32(cboType.Text);
+           
         }
 
         /// <summary>
