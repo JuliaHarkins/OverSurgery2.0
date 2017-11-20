@@ -129,6 +129,9 @@ namespace OverSurgery2
         {
             m_userName = txtUserName.Text;
             ml.GetStaffByUserName(m_userName);
+            
+            //update addressID variable before entering the method below
+            ml.GetAddressByID(m_addressID);
         }
 
         /// <summary>
