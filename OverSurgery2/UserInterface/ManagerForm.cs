@@ -19,7 +19,7 @@ namespace OverSurgery2
     {
         private string m_userName, m_forename, m_surname, m_email, m_password, m_phone, m_houseName, m_addressLine, m_postCode;
         private int m_staffID, m_practiceNumber, m_Gender, m_type, m_addressID, m_houseNumber;
-       
+
         BindingSource StaffBinding;
         BindingSource RotaBinding;
         Staff currentUserLoggedIn = null;
@@ -30,6 +30,8 @@ namespace OverSurgery2
             
             InitializeComponent();
             this.ShowDialog();
+            ToolTip t = new ToolTip();
+            t.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
 
             // Update helper label to inform user about type choices
             if (Convert.ToInt32(cboType.Text) == 1)
