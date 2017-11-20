@@ -1011,9 +1011,44 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 con.Update("UPDATE Staff Set Forename = " + staff.Forename + ", Surname = "
-                    + staff.Surname + ", Email = '" + staff.EmailAddress + "', AddressID = "
-                    + staff.AddressID + ", Username = " + staff.Username + ", Password = "
-                    + staff.Password +  " WHERE StaffID = " + staff.StaffID+ " LIMIT 1;");
+                    + staff.Surname + ", Email = '" + staff.EmailAddress + ", Username = " 
+                    + staff.Username + ", Password = " + staff.Password + /*", Type = " 
+                    + staff.Type + */" WHERE StaffID = " + staff.StaffID+ " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Delete an address from the database using the addressID
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_addressID"></param>
+        /// <returns></returns>
+        public bool DeleteAddress(int p_addressID)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("DELETE FROM Address WHERE AddressID ='" + p_addressID + "';");
+                con.CloseConnection();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Update an address using the addressID
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="add"></param>
+        public void UpdateAddress(Address add)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Address Set HouseName = " + add.HouseName + ", HouseNumber = "
+                    + add.HouseNumber + ", AddressLine1 = '" + add.StreetName + ", PostCode = "
+                    + add.PostCode + " WHERE AddressID = " + /*add.AddressID +*/ " LIMIT 1;");
                 con.CloseConnection();
             }
         }

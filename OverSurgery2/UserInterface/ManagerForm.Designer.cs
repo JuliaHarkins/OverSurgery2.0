@@ -48,7 +48,7 @@
             this.lblUserName = new System.Windows.Forms.Label();
             this.txtUserName = new System.Windows.Forms.TextBox();
             this.btnSearchUserName = new System.Windows.Forms.Button();
-            this.lblDatabaseHelper = new System.Windows.Forms.Label();
+            this.lblDatabaseHelper1 = new System.Windows.Forms.Label();
             this.lblStaffType = new System.Windows.Forms.Label();
             this.cboType = new System.Windows.Forms.ComboBox();
             this.lblTypeHelper = new System.Windows.Forms.Label();
@@ -58,6 +58,15 @@
             this.lblAddress = new System.Windows.Forms.Label();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.txtAddress = new System.Windows.Forms.TextBox();
+            this.lblDatabaseHelper2 = new System.Windows.Forms.Label();
+            this.lblHouseName = new System.Windows.Forms.Label();
+            this.lblHouseNumber = new System.Windows.Forms.Label();
+            this.lblAddressLine = new System.Windows.Forms.Label();
+            this.lblPostCode = new System.Windows.Forms.Label();
+            this.txtHouseName = new System.Windows.Forms.TextBox();
+            this.txtHouseNumber = new System.Windows.Forms.TextBox();
+            this.txtAddressLine = new System.Windows.Forms.TextBox();
+            this.txtPostCode = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAddStaff
@@ -92,7 +101,7 @@
             // 
             // btnUpdateRota
             // 
-            this.btnUpdateRota.Location = new System.Drawing.Point(352, 400);
+            this.btnUpdateRota.Location = new System.Drawing.Point(616, 400);
             this.btnUpdateRota.Name = "btnUpdateRota";
             this.btnUpdateRota.Size = new System.Drawing.Size(91, 23);
             this.btnUpdateRota.TabIndex = 3;
@@ -102,7 +111,7 @@
             // 
             // btnExit
             // 
-            this.btnExit.Location = new System.Drawing.Point(449, 400);
+            this.btnExit.Location = new System.Drawing.Point(713, 400);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(91, 23);
             this.btnExit.TabIndex = 4;
@@ -233,14 +242,14 @@
             this.btnSearchUserName.UseVisualStyleBackColor = true;
             this.btnSearchUserName.Click += new System.EventHandler(this.btnSearchUserName_Click);
             // 
-            // lblDatabaseHelper
+            // lblDatabaseHelper1
             // 
-            this.lblDatabaseHelper.AutoSize = true;
-            this.lblDatabaseHelper.Location = new System.Drawing.Point(188, 100);
-            this.lblDatabaseHelper.Name = "lblDatabaseHelper";
-            this.lblDatabaseHelper.Size = new System.Drawing.Size(169, 13);
-            this.lblDatabaseHelper.TabIndex = 23;
-            this.lblDatabaseHelper.Text = "Database handles this field for you";
+            this.lblDatabaseHelper1.AutoSize = true;
+            this.lblDatabaseHelper1.Location = new System.Drawing.Point(188, 100);
+            this.lblDatabaseHelper1.Name = "lblDatabaseHelper1";
+            this.lblDatabaseHelper1.Size = new System.Drawing.Size(169, 13);
+            this.lblDatabaseHelper1.TabIndex = 23;
+            this.lblDatabaseHelper1.Text = "Database handles this field for you";
             // 
             // lblStaffType
             // 
@@ -301,7 +310,7 @@
             // lblAddress
             // 
             this.lblAddress.AutoSize = true;
-            this.lblAddress.Location = new System.Drawing.Point(34, 336);
+            this.lblAddress.Location = new System.Drawing.Point(429, 74);
             this.lblAddress.Name = "lblAddress";
             this.lblAddress.Size = new System.Drawing.Size(59, 13);
             this.lblAddress.TabIndex = 30;
@@ -316,16 +325,99 @@
             // 
             // txtAddress
             // 
-            this.txtAddress.Location = new System.Drawing.Point(98, 333);
+            this.txtAddress.Location = new System.Drawing.Point(493, 71);
             this.txtAddress.Name = "txtAddress";
             this.txtAddress.Size = new System.Drawing.Size(100, 20);
             this.txtAddress.TabIndex = 32;
+            this.txtAddress.Text = "Auto Increments";
+            // 
+            // lblDatabaseHelper2
+            // 
+            this.lblDatabaseHelper2.AutoSize = true;
+            this.lblDatabaseHelper2.Location = new System.Drawing.Point(599, 74);
+            this.lblDatabaseHelper2.Name = "lblDatabaseHelper2";
+            this.lblDatabaseHelper2.Size = new System.Drawing.Size(169, 13);
+            this.lblDatabaseHelper2.TabIndex = 33;
+            this.lblDatabaseHelper2.Text = "Database handles this field for you";
+            // 
+            // lblHouseName
+            // 
+            this.lblHouseName.AutoSize = true;
+            this.lblHouseName.Location = new System.Drawing.Point(429, 100);
+            this.lblHouseName.Name = "lblHouseName";
+            this.lblHouseName.Size = new System.Drawing.Size(69, 13);
+            this.lblHouseName.TabIndex = 34;
+            this.lblHouseName.Text = "House Name";
+            // 
+            // lblHouseNumber
+            // 
+            this.lblHouseNumber.AutoSize = true;
+            this.lblHouseNumber.Location = new System.Drawing.Point(429, 126);
+            this.lblHouseNumber.Name = "lblHouseNumber";
+            this.lblHouseNumber.Size = new System.Drawing.Size(78, 13);
+            this.lblHouseNumber.TabIndex = 35;
+            this.lblHouseNumber.Text = "House Number";
+            // 
+            // lblAddressLine
+            // 
+            this.lblAddressLine.AutoSize = true;
+            this.lblAddressLine.Location = new System.Drawing.Point(429, 152);
+            this.lblAddressLine.Name = "lblAddressLine";
+            this.lblAddressLine.Size = new System.Drawing.Size(77, 13);
+            this.lblAddressLine.TabIndex = 36;
+            this.lblAddressLine.Text = "Address Line 1";
+            // 
+            // lblPostCode
+            // 
+            this.lblPostCode.AutoSize = true;
+            this.lblPostCode.Location = new System.Drawing.Point(429, 178);
+            this.lblPostCode.Name = "lblPostCode";
+            this.lblPostCode.Size = new System.Drawing.Size(56, 13);
+            this.lblPostCode.TabIndex = 37;
+            this.lblPostCode.Text = "Post Code";
+            // 
+            // txtHouseName
+            // 
+            this.txtHouseName.Location = new System.Drawing.Point(504, 97);
+            this.txtHouseName.Name = "txtHouseName";
+            this.txtHouseName.Size = new System.Drawing.Size(100, 20);
+            this.txtHouseName.TabIndex = 38;
+            // 
+            // txtHouseNumber
+            // 
+            this.txtHouseNumber.Location = new System.Drawing.Point(512, 123);
+            this.txtHouseNumber.Name = "txtHouseNumber";
+            this.txtHouseNumber.Size = new System.Drawing.Size(100, 20);
+            this.txtHouseNumber.TabIndex = 39;
+            // 
+            // txtAddressLine
+            // 
+            this.txtAddressLine.Location = new System.Drawing.Point(512, 149);
+            this.txtAddressLine.Name = "txtAddressLine";
+            this.txtAddressLine.Size = new System.Drawing.Size(100, 20);
+            this.txtAddressLine.TabIndex = 40;
+            // 
+            // txtPostCode
+            // 
+            this.txtPostCode.Location = new System.Drawing.Point(491, 175);
+            this.txtPostCode.Name = "txtPostCode";
+            this.txtPostCode.Size = new System.Drawing.Size(100, 20);
+            this.txtPostCode.TabIndex = 41;
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(552, 435);
+            this.ClientSize = new System.Drawing.Size(816, 435);
+            this.Controls.Add(this.txtPostCode);
+            this.Controls.Add(this.txtAddressLine);
+            this.Controls.Add(this.txtHouseNumber);
+            this.Controls.Add(this.txtHouseName);
+            this.Controls.Add(this.lblPostCode);
+            this.Controls.Add(this.lblAddressLine);
+            this.Controls.Add(this.lblHouseNumber);
+            this.Controls.Add(this.lblHouseName);
+            this.Controls.Add(this.lblDatabaseHelper2);
             this.Controls.Add(this.txtAddress);
             this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.lblAddress);
@@ -335,7 +427,7 @@
             this.Controls.Add(this.lblTypeHelper);
             this.Controls.Add(this.cboType);
             this.Controls.Add(this.lblStaffType);
-            this.Controls.Add(this.lblDatabaseHelper);
+            this.Controls.Add(this.lblDatabaseHelper1);
             this.Controls.Add(this.btnSearchUserName);
             this.Controls.Add(this.txtUserName);
             this.Controls.Add(this.lblUserName);
@@ -385,7 +477,7 @@
         private System.Windows.Forms.Label lblUserName;
         private System.Windows.Forms.TextBox txtUserName;
         private System.Windows.Forms.Button btnSearchUserName;
-        private System.Windows.Forms.Label lblDatabaseHelper;
+        private System.Windows.Forms.Label lblDatabaseHelper1;
         private System.Windows.Forms.Label lblStaffType;
         private System.Windows.Forms.ComboBox cboType;
         private System.Windows.Forms.Label lblTypeHelper;
@@ -395,5 +487,14 @@
         private System.Windows.Forms.Label lblAddress;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.TextBox txtAddress;
+        private System.Windows.Forms.Label lblDatabaseHelper2;
+        private System.Windows.Forms.Label lblHouseName;
+        private System.Windows.Forms.Label lblHouseNumber;
+        private System.Windows.Forms.Label lblAddressLine;
+        private System.Windows.Forms.Label lblPostCode;
+        private System.Windows.Forms.TextBox txtHouseName;
+        private System.Windows.Forms.TextBox txtHouseNumber;
+        private System.Windows.Forms.TextBox txtAddressLine;
+        private System.Windows.Forms.TextBox txtPostCode;
     }
 }
