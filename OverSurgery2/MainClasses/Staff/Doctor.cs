@@ -22,24 +22,16 @@ namespace OverSurgery2
         MetaLayer ml;
 
         #endregion
-
-        /// <summary>
-        /// used to create a doctor
-        /// 07/11/2017 - j
-        /// </summary>
-        #region Constructor
-        public Doctor(Dictionary<string, object> p_medicalStaffValues) :base(p_medicalStaffValues)
-             {
-                m_onCall = false;
-             }
-        
-        #endregion
         #region Properties
         public bool OnCall
         {
             get
             {
                 return m_onCall;
+            }
+            set
+            {
+                m_onCall = value;
             }
         }
         public List<Prescription> Extension
@@ -48,9 +40,24 @@ namespace OverSurgery2
             {
                 return m_extension;
             }
+            set
+            {
+                m_extension = value;
+            }
 
         }
         #endregion
+        /// <summary>
+        /// used to create a doctor
+        /// 07/11/2017 - j
+        /// </summary>
+        #region Constructor
+        public Doctor()
+             {
+             }
+        
+        #endregion
+
         #region Methoods
         /// <summary>
         /// takes the Prescription, returns a bool, then removes it from the doctors extention requests
@@ -72,6 +79,10 @@ namespace OverSurgery2
         private void RemoveExtention(Prescription p_prescription)
         {
             m_extension.Remove(p_prescription);
+        }
+        public void addExtention(Prescription p_p)
+        {
+            m_extension.Add(p_p);
         }
         #endregion
     }

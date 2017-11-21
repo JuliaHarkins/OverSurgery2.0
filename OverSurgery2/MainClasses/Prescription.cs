@@ -28,7 +28,6 @@ namespace OverSurgery2
         DateTime m_dateOfNextIssue;
         bool m_allowExtention;
         DateTime m_DateIssued;
-        DateTime m_dateOfNetIssue;
         int m_amount;
         int m_medicalStaffID;
         #endregion
