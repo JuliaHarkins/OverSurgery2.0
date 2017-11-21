@@ -19,6 +19,17 @@ namespace OverSurgery2
        int  m_patientID;
 #endregion
 #region Properties
+        public int ID
+        {
+            get
+            {
+                return m_id;
+            }
+            set
+            {
+                m_id = value;
+            }
+        }
         public DateTime Date
         {
             get
@@ -54,12 +65,8 @@ namespace OverSurgery2
         }
         #endregion
 #region Constructor
-        public MedicalHistory(Dictionary<string, object> p_medicalHistoryValues)
+        public MedicalHistory()
         {
-            m_id = Convert.ToInt16(p_medicalHistoryValues["MedicalHistoryID"]);
-            m_date = Convert.ToDateTime(p_medicalHistoryValues["DateOf"]);
-            m_notes = Convert.ToString(p_medicalHistoryValues["MedicalHistory"]) ;
-            m_patientID = Convert.ToInt16(p_medicalHistoryValues["PatientID"]);
         }
     }
 #endregion

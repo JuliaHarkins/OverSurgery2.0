@@ -23,13 +23,9 @@ namespace OverSurgery2
         public int StaffID { get { return m_staffID; } set { m_staffID = value; } }
         LoginController lc = LoginController.Instance();
 
-        public Staff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
+        public Staff()
         {
-            
-            m_staffID = Convert.ToInt16(p_PersonValues["ID"]);
-            m_username = Convert.ToString(p_PersonValues["UserName"]);
-            m_password = Convert.ToString(p_PersonValues["Password"]);
-            m_email = Convert.ToString(p_PersonValues["Email"]);
+
         }
         //public bool Login(string p_username, string p_attemptedPassword)
         //{
