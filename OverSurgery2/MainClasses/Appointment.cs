@@ -40,16 +40,7 @@ namespace OverSurgery2
         /// <summary>
         /// Gets the details of the appointment from the AppointmentControler and patient details from the database
         /// </summary>
-        /// <param name="p_appDate"></param>
-        /// <param name="p_appTime"></param>
-        /// <param name="p_medicalStaffID"></param>
-        /// <param name="p_patientID"></param>
-        /// <param name="p_patientForename"></param>
-        /// <param name="p_patientSurname"></param>
-        /// <param name="p_notes"></param>
-        /// <param name="p_patientDOB"></param>
-        /// <param name="p_appointmentID"></param>
-        /// <param name="p_appAttend"></param>
+        /// <param name="p_appValues"></param>
         public Appointment(Dictionary <string,object> p_appValues)
         {
             ml = MetaLayer.Instance();
