@@ -63,7 +63,7 @@
             // 
             // btn_addPrescription
             // 
-            this.btn_addPrescription.Location = new System.Drawing.Point(139, 418);
+            this.btn_addPrescription.Location = new System.Drawing.Point(146, 418);
             this.btn_addPrescription.Name = "btn_addPrescription";
             this.btn_addPrescription.Size = new System.Drawing.Size(124, 25);
             this.btn_addPrescription.TabIndex = 10;
@@ -75,7 +75,7 @@
             // 
             this.btn_saveNotes.Location = new System.Drawing.Point(9, 418);
             this.btn_saveNotes.Name = "btn_saveNotes";
-            this.btn_saveNotes.Size = new System.Drawing.Size(124, 25);
+            this.btn_saveNotes.Size = new System.Drawing.Size(129, 25);
             this.btn_saveNotes.TabIndex = 11;
             this.btn_saveNotes.Text = "Save Notes";
             this.btn_saveNotes.UseVisualStyleBackColor = true;
@@ -129,7 +129,7 @@
             // lb_MedHistory
             // 
             this.lb_MedHistory.AutoSize = true;
-            this.lb_MedHistory.Location = new System.Drawing.Point(6, 446);
+            this.lb_MedHistory.Location = new System.Drawing.Point(9, 461);
             this.lb_MedHistory.Name = "lb_MedHistory";
             this.lb_MedHistory.Size = new System.Drawing.Size(79, 13);
             this.lb_MedHistory.TabIndex = 16;

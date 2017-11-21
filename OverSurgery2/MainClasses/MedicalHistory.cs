@@ -60,8 +60,6 @@ namespace OverSurgery2
             m_date = Convert.ToDateTime(p_medicalHistoryValues["DateOf"]);
             m_notes = Convert.ToString(p_medicalHistoryValues["MedicalHistory"]) ;
             m_patientID = Convert.ToInt16(p_medicalHistoryValues["PatientID"]);
-
-
         }
     }
 #endregion

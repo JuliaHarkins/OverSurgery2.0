@@ -29,9 +29,6 @@ namespace OverSurgery2
         MedicalStaff m_currentUser; 
         int m_appointmentListCounter;                     //the current position in the appointment list.
         Doctor m_currentDoctor;
-        Patient m_currentPatient;
-        AppointmentController ac;
-        PatientController pc;
         #endregion
 #region Constructor
         /// <summary>
@@ -61,12 +58,10 @@ namespace OverSurgery2
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
 
-#region gettingUser
+#region Showing btn_AddPrescription
             if (m_currentUser != null)
             {
-                var tempLoc = btn_addPrescription.Location;
                 btn_addPrescription.Visible = false;
-                btn_saveNotes.Location = tempLoc;
             }
             #endregion
             //checks there is information to load, and shows the relivent appointment information.
@@ -75,13 +70,12 @@ namespace OverSurgery2
             if (m_currentDoctor != null)
             {
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
-                // m_appointments = ac.Appointments.Find(a => a.MedicalStaffID == m_currentDoctor.MedicalStaffID);
             }
             else if (m_currentUser != null)
             {
 
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
-                // m_appointments = ac.Appointments.Find(a => a.MedicalStaffID == m_currentUser.MedicalStaffID);
+                
             }
             foreach (Appointment a in m_appointments)
             {
@@ -100,8 +94,6 @@ namespace OverSurgery2
             dgv_AppointmentList.Columns["TimeDisplay"].DisplayIndex = 1;
             dgv_AppointmentList.Columns["TimeDisplay"].HeaderText = "Time";
             dgv_AppointmentList.Columns["Notes"].DisplayIndex = dgv_AppointmentList.ColumnCount -1;
-            
-            //grd_AppointmentList.Columns["PatientID"].DisplayIndex = 0;
 
             //setting the first selected row in appointment List.
             if (dgv_AppointmentList.RowCount > 0)
@@ -114,7 +106,7 @@ namespace OverSurgery2
             #endregion
             SelectMedicalHistory();
             //shows the current user
-            #region ShowCurrentUser
+#region ShowCurrentUser
             if (m_currentUser != null)
             {
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
@@ -124,7 +116,6 @@ namespace OverSurgery2
                 lb_currentUser.Text = "Current User : " + m_currentDoctor.Forename + " " + m_currentDoctor.Surname;
             }
             #endregion
-            //
 #region SetsExtentionAmount
             //checks if the user is a doctor and shows the amount of extentions,
             //or it hites the button from non-doctors
@@ -170,6 +161,7 @@ namespace OverSurgery2
 #region Button
         private void btn_addPrescription_Click(object sender, EventArgs e)
         {
+
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)
@@ -324,17 +316,4 @@ namespace OverSurgery2
         }
     }
     #endregion
-    public class Notes
-    {
-        int m_medHistoryID;
-        string m_medHistory;
-        DateTime m_DateOf;
-        int m_patientID;
-
-        public int MedHistoryID { get { return m_medHistoryID; } set { m_medHistoryID = value; } }
-        public string MedHistory { get { return m_medHistory; } set { m_medHistory = value; } }
-        public DateTime DateOf { get { return m_DateOf; } set { m_DateOf = value; } }
-        public int PatientID { get { return m_patientID; } set { m_patientID = value; } }
-    }
-
 }
