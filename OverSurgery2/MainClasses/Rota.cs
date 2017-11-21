@@ -16,10 +16,7 @@ namespace OverSurgery2
         List<Rota> StaffTimes = new List<Rota>();
         MetaLayer ml;
         private static Rota m_instance;
-        private int m_rotaEntryID;
-        private int m_medicalStaffID;
-        private int m_startTime;
-        private int m_endTime;
+        private int m_rotaEntryID, m_medicalStaffID, m_startTime, m_endTime;
 
         public int RotaEntryID { get { return m_rotaEntryID; } set { m_rotaEntryID = value; } }
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }

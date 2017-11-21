@@ -17,16 +17,11 @@ namespace OverSurgery2
     /// </summary>
     public class Appointment
     {
-        private string m_notes;
-        private int m_medicalStaffID;
-        private int m_patientID;
-        private DateTime m_appDate;
-        private DateTime m_appTime;
-        private int m_appointmentID;
+        private string m_notes, m_forenameDisplay, m_surnameDisplay, m_timeDisplay;
+        private int m_medicalStaffID, m_patientID, m_appointmentID;
+        private DateTime m_appDate, m_appTime;
         private bool m_appAttend;
-        private string m_forenameDisplay;
-        private string m_surnameDisplay;
-        private string m_timeDisplay;
+       
         MetaLayer ml;
         PatientController pc = PatientController.Instance();
 

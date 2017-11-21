@@ -17,18 +17,9 @@ namespace OverSurgery2
 {
     public partial class ManagerForm : Form
     {
-        private string m_userName;
-        private int m_staffID;
-        private string m_forename;
-        private string m_surname;
-        private int m_practiceNumber;
-        private int m_Gender;
-        private string m_email;
-        private int m_type;
-        private string m_password;
-        private string m_phone;
-        private int m_addressID;
-        
+        private string m_userName, m_forename, m_surname, m_email, m_password, m_phone, m_houseName, m_addressLine, m_postCode;
+        private int m_staffID, m_practiceNumber, m_Gender, m_type, m_addressID, m_houseNumber;
+
         BindingSource StaffBinding;
         BindingSource RotaBinding;
         Staff currentUserLoggedIn = null;
@@ -39,6 +30,8 @@ namespace OverSurgery2
             
             InitializeComponent();
             this.ShowDialog();
+            ToolTip t = new ToolTip();
+            t.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
 
             // Update helper label to inform user about type choices
             if (Convert.ToInt32(cboType.Text) == 1)
@@ -66,17 +59,6 @@ namespace OverSurgery2
                 lblTypeHelper.Text = "";
             }
 
-            m_userName = txtUserName.Text;
-            m_forename = txtForename.Text;
-            m_surname = txtSurname.Text;
-            m_practiceNumber = Convert.ToInt32(txtPracticeNumber.Text);
-            m_Gender = Convert.ToInt32(txtGender.Text);
-            m_email = txtEmail.Text;
-            m_type = Convert.ToInt32(cboType.Text);
-            m_password = txtPassword.Text;
-            m_phone = txtPhone.Text;
-            m_addressID = Convert.ToInt32(txtAddress.Text);
-
         }
 
         /// <summary>
@@ -86,7 +68,10 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnUpdateStaff_Click(object sender, EventArgs e)
         {
-            //ml.UpdateStaffMember();
+            ReadBoxes();
+            //ml.UpdateStaffMember(Staff staffMember);
+            //ml.UpdateAddress(Address staffAddress);
+            
         }
 
         /// <summary>
@@ -96,7 +81,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnAddStaff_Click(object sender, EventArgs e)
         {
-           
+            ReadBoxes();
         }
 
         /// <summary>
@@ -106,8 +91,10 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnRemoveStaff_Click(object sender, EventArgs e)
         {
+            ReadBoxes();
             m_userName = txtUserName.Text;
             ml.DeleteStaff(m_userName);
+            ml.DeleteAddress(m_addressID);
         }
 
         /// <summary>
@@ -142,7 +129,37 @@ namespace OverSurgery2
         {
             m_userName = txtUserName.Text;
             ml.GetStaffByUserName(m_userName);
+            
+            //update addressID variable before entering the method below
+            ml.GetAddressByID(m_addressID);
+        }
 
+        /// <summary>
+        /// Reads values the user has entered from the text boxes into variables
+        /// </summary>
+        private void ReadBoxes()
+        {
+            try
+            {
+                m_userName = txtUserName.Text;
+                m_forename = txtForename.Text;
+                m_surname = txtSurname.Text;
+                m_practiceNumber = Convert.ToInt32(txtPracticeNumber.Text);
+                m_Gender = Convert.ToInt32(txtGender.Text);
+                m_email = txtEmail.Text;
+                m_type = Convert.ToInt32(cboType.Text);
+                m_password = txtPassword.Text;
+                m_phone = txtPhone.Text;
+                m_addressID = Convert.ToInt32(txtAddress.Text);
+                m_houseName = txtHouseName.Text;
+                m_houseNumber = Convert.ToInt32(txtHouseNumber.Text);
+                m_addressLine = txtAddressLine.Text;
+                m_postCode = txtPostCode.Text;
+            }
+            catch
+            {
+                MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
     }

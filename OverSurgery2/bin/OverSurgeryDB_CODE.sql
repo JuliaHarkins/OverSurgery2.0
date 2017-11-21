@@ -91,7 +91,7 @@ CREATE TABLE `Prescription` (
     `PrescriptionID` INT(8) NOT NULL auto_increment,
     `DateIssued` DATE NOT NULL default 19991231,
     `DateOfNextIssue` DATE NULL default 19991231,
-    `Ammount` INT(2) NOT NULL default 0,
+    `Amount` INT(2) NOT NULL default 0,
     `Extendable` BOOLEAN NOT NULL default 0,
     `MedicationID` INT(8) NOT NULL default 0,
     `PatientID` INT(8) NOT NULL default 0,
