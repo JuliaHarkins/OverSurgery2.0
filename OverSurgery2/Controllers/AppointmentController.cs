@@ -18,15 +18,21 @@ namespace OverSurgery2
     public class AppointmentController
     {
         Appointment a;
+        private List<Appointment> m_appointments;
 
-#region Properties
+        public List<Appointment> Appointments { get { return m_appointments; } }
+
         List<Appointment> AppointmentList = new List<Appointment>();                                                                // List of properties to be sent and recieved       
         MetaLayer ml;
-#endregion
 
         private AppointmentController()
         {
             ml = MetaLayer.Instance();
+            m_appointments = ml.GetAppointments();
+            foreach(Appointment a in m_appointments)
+            {
+                a.SetNameDisplay();
+            }
         }
 
         private static AppointmentController m_instance;
@@ -60,6 +66,7 @@ namespace OverSurgery2
         /// </summary>
         public void GetExistingAppointment(int p_patientID)
         {
+            //Get exisiting appointment using patientID
             ml.GetAppointmentById(p_patientID);
         }
     }

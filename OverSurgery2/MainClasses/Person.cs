@@ -1,12 +1,22 @@
-﻿using System;
+﻿/* Created by: L
+ * First Created: 31/10/17
+ * Last Edit: 14/11/17 16:22
+ * Last Edit by: R
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Win32.SafeHandles;
+using System.Runtime.InteropServices;
 
 namespace OverSurgery2
 {
-    public abstract class Person
+    /// <summary>
+    ///                              
+    /// </summary>
+    public abstract class Person : IDisposable
     {
         private string m_forename;
         private string m_surname;
@@ -14,6 +24,8 @@ namespace OverSurgery2
         private uint? m_gender;
         private uint? m_addressID;
         private string m_genderDisplay;
+        bool disposed = false;
+        SafeHandle handle = new SafeFileHandle(IntPtr.Zero, true);
 
         public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
         public uint? Gender { get { return m_gender; } set { m_gender = value; } }
@@ -36,6 +48,21 @@ namespace OverSurgery2
             {
                 m_genderDisplay = "Female";
             }
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+            if (disposing)
+            {
+                handle.Dispose();
+            }
+            disposed = true;
         }
     }
     

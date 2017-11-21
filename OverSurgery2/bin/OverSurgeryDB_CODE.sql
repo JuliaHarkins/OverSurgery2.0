@@ -63,8 +63,8 @@ CREATE TABLE `Appointment` (
 
 CREATE TABLE `MedicalHistory` (
     `MedicalHistoryID` INT(8) NOT NULL auto_increment,
-    `MedicalHistoryFileLocation` VARCHAR(50) NOT NULL default '',
-    `DateOfFile` DATE NOT NULL default 19991231,
+    `MedicalHistory` TEXT NOT NULL default '',
+    `DateOf` DATE NOT NULL default 19991231,
     `PatientID` INT(8) NOT NULL default 0,
     PRIMARY KEY(`MedicalHistoryID`),
     FOREIGN KEY(`PatientID`) REFERENCES Patient(`PatientID`)
@@ -91,7 +91,7 @@ CREATE TABLE `Prescription` (
     `PrescriptionID` INT(8) NOT NULL auto_increment,
     `DateIssued` DATE NOT NULL default 19991231,
     `DateOfNextIssue` DATE NULL default 19991231,
-    `Ammount` INT(2) NOT NULL default 0,
+    `Amount` INT(2) NOT NULL default 0,
     `Extendable` BOOLEAN NOT NULL default 0,
     `MedicationID` INT(8) NOT NULL default 0,
     `PatientID` INT(8) NOT NULL default 0,
@@ -115,21 +115,30 @@ CREATE TABLE `Extension` (
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ResetRequests` (
-	`UserName` varchar(255) NOT NULL,
-	`VerificationCode` varchar(8) NOT NULL
-	); ENGINE=InnoDB DEFAULT CHARSET=latin1;
+	`RequestID` INT(6) NOT NULL auto_increment,
+	`UserName` varchar(255) NOT NULL default '',
+	`VerificationCode` varchar(8) NOT NULL default '',
+	PRIMARY KEY(`RequestID`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `DayOfWeek` (
+    `DayID` INT(6) NOT NULL auto_increment,
+    `DayName` VARCHAR(35) NOT NULL default '',
+    PRIMARY KEY(`DayID`)
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE `Rota` (
+    `RotaID` INT(6) NOT NULL auto_increment,
+    `DayID` INT(6) NOT NULL default 0,
+    `StaffID` INT(6) NOT NULL default 0,
+    PRIMARY KEY(`RotaID`),
+    FOREIGN KEY(`DayID`) REFERENCES DayOfWeek(`DayID`) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`) ON DELETE CASCADE ON UPDATE CASCADE
+)ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- TESTING ACCOUNT --
 CREATE USER 'DBAccess'@localhost IDENTIFIED BY 'Nricb';
 GRANT ALL ON OverSurgery.* TO 'DBAccess'@localhost;
-
--- Access accounts to limit maximum data access --
-#CREATE USER 'PatientAccess'@ localhost IDENTIFIED BY 'Nricb';
-#CREATE USER 'DoctorAccess'@localhost IDENTIFIED BY 'Nricb';
-#CREATE USER 'StaffAccess'@localhost IDENTIFIED BY 'Nricb';
-#CREATE USER 'OtherAccess'@localhost IDENTIFIED BY 'Nricb';
-
-
 
 INSERT INTO Address VALUES (1, null, 2, "THIS IS A TEST", "01 TEST 10");
 INSERT INTO Address VALUES (2, null, 12, "X THIS IS A TEST", "01 TEST 10");
@@ -166,7 +175,7 @@ INSERT INTO Appointment VALUES (2, 20171109, 161500, '', 0, 4, 2);
 INSERT INTO Appointment VALUES (3, 20171110, 161500, '', 0, 4, 5);
 INSERT INTO Appointment VALUES (4, 20171109, 161500, '', 0, 3, 3);
 
--- INSERT INTO MedicalHistory VALUES (1, '');
+INSERT INTO MedicalHistory VALUES (1, 'Test', 10171214, 1);
 -- INSERT INTO MedicalHistory VALUES (2, '');
 -- INSERT INTO MedicalHistory VALUES (3, '');
 -- INSERT INTO MedicalHistory VALUES (4, '');

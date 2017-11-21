@@ -21,7 +21,6 @@ namespace OverSurgery2
             m_currentUser = p_Staff;
             ml = MetaLayer.Instance();
             lc = LoginController.Instance();
-            this.ShowDialog();
         }
 
         private void btn_ResetPassword_Click(object sender, EventArgs e)

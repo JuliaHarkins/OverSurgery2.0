@@ -13,13 +13,17 @@ namespace OverSurgery2
 {
     public partial class ReceptionistForm : Form
     {
-        BindingSource PatientBinding;
+        BindingSource PatientBinding = new BindingSource();
+        BindingSource AppointmentBinding = new BindingSource();
         Staff currentUserLoggedIn = null;
+        PatientController pc;
+        AppointmentController ac;
         public ReceptionistForm(Staff currentUser)
         {
             currentUserLoggedIn = currentUser;
             InitializeComponent();
-            this.ShowDialog();
+            pc = PatientController.Instance();
+            ac = AppointmentController.Instance();
         }
 
         private void btn_Logout_click(object sender, EventArgs e)
@@ -29,10 +33,52 @@ namespace OverSurgery2
 
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
-            PatientController.Instance().UpdatePatientDoctorDisplay();
+            pc.UpdatePatientDoctorDisplay();
             LoadAllPatientInfo();
+            LoadAllAppointments();
+            this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
+        }
+        private void LoadAllPatientInfo()
+        {
+            DataGridPatients.DataSource = PatientBinding.DataSource = pc.patients;
+            SetPatientsDisplay();
+            DataGridPatients.Update();
+            DataGridPatients.Refresh();
+        }
+
+        private void LoadAllAppointments()
+        {
+            DataGridAppointments.DataSource = AppointmentBinding.DataSource = ac.Appointments;
+            SetAppointmentDisplay();
+            DataGridAppointments.Update();
+            DataGridAppointments.Refresh();
+        }
+        private void SetAppointmentDisplay()
+        {
+            #region SetColumnDisplaysAppointments
+            DataGridPatients.RowHeadersVisible = false;
+            DataGridAppointments.Columns["AppointmentID"].Visible = false;
+            DataGridAppointments.Columns["AppointmentID"].DisplayIndex = 0;
+            DataGridAppointments.Columns["AppTime"].Visible = false;
+            DataGridAppointments.Columns["AppTime"].DisplayIndex = 0;
+            DataGridAppointments.Columns["MedicalStaffID"].Visible = false;
+            DataGridAppointments.Columns["MedicalStaffID"].DisplayIndex = 0;
+            DataGridAppointments.Columns["PatientID"].Visible = false;
+            DataGridAppointments.Columns["PatientID"].DisplayIndex = 0;
+            DataGridAppointments.Columns["AppDate"].HeaderText = "Date";
+            DataGridAppointments.Columns["AppDate"].DisplayIndex = 1;
+            DataGridAppointments.Columns["TimeDisplay"].HeaderText = "Time";
+            DataGridAppointments.Columns["TimeDisplay"].DisplayIndex = 2;
+            DataGridAppointments.Columns["Notes"].DisplayIndex = DataGridAppointments.Columns.Count - 1;
+            DataGridAppointments.Columns["AppAttend"].HeaderText = "Attended?";
+            #endregion
+        }
+         private void SetPatientsDisplay()
+        {
+            #region SetColumnDisplaysPatients
             DataGridPatients.Columns["GenderDisplay"].HeaderText = "Gender";
             DataGridPatients.Columns["DoctorDisplay"].HeaderText = "Registered Doctor";
+            DataGridPatients.Columns["DateOfBirth"].HeaderText = "Date Of Birth";
             DataGridPatients.Columns["Forename"].DisplayIndex = 1;
             DataGridPatients.Columns["Surname"].DisplayIndex = 2;
             DataGridPatients.RowHeadersVisible = false;
@@ -41,28 +87,25 @@ namespace OverSurgery2
             DataGridPatients.Columns["AddressID"].Visible = false;
             DataGridPatients.Columns["PhoneNumber"].Visible = false;
             DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
-            this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
+            DataGridPatients.Columns["RegisteredDoctorID"].Visible = false;
+            #endregion
         }
-        private void LoadAllPatientInfo()
-        {
-            PatientBinding = new BindingSource();
-            DataGridPatients.DataSource = PatientBinding.DataSource = PatientController.Instance().patients;
-            DataGridPatients.Update();
-            DataGridPatients.Refresh();
-        }
-
-
         private void DataGridPatients_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
                 try
                 {
-                FormController.Instance().OpenPatientViewForm(MetaLayer.Instance().GetPatientByID(Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value)));
+                FormController.Instance().OpenPatientViewForm(GetPatientByID());
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     throw ex;
                 }
+        }
+
+        private Patient GetPatientByID()
+        {
+            return pc.patients.FirstOrDefault(p => p.ID == Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value));
         }
 
         private void txt_SearchSurname_Enter(object sender, EventArgs e)
@@ -104,11 +147,12 @@ namespace OverSurgery2
 
         private void btn_SearchPatient_Click(object sender, EventArgs e)
         {
-            PatientBinding = new BindingSource();
-            var s = MetaLayer.Instance().GetPatientByName(txt_SearchForename.Text, txt_SearchSurname.Text);
-            s.SetDoctorDisplay();
-            PatientBinding.DataSource = s;
+
+            PatientBinding.DataSource = pc.patients.FirstOrDefault(
+                p => p.Forename.ToLower() == txt_SearchForename.Text.ToLower() && 
+                p.Surname.ToLower() == txt_SearchSurname.Text.ToLower());
             DataGridPatients.DataSource = PatientBinding;
+            SetPatientsDisplay();
             DataGridPatients.Update();
             DataGridPatients.Refresh();
         }
@@ -116,6 +160,44 @@ namespace OverSurgery2
         private void btn_ViewAllPatients_Click(object sender, EventArgs e)
         {
             LoadAllPatientInfo();
+        }
+
+        private void btn_SearchApp_Click(object sender, EventArgs e)
+        {
+            AppointmentBinding.DataSource = ac.Appointments.Find(
+                a => a.PatientID == pc.patients.FirstOrDefault(
+                    p => p.Forename.ToLower() == txt_SearchAppForename.Text.ToLower() 
+                    && p.Surname.ToLower() == txt_SearchAppSurname.Text.ToLower()).ID);
+            DataGridAppointments.DataSource = AppointmentBinding;
+            SetAppointmentDisplay();
+            DataGridAppointments.Update();
+            DataGridAppointments.Refresh();
+        }
+
+        private void txt_SearchAppForename_Enter(object sender, EventArgs e)
+        {
+            txt_SearchAppForename.Text = "";
+        }
+
+        private void txt_SearchAppForename_Leave(object sender, EventArgs e)
+        {
+            if (txt_SearchAppForename.Text == "")
+            {
+                txt_SearchAppForename.Text = "Forename";
+            }
+        }
+
+        private void txt_SearchAppSurname_Enter(object sender, EventArgs e)
+        {
+            txt_SearchAppSurname.Text = "";
+        }
+
+        private void txt_SearchAppSurname_Leave(object sender, EventArgs e)
+        {
+            if (txt_SearchAppSurname.Text == "")
+            {
+                txt_SearchAppSurname.Text = "Surname";
+            }
         }
     }
 }

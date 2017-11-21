@@ -6,13 +6,26 @@ using System.Threading.Tasks;
 
 namespace OverSurgery2
 {
-    public class PatientController
+    public class PatientController : IObservable<Patient>
     {
         /// <summary>
         /// Created By: J
         /// Date Created : 31/10/17
         /// </summary>
-
+        private List<IObserver<Patient>> observers;
+        public IDisposable Subscribe(IObserver<Patient> observer)
+        {
+            if(!observers.Contains(observer))
+            {
+                observers.Add(observer);
+                foreach(Patient p in patients)
+                {
+                    observer.OnNext(p);
+                }
+                
+            }
+            return new Unsubscriber<Patient>(observers, observer);
+        }
         public List<Patient> patients;
         private static PatientController m_getInstance;
         private PatientController()
@@ -40,6 +53,24 @@ namespace OverSurgery2
             {
                 p.SetDoctorDisplay();
             }
+        }
+    }
+
+    internal class Unsubscriber<Patient> : IDisposable
+    {
+        private List<IObserver<Patient>> _observers;
+        private IObserver<Patient> _observer;
+
+        internal Unsubscriber(List<IObserver<Patient>> observers, IObserver<Patient> observer)
+        {
+            _observers = observers;
+            _observer = observer;
+        }
+
+        public void Dispose()
+        {
+            if (_observers.Contains(_observer))
+                _observers.Remove(_observer);
         }
     }
 }

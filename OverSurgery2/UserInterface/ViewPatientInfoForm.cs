@@ -21,20 +21,9 @@ namespace OverSurgery2
             InitializeComponent();
             ml = MetaLayer.Instance();
             fc = FormController.Instance();
-            LoadPatientInfo();
-            this.Show();
+            
         }
 
-        public void LoadPatientInfo()
-        {
-            this.Text = "Viewing Patient - " + currentPatient.Forename + " " +currentPatient.Surname;
-            lbl_PatientForeName.Text = currentPatient.Forename;
-            lbl_PatientSurName.Text = currentPatient.Surname;
-            lbl_PatientDateOfBirth.Text = currentPatient.DateOfBirth.Date.ToShortDateString();
-            lbl_PatientAddress.Text = ml.GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
-            lbl_PatientDoctor.Text = "Dr. " + ml.GetMedicalStaffNameByID(currentPatient.ID);
-
-        }
 
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
@@ -43,7 +32,37 @@ namespace OverSurgery2
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
-
+            Address ad = MetaLayer.Instance().NewGetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
+            lbl_ForenameText.Text = currentPatient.Forename;
+            lbl_SurnameText.Text = currentPatient.Surname;
+            lbl_DateOfBirthText.Text = currentPatient.DateOfBirth.ToShortDateString();
+            if(ad.HouseName == "")
+            {
+                lbl_HouseNameNumberText.Text = Convert.ToString(ad.HouseNumber);
+            }
+            else if(ad.HouseNumber == null)
+            {
+                lbl_HouseNameNumberText.Text = ad.HouseName;
+            }
+            lbl_StreetNameText.Text = ad.StreetName;
+            lbl_PostCodeText.Text = ad.PostCode;
         }
+
+        private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
+    }
+    public class Address
+    {
+        string m_houseName;
+        int? m_houseNumber;
+        string m_postCode;
+        string m_streetName;
+
+        public string HouseName { get { return m_houseName; } set { m_houseName = value; } }
+        public int? HouseNumber { get { return m_houseNumber; } set { m_houseNumber = value; } }
+        public string PostCode { get { return m_postCode; } set { m_postCode = value; } }
+        public string StreetName { get { return m_streetName; } set { m_streetName = value; } }
     }
 }

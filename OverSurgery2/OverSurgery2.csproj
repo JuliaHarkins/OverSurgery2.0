@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{2A20432E-C343-4DA9-99DA-9A0CD1B53691}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>OverSurgery2</RootNamespace>
     <AssemblyName>OverSurgery2</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -34,6 +34,9 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>syringe.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BCrypt.Net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -56,6 +59,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\RotaController.cs" />
+    <Compile Include="DataBase\ManagerForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="DataBase\ManagerForm.Designer.cs">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\RotaForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\RotaForm.Designer.cs">
+      <DependentUpon>RotaForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainClasses\Appointment.cs" />
     <Compile Include="Controllers\AppointmentController.cs" />
     <Compile Include="DataBase\DBConnect.cs" />
@@ -122,11 +138,11 @@
     <Compile Include="UserInterface\LoginForm.designer.cs">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\MedicalStaff.cs">
+    <Compile Include="UserInterface\MedicalStaffForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserInterface\MedicalStaff.Designer.cs">
-      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    <Compile Include="UserInterface\MedicalStaffForm.Designer.cs">
+      <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\PasswordResetForm.cs">
       <SubType>Form</SubType>
@@ -146,6 +162,9 @@
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="DataBase\ManagerForm.resx">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -170,8 +189,11 @@
     <EmbeddedResource Include="UserInterface\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\MedicalStaff.resx">
-      <DependentUpon>MedicalStaff.cs</DependentUpon>
+    <EmbeddedResource Include="UserInterface\ManagerForm.resx">
+      <DependentUpon>ManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
+      <DependentUpon>MedicalStaffForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>
@@ -179,10 +201,14 @@
     <EmbeddedResource Include="UserInterface\ReceptionistForm.resx">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\RotaForm.resx">
+      <DependentUpon>RotaForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ViewPatientInfoForm.resx">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\DataSources\Appointment.datasource" />
     <None Include="Properties\DataSources\Patient.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -197,6 +223,8 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="syringe.ico" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
