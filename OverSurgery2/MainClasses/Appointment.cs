@@ -40,17 +40,10 @@ namespace OverSurgery2
         /// Gets the details of the appointment from the AppointmentControler and patient details from the database
         /// </summary>
         /// <param name="p_appValues"></param>
-        public Appointment(Dictionary <string,object> p_appValues)
+        public Appointment()
         {
             ml = MetaLayer.Instance();
-            AppointmentID = Convert.ToInt16(p_appValues["AppID"]);
-            MedicalStaffID = Convert.ToInt16(p_appValues["MedStaffID"]);
-            PatientID = Convert.ToInt16(p_appValues["PatientID"]);
-            AppDate = DateTime.Parse(p_appValues["Date"].ToString());
-            AppTime = DateTime.Parse(p_appValues["Time"].ToString());
             TimeDisplay = AppTime.ToShortTimeString();
-            Notes = Convert.ToString(p_appValues["Notes"]);
-            AppAttend = Convert.ToBoolean(p_appValues["Attend"]);
             
         }
         public void SetNameDisplay()
