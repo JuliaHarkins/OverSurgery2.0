@@ -24,12 +24,14 @@ namespace OverSurgery2
         BindingSource RotaBinding;
         Staff currentUserLoggedIn = null;
         MetaLayer ml;
+
         public ManagerForm(Staff p_currentUser)
         {
             currentUserLoggedIn = p_currentUser;
             
             InitializeComponent();
             this.ShowDialog();
+
             ToolTip t = new ToolTip();
             t.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
 

@@ -390,13 +390,6 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Get the patients details from searching just their name
-        /// </summary>
-        /// <param name="p_forename"></param>
-        /// <param name="p_surname"></param>
-        /// <returns></returns>
-
-        /// <summary>
         /// Get appointment details from the database
         /// Last Updated : 15/11/17,
         /// By R
