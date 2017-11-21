@@ -20,6 +20,11 @@ namespace OverSurgery2
         private string m_userName, m_forename, m_surname, m_email, m_password, m_phone, m_houseName, m_addressLine, m_postCode;
         private int m_staffID, m_practiceNumber, m_Gender, m_type, m_addressID, m_houseNumber;
 
+        private void ManagerForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
         BindingSource StaffBinding;
         BindingSource RotaBinding;
         Staff currentUserLoggedIn = null;
@@ -34,32 +39,6 @@ namespace OverSurgery2
 
             ToolTip t = new ToolTip();
             t.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
-
-            // Update helper label to inform user about type choices
-            if (Convert.ToInt32(cboType.Text) == 1)
-            {
-                lblTypeHelper.Text = "Medical Staff";
-            }
-            else if (Convert.ToInt32(cboType.Text) == 2)
-            {
-                lblTypeHelper.Text = "Locum";
-            }
-            else if (Convert.ToInt32(cboType.Text) == 3)
-            {
-                lblTypeHelper.Text = "Doctor";
-            }
-            else if (Convert.ToInt32(cboType.Text) == 4)
-            {
-                lblTypeHelper.Text = "Receptionist";
-            }
-            else if (Convert.ToInt32(cboType.Text) == 5)
-            {     
-                lblTypeHelper.Text = "Manager";
-            }
-            else
-            {
-                lblTypeHelper.Text = "";
-            }
 
         }
 
@@ -93,7 +72,7 @@ namespace OverSurgery2
         private void btnRemoveStaff_Click(object sender, EventArgs e)
         {
             ReadBoxes();
-            m_userName = txtUserName.Text;
+            m_userName = txtSearchUserName.Text;
             ml.DeleteStaff(m_userName);
             ml.DeleteAddress(m_addressID);
         }
@@ -128,7 +107,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnSearchUserName_Click(object sender, EventArgs e)
         {
-            m_userName = txtUserName.Text;
+            m_userName = txtSearchUserName.Text;
             ml.GetStaffByUserName(m_userName);
             
             //update addressID variable before entering the method below
@@ -144,20 +123,32 @@ namespace OverSurgery2
         {
             try
             {
-                m_userName = txtUserName.Text;
-                m_forename = txtForename.Text;
-                m_surname = txtSurname.Text;
-                m_practiceNumber = Convert.ToInt32(txtPracticeNumber.Text);
-                m_Gender = Convert.ToInt32(txtGender.Text);
-                m_email = txtEmail.Text;
+                m_userName = txtAddUserName.Text;
+                m_forename = txtAddForename.Text;
+                m_surname = txtAddSurname.Text;
+                m_practiceNumber = Convert.ToInt32(txtPracticeNumberAdd.Text);
+                m_Gender = Convert.ToInt32(txtAddGender.Text);
+                m_email = txtAddEmail.Text;
                 m_type = Convert.ToInt32(cboType.Text);
-                m_password = txtPassword.Text;
-                m_phone = txtPhone.Text;
-                m_addressID = Convert.ToInt32(txtAddress.Text);
-                m_houseName = txtHouseName.Text;
-                m_houseNumber = Convert.ToInt32(txtHouseNumber.Text);
-                m_addressLine = txtAddressLine.Text;
-                m_postCode = txtPostCode.Text;
+                m_password = txtAddPassword.Text;
+                m_phone = txtAddPhone.Text;
+                m_houseName = txtAddHouseName.Text;
+                m_houseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
+                m_addressLine = txtAddAddressLine.Text;
+                m_postCode = txtAddPostCode.Text;
+
+                m_userName = txtUpdateUserName.Text;
+                m_forename = txtUpdateForename.Text;
+                m_surname = txtUpdateSurname.Text;
+                m_Gender = Convert.ToInt32(txtUpdateGender.Text);
+                m_email = txtUpdateEmail.Text;
+                m_type = Convert.ToInt32(cboType.Text);
+                m_password = txtUpdatePassword.Text;
+                m_phone = txtUpdatePhone.Text;
+                m_houseName = txtUpdateHouseName.Text;
+                m_houseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text);
+                m_addressLine = txtUpdateAddressLine.Text;
+                m_postCode = txtUpdatePostCode.Text;
             }
             catch
             {
@@ -172,20 +163,32 @@ namespace OverSurgery2
         {
             try
             {
-                txtUserName.Text = m_userName;
-                txtForename.Text= m_forename;
-                txtSurname.Text = m_surname;
-                txtPracticeNumber.Text = Convert.ToString(m_practiceNumber);
-                txtGender.Text = Convert.ToString(m_Gender);
-                txtEmail.Text = m_email;
+                txtAddUserName.Text = m_userName;
+                txtAddForename.Text= m_forename;
+                txtAddSurname.Text = m_surname;
+                txtPracticeNumberAdd.Text = Convert.ToString(m_practiceNumber);
+                txtAddGender.Text = Convert.ToString(m_Gender);
+                txtAddEmail.Text = m_email;
                 cboType.Text = Convert.ToString(m_type);
-                txtPassword.Text = m_password;
-                txtPhone.Text = m_phone;
-                txtAddress.Text = Convert.ToString(m_addressID);
-                txtHouseName.Text = m_houseName;
-                txtHouseNumber.Text = Convert.ToString(m_houseNumber);
-                txtAddressLine.Text = m_addressLine;
-                txtPostCode.Text = m_postCode;
+                txtAddPassword.Text = m_password;
+                txtAddPhone.Text = m_phone;
+                txtAddHouseName.Text = m_houseName;
+                txtAddHouseNumber.Text = Convert.ToString(m_houseNumber);
+                txtAddAddressLine.Text = m_addressLine;
+                txtAddPostCode.Text = m_postCode;
+
+                txtUpdateUserName.Text = m_userName;
+                txtUpdateForename.Text = m_forename;
+                txtUpdateSurname.Text = m_surname;
+                txtUpdateGender.Text = Convert.ToString(m_Gender);
+                txtUpdateEmail.Text = m_email;
+                cboType.Text = Convert.ToString(m_type);
+                txtUpdatePassword.Text = m_password;
+                txtUpdatePhone.Text = m_phone;
+                txtUpdateHouseName.Text = m_houseName;
+                txtUpdateHouseNumber.Text = Convert.ToString(m_houseNumber);
+                txtUpdateAddressLine.Text = m_addressLine;
+                txtUpdatePostCode.Text = m_postCode;
             }
             catch
             {
