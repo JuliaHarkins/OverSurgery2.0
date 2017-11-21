@@ -785,37 +785,41 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get all rota information for a specific staff member from the database
-        /// Last Updated : 15/11/17,
+        /// Last Updated : 21/11/17
         /// By R
         /// </summary>
         /// <param name="p_rotaEntryID"></param>
         /// <returns></returns>
-        public Rota GetStaffRotaByID(Rota p_rota)
+        public List<Rota> GetStaffRotaByID(Rota p_rota)
         {
-            // Read appointment values into dictionary
-            Dictionary<string, object> rotaValues;
-            rotaValues = null;
+            // Read appointment values into list
+            Rota r;
+            List<Rota> rotaValues = new List<Rota>();
+            StringBuilder dat = new StringBuilder();
             if (con.OpenConnection())
             {
                 // Find all rota data
-                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
-                while (dr1.Read())
+                DbDataReader dr = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
+                while (dr.Read())
                 {
 
-                    rotaValues = new Dictionary<string, object>
+                    while (dr.Read())
                     {
-                        { "RotaID", dr1.GetInt16(0) },
-                        { "MedicalStaffID", dr1.GetString(1) },
-                        { "StartDateTime", dr1.GetString(2) },
-                        { "EndDateTime", dr1.GetString(3) },
-
-                    };
+                        r = new Rota
+                        {
+                            RotaEntryID = dr.GetInt32(0),
+                            Forename = dr.GetString(1),
+                            Surname = dr.GetString(2),
+                            Days = dr.GetString(3)
+                        };
+                        rotaValues.Add(r);
+                    }
 
                 }
-                dr1.Close();
+                dr.Close();
                 con.CloseConnection();
             }
-            return new Rota(rotaValues);
+            return rotaValues;
         }
 
         /// <summary>
@@ -924,6 +928,12 @@ namespace OverSurgery2
             return false;
         }
 
+        /// <summary>
+        /// Get the full staff rota
+        /// Last Updated : 21/11/17,
+        /// By R
+        /// </summary>
+        /// <returns></returns>
         public List<Rota> GetStaffRota()
         {
             Rota r;
@@ -937,7 +947,7 @@ namespace OverSurgery2
                 {
                     r = new Rota
                     {
-                        RotaID = dr.GetInt32(0),
+                        RotaEntryID = dr.GetInt32(0),
                         Forename = dr.GetString(1),
                         Surname = dr.GetString(2),
                         Days = dr.GetString(3)

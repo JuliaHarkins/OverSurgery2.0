@@ -17,23 +17,24 @@ namespace OverSurgery2
         MetaLayer ml;
         private static Rota m_instance;
         private int m_rotaEntryID, m_medicalStaffID, m_startTime, m_endTime;
+        private string m_forename, m_surname, m_days;
 
         public int RotaEntryID { get { return m_rotaEntryID; } set { m_rotaEntryID = value; } }
         public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
+        public string Forename { get { return m_forename; } set { m_forename = value; } }
+        public string Surname { get { return m_surname; } set { m_surname = value; } }
+        public string Days { get { return m_days; } set { m_days = value; } }
+
 
         /// <summary>
         /// Collect rota information from the metalayer
         /// </summary>
         /// <param name="p_rotaValues"></param>
-        public Rota(Dictionary<string, object> p_rotaValues)
+        public Rota()
         {
             ml = MetaLayer.Instance();
-            RotaEntryID = Convert.ToInt16(p_rotaValues["RotaID"]);
-            MedicalStaffID = Convert.ToInt16(p_rotaValues["MedicalStaffID"]);
-            StartTime = Convert.ToInt16(p_rotaValues["StartDateTime"]);
-            EndTime = Convert.ToInt16(p_rotaValues["EndDateTime"]);
         }
     }
 }
