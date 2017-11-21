@@ -13,13 +13,13 @@ namespace OverSurgery2
     public class MedicalHistory
     {
 #region Members
-        int m_id;
+        int? m_id;
         DateTime m_date;
         string m_notes;
        int  m_patientID;
 #endregion
 #region Properties
-        public int ID
+        public int? ID
         {
             get
             {
