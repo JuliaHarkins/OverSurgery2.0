@@ -92,7 +92,7 @@ namespace OverSurgery2
 
             try
             {
-                return new Doctor(p_values);
+                return new Doctor();
             }
             catch (Exception e)
             {

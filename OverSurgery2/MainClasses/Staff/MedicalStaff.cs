@@ -20,7 +20,7 @@ namespace OverSurgery2
         private string m_practiceNumber;
         private uint? m_gender;
         private string m_genderDisplay;
-        
+        private string m_phoneNumber;
         #endregion
         #region Constructors
         public MedicalStaff()
@@ -61,6 +61,7 @@ namespace OverSurgery2
         public string GenderDisplay { get { return m_genderDisplay; } }
         public string PracticeNumber { get { return m_practiceNumber; } set { m_practiceNumber = value; } }
         public uint? Gender { get { return m_gender; } set { m_gender = value; } }
+        public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {

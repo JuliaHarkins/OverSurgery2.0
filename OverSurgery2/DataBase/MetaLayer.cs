@@ -262,6 +262,7 @@ namespace OverSurgery2
                 case 5:
                     return s as Manager;
             }
+            return s;
         }
 
         public Staff GetMedicalStaffByStaffID(int p_id, int type)
@@ -274,8 +275,6 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                    if (type == 3)
-                    {
                         m = new MedicalStaff
                         {
                             MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
@@ -288,28 +287,16 @@ namespace OverSurgery2
                             EmailAddress = dr.GetString(8),
                             Username = dr.GetString(10),
                             Password = dr.GetString(11),
+                            PhoneNumber = dr.GetString(12)
 
                         };
-                    }
-                    m = new MedicalStaff
-                    {
-                        MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
-                        PracticeNumber = dr.GetString(1),
-                        StaffID = dr.GetInt16(2),
-                        Gender = Convert.ToUInt16(dr.GetInt16(4)),
-                        Forename = dr.GetString(6),
-                        Surname = dr.GetString(7),
-                        AddressID = Convert.ToUInt16(dr.GetInt16(9)),
-                        EmailAddress = dr.GetString(8),
-                        Username = dr.GetString(10),
-                        Password = dr.GetString(11),
-
-                    };
 
                 }
                 dr.Close();
                 con.CloseConnection();
+                return m;
             }
+            return m;
             
         }
 
