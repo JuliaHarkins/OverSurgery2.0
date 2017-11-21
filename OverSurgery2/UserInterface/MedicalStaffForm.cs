@@ -176,18 +176,18 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btn_saveNotes_Click(object sender, EventArgs e)
         {
+            MedicalHistory mh;
             if (btn_saveNotes.Text != null)
             {
-                Dictionary<string, object> values = null;
-                values = new Dictionary<string, object>
+                mh = new MedicalHistory
                     {
-                        { "MedicalHistoryID", null },
-                        { "MedicalHistory",txt_CurrentNotes.Text},
-                        { "DateOf", DateTime.Now },
-                        { "PatientID", m_appointments[m_appointmentListCounter].PatientID}
+                         ID = null,
+                         Notes =txt_CurrentNotes.Text,
+                         Date = DateTime.Now,
+                         PatientID = m_appointments[m_appointmentListCounter].PatientID
                     };
 
-                ml.AddMedicalHistoryToTheDatabase(new MedicalHistory(values));
+                ml.AddMedicalHistoryToTheDatabase(mh);
                 txt_CurrentNotes.Clear();
                 SelectMedicalHistory();
                 /*
