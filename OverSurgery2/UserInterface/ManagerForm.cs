@@ -155,6 +155,7 @@ namespace OverSurgery2
 
             }
         }
+
         /// <summary>
         /// Open the update rota form
         /// </summary>
@@ -176,7 +177,7 @@ namespace OverSurgery2
             try
             {
                 //check the tab the user is currently in
-                if (tabControl1.SelectedTab == tabControl1.TabPages["Add Staff"])
+                if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddStaff"])
                 {
                     m_userName = txtAddUserName.Text;
                     m_forename = txtAddForename.Text;
@@ -192,7 +193,7 @@ namespace OverSurgery2
                     m_addressLine = txtAddAddressLine.Text;
                     m_postCode = txtAddPostCode.Text;
                 }
-                else
+                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateStaff"])
                 {
                     m_userName = txtUpdateUserName.Text;
                     m_forename = txtUpdateForename.Text;
@@ -205,6 +206,10 @@ namespace OverSurgery2
                     m_houseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text);
                     m_addressLine = txtUpdateAddressLine.Text;
                     m_postCode = txtUpdatePostCode.Text;
+                }
+                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMedication"])
+                {
+
                 }
             }
             catch
@@ -221,7 +226,7 @@ namespace OverSurgery2
             try
             {
                 //check the tab the user is currently in
-                if (tabControl1.SelectedTab == tabControl1.TabPages["Add Staff"])
+                if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddStaff"])
                 {
                     txtAddUserName.Text = m_userName;
                     txtAddForename.Text = m_forename;
@@ -237,7 +242,7 @@ namespace OverSurgery2
                     txtAddAddressLine.Text = m_addressLine;
                     txtAddPostCode.Text = m_postCode;
                 }
-                else
+                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateStaff"])
                 {
                     txtUpdateUserName.Text = m_userName;
                     txtUpdateForename.Text = m_forename;
@@ -250,6 +255,10 @@ namespace OverSurgery2
                     txtUpdateHouseNumber.Text = Convert.ToString(m_houseNumber);
                     txtUpdateAddressLine.Text = m_addressLine;
                     txtUpdatePostCode.Text = m_postCode;
+                }
+                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMedication"]) 
+                {
+
                 }
             }
             catch

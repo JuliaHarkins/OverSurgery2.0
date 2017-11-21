@@ -53,7 +53,7 @@
             this.txtUpdateAddressLine = new System.Windows.Forms.TextBox();
             this.txtUpdatePostCode = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabAddStaff = new System.Windows.Forms.TabPage();
             this.txtAddPhone = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtAddPassword = new System.Windows.Forms.TextBox();
@@ -76,7 +76,7 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabUpdateStaff = new System.Windows.Forms.TabPage();
             this.txtUpdatePhone = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtUpdatePassword = new System.Windows.Forms.TextBox();
@@ -88,9 +88,12 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUpdateForename = new System.Windows.Forms.TextBox();
             this.btnRemoveStaff2 = new System.Windows.Forms.Button();
+            this.tabAddMedication = new System.Windows.Forms.TabPage();
+            this.btnAddMedication = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage1.SuspendLayout();
+            this.tabAddStaff.SuspendLayout();
+            this.tabUpdateStaff.SuspendLayout();
+            this.tabAddMedication.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddStaff
@@ -306,51 +309,52 @@
             // 
             // tabControl1
             // 
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabAddStaff);
+            this.tabControl1.Controls.Add(this.tabUpdateStaff);
+            this.tabControl1.Controls.Add(this.tabAddMedication);
             this.tabControl1.Location = new System.Drawing.Point(15, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(695, 406);
             this.tabControl1.TabIndex = 2;
             // 
-            // tabPage2
+            // tabAddStaff
             // 
-            this.tabPage2.Controls.Add(this.btnRemoveStaff2);
-            this.tabPage2.Controls.Add(this.txtAddPhone);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.txtAddPassword);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.txtAddUserName);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.cboType);
-            this.tabPage2.Controls.Add(this.btnAddStaff);
-            this.tabPage2.Controls.Add(this.txtAddSurname);
-            this.tabPage2.Controls.Add(this.lblStaffType);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.txtAddForename);
-            this.tabPage2.Controls.Add(this.txtAddGender);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.txtPracticeNumberAdd);
-            this.tabPage2.Controls.Add(this.lblPracticeNumber);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.txtAddEmail);
-            this.tabPage2.Controls.Add(this.txtAddPostCode);
-            this.tabPage2.Controls.Add(this.txtAddAddressLine);
-            this.tabPage2.Controls.Add(this.txtAddHouseNumber);
-            this.tabPage2.Controls.Add(this.txtAddHouseName);
-            this.tabPage2.Controls.Add(this.label6);
-            this.tabPage2.Controls.Add(this.label7);
-            this.tabPage2.Controls.Add(this.label8);
-            this.tabPage2.Controls.Add(this.label9);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(687, 380);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "Add Staff";
-            this.tabPage2.UseVisualStyleBackColor = true;
+            this.tabAddStaff.Controls.Add(this.btnRemoveStaff2);
+            this.tabAddStaff.Controls.Add(this.txtAddPhone);
+            this.tabAddStaff.Controls.Add(this.label10);
+            this.tabAddStaff.Controls.Add(this.txtAddPassword);
+            this.tabAddStaff.Controls.Add(this.label11);
+            this.tabAddStaff.Controls.Add(this.txtAddUserName);
+            this.tabAddStaff.Controls.Add(this.label12);
+            this.tabAddStaff.Controls.Add(this.cboType);
+            this.tabAddStaff.Controls.Add(this.btnAddStaff);
+            this.tabAddStaff.Controls.Add(this.txtAddSurname);
+            this.tabAddStaff.Controls.Add(this.lblStaffType);
+            this.tabAddStaff.Controls.Add(this.label13);
+            this.tabAddStaff.Controls.Add(this.label14);
+            this.tabAddStaff.Controls.Add(this.txtAddForename);
+            this.tabAddStaff.Controls.Add(this.txtAddGender);
+            this.tabAddStaff.Controls.Add(this.label15);
+            this.tabAddStaff.Controls.Add(this.txtPracticeNumberAdd);
+            this.tabAddStaff.Controls.Add(this.lblPracticeNumber);
+            this.tabAddStaff.Controls.Add(this.label16);
+            this.tabAddStaff.Controls.Add(this.txtAddEmail);
+            this.tabAddStaff.Controls.Add(this.txtAddPostCode);
+            this.tabAddStaff.Controls.Add(this.txtAddAddressLine);
+            this.tabAddStaff.Controls.Add(this.txtAddHouseNumber);
+            this.tabAddStaff.Controls.Add(this.txtAddHouseName);
+            this.tabAddStaff.Controls.Add(this.label6);
+            this.tabAddStaff.Controls.Add(this.label7);
+            this.tabAddStaff.Controls.Add(this.label8);
+            this.tabAddStaff.Controls.Add(this.label9);
+            this.tabAddStaff.Location = new System.Drawing.Point(4, 22);
+            this.tabAddStaff.Name = "tabAddStaff";
+            this.tabAddStaff.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAddStaff.Size = new System.Drawing.Size(687, 380);
+            this.tabAddStaff.TabIndex = 1;
+            this.tabAddStaff.Text = "Add Staff";
+            this.tabAddStaff.UseVisualStyleBackColor = true;
             // 
             // txtAddPhone
             // 
@@ -528,39 +532,39 @@
             this.label9.TabIndex = 42;
             this.label9.Text = "House Name";
             // 
-            // tabPage1
+            // tabUpdateStaff
             // 
-            this.tabPage1.Controls.Add(this.txtUpdatePhone);
-            this.tabPage1.Controls.Add(this.txtUpdatePostCode);
-            this.tabPage1.Controls.Add(this.label5);
-            this.tabPage1.Controls.Add(this.txtUpdateAddressLine);
-            this.tabPage1.Controls.Add(this.txtUpdateHouseNumber);
-            this.tabPage1.Controls.Add(this.txtUpdatePassword);
-            this.tabPage1.Controls.Add(this.btnRemoveStaff);
-            this.tabPage1.Controls.Add(this.txtUpdateHouseName);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.lblPostCode);
-            this.tabPage1.Controls.Add(this.txtUpdateUserName);
-            this.tabPage1.Controls.Add(this.lblAddressLine);
-            this.tabPage1.Controls.Add(this.label3);
-            this.tabPage1.Controls.Add(this.lblHouseNumber);
-            this.tabPage1.Controls.Add(this.txtUpdateSurname);
-            this.tabPage1.Controls.Add(this.lblHouseName);
-            this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.label2);
-            this.tabPage1.Controls.Add(this.txtUpdateForename);
-            this.tabPage1.Controls.Add(this.btnUpdateStaff);
-            this.tabPage1.Controls.Add(this.txtUpdateGender);
-            this.tabPage1.Controls.Add(this.lblGender);
-            this.tabPage1.Controls.Add(this.lblEmail);
-            this.tabPage1.Controls.Add(this.txtUpdateEmail);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(687, 380);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Update Staff";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabUpdateStaff.Controls.Add(this.txtUpdatePhone);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdatePostCode);
+            this.tabUpdateStaff.Controls.Add(this.label5);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateAddressLine);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseNumber);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdatePassword);
+            this.tabUpdateStaff.Controls.Add(this.btnRemoveStaff);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseName);
+            this.tabUpdateStaff.Controls.Add(this.label4);
+            this.tabUpdateStaff.Controls.Add(this.lblPostCode);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateUserName);
+            this.tabUpdateStaff.Controls.Add(this.lblAddressLine);
+            this.tabUpdateStaff.Controls.Add(this.label3);
+            this.tabUpdateStaff.Controls.Add(this.lblHouseNumber);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateSurname);
+            this.tabUpdateStaff.Controls.Add(this.lblHouseName);
+            this.tabUpdateStaff.Controls.Add(this.label1);
+            this.tabUpdateStaff.Controls.Add(this.label2);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateForename);
+            this.tabUpdateStaff.Controls.Add(this.btnUpdateStaff);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateGender);
+            this.tabUpdateStaff.Controls.Add(this.lblGender);
+            this.tabUpdateStaff.Controls.Add(this.lblEmail);
+            this.tabUpdateStaff.Controls.Add(this.txtUpdateEmail);
+            this.tabUpdateStaff.Location = new System.Drawing.Point(4, 22);
+            this.tabUpdateStaff.Name = "tabUpdateStaff";
+            this.tabUpdateStaff.Padding = new System.Windows.Forms.Padding(3);
+            this.tabUpdateStaff.Size = new System.Drawing.Size(687, 380);
+            this.tabUpdateStaff.TabIndex = 0;
+            this.tabUpdateStaff.Text = "Update Staff";
+            this.tabUpdateStaff.UseVisualStyleBackColor = true;
             // 
             // txtUpdatePhone
             // 
@@ -652,6 +656,26 @@
             this.btnRemoveStaff2.UseVisualStyleBackColor = true;
             this.btnRemoveStaff2.Click += new System.EventHandler(this.btnRemoveStaff2_Click);
             // 
+            // tabAddMedication
+            // 
+            this.tabAddMedication.Controls.Add(this.btnAddMedication);
+            this.tabAddMedication.Location = new System.Drawing.Point(4, 22);
+            this.tabAddMedication.Name = "tabAddMedication";
+            this.tabAddMedication.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAddMedication.Size = new System.Drawing.Size(687, 380);
+            this.tabAddMedication.TabIndex = 2;
+            this.tabAddMedication.Text = "Add Medication";
+            this.tabAddMedication.UseVisualStyleBackColor = true;
+            // 
+            // btnAddMedication
+            // 
+            this.btnAddMedication.Location = new System.Drawing.Point(590, 351);
+            this.btnAddMedication.Name = "btnAddMedication";
+            this.btnAddMedication.Size = new System.Drawing.Size(91, 23);
+            this.btnAddMedication.TabIndex = 0;
+            this.btnAddMedication.Text = "Add Medication";
+            this.btnAddMedication.UseVisualStyleBackColor = true;
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -667,10 +691,11 @@
             this.Text = "ManagerForm";
             this.Load += new System.EventHandler(this.ManagerForm_Load);
             this.tabControl1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage2.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
+            this.tabAddStaff.ResumeLayout(false);
+            this.tabAddStaff.PerformLayout();
+            this.tabUpdateStaff.ResumeLayout(false);
+            this.tabUpdateStaff.PerformLayout();
+            this.tabAddMedication.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -703,7 +728,7 @@
         private System.Windows.Forms.TextBox txtUpdateAddressLine;
         private System.Windows.Forms.TextBox txtUpdatePostCode;
         private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabAddStaff;
         private System.Windows.Forms.TextBox txtAddPhone;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtAddPassword;
@@ -726,7 +751,7 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabUpdateStaff;
         private System.Windows.Forms.TextBox txtUpdatePhone;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtUpdatePassword;
@@ -738,5 +763,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUpdateForename;
         private System.Windows.Forms.Button btnRemoveStaff2;
+        private System.Windows.Forms.TabPage tabAddMedication;
+        private System.Windows.Forms.Button btnAddMedication;
     }
 }
