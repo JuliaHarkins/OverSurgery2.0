@@ -523,11 +523,13 @@ namespace OverSurgery2
                     con.CloseConnection();
                 }
             }
-            /// <summary>
-            /// Uses the perscription object to add a new perscription to the databaes.
-            /// </summary>
-            /// <param name="p_p">the perscription</param>
-            public void AddPrescriptionToTheDatabase(Prescription p_p)
+        /// <summary>
+        /// Uses the perscription object to add a new perscription to the databaes.
+        /// Last Updated : 15/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_p">the perscription</param>
+        public void AddPrescriptionToTheDatabase(Prescription p_p)
             {
                 if (con.OpenConnection())
                 {
@@ -539,7 +541,7 @@ namespace OverSurgery2
 
             /// <summary>
             /// Finds the appointments for one medical staff member for a given day.
-            /// Last Updated : 15/11/17,
+            /// Last Updated : 21/11/17,
             /// By j
             /// </summary>
             /// <param name="p_staffID"></param>
@@ -547,34 +549,34 @@ namespace OverSurgery2
             public List<Appointment> GetStaffAppointments(int p_staffID)
             {
                 List<Appointment> appointments = new List<Appointment>();
+            Appointment a;
                 if (con.OpenConnection())
                 {
                     DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
-                    Dictionary<string, object> values = null;
                     //Read the data and store them in the list
                     while (dr.Read())
                     {
-                        values = new Dictionary<string, object>
-                    {
-                        { "AppID", dr.GetInt16(0) },
-                        { "Date", dr.GetFieldValue<object>(1) },
-                        { "Time", dr.GetFieldValue<object>(2) },
-                        { "Notes", dr.GetString(3) },
-                        { "Attend", dr.GetBoolean(4) },
-                        { "MedStaffID", dr.GetInt16(5) },
-                        { "PatientID", dr.GetInt16(6) },
-                    };
-                        appointments.Add(new Appointment(values));
-                    };
-                    // Close Data Reader
-                    dr.Close();
-                    con.CloseConnection();
+
+                        a = new Appointment
+                        {
+                            AppointmentID = dr.GetInt16(0),
+                            AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
+                            AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
+                            Notes = dr.GetString(3),
+                            AppAttend = dr.GetBoolean(4),
+                            MedicalStaffID = dr.GetInt16(5),
+                            PatientID = dr.GetInt16(6)
+                        };
+                    appointments.Add(a);
+                    }
+                dr.Close();
+                con.CloseConnection();
                 }
-                return appointments;
+            return appointments;
             }
             /// <summary>
             /// finds all prescriptions based on the patient id.
-            /// Last Updated : 16/11/17,
+            /// Last Updated : 21/11/17,
             /// By j
             /// </summary>
             /// <param name="p_patientID">the id of the patient</param>
@@ -582,24 +584,25 @@ namespace OverSurgery2
             public List<Prescription> GetPatientsPrescriptions(int p_patientID)
             {
                 List<Prescription> prescriptions = new List<Prescription>();
+                Prescription p;
                 if (con.OpenConnection())
                 {
-                    DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID = " + p_patientID + " ORDER BY DateIssued;");
-                    Dictionary<string, object> values = null;
+                    DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID =  " + p_patientID +  " ORDER BY DateIssued;");
+                    
                     while (dr.Read())
                     {
-                        values = new Dictionary<string, object>
+                    p = new Prescription
                     {
-                        {"PrescriptionID",dr.GetInt16(0) },
-                        {"DateIssued", dr.GetDateTime(1)},
-                        {"DateOfNextIssue", dr.GetDateTime(2) },
-                        { "Ammount", dr.GetInt16(3) },
-                        { "Extenable", dr.GetBoolean(4) },
-                        { "MedicationID",dr.GetInt16(5) },
-                        { "PatientID", dr.GetInt16(6) },
-                        { "MedicalStaffID",dr.GetInt16(7) }
+                        ID = dr.GetInt16(0) ,
+                        Date = dr.GetDateTime(1),
+                        DateOfNextIssue = dr.GetDateTime(2) ,
+                        Amount = dr.GetInt16(3) ,
+                        Extendable = dr.GetBoolean(4) ,
+                        MedicationID = dr.GetInt16(5),
+                        PatientID = dr.GetInt16(6),
+                        MedicalStaffID = dr.GetInt16(7)
                     };
-                        prescriptions.Add(new Prescription(values));
+                        prescriptions.Add(p);
 
                     }
                     dr.Close();
@@ -617,20 +620,20 @@ namespace OverSurgery2
             public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
             {
                 List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
+            MedicalHistory mh;
                 if (con.OpenConnection())
                 {
                     DbDataReader dr = con.Select("SELECT * FROM MedicalHistory WHERE PatientID = " + p_patientID + " ORDER BY DateOf;");
-                    Dictionary<string, object> values = null;
                     while (dr.Read())
                     {
-                        values = new Dictionary<string, object>
+                    mh = new MedicalHistory
                     {
-                        {"MedicalHistoryID",dr.GetInt16(0) },
-                        {"MedicalHistory", dr.GetString(1)},
-                        {"DateOf", dr.GetDateTime(2)},
-                        {"PatientID", dr.GetInt16(3)}
+                        ID = dr.GetInt16(0),
+                        Notes = dr.GetString(1),
+                        Date = dr.GetDateTime(2),
+                        PatientID = dr.GetInt16(3)
                     };
-                        medicalHistoy.Add(new MedicalHistory(values));
+                        medicalHistoy.Add(mh);
                     }
                     dr.Close();
                     con.CloseConnection();
