@@ -40,6 +40,18 @@ namespace OverSurgery2
             ToolTip t = new ToolTip();
             t.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
 
+            // Disable fields according to selected type
+            if ((cboType.Text == "1") || (cboType.Text == "2") || (cboType.Text == "3"))
+            {
+                txtAddPhone.Enabled = true;
+                txtAddGender.Enabled = true;
+            }
+            else
+            {
+                txtAddPhone.Enabled = false;
+                txtAddGender.Enabled = false;
+            }
+
         }
 
         /// <summary>
@@ -73,8 +85,20 @@ namespace OverSurgery2
         {
             ReadBoxes();
             m_userName = txtSearchUserName.Text;
-            ml.DeleteStaff(m_userName);
-            ml.DeleteAddress(m_addressID);
+
+            // Verify the user wants to delete the staff member
+            DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            {
+                ml.DeleteStaff(m_userName);
+                ml.DeleteAddress(m_addressID);
+            }
+            else
+            {
+
+            }
+
+            
         }
 
         /// <summary>
