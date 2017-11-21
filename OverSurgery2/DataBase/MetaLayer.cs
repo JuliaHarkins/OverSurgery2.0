@@ -592,6 +592,8 @@ namespace OverSurgery2
         }
         /// <summary>
         /// Uses the perscription object to add a new perscription to the databaes.
+        /// Last Updated : 15/11/17,
+        /// By j
         /// </summary>
         /// <param name="p_p">the perscription</param>
         public void AddPrescriptionToTheDatabase(Prescription p_p)
