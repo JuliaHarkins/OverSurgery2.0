@@ -66,7 +66,7 @@ namespace OverSurgery2
             }
             try
             {
-                return new Patient(p_values);
+                return new Patient();
             }
             catch (Exception e)
             {

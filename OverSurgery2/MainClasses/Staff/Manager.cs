@@ -17,7 +17,7 @@ namespace OverSurgery2
         MetaLayer ml;
         public static Manager m_instance;
 
-        public Manager(Dictionary<string, object> p_PersonValues) : base(p_PersonValues)
+        public Manager()
         {
 
         }
