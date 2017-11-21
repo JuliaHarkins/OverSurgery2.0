@@ -19,14 +19,14 @@ namespace OverSurgery2
         private int m_ID;
         private DateTime m_dateOfBirth;
         private int m_registeredDoctorID;
-        private uint? m_gender;
+        private int m_gender;
         private string m_genderDisplay;
         private string m_doctorDisplay;
         private string m_phoneNumber;
-        MetaLayer ml;
+        MetaLayer ml = MetaLayer.Instance();
         public int ID { get { return m_ID; } set { m_ID = value; } }
         public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
-        public uint? Gender { get { return m_gender; } set { m_gender = value; } }
+        public int Gender { get { return m_gender; } set { m_gender = value; } }
         public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
         public string GenderDisplay { get { return m_genderDisplay; } }
         public DateTime DateOfBirth
@@ -44,16 +44,19 @@ namespace OverSurgery2
 
         public Patient()
         {
-            if (m_gender == 1)
+        }
+        
+        public void SetGenderDisplay()
+        {
+            if(m_gender == 1)
             {
                 m_genderDisplay = "Male";
             }
-            else
+            else if(m_gender == 0)
             {
                 m_genderDisplay = "Female";
             }
         }
-
 
 
         public void SetDoctorDisplay()

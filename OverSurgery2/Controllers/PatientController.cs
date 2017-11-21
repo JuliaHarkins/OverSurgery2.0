@@ -51,6 +51,7 @@ namespace OverSurgery2
         {
             foreach(Patient p in patients)
             {
+                p.SetGenderDisplay();
                 p.SetDoctorDisplay();
             }
         }

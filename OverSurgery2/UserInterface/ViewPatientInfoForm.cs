@@ -32,7 +32,7 @@ namespace OverSurgery2
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
-            Address ad = MetaLayer.Instance().NewGetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;

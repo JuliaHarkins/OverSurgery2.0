@@ -48,7 +48,7 @@ namespace OverSurgery2
                         ID = dr.GetInt16(0),
                         Forename = dr.GetString(1),
                         Surname = dr.GetString(2),
-                        Gender = Convert.ToUInt16(dr.GetInt16(3)),
+                        Gender = dr.GetInt16(3),
                         DateOfBirth = dr.GetDateTime(4),
                         PhoneNumber = dr.GetString(5),
                         RegisteredDoctorID = dr.GetInt16(6),
@@ -170,7 +170,7 @@ namespace OverSurgery2
         /// </code>
         /// </example>
         /// <returns>Returns an address string</returns>
-        public Address NewGetAddressByID(int p_id)
+        public Address GetAddressByID(int p_id)
         {
             Address a = null;
             string houseName = null;
@@ -293,7 +293,6 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return m;
-            
         }
 
         public bool GetMedicalIfExists(int p_id)

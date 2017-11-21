@@ -18,6 +18,8 @@ namespace OverSurgery2
         Staff currentUserLoggedIn = null;
         PatientController pc;
         AppointmentController ac;
+        int loadretrycountp = 0;
+        int loadretrycounta = 0;
         public ReceptionistForm(Staff currentUser)
         {
             currentUserLoggedIn = currentUser;
@@ -44,6 +46,50 @@ namespace OverSurgery2
             SetPatientsDisplay();
             DataGridPatients.Update();
             DataGridPatients.Refresh();
+            if (pc.patients.Count == 0)
+            {
+                DialogResult result = MessageBox.Show("No Patients Loaded from Database", "No Patients!",MessageBoxButtons.AbortRetryIgnore,MessageBoxIcon.Exclamation);
+
+                if(loadretrycountp == 5)
+                {
+                    MessageBox.Show("Maximum Retries Reached!");
+                }
+                else if(result == DialogResult.Abort)
+                {
+                    DialogResult abortresult = MessageBox.Show("Are you sure you would like to abort?", "Abort?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if(abortresult == DialogResult.Yes)
+                    {
+                        Close();
+                    }
+                }
+                else if(result == DialogResult.Retry)
+                {
+                    loadretrycountp++;
+                    LoadAllPatientInfo();
+                }
+            }
+            if (ac.Appointments.Count == 0)
+            {
+                DialogResult result = MessageBox.Show("No Appointments Loaded from Database", "No Appointments!", MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Exclamation);
+
+                if (loadretrycounta == 5)
+                {
+                    MessageBox.Show("Maximum Retries Reached!");
+                }
+                else if (result == DialogResult.Abort)
+                {
+                    DialogResult abortresult = MessageBox.Show("Are you sure you would like to abort?", "Abort?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (abortresult == DialogResult.Yes)
+                    {
+                        Close();
+                    }
+                }
+                else if (result == DialogResult.Retry)
+                {
+                    loadretrycounta++;
+                    LoadAllPatientInfo();
+                }
+            }
         }
 
         private void LoadAllAppointments()
