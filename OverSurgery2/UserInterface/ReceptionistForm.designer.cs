@@ -32,6 +32,12 @@
             this.btn_Logout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AppointmentsTab = new System.Windows.Forms.TabPage();
+            this.btn_ViewAllApp = new System.Windows.Forms.Button();
+            this.lbl_SearchAppByPatient = new System.Windows.Forms.Label();
+            this.txt_SearchAppForename = new System.Windows.Forms.TextBox();
+            this.txt_SearchAppSurname = new System.Windows.Forms.TextBox();
+            this.btn_SearchApp = new System.Windows.Forms.Button();
+            this.btn_NewApp = new System.Windows.Forms.Button();
             this.DataGridAppointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
             this.btn_ViewAllPatients = new System.Windows.Forms.Button();
@@ -43,12 +49,6 @@
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btn_Reload = new System.Windows.Forms.Button();
-            this.btn_ViewAllApp = new System.Windows.Forms.Button();
-            this.lbl_SearchAppByPatient = new System.Windows.Forms.Label();
-            this.txt_SearchAppForename = new System.Windows.Forms.TextBox();
-            this.txt_SearchAppSurname = new System.Windows.Forms.TextBox();
-            this.btn_SearchApp = new System.Windows.Forms.Button();
-            this.btn_NewApp = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
@@ -99,6 +99,70 @@
             this.AppointmentsTab.Text = "Appointments";
             this.AppointmentsTab.UseVisualStyleBackColor = true;
             // 
+            // btn_ViewAllApp
+            // 
+            this.btn_ViewAllApp.Location = new System.Drawing.Point(6, 5);
+            this.btn_ViewAllApp.Name = "btn_ViewAllApp";
+            this.btn_ViewAllApp.Size = new System.Drawing.Size(75, 23);
+            this.btn_ViewAllApp.TabIndex = 2;
+            this.btn_ViewAllApp.Text = "View All";
+            this.btn_ViewAllApp.UseVisualStyleBackColor = true;
+            // 
+            // lbl_SearchAppByPatient
+            // 
+            this.lbl_SearchAppByPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_SearchAppByPatient.AutoSize = true;
+            this.lbl_SearchAppByPatient.Location = new System.Drawing.Point(437, 11);
+            this.lbl_SearchAppByPatient.Name = "lbl_SearchAppByPatient";
+            this.lbl_SearchAppByPatient.Size = new System.Drawing.Size(171, 13);
+            this.lbl_SearchAppByPatient.TabIndex = 12;
+            this.lbl_SearchAppByPatient.Text = "Search for Appointment by Patient:";
+            // 
+            // txt_SearchAppForename
+            // 
+            this.txt_SearchAppForename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_SearchAppForename.Location = new System.Drawing.Point(614, 7);
+            this.txt_SearchAppForename.Name = "txt_SearchAppForename";
+            this.txt_SearchAppForename.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchAppForename.TabIndex = 3;
+            this.txt_SearchAppForename.Text = "Forename";
+            this.txt_SearchAppForename.Enter += new System.EventHandler(this.txt_SearchAppForename_Enter);
+            this.txt_SearchAppForename.Leave += new System.EventHandler(this.txt_SearchAppForename_Leave);
+            // 
+            // txt_SearchAppSurname
+            // 
+            this.txt_SearchAppSurname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_SearchAppSurname.Location = new System.Drawing.Point(720, 7);
+            this.txt_SearchAppSurname.Name = "txt_SearchAppSurname";
+            this.txt_SearchAppSurname.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchAppSurname.TabIndex = 4;
+            this.txt_SearchAppSurname.Text = "Surname";
+            this.txt_SearchAppSurname.Enter += new System.EventHandler(this.txt_SearchAppSurname_Enter);
+            this.txt_SearchAppSurname.Leave += new System.EventHandler(this.txt_SearchAppSurname_Leave);
+            // 
+            // btn_SearchApp
+            // 
+            this.btn_SearchApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SearchApp.Location = new System.Drawing.Point(825, 8);
+            this.btn_SearchApp.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_SearchApp.Name = "btn_SearchApp";
+            this.btn_SearchApp.Size = new System.Drawing.Size(80, 19);
+            this.btn_SearchApp.TabIndex = 5;
+            this.btn_SearchApp.Text = "Search";
+            this.btn_SearchApp.UseVisualStyleBackColor = true;
+            this.btn_SearchApp.Click += new System.EventHandler(this.btn_SearchApp_Click);
+            // 
+            // btn_NewApp
+            // 
+            this.btn_NewApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btn_NewApp.Location = new System.Drawing.Point(5, 322);
+            this.btn_NewApp.Margin = new System.Windows.Forms.Padding(2);
+            this.btn_NewApp.Name = "btn_NewApp";
+            this.btn_NewApp.Size = new System.Drawing.Size(80, 19);
+            this.btn_NewApp.TabIndex = 7;
+            this.btn_NewApp.Text = "New Patient";
+            this.btn_NewApp.UseVisualStyleBackColor = true;
+            // 
             // DataGridAppointments
             // 
             this.DataGridAppointments.AllowUserToAddRows = false;
@@ -116,7 +180,7 @@
             this.DataGridAppointments.ReadOnly = true;
             this.DataGridAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.DataGridAppointments.Size = new System.Drawing.Size(899, 287);
-            this.DataGridAppointments.TabIndex = 0;
+            this.DataGridAppointments.TabIndex = 6;
             // 
             // PatientsTab
             // 
@@ -228,65 +292,6 @@
             this.btn_Reload.TabIndex = 4;
             this.btn_Reload.Text = "Reload";
             this.btn_Reload.UseVisualStyleBackColor = true;
-            // 
-            // btn_ViewAllApp
-            // 
-            this.btn_ViewAllApp.Location = new System.Drawing.Point(6, 5);
-            this.btn_ViewAllApp.Name = "btn_ViewAllApp";
-            this.btn_ViewAllApp.Size = new System.Drawing.Size(75, 23);
-            this.btn_ViewAllApp.TabIndex = 13;
-            this.btn_ViewAllApp.Text = "View All";
-            this.btn_ViewAllApp.UseVisualStyleBackColor = true;
-            // 
-            // lbl_SearchAppByPatient
-            // 
-            this.lbl_SearchAppByPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbl_SearchAppByPatient.AutoSize = true;
-            this.lbl_SearchAppByPatient.Location = new System.Drawing.Point(513, 10);
-            this.lbl_SearchAppByPatient.Name = "lbl_SearchAppByPatient";
-            this.lbl_SearchAppByPatient.Size = new System.Drawing.Size(95, 13);
-            this.lbl_SearchAppByPatient.TabIndex = 12;
-            this.lbl_SearchAppByPatient.Text = "Search for Patient:";
-            // 
-            // txt_SearchAppForename
-            // 
-            this.txt_SearchAppForename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_SearchAppForename.Location = new System.Drawing.Point(614, 7);
-            this.txt_SearchAppForename.Name = "txt_SearchAppForename";
-            this.txt_SearchAppForename.Size = new System.Drawing.Size(100, 20);
-            this.txt_SearchAppForename.TabIndex = 11;
-            this.txt_SearchAppForename.Text = "Forename";
-            // 
-            // txt_SearchAppSurname
-            // 
-            this.txt_SearchAppSurname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_SearchAppSurname.Location = new System.Drawing.Point(720, 7);
-            this.txt_SearchAppSurname.Name = "txt_SearchAppSurname";
-            this.txt_SearchAppSurname.Size = new System.Drawing.Size(100, 20);
-            this.txt_SearchAppSurname.TabIndex = 10;
-            this.txt_SearchAppSurname.Text = "Surname";
-            // 
-            // btn_SearchApp
-            // 
-            this.btn_SearchApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_SearchApp.Location = new System.Drawing.Point(825, 8);
-            this.btn_SearchApp.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_SearchApp.Name = "btn_SearchApp";
-            this.btn_SearchApp.Size = new System.Drawing.Size(80, 19);
-            this.btn_SearchApp.TabIndex = 9;
-            this.btn_SearchApp.Text = "Search";
-            this.btn_SearchApp.UseVisualStyleBackColor = true;
-            // 
-            // btn_NewApp
-            // 
-            this.btn_NewApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_NewApp.Location = new System.Drawing.Point(5, 322);
-            this.btn_NewApp.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_NewApp.Name = "btn_NewApp";
-            this.btn_NewApp.Size = new System.Drawing.Size(80, 19);
-            this.btn_NewApp.TabIndex = 8;
-            this.btn_NewApp.Text = "New Patient";
-            this.btn_NewApp.UseVisualStyleBackColor = true;
             // 
             // ReceptionistForm
             // 

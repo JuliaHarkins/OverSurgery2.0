@@ -5,74 +5,175 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * Created By: J
- * Date Created : 1/11/17
- *  this object is used to hold all information needed for a perscription,
- *   and allow for their extention
+ * this object is used to hold all information needed for a Prescription,
+ * and allow for their extention
+ * 
+ * Last Updated : 15/11/17
+ * By: J
  */
 
-namespace OverSurgery2.Main_Classes
+namespace OverSurgery2
 {
     /// <summary>
-    /// this object is used to hold all information needed for a perscription,
+    /// this object is used to hold all information needed for a Prescription,
     ///and allow for their extention.
     /// </summary>
     public class Prescription
     {
-#region member Varibles 
+#region Members 
         MetaLayer ml;
+        int m_prescriptionID;
         int m_medicationID; 
         int m_patientID;
-        int m_extentionCouter;
-        DateTime m_DateOfNextIssue;
+        DateTime m_dateOfNextIssue;
         bool m_allowExtention;
         DateTime m_DateIssued;
-        DateTime m_expirationDate;
-        int m_Amount;
-        int m_MedicalStaffID;
-#endregion
+        DateTime m_dateOfNetIssue;
+        int m_amount;
+        int m_medicalStaffID;
+        #endregion
+        #region Properties
+        public int PatientID
+        {
+            get
+            {
+                return m_patientID;
+            }
+            set
+            {
+                m_patientID = value;
+            }
+        }
+        public DateTime Date
+        {
+            get
+            {
+                return m_DateIssued;
+            }
+            set
+            {
+                m_DateIssued = value;
+            }
+        }
+        public int MedicationID
+        {
+            get
+            {
+                return m_medicationID;
+            }
+            set
+            {
+                m_medicationID = value;
+            }
+        }
+        public int Amount
+        {
+            get
+            {
+                return m_amount;
+            }
+            set
+            {
+                m_amount = value;
+            }
+        }
+        public int MedicalStaffID
+        {
+            get
+            {
+                return m_medicalStaffID;
+            }
+            set
+            {
+                m_medicalStaffID = value;
+            }
+        }
+        public DateTime DateOfNextIssue
+        {
+            get
+            {
+                return m_dateOfNextIssue;
+            }
+            set
+            {
+                m_dateOfNextIssue = value;
+            }
+        }
+        public bool Extendable
+        {
+            get
+            {
+                return m_allowExtention;
+            }
+            set
+            {
+                m_allowExtention = value;
+            }
+        }
+
+        #endregion
 
         /// <summary>
-        /// Creates the prescriptions 
+        /// Creates the prescriptions
         /// </summary>
         /// <param name="p_PrescriptionValues">The MedicaltionID, PatientID, ExterationDate, 
         /// Ammount, MedicalStaffID, DateIssued, and DateOfNextIssue are used to create the
-        /// perscriptions </param>
+        /// Prescriptions </param>
         #region Constructor
         public Prescription(Dictionary<string, object> p_PrescriptionValues)
         {
             ml = MetaLayer.Instance();
-            m_medicationID = Convert.ToInt16(p_PrescriptionValues["PrescriptionID"]);
-            m_patientID = Convert.ToInt16(p_PrescriptionValues["PatientID"]);
-            m_expirationDate = Convert.ToDateTime(p_PrescriptionValues["ExpirationDate"]);
-            m_Amount = Convert.ToInt16(p_PrescriptionValues["Amount"]);
-            m_MedicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
+            m_prescriptionID = Convert.ToInt16(p_PrescriptionValues["PrescriptionID"]);
             m_DateIssued = Convert.ToDateTime(p_PrescriptionValues["DateIssued"]);
-            m_DateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]); 
+            m_dateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]);
+            m_amount = Convert.ToInt16(p_PrescriptionValues["Ammount"]);
+            m_allowExtention = Convert.ToBoolean(p_PrescriptionValues["Extenable"]);
+            m_medicationID = Convert.ToInt16(p_PrescriptionValues["MedicationID"]);
+            m_patientID = Convert.ToInt16(p_PrescriptionValues["PatientID"]);
+            m_medicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
+            
+            
         }
-#endregion
-#region Methods
+        #endregion
+        #region Methods
         /// <summary>
-        /// extents the perscription by one month
+        /// extents the Prescription by one month
         /// </summary>
         public void Extend()
         {
-#region Execution
-            if (m_DateOfNextIssue < DateTime.Now) {
-                m_expirationDate.AddMonths(1);
+            #region Execution
+                if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
+                {
+                    m_dateOfNetIssue.AddMonths(1);
+                }
+            else {
+
             }
 #endregion
         }
         /// <summary>
         /// extends by a given amount of months.
         /// </summary>
-        /// <param name="p_months">the amout of months the perscription is to be extended by.</param>
+        /// <param name="p_months">the amout of months the Prescription is to be extended by.</param>
         public void Extend(int p_months)
         {
 #region Execution
-            if (m_DateOfNextIssue > DateTime.Now)
+
+            if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
-                m_expirationDate.AddMonths(p_months);
+                m_dateOfNetIssue.AddMonths(p_months);
+            }
+#endregion
+        }
+        private bool CheckIfExtenable()
+        {
+#region Exicution
+            if (m_allowExtention == true)
+            {
+                return true;
+            }
+            else{
+                return false;
             }
 #endregion
         }

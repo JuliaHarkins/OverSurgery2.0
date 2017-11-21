@@ -10,7 +10,7 @@ namespace OverSurgery2
     /// First Created: 20/10/17
     /// Last Edit: 21/10/17 14:22
     /// Last Edit by: L
-    public abstract class Staff : Person
+    public class Staff : Person
     {
         private int m_staffID;
         private string m_username;
@@ -20,6 +20,7 @@ namespace OverSurgery2
         public string Password { get { return m_password; } set { m_password = value; } }
         public string Username { get { return m_username; } set { m_username = value; } }
         public string EmailAddress { get { return m_email; } set { m_email = value; } }
+        public int StaffID { get { return m_staffID; } set { m_staffID = value; } }
         LoginController lc = LoginController.Instance();
 
         public Staff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
