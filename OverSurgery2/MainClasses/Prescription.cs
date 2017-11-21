@@ -143,7 +143,7 @@ namespace OverSurgery2
             #region Execution
                 if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
                 {
-                    m_dateOfNetIssue.AddMonths(1);
+                 m_dateOfNextIssue.AddMonths(1);
                 }
             else {
 
@@ -160,7 +160,7 @@ namespace OverSurgery2
 
             if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
-                m_dateOfNetIssue.AddMonths(p_months);
+                m_dateOfNextIssue.AddMonths(p_months);
             }
 #endregion
         }
