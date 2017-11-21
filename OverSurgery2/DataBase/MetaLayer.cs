@@ -228,73 +228,89 @@ namespace OverSurgery2
 
         public Staff GetStaffByUserName(string p_username)
         {
-            Dictionary<string, object> d;
-            d = null;
+            Staff s = null;
+            int type = 0;
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Staff WHERE username = '" + p_username + "';");
-
                 while (dr.Read())
                 {
-                    d = new Dictionary<string, object>
+                    s = new Staff 
                     {
-                        { "ID", dr.GetInt16(0) },
-                        { "Forename", dr.GetString(1) },
-                        { "Surname", dr.GetString(2) },
-                        { "Email", dr.GetString(3) },
-                        { "AddressID", dr.GetInt16(4) },
-                        { "UserName", dr.GetString(5) },
-                        { "Password", dr.GetString(6)},
-                        { "Type", dr.GetInt16(7) },
-                        { "Gender", 0 },
-                        { "PhoneNumber", " " }
+                        StaffID = dr.GetInt16(0),
+                        Forename =dr.GetString(1),
+                        Surname = dr.GetString(2),
+                        EmailAddress = dr.GetString(3),
+                        AddressID = Convert.ToUInt16(dr.GetInt16(4)),
+                        Username = dr.GetString(5),
+                        Password = dr.GetString(6),
 
                     };
+                    type = dr.GetInt16(7);
                 }
                 dr.Close();
                 con.CloseConnection();
-                int[] types = { 1, 2, 3 };
-                if (types.Contains(Convert.ToInt16(d["Type"])))
-                {
-                    return GetMedicalStaffByStaffID(Convert.ToInt16(d["ID"]));
-                }
-                return pf.CreateStaff(d);
             }
-            return pf.CreateStaff(d);
+            switch (type)
+            {
+                case 1:
+                case 2:
+                case 3:
+                    return GetMedicalStaffByStaffID(s.StaffID, type);
+                case 4:
+                    return s as Receptionist;
+                case 5:
+                    return s as Manager;
+            }
         }
 
-        public Staff GetMedicalStaffByStaffID(int p_id)
+        public Staff GetMedicalStaffByStaffID(int p_id, int type)
         {
-            Dictionary<string, object> d;
-            d = null;
+            MedicalStaff m = null;
+
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
 
                 while (dr.Read())
                 {
-                    d = new Dictionary<string, object>
+                    if (type == 3)
                     {
-                        {"MedicalStaffID", dr.GetInt16(0) },
-                        { "PracticeNumber", dr.GetString(1) },
-                        { "ID", dr.GetInt16(3) },
-                        { "Gender", dr.GetInt16(4) },
-                        { "Forename", dr.GetString(6) },
-                        { "Surname", dr.GetString(7) },
-                        { "AddressID", dr.GetString(9) },
-                        {"Email", dr.GetString(8) },
-                        {"UserName", dr.GetString(10) },
-                        { "Password", dr.GetString(11)},
-                        {"Type", dr.GetInt16(12) },
-                        {"PhoneNumber", " " }
+                        m = new MedicalStaff
+                        {
+                            MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
+                            PracticeNumber = dr.GetString(1),
+                            StaffID = dr.GetInt16(2),
+                            Gender = Convert.ToUInt16(dr.GetInt16(4)),
+                            Forename = dr.GetString(6),
+                            Surname = dr.GetString(7),
+                            AddressID = Convert.ToUInt16(dr.GetInt16(9)),
+                            EmailAddress = dr.GetString(8),
+                            Username = dr.GetString(10),
+                            Password = dr.GetString(11),
 
+                        };
+                    }
+                    m = new MedicalStaff
+                    {
+                        MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
+                        PracticeNumber = dr.GetString(1),
+                        StaffID = dr.GetInt16(2),
+                        Gender = Convert.ToUInt16(dr.GetInt16(4)),
+                        Forename = dr.GetString(6),
+                        Surname = dr.GetString(7),
+                        AddressID = Convert.ToUInt16(dr.GetInt16(9)),
+                        EmailAddress = dr.GetString(8),
+                        Username = dr.GetString(10),
+                        Password = dr.GetString(11),
 
                     };
+
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            return PersonFactory.Instance().CreateStaff(d);
+            
         }
 
         public bool GetMedicalIfExists(int p_id)
