@@ -70,8 +70,7 @@ namespace OverSurgery2
         {
             ReadBoxes();
             //ml.UpdateStaffMember(Staff staffMember);
-            //ml.UpdateAddress(Address staffAddress);
-            
+            //ml.UpdateAddress(Address staffAddress);          
         }
 
         /// <summary>
@@ -132,6 +131,8 @@ namespace OverSurgery2
             
             //update addressID variable before entering the method below
             ml.GetAddressByID(m_addressID);
+
+            WriteBoxes();
         }
 
         /// <summary>
@@ -159,6 +160,34 @@ namespace OverSurgery2
             catch
             {
                 MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Write new values into text boxes
+        /// </summary>
+        private void WriteBoxes()
+        {
+            try
+            {
+                txtUserName.Text = m_userName;
+                txtForename.Text= m_forename;
+                txtSurname.Text = m_surname;
+                txtPracticeNumber.Text = Convert.ToString(m_practiceNumber);
+                txtGender.Text = Convert.ToString(m_Gender);
+                txtEmail.Text = m_email;
+                cboType.Text = Convert.ToString(m_type);
+                txtPassword.Text = m_password;
+                txtPhone.Text = m_phone;
+                txtAddress.Text = Convert.ToString(m_addressID);
+                txtHouseName.Text = m_houseName;
+                txtHouseNumber.Text = Convert.ToString(m_houseNumber);
+                txtAddressLine.Text = m_addressLine;
+                txtPostCode.Text = m_postCode;
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

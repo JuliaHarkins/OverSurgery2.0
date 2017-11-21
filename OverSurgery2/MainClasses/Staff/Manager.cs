@@ -43,7 +43,9 @@ namespace OverSurgery2
         /// </summary>
         public void ViewPercentageMissed()
         {
-
+            ml.GetMissedAppointments();
+            ml.GetAppointments();
+            
         }
 
         /// <summary>
