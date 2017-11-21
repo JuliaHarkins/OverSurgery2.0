@@ -908,21 +908,40 @@ namespace OverSurgery2
                 }
             }
 
-            /// <summary>
-            /// Delete a staff member from the database
-            /// Last Updated : 17/11/17,
-            /// By R
-            /// </summary>
-            public bool DeleteStaff(string p_username)
+        /// <summary>
+        /// Delete a staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        public bool DeleteStaff(string p_username)
+        {
+            if (con.OpenConnection())
             {
-                if (con.OpenConnection())
-                {
-                    con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
-                    con.CloseConnection();
-                    return true;
-                }
-                return false;
+                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
+                con.CloseConnection();
+                return true;
             }
+            return false;
+        }
+        public List<Rota> GetStaffRota(string lel)
+        {
+            Rota r;
+            List<Rota> rota = new List<Rota>();
+            StringBuilder dat = new StringBuilder();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT Forename, Surname, GROUP_CONCAT(DayName) FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID, r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID");
+                while (dr.Read())
+                {
+                    //r = new Rota
+                    //{
+                    //    //SomeCode
+                    //};
+                    //rota.Add(r);
+                }
+            }
+            return rota;
+        }
 
             /// <summary>
             /// Update a staff members details

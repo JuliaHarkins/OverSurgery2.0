@@ -66,6 +66,7 @@
     <Compile Include="DataBase\ManagerForm.Designer.cs">
       <DependentUpon>ManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Timing.cs" />
     <Compile Include="UserInterface\RotaForm.cs">
       <SubType>Form</SubType>
     </Compile>
