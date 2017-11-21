@@ -30,7 +30,7 @@ namespace OverSurgery2
         }
         #endregion
 
-        public Receptionist(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
+        public Receptionist()
         {
             
         }

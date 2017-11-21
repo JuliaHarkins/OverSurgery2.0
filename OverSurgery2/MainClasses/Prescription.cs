@@ -28,11 +28,21 @@ namespace OverSurgery2
         DateTime m_dateOfNextIssue;
         bool m_allowExtention;
         DateTime m_DateIssued;
-        DateTime m_dateOfNetIssue;
         int m_amount;
         int m_medicalStaffID;
         #endregion
         #region Properties
+        public int ID
+        {
+            get
+            {
+                return m_prescriptionID;
+            }
+            set
+            {
+                m_prescriptionID = value;
+            }
+        }
         public int PatientID
         {
             get
@@ -120,19 +130,8 @@ namespace OverSurgery2
         /// Ammount, MedicalStaffID, DateIssued, and DateOfNextIssue are used to create the
         /// Prescriptions </param>
         #region Constructor
-        public Prescription(Dictionary<string, object> p_PrescriptionValues)
+        public Prescription()
         {
-            ml = MetaLayer.Instance();
-            m_prescriptionID = Convert.ToInt16(p_PrescriptionValues["PrescriptionID"]);
-            m_DateIssued = Convert.ToDateTime(p_PrescriptionValues["DateIssued"]);
-            m_dateOfNextIssue = Convert.ToDateTime(p_PrescriptionValues["DateOfNextIssue"]);
-            m_amount = Convert.ToInt16(p_PrescriptionValues["Ammount"]);
-            m_allowExtention = Convert.ToBoolean(p_PrescriptionValues["Extenable"]);
-            m_medicationID = Convert.ToInt16(p_PrescriptionValues["MedicationID"]);
-            m_patientID = Convert.ToInt16(p_PrescriptionValues["PatientID"]);
-            m_medicalStaffID = Convert.ToInt16(p_PrescriptionValues["MedicalStaffID"]);
-            
-            
         }
         #endregion
         #region Methods
@@ -144,7 +143,7 @@ namespace OverSurgery2
             #region Execution
                 if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
                 {
-                    m_dateOfNetIssue.AddMonths(1);
+                 m_dateOfNextIssue.AddMonths(1);
                 }
             else {
 
@@ -161,7 +160,7 @@ namespace OverSurgery2
 
             if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
-                m_dateOfNetIssue.AddMonths(p_months);
+                m_dateOfNextIssue.AddMonths(p_months);
             }
 #endregion
         }

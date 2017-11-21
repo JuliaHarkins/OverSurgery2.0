@@ -98,12 +98,6 @@
     <Compile Include="UserInterface\ManagerForm.Designer.cs">
       <DependentUpon>ManagerForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\DoctorForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserInterface\DoctorForm.designer.cs">
-      <DependentUpon>DoctorForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="UserInterface\EditPatientForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,9 +171,6 @@
     </Compile>
     <EmbeddedResource Include="UserInterface\AddPrescription.resx">
       <DependentUpon>AddPrescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\DoctorForm.resx">
-      <DependentUpon>DoctorForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\EditPatientForm.resx">
       <DependentUpon>EditPatientForm.cs</DependentUpon>

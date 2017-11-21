@@ -18,14 +18,21 @@ namespace OverSurgery2
         private uint? m_medicalStaffID;
         private uint? m_prescriptionLevel;
         private string m_practiceNumber;
+        private uint? m_gender;
+        private string m_genderDisplay;
+        private string m_phoneNumber;
         #endregion
         #region Constructors
-        public MedicalStaff(Dictionary<string, object> p_PersonValues) :base(p_PersonValues)
+        public MedicalStaff()
         {
-            PrescriptionLevel = 1;
-            m_medicalStaffID = Convert.ToUInt16(p_PersonValues["MedicalStaffID"]);
-            m_practiceNumber = Convert.ToString(p_PersonValues["PracticeNumber"]);
-            
+            if (m_gender == 1)
+            {
+                m_genderDisplay = "Male";
+            }
+            else
+            {
+                m_genderDisplay = "Female";
+            }
         }
         #endregion
         #region Properties
@@ -51,8 +58,10 @@ namespace OverSurgery2
                 m_medicalStaffID = value;
             }
         }
-
+        public string GenderDisplay { get { return m_genderDisplay; } }
         public string PracticeNumber { get { return m_practiceNumber; } set { m_practiceNumber = value; } }
+        public uint? Gender { get { return m_gender; } set { m_gender = value; } }
+        public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {

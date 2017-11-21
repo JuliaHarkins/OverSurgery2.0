@@ -66,7 +66,7 @@ namespace OverSurgery2
             }
             try
             {
-                return new Patient(p_values);
+                return new Patient();
             }
             catch (Exception e)
             {
@@ -92,7 +92,7 @@ namespace OverSurgery2
 
             try
             {
-                return new Doctor(p_values);
+                return new Doctor();
             }
             catch (Exception e)
             {
@@ -111,7 +111,7 @@ namespace OverSurgery2
 
             try
             {
-               return new Receptionist(p_values);
+               return new Receptionist();
             }
             catch (Exception e)
             {
@@ -128,7 +128,7 @@ namespace OverSurgery2
             }
             try
             {
-                return new Locum(p_values);
+                return new Locum();
             }
             catch(Exception e)
             {
@@ -145,7 +145,7 @@ namespace OverSurgery2
             }
             try
             {
-                return new MedicalStaff(p_values);
+                return new MedicalStaff();
             }
             catch (Exception e)
             {
@@ -162,7 +162,7 @@ namespace OverSurgery2
             }
             try
             {
-                return new Manager(p_values);
+                return new Manager();
             }
             catch(Exception e)
             {
