@@ -487,58 +487,58 @@ namespace OverSurgery2
                  * PatientID
                  */
 
-                    Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
-                    con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " +
-                        Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
-                    con.CloseConnection();
-                }
+                Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
+                con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " +
+                    Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
+                con.CloseConnection();
             }
-            /// <summary>
-            /// Uses the medicalHistory object to add a new medicalhistory to the databaes.
-            /// Last Updated : 17/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="p_mh">the medical history</param>
-            public void AddMedicalHistoryToTheDatabase(MedicalHistory p_mh)
+        }
+        /// <summary>
+        /// Uses the medicalHistory object to add a new medicalhistory to the databaes.
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_mh">the medical history</param>
+        public void AddMedicalHistoryToTheDatabase(MedicalHistory p_mh)
+        {
+            if (con.OpenConnection())
             {
-                if (con.OpenConnection())
-                {
-                    con.Update("INSERT INTO MedicalHistory VALUES (null" + ", '" + p_mh.Notes + "', " + p_mh.Date.ToString("yyyyMMdd") + ", " + p_mh.PatientID + ");");
-                    con.CloseConnection();
-                }
+                con.Update("INSERT INTO MedicalHistory VALUES (null" + ", '" + p_mh.Notes + "', " + p_mh.Date.ToString("yyyyMMdd") + ", " + p_mh.PatientID + ");");
+                con.CloseConnection();
             }
-            /// <summary>
-            /// Uses the perscription object to add a new perscription to the databaes.
-            /// </summary>
-            /// <param name="p_p">the perscription</param>
-            public void AddPrescriptionToTheDatabase(Prescription p_p)
+        }
+        /// <summary>
+        /// Uses the perscription object to add a new perscription to the databaes.
+        /// </summary>
+        /// <param name="p_p">the perscription</param>
+        public void AddPrescriptionToTheDatabase(Prescription p_p)
+        {
+            if (con.OpenConnection())
             {
-                if (con.OpenConnection())
-                {
-                    con.Update("INSERT INTO MedicalHistory VALUES (null, " + Convert.ToInt32(p_p.Date.ToString("yyyyMMdd")) + ", " + Convert.ToInt32(p_p.DateOfNextIssue.ToString("yyyyMMdd")) + ", " + p_p.Amount + ", " + p_p.Extendable +
-                    ", " + p_p.MedicationID + ", '" + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
-                    con.CloseConnection();
-                }
+                con.Update("INSERT INTO MedicalHistory VALUES (null, " + Convert.ToInt32(p_p.Date.ToString("yyyyMMdd")) + ", " + Convert.ToInt32(p_p.DateOfNextIssue.ToString("yyyyMMdd")) + ", " + p_p.Amount + ", " + p_p.Extendable +
+                ", " + p_p.MedicationID + ", '" + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
+                con.CloseConnection();
             }
+        }
 
-            /// <summary>
-            /// Finds the appointments for one medical staff member for a given day.
-            /// Last Updated : 15/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="p_staffID"></param>
-            /// <returns></returns>
-            public List<Appointment> GetStaffAppointments(int p_staffID)
+        /// <summary>
+        /// Finds the appointments for one medical staff member for a given day.
+        /// Last Updated : 15/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_staffID"></param>
+        /// <returns></returns>
+        public List<Appointment> GetStaffAppointments(int p_staffID)
+        {
+            List<Appointment> appointments = new List<Appointment>();
+            if (con.OpenConnection())
             {
-                List<Appointment> appointments = new List<Appointment>();
-                if (con.OpenConnection())
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
+                Dictionary<string, object> values = null;
+                //Read the data and store them in the list
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
-                    Dictionary<string, object> values = null;
-                    //Read the data and store them in the list
-                    while (dr.Read())
-                    {
-                        values = new Dictionary<string, object>
+                    values = new Dictionary<string, object>
                     {
                         { "AppID", dr.GetInt16(0) },
                         { "Date", dr.GetFieldValue<object>(1) },
@@ -548,31 +548,31 @@ namespace OverSurgery2
                         { "MedStaffID", dr.GetInt16(5) },
                         { "PatientID", dr.GetInt16(6) },
                     };
-                        appointments.Add(new Appointment(values));
-                    };
-                    // Close Data Reader
-                    dr.Close();
-                    con.CloseConnection();
-                }
-                return appointments;
+                    appointments.Add(new Appointment(values));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
             }
-            /// <summary>
-            /// finds all prescriptions based on the patient id.
-            /// Last Updated : 16/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="p_patientID">the id of the patient</param>
-            /// <returns></returns>
-            public List<Prescription> GetPatientsPrescriptions(int p_patientID)
+            return appointments;
+        }
+        /// <summary>
+        /// finds all prescriptions based on the patient id.
+        /// Last Updated : 16/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_patientID">the id of the patient</param>
+        /// <returns></returns>
+        public List<Prescription> GetPatientsPrescriptions(int p_patientID)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            if (con.OpenConnection())
             {
-                List<Prescription> prescriptions = new List<Prescription>();
-                if (con.OpenConnection())
+                DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID = " + p_patientID + " ORDER BY DateIssued;");
+                Dictionary<string, object> values = null;
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID = " + p_patientID + " ORDER BY DateIssued;");
-                    Dictionary<string, object> values = null;
-                    while (dr.Read())
-                    {
-                        values = new Dictionary<string, object>
+                    values = new Dictionary<string, object>
                     {
                         {"PrescriptionID",dr.GetInt16(0) },
                         {"DateIssued", dr.GetDateTime(1)},
@@ -583,148 +583,148 @@ namespace OverSurgery2
                         { "PatientID", dr.GetInt16(6) },
                         { "MedicalStaffID",dr.GetInt16(7) }
                     };
-                        prescriptions.Add(new Prescription(values));
+                    prescriptions.Add(new Prescription(values));
 
-                    }
-                    dr.Close();
-                    con.CloseConnection();
                 }
-                return prescriptions;
+                dr.Close();
+                con.CloseConnection();
             }
-            /// <summary>
-            /// retrieves the medical history of the patient for the id given.
-            /// Last Updated : 16/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="p_patientID">the id of the patient that you want to check</param>
-            /// <returns></returns>
-            public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
+            return prescriptions;
+        }
+        /// <summary>
+        /// retrieves the medical history of the patient for the id given.
+        /// Last Updated : 16/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_patientID">the id of the patient that you want to check</param>
+        /// <returns></returns>
+        public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
+        {
+            List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
+            if (con.OpenConnection())
             {
-                List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
-                if (con.OpenConnection())
+                DbDataReader dr = con.Select("SELECT * FROM MedicalHistory WHERE PatientID = " + p_patientID + " ORDER BY DateOf;");
+                Dictionary<string, object> values = null;
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT * FROM MedicalHistory WHERE PatientID = " + p_patientID + " ORDER BY DateOf;");
-                    Dictionary<string, object> values = null;
-                    while (dr.Read())
-                    {
-                        values = new Dictionary<string, object>
+                    values = new Dictionary<string, object>
                     {
                         {"MedicalHistoryID",dr.GetInt16(0) },
                         {"MedicalHistory", dr.GetString(1)},
                         {"DateOf", dr.GetDateTime(2)},
                         {"PatientID", dr.GetInt16(3)}
                     };
-                        medicalHistoy.Add(new MedicalHistory(values));
-                    }
-                    dr.Close();
-                    con.CloseConnection();
+                    medicalHistoy.Add(new MedicalHistory(values));
                 }
-                return medicalHistoy;
+                dr.Close();
+                con.CloseConnection();
             }
-            /// <summary>
-            /// finsds the name of the medication based off the id
-            /// Last Updated : 17/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="p_medicationID">the id of the medication</param>
-            /// <returns></returns>
-            public string GetMedicationName(int p_medicationID)
+            return medicalHistoy;
+        }
+        /// <summary>
+        /// finsds the name of the medication based off the id
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_medicationID">the id of the medication</param>
+        /// <returns></returns>
+        public string GetMedicationName(int p_medicationID)
+        {
+            string med = "";
+            if (con.OpenConnection())
             {
-                string med = "";
-                if (con.OpenConnection())
+                DbDataReader dr = con.Select("SELECT DISTINCT MedicationName FROM Medication  WHERE MedicationID =" + p_medicationID + ";");
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT DISTINCT MedicationName FROM Medication  WHERE MedicationID =" + p_medicationID + ";");
-                    while (dr.Read())
-                    {
-                        med = dr.GetString(0);
-                    }
-                    dr.Close();
-                    con.CloseConnection();
+                    med = dr.GetString(0);
                 }
-                return med;
+                dr.Close();
+                con.CloseConnection();
             }
-            /// <summary>
-            /// Finds The medical Staffs staffid form its medStaff id
-            /// Last Updated : 17/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="p_staffID">the staff id</param>
-            /// <returns></returns>
-            public int GetStafIDFromMedStaffID(int p_staffID)
+            return med;
+        }
+        /// <summary>
+        /// Finds The medical Staffs staffid form its medStaff id
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_staffID">the staff id</param>
+        /// <returns></returns>
+        public int GetStafIDFromMedStaffID(int p_staffID)
+        {
+            int staffid = 0;
+            if (con.OpenConnection())
             {
-                int staffid = 0;
-                if (con.OpenConnection())
+                //gets the staff id
+
+                DbDataReader dr = con.Select("SELECT DISTINCT StaffID FROM MedicalStaff  WHERE MedicalStaffID =" + p_staffID + ";");
+                while (dr.Read())
                 {
-                    //gets the staff id
-
-                    DbDataReader dr = con.Select("SELECT DISTINCT StaffID FROM MedicalStaff  WHERE MedicalStaffID =" + p_staffID + ";");
-                    while (dr.Read())
-                    {
-                        staffid = dr.GetInt16(0);
-                    }
-
-                    dr.Close();
-                    con.CloseConnection();
+                    staffid = dr.GetInt16(0);
                 }
-                //returns the title and surname
 
-                return staffid;
+                dr.Close();
+                con.CloseConnection();
             }
+            //returns the title and surname
 
-            /// <summary>
-            /// Get StaffName With Title from the staffid
-            /// Last Updated : 17/11/17,
-            /// By j
-            /// </summary>
-            /// <param name="staffid">the staffmembers id</param>
-            /// <returns></returns>
-            public string GetStaffNameAndTitle(int staffid)
+            return staffid;
+        }
+
+        /// <summary>
+        /// Get StaffName With Title from the staffid
+        /// Last Updated : 17/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="staffid">the staffmembers id</param>
+        /// <returns></returns>
+        public string GetStaffNameAndTitle(int staffid)
+        {
+            string medStaffName = "";
+            int medStaffType = 0;
+            string title = "";
+            if (con.OpenConnection())
             {
-                string medStaffName = "";
-                int medStaffType = 0;
-                string title = "";
-                if (con.OpenConnection())
+                DbDataReader dr = con.Select("SELECT DISTINCT Forename,Surname, Type FROM Staff  WHERE StaffID =" + staffid + ";");
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT DISTINCT Forename,Surname, Type FROM Staff  WHERE StaffID =" + staffid + ";");
-                    while (dr.Read())
-                    {
-                        medStaffName = dr.GetString(0) + " " + dr.GetString(1);
-                        medStaffType = dr.GetInt16(2);
-                    }
-                    //sets the title of the Staffmember
-                    switch (medStaffType)
-                    {
-                        case 1:
-                            title = "Nurse";
-                            break;
-                        case 2:
-                        case 3:
-                            title = "Dr";
-                            break;
-                        case 4:
-                            title = "Receptionist";
-                            break;
-                        case 5:
-                            title = "Manager";
-                            break;
-
-                    }
-                    dr.Close();
-                    con.CloseConnection();
+                    medStaffName = dr.GetString(0) + " " + dr.GetString(1);
+                    medStaffType = dr.GetInt16(2);
                 }
-                return title + " " + medStaffName;
-            }
+                //sets the title of the Staffmember
+                switch (medStaffType)
+                {
+                    case 1:
+                        title = "Nurse";
+                        break;
+                    case 2:
+                    case 3:
+                        title = "Dr";
+                        break;
+                    case 4:
+                        title = "Receptionist";
+                        break;
+                    case 5:
+                        title = "Manager";
+                        break;
 
-            public List<Appointment> GetAppointments()
-            {
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return title + " " + medStaffName;
+        }
+
+        public List<Appointment> GetAppointments()
+        {
             Appointment a;
-                List<Appointment> appointments = new List<Appointment>();
-                if (con.OpenConnection())
+            List<Appointment> appointments = new List<Appointment>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Appointment ORDER BY AppointmentTime, AppointmentDate;");
+                //Read the data and store them in the list
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT * FROM Appointment ORDER BY AppointmentTime, AppointmentDate;");
-                    //Read the data and store them in the list
-                    while (dr.Read())
-                    {
                     a = new Appointment
                     {
                         AppointmentID = dr.GetInt16(0),
@@ -736,33 +736,33 @@ namespace OverSurgery2
                         PatientID = dr.GetInt16(6)
                     };
                     appointments.Add(a);
-                    };
-                    // Close Data Reader
-                    dr.Close();
-                    con.CloseConnection();
-                    return appointments;
-                }
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
                 return appointments;
             }
+            return appointments;
+        }
 
-            /// <summary>
-            /// Get all rota information from the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            public Rota GetStaffRota()
+        /// <summary>
+        /// Get all rota information from the database
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        public Rota GetStaffRota()
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            if (con.OpenConnection())
             {
-                // Read appointment values into dictionary
-                Dictionary<string, object> rotaValues;
-                rotaValues = null;
-                if (con.OpenConnection())
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota;");
+                while (dr1.Read())
                 {
-                    // Find all rota data
-                    DbDataReader dr1 = con.Select("SELECT * FROM Rota;");
-                    while (dr1.Read())
-                    {
 
-                        rotaValues = new Dictionary<string, object>
+                    rotaValues = new Dictionary<string, object>
                     {
                         { "RotaID", dr1.GetInt16(0) },
                         { "MedicalStaffID", dr1.GetString(1) },
@@ -770,33 +770,33 @@ namespace OverSurgery2
                         { "EndDateTime", dr1.GetString(3) },
                     };
 
-                    }
-                    dr1.Close();
-                    con.CloseConnection();
                 }
-                return new Rota(rotaValues);
+                dr1.Close();
+                con.CloseConnection();
             }
+            return new Rota(rotaValues);
+        }
 
-            /// <summary>
-            /// Get all rota information for a specific staff member from the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="p_rotaEntryID"></param>
-            /// <returns></returns>
-            public Rota GetStaffRotaByID(Rota p_rota)
+        /// <summary>
+        /// Get all rota information for a specific staff member from the database
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_rotaEntryID"></param>
+        /// <returns></returns>
+        public Rota GetStaffRotaByID(Rota p_rota)
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            if (con.OpenConnection())
             {
-                // Read appointment values into dictionary
-                Dictionary<string, object> rotaValues;
-                rotaValues = null;
-                if (con.OpenConnection())
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
+                while (dr1.Read())
                 {
-                    // Find all rota data
-                    DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
-                    while (dr1.Read())
-                    {
 
-                        rotaValues = new Dictionary<string, object>
+                    rotaValues = new Dictionary<string, object>
                     {
                         { "RotaID", dr1.GetInt16(0) },
                         { "MedicalStaffID", dr1.GetString(1) },
@@ -805,62 +805,62 @@ namespace OverSurgery2
 
                     };
 
-                    }
-                    dr1.Close();
-                    con.CloseConnection();
                 }
-                return new Rota(rotaValues);
+                dr1.Close();
+                con.CloseConnection();
             }
+            return new Rota(rotaValues);
+        }
 
-            /// <summary>
-            /// Add new rota entry to the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="rota"></param>
-            public void AddRota(Rota rota)
+        /// <summary>
+        /// Add new rota entry to the database
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="rota"></param>
+        public void AddRota(Rota rota)
+        {
+            if (con.OpenConnection())
             {
-                if (con.OpenConnection())
-                {
-                    Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + rota.MedicalStaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
-                        Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
-                    con.CloseConnection();
-                }
+                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("INSERT INTO Rota VALUES (null, " + rota.MedicalStaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
+                    Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
+                con.CloseConnection();
             }
+        }
 
-            /// <summary>
-            /// Update an existing rota
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="rota"></param>
-            public void UpdateRota(Rota rota)
+        /// <summary>
+        /// Update an existing rota
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="rota"></param>
+        public void UpdateRota(Rota rota)
+        {
+            if (con.OpenConnection())
             {
-                if (con.OpenConnection())
-                {
-                    Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
-                        + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
-                    con.CloseConnection();
-                }
+                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
+                    + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
+                con.CloseConnection();
             }
+        }
 
-            /// <summary>
-            /// Get appointments that have been missed from the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            public List<Appointment> GetMissedAppointments()
-            {
+        /// <summary>
+        /// Get appointments that have been missed from the database
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        public List<Appointment> GetMissedAppointments()
+        {
             Appointment a;
-                List<Appointment> missedApp = new List<Appointment>();
-                if (con.OpenConnection())
+            List<Appointment> missedApp = new List<Appointment>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend = 0;");
+                //Read the data and store them in the list
+                while (dr.Read())
                 {
-                    DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend = 0;");
-                    //Read the data and store them in the list
-                    while (dr.Read())
-                    {
                     a = new Appointment
                     {
                         AppointmentID = dr.GetInt16(0),
@@ -872,103 +872,137 @@ namespace OverSurgery2
                         PatientID = dr.GetInt16(6)
                     };
                     missedApp.Add(a);
-                    };
-                    // Close Data Reader
-                    dr.Close();
-                    con.CloseConnection();
-                }
-                return missedApp;
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
             }
+            return missedApp;
+        }
 
-            /// <summary>
-            /// Add a new staff member to the database
-            /// </summary>
-            public void AddStaff(Staff staff)
+        /// <summary>
+        /// Add a new staff member to the database
+        /// </summary>
+        public void AddStaff(Staff staff)
+        {
+            /* `StaffID` 
+             * `Forename`
+             * `Surname`
+             * `Email` 
+             * `AddressID` 
+             * `Username` 
+             * `Password`
+             */
+            if (con.OpenConnection())
             {
-                /* `StaffID` 
-                 * `Forename`
-                 * `Surname`
-                 * `Email` 
-                 * `AddressID` 
-                 * `Username` 
-                 * `Password`
-                 */
-                if (con.OpenConnection())
-                {
 
-                    con.Update("INSERT INTO Staff VALUES (null, " + staff.Forename + ", " + staff.Surname + ", " + staff.EmailAddress + ", " +
-                        Convert.ToInt32(staff.AddressID) + ", " + staff.Username + ", " + staff.Password + ");");
-                    con.CloseConnection();
-                }
-            }
-
-            /// <summary>
-            /// Delete a staff member from the database
-            /// Last Updated : 17/11/17,
-            /// By R
-            /// </summary>
-            public bool DeleteStaff(string p_username)
-            {
-                if (con.OpenConnection())
-                {
-                    con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
-                    con.CloseConnection();
-                    return true;
-                }
-                return false;
-            }
-
-            /// <summary>
-            /// Update a staff members details
-            /// Last Updated : 17/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="staff"></param>
-            public void UpdateStaffMember(Staff staff)
-            {
-                if (con.OpenConnection())
-                {
-                    con.Update("UPDATE Staff Set Forename = " + staff.Forename + ", Surname = "
-                        + staff.Surname + ", Email = '" + staff.EmailAddress + ", Username = "
-                        + staff.Username + ", Password = " + staff.Password + /*", Type = " 
-                    + staff.Type + */" WHERE StaffID = " + staff.StaffID + " LIMIT 1;");
-                    con.CloseConnection();
-                }
-            }
-
-            /// <summary>
-            /// Delete an address from the database using the addressID
-            /// Last Updated : 20/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="p_addressID"></param>
-            /// <returns></returns>
-            public bool DeleteAddress(int p_addressID)
-            {
-                if (con.OpenConnection())
-                {
-                    con.Update("DELETE FROM Address WHERE AddressID ='" + p_addressID + "';");
-                    con.CloseConnection();
-                    return true;
-                }
-                return false;
-            }
-
-            /// <summary>
-            /// Update an address using the addressID
-            /// Last Updated : 20/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="add"></param>
-            public void UpdateAddress(Address add)
-            {
-                if (con.OpenConnection())
-                {
-                    con.Update("UPDATE Address Set HouseName = " + add.HouseName + ", HouseNumber = "
-                        + add.HouseNumber + ", AddressLine1 = '" + add.StreetName + ", PostCode = "
-                        + add.PostCode + " WHERE AddressID = " + /*add.AddressID +*/ " LIMIT 1;");
-                    con.CloseConnection();
-                }
+                con.Update("INSERT INTO Staff VALUES (null, " + staff.Forename + ", " + staff.Surname + ", " + staff.EmailAddress + ", " +
+                    Convert.ToInt32(staff.AddressID) + ", " + staff.Username + ", " + staff.Password + ");");
+                con.CloseConnection();
             }
         }
+
+        /// <summary>
+        /// Delete a staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        public bool DeleteStaff(string p_username)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
+                con.CloseConnection();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Update a staff members details
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="staff"></param>
+        public void UpdateStaffMember(Staff staff)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Staff Set Forename = " + staff.Forename + ", Surname = "
+                    + staff.Surname + ", Email = '" + staff.EmailAddress + ", Username = "
+                    + staff.Username + ", Password = " + staff.Password + /*", Type = " 
+                    + staff.Type + */" WHERE StaffID = " + staff.StaffID + " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Delete an address from the database using the addressID
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_addressID"></param>
+        /// <returns></returns>
+        public bool DeleteAddress(int p_addressID)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("DELETE FROM Address WHERE AddressID ='" + p_addressID + "';");
+                con.CloseConnection();
+                return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Update an address using the addressID
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="add"></param>
+        public void UpdateAddress(Address add)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Address Set HouseName = " + add.HouseName + ", HouseNumber = "
+                    + add.HouseNumber + ", AddressLine1 = '" + add.StreetName + ", PostCode = "
+                    + add.PostCode + " WHERE AddressID = " + /*add.AddressID +*/ " LIMIT 1;");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Get a staff members details and address from the database
+        /// </summary>
+        /// <param name="p_userName"></param>
+        public List<object> GetFullStaffMember(int p_userName)
+        {
+            List<object> staffMemberDetails = new List<object>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT * FROM Staff s, Address a WHERE Username = " + p_userName + " AND s.addressID = a.addressID LIMIT 1;");
+                //Read the data and store them in the list
+                while (dr.Read())
+                {
+                    //staff = new Staff
+                    //{
+                    //    StaffID = dr.GetInt16(0),
+                    //    AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
+                    //    AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
+                    //    Notes = dr.GetString(3),
+                    //    AppAttend = dr.GetBoolean(4),
+                    //    MedicalStaffID = dr.GetInt16(5),
+                    //    PatientID = dr.GetInt16(6)
+                    //};
+
+                    staffMemberDetails.Add(dr.GetString(0));
+                };
+                // Close Data Reader
+                dr.Close();
+                con.CloseConnection();
+            }
+            return staffMemberDetails;
+        }
+
     }
+}
