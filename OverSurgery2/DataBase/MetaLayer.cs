@@ -229,7 +229,6 @@ namespace OverSurgery2
         public Staff GetStaffByUserName(string p_username)
         {
             Staff s = null;
-            int type = 0;
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Staff WHERE username = '" + p_username + "';");
@@ -244,23 +243,20 @@ namespace OverSurgery2
                         AddressID = Convert.ToUInt16(dr.GetInt16(4)),
                         Username = dr.GetString(5),
                         Password = dr.GetString(6),
+                        Type = dr.GetInt16(7)
 
                     };
-                    type = dr.GetInt16(7);
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            switch (type)
+            switch (s.Type)
             {
                 case 1:
                 case 2:
                 case 3:
-                    return GetMedicalStaffByStaffID(s.StaffID, type);
-                case 4:
-                    return s as Receptionist;
-                case 5:
-                    return s as Manager;
+                    s = GetMedicalStaffByStaffID(s.StaffID, s.Type);
+                    break;
             }
             return s;
         }
@@ -275,26 +271,26 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
-                        m = new MedicalStaff
-                        {
-                            MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
-                            PracticeNumber = dr.GetString(1),
-                            StaffID = dr.GetInt16(2),
-                            Gender = Convert.ToUInt16(dr.GetInt16(4)),
-                            Forename = dr.GetString(6),
-                            Surname = dr.GetString(7),
-                            AddressID = Convert.ToUInt16(dr.GetInt16(9)),
-                            EmailAddress = dr.GetString(8),
-                            Username = dr.GetString(10),
-                            Password = dr.GetString(11),
-                            PhoneNumber = dr.GetString(12)
+                    m = new MedicalStaff
+                    {
+                        MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
+                        PracticeNumber = dr.GetString(1),
+                        PhoneNumber = dr.GetString(3),
+                        StaffID = dr.GetInt16(4),
+                        Gender = Convert.ToUInt16(dr.GetInt16(5)),
+                        Forename = dr.GetString(7),
+                        Surname = dr.GetString(8),
+                        AddressID = Convert.ToUInt16(dr.GetInt16(10)),
+                        EmailAddress = dr.GetString(9),
+                        Username = dr.GetString(11),
+                        Password = dr.GetString(12),
+                        Type = type
 
                         };
 
                 }
                 dr.Close();
                 con.CloseConnection();
-                return m;
             }
             return m;
             
