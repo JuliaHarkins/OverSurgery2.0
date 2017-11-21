@@ -33,13 +33,9 @@ namespace OverSurgery2
         public string Surname { get { return m_surname; } set { m_surname = value; } }
         public uint? AddressID { get { return m_addressID; } set { m_addressID = value; } }
         public string GenderDisplay { get { return m_genderDisplay; }}
-        public Person(Dictionary<string, object> p_PersonValues)
+
+        public Person()
         {
-            m_forename = Convert.ToString(p_PersonValues["Forename"]);
-            m_surname = Convert.ToString(p_PersonValues["Surname"]);
-            m_phoneNumber = Convert.ToString(p_PersonValues["PhoneNumber"]);
-            m_gender = Convert.ToUInt16(p_PersonValues["Gender"]);
-            m_addressID = Convert.ToUInt16(p_PersonValues["AddressID"]);
             if(m_gender == 1)
             {
                 m_genderDisplay = "Male";
