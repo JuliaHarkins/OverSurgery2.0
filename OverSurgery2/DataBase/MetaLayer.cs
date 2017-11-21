@@ -999,6 +999,25 @@ namespace OverSurgery2
             }
             return false;
         }
+        public List<Rota> GetStaffRota(string lel)
+        {
+            Rota r;
+            List<Rota> rota = new List<Rota>();
+            StringBuilder dat = new StringBuilder();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT Forename, Surname, GROUP_CONCAT(DayName) FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID, r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID");
+                while (dr.Read())
+                {
+                    //r = new Rota
+                    //{
+                    //    //SomeCode
+                    //};
+                    //rota.Add(r);
+                }
+            }
+            return rota;
+        }
 
         /// <summary>
         /// Update a staff members details

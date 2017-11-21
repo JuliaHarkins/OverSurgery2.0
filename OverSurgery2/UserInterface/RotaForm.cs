@@ -12,6 +12,7 @@ namespace OverSurgery2
 {
     public partial class RotaForm : Form
     {
+        MetaLayer ml;
         public RotaForm()
         {
             InitializeComponent();

@@ -79,5 +79,9 @@ namespace OverSurgery2
         {
             new NewPatientForm().ShowDialog();
         }
+        public void UpdateData()
+        {
+            //
+        }
     }
 }
