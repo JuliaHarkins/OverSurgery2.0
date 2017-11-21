@@ -8,7 +8,7 @@ namespace OverSurgery2
 {
     public class Locum : MedicalStaff
     {
-        public Locum(Dictionary<string,object> p_medicalStaffValues) :base(p_medicalStaffValues)
+        public Locum()
         {
             PrescriptionLevel = 2;
         }
