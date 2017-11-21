@@ -36,25 +36,25 @@ namespace OverSurgery2
         {
             pf = PersonFactory.Instance();
             List<Patient> patients = new List<Patient>();
+            Patient p = null;
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM patient ORDER BY Surname;");
-                Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
-                    values = new Dictionary<string, object>
+                    p = new Patient
                     {
-                        { "ID", dr.GetInt16(0) },
-                        { "Forename", dr.GetString(1) },
-                        { "Surname", dr.GetString(2) },
-                        { "Gender", dr.GetInt16(3) },
-                        { "DateOfBirth", dr.GetDateTime(4) },
-                        { "PhoneNumber", dr.GetString(5) },
-                        { "RegisteredDoctorID", dr.GetInt16(6) },
-                        { "AddressID", dr.GetInt16(7) },
+                        ID = dr.GetInt16(0),
+                        Forename = dr.GetString(1),
+                        Surname = dr.GetString(2),
+                        Gender = Convert.ToUInt16(dr.GetInt16(3)),
+                        DateOfBirth = dr.GetDateTime(4),
+                        PhoneNumber = dr.GetString(5),
+                        RegisteredDoctorID = dr.GetInt16(6),
+                        AddressID = Convert.ToUInt16(dr.GetInt16(7))
                     };
-                    patients.Add(pf.CreatePatient(values));
+                    patients.Add(p);
                 }
                 // Close Data Reader
                 dr.Close();
