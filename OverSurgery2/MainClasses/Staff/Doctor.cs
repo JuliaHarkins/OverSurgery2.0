@@ -18,6 +18,7 @@ namespace OverSurgery2
     {
         #region Member Variables 
         bool m_onCall;
+        private string m_phoneNumber;
         List<Prescription> m_extension;
         MetaLayer ml;
 
@@ -46,6 +47,7 @@ namespace OverSurgery2
             }
 
         }
+        public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
         #endregion
         /// <summary>
         /// used to create a doctor

@@ -18,11 +18,21 @@ namespace OverSurgery2
         private uint? m_medicalStaffID;
         private uint? m_prescriptionLevel;
         private string m_practiceNumber;
+        private uint? m_gender;
+        private string m_genderDisplay;
+        
         #endregion
         #region Constructors
         public MedicalStaff()
         {
-            
+            if (m_gender == 1)
+            {
+                m_genderDisplay = "Male";
+            }
+            else
+            {
+                m_genderDisplay = "Female";
+            }
         }
         #endregion
         #region Properties
@@ -48,8 +58,9 @@ namespace OverSurgery2
                 m_medicalStaffID = value;
             }
         }
-
+        public string GenderDisplay { get { return m_genderDisplay; } }
         public string PracticeNumber { get { return m_practiceNumber; } set { m_practiceNumber = value; } }
+        public uint? Gender { get { return m_gender; } set { m_gender = value; } }
         #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {
