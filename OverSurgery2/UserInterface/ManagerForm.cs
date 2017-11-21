@@ -74,6 +74,20 @@ namespace OverSurgery2
         private void btnAddStaff_Click(object sender, EventArgs e)
         {
             ReadBoxes();
+
+            // Add new data to staff
+            Staff staff = new Staff();
+            staff.AddressID = null;
+            staff.Forename = m_forename;
+            staff.Surname = m_surname;
+            staff.Username = m_userName;
+            staff.Password = m_password;
+            ml.AddStaff(staff);
+
+            // Add new data to address
+            Address address = new Address();
+
+            ml.addAddress(address);
         }
 
         /// <summary>
