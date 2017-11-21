@@ -978,5 +978,21 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+
+        /// <summary>
+        /// Add a new address to the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="add"></param>
+        public void AddAddress(Address add)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("INSERT INTO Address VALUES (null, " + add.HouseName + ", " + add.HouseNumber + 
+                    ", " + add.StreetName + ", " + add.PostCode + ");");
+                con.CloseConnection();
+            }
+        }
     }
 }

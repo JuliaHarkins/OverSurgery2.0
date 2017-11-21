@@ -86,8 +86,11 @@ namespace OverSurgery2
 
             // Add new data to address
             Address address = new Address();
-
-            ml.addAddress(address);
+            address.HouseName = m_houseName;
+            address.HouseNumber = m_houseNumber;
+            address.StreetName = m_addressLine;
+            address.PostCode = m_postCode;
+            ml.AddAddress(address);
         }
 
         /// <summary>
