@@ -551,10 +551,10 @@ namespace OverSurgery2
                     };
                 appointments.Add(a);
                 }
-            dr.Close();
-            con.CloseConnection();
+                dr.Close();
+                con.CloseConnection();
             }
-        return appointments;
+            return appointments;
         }
         /// <summary>
         /// finds all prescriptions based on the patient id.
@@ -988,6 +988,17 @@ namespace OverSurgery2
                     ", " + add.StreetName + ", " + add.PostCode + ");");
                 con.CloseConnection();
             }
+        }
+
+        public bool DeleteMedication(string p_medName)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("DELETE FROM Medication WHERE MedicationName ='" + p_medName + "';");
+                con.CloseConnection();
+                return true;
+            }
+            return false;
         }
     }
 }

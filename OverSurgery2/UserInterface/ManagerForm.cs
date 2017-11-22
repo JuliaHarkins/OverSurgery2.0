@@ -1,6 +1,6 @@
 ﻿/* Created by: J
  * First Created: 31/10/17
- * Last Edit: 14/11/17 16:22
+ * Last Edit: 22/11/17 16:22
  * Last Edit by: R
  */
 using System;
@@ -35,16 +35,10 @@ namespace OverSurgery2
             type.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
         }
 
-        private void btnRemoveStaff2_MouseHover(object sender, EventArgs e)
-        {
-            ToolTip deleteonadd = new ToolTip();
-            deleteonadd.SetToolTip(btnRemoveStaff2, "This will delete the staff member from the database");
-        }
-
         private void btnRemoveStaff_MouseHover(object sender, EventArgs e)
         {
             ToolTip deleteonupdate = new ToolTip();
-            deleteonupdate.SetToolTip(btnRemoveStaff, "This will delete the staff member from the database");
+            deleteonupdate.SetToolTip(btnRemoveStaff, "This will delete the staff member specified using the field to the left from the database");
         }     
 
         Staff currentUserLoggedIn = null;
@@ -127,44 +121,33 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Remove a staff member from Update form
+        /// Remove a staff member from the database
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnRemoveStaff_Click(object sender, EventArgs e)
         {
-            removeStaffMember();
-        }
-
-        /// <summary>
-        /// Remove a staff member from Add form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnRemoveStaff2_Click(object sender, EventArgs e)
-        {
-            removeStaffMember();
-        }
-
-        /// <summary>
-        /// Remove a staff member from the database
-        /// </summary>
-        public void removeStaffMember()
-        {
             ReadBoxes();
             m_userName = txtSearchUserName.Text;
-
-            // Verify the user wants to delete the staff member
-            DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
+            try
             {
-                ml.DeleteStaff(m_userName);
-                ml.DeleteAddress(m_addressID);
-            }
-            else
-            {
+                // Verify the user wants to delete the staff member
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    ml.DeleteStaff(m_userName);
+                    ml.DeleteAddress(m_addressID);
+                }
+                else
+                {
 
+                }
             }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
