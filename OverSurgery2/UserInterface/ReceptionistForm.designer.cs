@@ -55,6 +55,7 @@
             this.DataGridPatients = new System.Windows.Forms.DataGridView();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.btn_Reload = new System.Windows.Forms.Button();
+            this.lbl_PatientCount = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
@@ -213,6 +214,7 @@
             // 
             // PatientsTab
             // 
+            this.PatientsTab.Controls.Add(this.lbl_PatientCount);
             this.PatientsTab.Controls.Add(this.btn_ViewAllPatients);
             this.PatientsTab.Controls.Add(this.lbl_SearchForPatient);
             this.PatientsTab.Controls.Add(this.txt_SearchForename);
@@ -330,7 +332,7 @@
             this.DataGridPatients.ReadOnly = true;
             this.DataGridPatients.Size = new System.Drawing.Size(899, 398);
             this.DataGridPatients.TabIndex = 1;
-            this.DataGridPatients.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridPatients_CellMouseClick);
+            this.DataGridPatients.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPatients_CellContentClick);
             // 
             // btn_Reload
             // 
@@ -344,6 +346,18 @@
             this.btn_Reload.Text = "Reload";
             this.btn_Reload.UseVisualStyleBackColor = true;
             // 
+            // lbl_PatientCount
+            // 
+            this.lbl_PatientCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_PatientCount.Cursor = System.Windows.Forms.Cursors.SizeAll;
+            this.lbl_PatientCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_PatientCount.Location = new System.Drawing.Point(707, 444);
+            this.lbl_PatientCount.Name = "lbl_PatientCount";
+            this.lbl_PatientCount.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbl_PatientCount.Size = new System.Drawing.Size(198, 20);
+            this.lbl_PatientCount.TabIndex = 14;
+            this.lbl_PatientCount.Text = "Number of Patients:";
+            // 
             // ReceptionistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
@@ -352,6 +366,7 @@
             this.Controls.Add(this.btn_Reload);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_Logout);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ReceptionistForm";
             this.Text = "ReceptionistForm";
@@ -391,5 +406,6 @@
         private System.Windows.Forms.TextBox txt_SearchAppSurname;
         private System.Windows.Forms.Button btn_SearchApp;
         private System.Windows.Forms.Button btn_NewApp;
+        private System.Windows.Forms.Label lbl_PatientCount;
     }
 }
