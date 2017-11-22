@@ -988,5 +988,16 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+
+        public bool DeleteMedication(string p_medName)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("DELETE FROM Medication WHERE MedicationName ='" + p_medName + "';");
+                con.CloseConnection();
+                return true;
+            }
+            return false;
+        }
     }
 }
