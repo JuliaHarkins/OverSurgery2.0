@@ -38,41 +38,46 @@
             // 
             // txt_UserName
             // 
-            this.txt_UserName.Location = new System.Drawing.Point(105, 12);
+            this.txt_UserName.Location = new System.Drawing.Point(155, 3);
+            this.txt_UserName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_UserName.Name = "txt_UserName";
-            this.txt_UserName.Size = new System.Drawing.Size(100, 20);
+            this.txt_UserName.Size = new System.Drawing.Size(148, 26);
             this.txt_UserName.TabIndex = 0;
             // 
             // txt_VerificationCode
             // 
-            this.txt_VerificationCode.Location = new System.Drawing.Point(105, 64);
+            this.txt_VerificationCode.Location = new System.Drawing.Point(155, 80);
+            this.txt_VerificationCode.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.txt_VerificationCode.Name = "txt_VerificationCode";
-            this.txt_VerificationCode.Size = new System.Drawing.Size(100, 20);
+            this.txt_VerificationCode.Size = new System.Drawing.Size(148, 26);
             this.txt_VerificationCode.TabIndex = 1;
             // 
             // lbl_Username
             // 
             this.lbl_Username.AutoSize = true;
-            this.lbl_Username.Location = new System.Drawing.Point(12, 15);
+            this.lbl_Username.Location = new System.Drawing.Point(60, 9);
+            this.lbl_Username.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_Username.Name = "lbl_Username";
-            this.lbl_Username.Size = new System.Drawing.Size(55, 13);
+            this.lbl_Username.Size = new System.Drawing.Size(87, 20);
             this.lbl_Username.TabIndex = 2;
-            this.lbl_Username.Text = "Username";
+            this.lbl_Username.Text = "Username:";
             // 
             // lbl_VerificationCode
             // 
             this.lbl_VerificationCode.AutoSize = true;
-            this.lbl_VerificationCode.Location = new System.Drawing.Point(12, 64);
+            this.lbl_VerificationCode.Location = new System.Drawing.Point(13, 42);
+            this.lbl_VerificationCode.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_VerificationCode.Name = "lbl_VerificationCode";
-            this.lbl_VerificationCode.Size = new System.Drawing.Size(87, 13);
+            this.lbl_VerificationCode.Size = new System.Drawing.Size(134, 20);
             this.lbl_VerificationCode.TabIndex = 3;
-            this.lbl_VerificationCode.Text = "Verification Code";
+            this.lbl_VerificationCode.Text = "Verification Code:";
             // 
             // btn_SendEmail
             // 
-            this.btn_SendEmail.Location = new System.Drawing.Point(116, 38);
+            this.btn_SendEmail.Location = new System.Drawing.Point(155, 35);
+            this.btn_SendEmail.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_SendEmail.Name = "btn_SendEmail";
-            this.btn_SendEmail.Size = new System.Drawing.Size(75, 23);
+            this.btn_SendEmail.Size = new System.Drawing.Size(148, 35);
             this.btn_SendEmail.TabIndex = 4;
             this.btn_SendEmail.Text = "Send Email";
             this.btn_SendEmail.UseVisualStyleBackColor = true;
@@ -80,9 +85,10 @@
             // 
             // btn_Verify
             // 
-            this.btn_Verify.Location = new System.Drawing.Point(116, 90);
+            this.btn_Verify.Location = new System.Drawing.Point(155, 116);
+            this.btn_Verify.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_Verify.Name = "btn_Verify";
-            this.btn_Verify.Size = new System.Drawing.Size(75, 23);
+            this.btn_Verify.Size = new System.Drawing.Size(148, 35);
             this.btn_Verify.TabIndex = 5;
             this.btn_Verify.Text = "Verify";
             this.btn_Verify.UseVisualStyleBackColor = true;
@@ -90,16 +96,17 @@
             // 
             // ForgotPasswordForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(244, 123);
+            this.ClientSize = new System.Drawing.Size(310, 159);
             this.Controls.Add(this.btn_Verify);
             this.Controls.Add(this.btn_SendEmail);
             this.Controls.Add(this.lbl_VerificationCode);
             this.Controls.Add(this.lbl_Username);
             this.Controls.Add(this.txt_VerificationCode);
             this.Controls.Add(this.txt_UserName);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ForgotPasswordForm";

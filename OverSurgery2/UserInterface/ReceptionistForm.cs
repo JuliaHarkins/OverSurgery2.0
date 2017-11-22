@@ -36,9 +36,10 @@ namespace OverSurgery2
         private void ReceptionistForm_Load(object sender, EventArgs e)
         {
             pc.UpdatePatientDoctorDisplay();
+            this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
             LoadAllPatientInfo();
             LoadAllAppointments();
-            this.Text = "Logged in: " + currentUserLoggedIn.Forename + " " + currentUserLoggedIn.Surname + " as Receptionist";
+            
         }
         private void LoadAllPatientInfo()
         {
@@ -68,6 +69,7 @@ namespace OverSurgery2
                     LoadAllPatientInfo();
                 }
             }
+            lbl_PatientCount.Text = "Number of Patients: " + pc.patients.Count;
         }
 
         private void LoadAllAppointments()
@@ -138,18 +140,10 @@ namespace OverSurgery2
             }
             private void DataGridPatients_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
             {
-                try
-                {
-                    FormController.Instance().OpenPatientViewForm(GetPatientByID());
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    throw ex;
-                }
+
             }
 
-            private Patient GetPatientByID()
+        private Patient GetPatientByID()
             {
                 return pc.patients.FirstOrDefault(p => p.ID == Convert.ToInt16(DataGridPatients.CurrentRow.Cells[0].Value));
             }
@@ -246,5 +240,18 @@ namespace OverSurgery2
 
                }
             }
+
+        private void DataGridPatients_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                FormController.Instance().OpenPatientViewForm(GetPatientByID());
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
         }
+    }
     }
