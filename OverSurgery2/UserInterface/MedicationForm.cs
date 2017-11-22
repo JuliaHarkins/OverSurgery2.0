@@ -39,7 +39,10 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnSearchMed_Click(object sender, EventArgs e)
         {
+            m_medName = txtSearchMedName.Text;
+            ml.GetMedicationByName(m_medName);
 
+            WriteBoxes();
         }
 
         /// <summary>
@@ -77,7 +80,8 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnAddMed_Click(object sender, EventArgs e)
         {
-
+            ReadBoxes();
+            //ml.AddMedication();
         }
 
         /// <summary>
@@ -87,7 +91,8 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnUpdateMed_Click(object sender, EventArgs e)
         {
-
+            ReadBoxes();
+            //ml.UpdateMedication();
         }
 
         /// <summary>

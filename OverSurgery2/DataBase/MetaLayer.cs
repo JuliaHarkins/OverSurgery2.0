@@ -505,6 +505,30 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+        public List<Medication> getMedicationByLevel(uint? lvl)
+        {
+            List<Medication> medication = new List<Medication>();
+            Medication m;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT MedicationID, MedicationName, PermissionLevel, Dosage FROM Medication WHERE PermissionLevel <= " + lvl + ";");
+
+                while (dr.Read())
+                {
+                    m = new Medication
+                    {
+                    ID = Convert.ToUInt16(dr.GetInt16(0)),
+                    Name = dr.GetName(1),
+                    PermissionLevel = Convert.ToUInt16(dr.GetInt16(2)),
+                    Dosage = Convert.ToUInt16(dr.GetInt16(3))
+                    };
+                medication.Add(m);
+                }
+            dr.Close();
+            con.CloseConnection();
+            }
+        return medication;
+        }
         /// <summary>
         /// Uses the perscription object to add a new perscription to the databaes.
         /// Last Updated : 15/11/17,
@@ -901,10 +925,9 @@ namespace OverSurgery2
         {
             Rota r;
             List<Rota> rota = new List<Rota>();
-            StringBuilder dat = new StringBuilder();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
+                DbDataReader dr = con.Select("SELECT RotaID, Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
                 while (dr.Read())
                 {
                     r = new Rota
@@ -916,6 +939,8 @@ namespace OverSurgery2
                     };
                     rota.Add(r);
                 }
+                dr.Close();
+                con.CloseConnection();
             }
             return rota;
         }
@@ -989,6 +1014,11 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// Delete medication from the database
+        /// </summary>
+        /// <param name="p_medName"></param>
+        /// <returns></returns>
         public bool DeleteMedication(string p_medName)
         {
             if (con.OpenConnection())
@@ -998,6 +1028,35 @@ namespace OverSurgery2
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Get a medication from a name
+        /// </summary>
+        /// <param name="p_medName"></param>
+        /// <returns></returns>
+        public List<Medication> GetMedicationByName(string p_medName)
+        {
+            Medication m;
+            List<Medication> medList = new List<Medication>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = " + p_medName + " LIMIT 1;");
+                while (dr.Read())
+                {
+                    m = new Medication
+                    {
+                        ID = Convert.ToUInt32(dr.GetInt32(0)),
+                        PermissionLevel = Convert.ToUInt32(dr.GetString(1)),
+                        Name = dr.GetString(2),
+                        Dosage = Convert.ToUInt32(dr.GetString(3))
+                    };
+                    medList.Add(m);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return medList;
         }
     }
 }
