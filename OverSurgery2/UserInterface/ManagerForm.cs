@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OverSurgery2.UserInterface;
 
 namespace OverSurgery2
 {
@@ -44,7 +45,7 @@ namespace OverSurgery2
         {
             ToolTip deleteonupdate = new ToolTip();
             deleteonupdate.SetToolTip(btnRemoveStaff, "This will delete the staff member from the database");
-        }
+        }     
 
         Staff currentUserLoggedIn = null;
         MetaLayer ml;
@@ -167,6 +168,19 @@ namespace OverSurgery2
         }
 
         /// <summary>
+        /// Open the medication form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnAddMedication_Click(object sender, EventArgs e)
+        {
+            MedicationForm m = new MedicationForm();
+            this.Hide();
+            m.ShowDialog();
+            this.Show();
+        }
+
+        /// <summary>
         /// Open the update rota form
         /// </summary>
         /// <param name="sender"></param>
@@ -217,7 +231,7 @@ namespace OverSurgery2
                     m_addressLine = txtUpdateAddressLine.Text;
                     m_postCode = txtUpdatePostCode.Text;
                 }
-                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMedication"])
+                else
                 {
 
                 }
@@ -266,7 +280,7 @@ namespace OverSurgery2
                     txtUpdateAddressLine.Text = m_addressLine;
                     txtUpdatePostCode.Text = m_postCode;
                 }
-                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMedication"]) 
+                else
                 {
 
                 }

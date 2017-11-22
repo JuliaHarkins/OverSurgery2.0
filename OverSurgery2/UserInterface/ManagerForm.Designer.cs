@@ -88,12 +88,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUpdateForename = new System.Windows.Forms.TextBox();
-            this.tabAddMedication = new System.Windows.Forms.TabPage();
             this.btnAddMedication = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAddStaff.SuspendLayout();
             this.tabUpdateStaff.SuspendLayout();
-            this.tabAddMedication.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddStaff
@@ -313,7 +311,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabAddStaff);
             this.tabControl1.Controls.Add(this.tabUpdateStaff);
-            this.tabControl1.Controls.Add(this.tabAddMedication);
             this.tabControl1.Location = new System.Drawing.Point(15, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -659,31 +656,22 @@
             this.txtUpdateForename.Size = new System.Drawing.Size(100, 20);
             this.txtUpdateForename.TabIndex = 9;
             // 
-            // tabAddMedication
-            // 
-            this.tabAddMedication.Controls.Add(this.btnAddMedication);
-            this.tabAddMedication.Location = new System.Drawing.Point(4, 22);
-            this.tabAddMedication.Name = "tabAddMedication";
-            this.tabAddMedication.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAddMedication.Size = new System.Drawing.Size(687, 380);
-            this.tabAddMedication.TabIndex = 2;
-            this.tabAddMedication.Text = "Add Medication";
-            this.tabAddMedication.UseVisualStyleBackColor = true;
-            // 
             // btnAddMedication
             // 
-            this.btnAddMedication.Location = new System.Drawing.Point(590, 351);
+            this.btnAddMedication.Location = new System.Drawing.Point(425, 460);
             this.btnAddMedication.Name = "btnAddMedication";
             this.btnAddMedication.Size = new System.Drawing.Size(91, 23);
             this.btnAddMedication.TabIndex = 0;
-            this.btnAddMedication.Text = "Add Medication";
+            this.btnAddMedication.Text = "Medication";
             this.btnAddMedication.UseVisualStyleBackColor = true;
+            this.btnAddMedication.Click += new System.EventHandler(this.btnAddMedication_Click);
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 495);
+            this.Controls.Add(this.btnAddMedication);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnSearchUserName);
             this.Controls.Add(this.txtSearchUserName);
@@ -698,7 +686,6 @@
             this.tabAddStaff.PerformLayout();
             this.tabUpdateStaff.ResumeLayout(false);
             this.tabUpdateStaff.PerformLayout();
-            this.tabAddMedication.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -766,7 +753,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUpdateForename;
         private System.Windows.Forms.Button btnRemoveStaff2;
-        private System.Windows.Forms.TabPage tabAddMedication;
         private System.Windows.Forms.Button btnAddMedication;
     }
 }
