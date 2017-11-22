@@ -358,7 +358,7 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                con.Insert("INSERT INTO resetrequests VALUES ('" + username + "','" + verificationcode + "');");
+                con.Insert("INSERT INTO resetrequests VALUES (null,'" + username + "','" + verificationcode + "');");
                 con.CloseConnection();
                 return true;
             }

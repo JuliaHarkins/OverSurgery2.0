@@ -71,7 +71,7 @@ namespace OverSurgery2
             ml.GetStaffByUserName(m_userName);
 
             //update addressID variable before entering the method below
-            ml.NewGetAddressByID(m_addressID);
+            ml.GetAddressByID(m_addressID);
 
             WriteBoxes();
         }

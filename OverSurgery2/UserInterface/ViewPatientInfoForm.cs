@@ -36,7 +36,12 @@ namespace OverSurgery2
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;
-            lbl_DateOfBirthText.Text = currentPatient.DateOfBirth.ToShortDateString();
+            TimeSpan yearsOld = (DateTime.Now - currentPatient.DateOfBirth);
+            var yearsVal = yearsOld.Days / 365;
+            var monthsVal = (yearsOld.Days - yearsVal * 365) / 30;
+            lbl_DateOfBirthText.Text = currentPatient.DateOfBirth.ToShortDateString() + " (" + yearsVal + " Years, " + monthsVal + " Months)";
+            lbl_PhoneNumberText.Text = currentPatient.PhoneNumber;
+            lbl_DoctorNameText.Text = currentPatient.DoctorDisplay;
             if(ad.HouseName == "")
             {
                 lbl_HouseNameNumberText.Text = Convert.ToString(ad.HouseNumber);
