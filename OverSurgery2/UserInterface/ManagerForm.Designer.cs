@@ -54,6 +54,7 @@
             this.txtUpdatePostCode = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabAddStaff = new System.Windows.Forms.TabPage();
+            this.btnRemoveStaff2 = new System.Windows.Forms.Button();
             this.txtAddPhone = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtAddPassword = new System.Windows.Forms.TextBox();
@@ -87,13 +88,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.txtUpdateForename = new System.Windows.Forms.TextBox();
-            this.btnRemoveStaff2 = new System.Windows.Forms.Button();
-            this.tabAddMedication = new System.Windows.Forms.TabPage();
             this.btnAddMedication = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAddStaff.SuspendLayout();
             this.tabUpdateStaff.SuspendLayout();
-            this.tabAddMedication.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnAddStaff
@@ -115,6 +113,7 @@
             this.btnRemoveStaff.Text = "Remove Staff";
             this.btnRemoveStaff.UseVisualStyleBackColor = true;
             this.btnRemoveStaff.Click += new System.EventHandler(this.btnRemoveStaff_Click);
+            this.btnRemoveStaff.MouseHover += new System.EventHandler(this.btnRemoveStaff_MouseHover);
             // 
             // btnUpdateStaff
             // 
@@ -242,6 +241,7 @@
             this.cboType.Name = "cboType";
             this.cboType.Size = new System.Drawing.Size(121, 21);
             this.cboType.TabIndex = 25;
+            this.cboType.MouseHover += new System.EventHandler(this.cboType_MouseHover);
             // 
             // lblHouseName
             // 
@@ -311,7 +311,6 @@
             // 
             this.tabControl1.Controls.Add(this.tabAddStaff);
             this.tabControl1.Controls.Add(this.tabUpdateStaff);
-            this.tabControl1.Controls.Add(this.tabAddMedication);
             this.tabControl1.Location = new System.Drawing.Point(15, 41);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -355,6 +354,17 @@
             this.tabAddStaff.TabIndex = 1;
             this.tabAddStaff.Text = "Add Staff";
             this.tabAddStaff.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoveStaff2
+            // 
+            this.btnRemoveStaff2.Location = new System.Drawing.Point(493, 351);
+            this.btnRemoveStaff2.Name = "btnRemoveStaff2";
+            this.btnRemoveStaff2.Size = new System.Drawing.Size(91, 23);
+            this.btnRemoveStaff2.TabIndex = 64;
+            this.btnRemoveStaff2.Text = "Remove Staff";
+            this.btnRemoveStaff2.UseVisualStyleBackColor = true;
+            this.btnRemoveStaff2.Click += new System.EventHandler(this.btnRemoveStaff2_Click);
+            this.btnRemoveStaff2.MouseHover += new System.EventHandler(this.btnRemoveStaff2_MouseHover);
             // 
             // txtAddPhone
             // 
@@ -646,41 +656,22 @@
             this.txtUpdateForename.Size = new System.Drawing.Size(100, 20);
             this.txtUpdateForename.TabIndex = 9;
             // 
-            // btnRemoveStaff2
-            // 
-            this.btnRemoveStaff2.Location = new System.Drawing.Point(493, 351);
-            this.btnRemoveStaff2.Name = "btnRemoveStaff2";
-            this.btnRemoveStaff2.Size = new System.Drawing.Size(91, 23);
-            this.btnRemoveStaff2.TabIndex = 64;
-            this.btnRemoveStaff2.Text = "Remove Staff";
-            this.btnRemoveStaff2.UseVisualStyleBackColor = true;
-            this.btnRemoveStaff2.Click += new System.EventHandler(this.btnRemoveStaff2_Click);
-            // 
-            // tabAddMedication
-            // 
-            this.tabAddMedication.Controls.Add(this.btnAddMedication);
-            this.tabAddMedication.Location = new System.Drawing.Point(4, 22);
-            this.tabAddMedication.Name = "tabAddMedication";
-            this.tabAddMedication.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAddMedication.Size = new System.Drawing.Size(687, 380);
-            this.tabAddMedication.TabIndex = 2;
-            this.tabAddMedication.Text = "Add Medication";
-            this.tabAddMedication.UseVisualStyleBackColor = true;
-            // 
             // btnAddMedication
             // 
-            this.btnAddMedication.Location = new System.Drawing.Point(590, 351);
+            this.btnAddMedication.Location = new System.Drawing.Point(425, 460);
             this.btnAddMedication.Name = "btnAddMedication";
             this.btnAddMedication.Size = new System.Drawing.Size(91, 23);
             this.btnAddMedication.TabIndex = 0;
-            this.btnAddMedication.Text = "Add Medication";
+            this.btnAddMedication.Text = "Medication";
             this.btnAddMedication.UseVisualStyleBackColor = true;
+            this.btnAddMedication.Click += new System.EventHandler(this.btnAddMedication_Click);
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(722, 495);
+            this.Controls.Add(this.btnAddMedication);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnSearchUserName);
             this.Controls.Add(this.txtSearchUserName);
@@ -695,7 +686,6 @@
             this.tabAddStaff.PerformLayout();
             this.tabUpdateStaff.ResumeLayout(false);
             this.tabUpdateStaff.PerformLayout();
-            this.tabAddMedication.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -763,7 +753,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUpdateForename;
         private System.Windows.Forms.Button btnRemoveStaff2;
-        private System.Windows.Forms.TabPage tabAddMedication;
         private System.Windows.Forms.Button btnAddMedication;
     }
 }

@@ -904,8 +904,7 @@ namespace OverSurgery2
             StringBuilder dat = new StringBuilder();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT RotaID, Forename, Surname, GROUP_CONCAT(DayName) FROM Rota r, Staff s, DayOfWeek" +
-                    " d WHERE r.DayID = d.DayID, r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID");
+                DbDataReader dr = con.Select("SELECT Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
                 while (dr.Read())
                 {
                     r = new Rota
