@@ -551,10 +551,10 @@ namespace OverSurgery2
                     };
                 appointments.Add(a);
                 }
-            dr.Close();
-            con.CloseConnection();
+                dr.Close();
+                con.CloseConnection();
             }
-        return appointments;
+            return appointments;
         }
         /// <summary>
         /// finds all prescriptions based on the patient id.
