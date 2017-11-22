@@ -1,4 +1,4 @@
-﻿namespace OverSurgery
+﻿namespace OverSurgery2
 {
     partial class PasswordResetForm
     {
@@ -42,6 +42,7 @@
             this.txt_NewPassword.Name = "txt_NewPassword";
             this.txt_NewPassword.Size = new System.Drawing.Size(100, 20);
             this.txt_NewPassword.TabIndex = 0;
+            this.txt_NewPassword.UseSystemPasswordChar = true;
             // 
             // txt_VerifyPassword
             // 
@@ -49,6 +50,7 @@
             this.txt_VerifyPassword.Name = "txt_VerifyPassword";
             this.txt_VerifyPassword.Size = new System.Drawing.Size(100, 20);
             this.txt_VerifyPassword.TabIndex = 1;
+            this.txt_VerifyPassword.UseSystemPasswordChar = true;
             this.txt_VerifyPassword.TextChanged += new System.EventHandler(this.txt_VerifyPassword_TextChanged);
             // 
             // btn_ResetPassword

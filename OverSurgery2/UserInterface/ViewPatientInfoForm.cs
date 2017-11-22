@@ -8,34 +8,66 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     public partial class ViewPatientInfoForm : Form
     {
-        private int selectedPatient;
-        MetaLayer ml = MetaLayer.Instance();
-        FormController fc = FormController.Instance();
-        public ViewPatientInfoForm(int p_id)
+        Patient currentPatient;
+        MetaLayer ml;
+        FormController fc;
+        public ViewPatientInfoForm(Patient p_Patient)
         {
+            currentPatient = p_Patient;
             InitializeComponent();
-            selectedPatient = p_id;
-            LoadPatientInfo();
-            this.Show();
+            ml = MetaLayer.Instance();
+            fc = FormController.Instance();
+            
         }
 
-        public void LoadPatientInfo()
-        {
-            Patient currentPatient = ml.getPatientByID(selectedPatient);
-            this.Text = "Viewing Patient - " + currentPatient.FirstName + " " +currentPatient.LastName;
-            lbl_FirstName.Text = currentPatient.FirstName;
-            lbl_LastName.Text = currentPatient.LastName;
-            lbl_address.Text = ml.getAddressByID(currentPatient.Address);
-
-        }
 
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
-            fc.OpenEditPatientForm(selectedPatient);
+            fc.OpenEditPatientForm(currentPatient);
         }
+
+        private void ViewPatientInfoForm_Load(object sender, EventArgs e)
+        {
+            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
+            lbl_ForenameText.Text = currentPatient.Forename;
+            lbl_SurnameText.Text = currentPatient.Surname;
+            TimeSpan yearsOld = (DateTime.Now - currentPatient.DateOfBirth);
+            var yearsVal = yearsOld.Days / 365;
+            var monthsVal = (yearsOld.Days - yearsVal * 365) / 30;
+            lbl_DateOfBirthText.Text = currentPatient.DateOfBirth.ToShortDateString() + " (" + yearsVal + " Years, " + monthsVal + " Months)";
+            lbl_PhoneNumberText.Text = currentPatient.PhoneNumber;
+            lbl_DoctorNameText.Text = currentPatient.DoctorDisplay;
+            if(ad.HouseName == "")
+            {
+                lbl_HouseNameNumberText.Text = Convert.ToString(ad.HouseNumber);
+            }
+            else if(ad.HouseNumber == null)
+            {
+                lbl_HouseNameNumberText.Text = ad.HouseName;
+            }
+            lbl_StreetNameText.Text = ad.StreetName;
+            lbl_PostCodeText.Text = ad.PostCode;
+        }
+
+        private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+        }
+    }
+    public class Address
+    {
+        string m_houseName;
+        int? m_houseNumber;
+        string m_postCode;
+        string m_streetName;
+
+        public string HouseName { get { return m_houseName; } set { m_houseName = value; } }
+        public int? HouseNumber { get { return m_houseNumber; } set { m_houseNumber = value; } }
+        public string PostCode { get { return m_postCode; } set { m_postCode = value; } }
+        public string StreetName { get { return m_streetName; } set { m_streetName = value; } }
     }
 }

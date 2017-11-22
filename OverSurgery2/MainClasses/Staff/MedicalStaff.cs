@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
     /// Created By: J
@@ -13,26 +13,29 @@ namespace OverSurgery
     /// </summary>
     public class MedicalStaff : Staff
     {
-#region Member Variables
-        private string m_forename;
-        private string m_surname;
+        #region Member Variables
+
         private uint? m_medicalStaffID;
-        private uint? m_gender;
         private uint? m_prescriptionLevel;
+        private string m_practiceNumber;
+        private uint? m_gender;
+        private string m_genderDisplay;
         private string m_phoneNumber;
-#endregion
-#region Constructors
-        public MedicalStaff(Dictionary<string, object> p_medicalStaffValues)
+        #endregion
+        #region Constructors
+        public MedicalStaff()
         {
-            m_forename = Convert.ToString(p_medicalStaffValues["Forename"]);
-            m_surname = Convert.ToString(p_medicalStaffValues["Surname"]);
-            m_medicalStaffID = Convert.ToUInt32(p_medicalStaffValues["MediclaStaffID"]);
-            m_gender = Convert.ToUInt32(p_medicalStaffValues["Gender"]);
-            m_prescriptionLevel = Convert.ToUInt32(p_medicalStaffValues["PrescriptionLevel"]);
-            m_phoneNumber = Convert.ToString(p_medicalStaffValues["PhoneNumber"]);
+            if (m_gender == 1)
+            {
+                m_genderDisplay = "Male";
+            }
+            else
+            {
+                m_genderDisplay = "Female";
+            }
         }
-#endregion
-#region Properties
+        #endregion
+        #region Properties
         public uint? PrescriptionLevel
         {
             get
@@ -44,29 +47,22 @@ namespace OverSurgery
                 m_prescriptionLevel = value;
             }
         }
-        public uint? Gender
+        public uint? MedicalStaffID
         {
             get
             {
-                return m_gender;
+                return m_medicalStaffID;
             }
             set
             {
-                m_gender = value;
+                m_medicalStaffID = value;
             }
         }
-        public string PhoneNumber
-        {
-            get
-            {
-                return m_phoneNumber;
-            }
-            set
-            {
-                m_phoneNumber = value;
-            }
-        }
-#endregion
+        public string GenderDisplay { get { return m_genderDisplay; } }
+        public string PracticeNumber { get { return m_practiceNumber; } set { m_practiceNumber = value; } }
+        public uint? Gender { get { return m_gender; } set { m_gender = value; } }
+        public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
+        #endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {
 #region Declaration
@@ -75,7 +71,6 @@ namespace OverSurgery
             string dateFrom, dateUntil;
             bool repeat;
             string[] prescription;
-            StringBuilder bld;
             Random rand;
 #endregion
 #region Initialisation
@@ -84,20 +79,12 @@ namespace OverSurgery
             dateUntil = null;
             repeat = false;
             prescription = new string[10];
-            bld = new StringBuilder();
-            bld.Remove(0, bld.Length);
             rand = new Random();
 #endregion
 #region Execution
-            //prescriptionID = "SELECT PrescriptionID FROM Prescription".Count + 1;
-            bld.Append("INSERT INTO Prescription VALUES (");
-            bld.Append(prescriptionID);
-            bld.Append(", ");
-            bld.Append(prescription);
-            bld.Append(");");
 #endregion
 #region return
-            return bld.ToString();
+            return null;
 #endregion
         }
     }

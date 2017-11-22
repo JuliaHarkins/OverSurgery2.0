@@ -8,21 +8,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     public partial class EditPatientForm : Form
     {
         Patient m_currentPatient;
-        MetaLayer ml = MetaLayer.Instance();
-        public EditPatientForm(int p_patientID)
+        public EditPatientForm(Patient p_Patient)
         {
             InitializeComponent();
-            m_currentPatient = ml.getPatientByID(p_patientID);
-            this.ShowDialog();
+            m_currentPatient = p_Patient;
+            LoadCurrentPatientInfo();
         }
 
-        public void LoadCurrentPatientInfo()
-        { 
+        private void LoadCurrentPatientInfo()
+        {
+            txt_Forename.Text = m_currentPatient.Forename;
+            txt_Surname.Text = m_currentPatient.Surname;
         }
 
     }

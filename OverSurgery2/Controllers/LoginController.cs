@@ -6,31 +6,31 @@ using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
-    /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)
-    /// First Created: 20/10/17
-    /// Last Edit: 21/10/17 14:22
-    /// Last Edit by: Lewis Barnes (362490@edu.cwa.ac.uk)
+    /// Controls the login of users
     /// </summary>
     public class LoginController
     {
-        MetaLayer ml = MetaLayer.Instance();
+        MetaLayer ml;
+        PatientController pc;
+        FormController fc;
         private static Random random = new Random();
         private int? m_type;
         private static LoginController m_getInstance;
-        SmtpClient client;
+        SmtpClient Client;
         private LoginController()
         {
-            client = new SmtpClient();
-            client.Host = "smtp.googlemail.com";
-            client.Port = 587;
-            client.UseDefaultCredentials = false;
-            client.DeliveryMethod = SmtpDeliveryMethod.Network;
-            client.EnableSsl = true;
-            client.Credentials = new NetworkCredential("oversurgeryresetpass@gmail.com", "oversurgery1");
-
+            Client = new SmtpClient();
+            Client.Host = "smtp.googlemail.com";
+            Client.Port = 587;
+            Client.UseDefaultCredentials = false;
+            Client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            Client.EnableSsl = true;
+            Client.Credentials = new NetworkCredential("oversurgeryresetpass@gmail.com", "oversurgery1");
+            ml = MetaLayer.Instance();
+            fc = FormController.Instance();
         }
         public int? Type
         {
@@ -66,7 +66,7 @@ namespace OverSurgery
             m_login = new Tuple<string, string, int?>(null, null, null);
 #endregion
 #region Execution
-            m_login = MetaLayer.Instance().GetLogin(p_username);
+            m_login = ml.GetLogin(p_username);
 
             if (p_username == m_login.Item1)
             {
@@ -85,22 +85,31 @@ namespace OverSurgery
             return m_flg;
 #endregion
         }
-        public string GenerateVerification(int length)
+        public string GenerateVerification(int p_length)
         {
             const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-            return new string(Enumerable.Repeat(chars, length)
+            return new string(Enumerable.Repeat(chars, p_length)
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
-
-        public void SendPasswordResetEmail(string EmailAddress, string VerificationCode)
+        /// <summary>
+        /// Send a password reset email to a user
+        /// </summary>
+        /// <param name="p_EmailAddress">Email address of the user</param>
+        /// <param name="p_VerificationCode">Verification code used to identify user</param>
+        /// <example>
+        /// This example shows you how to use the <see cref=SendPasswordResetEmail/> method
+        ///<c>SendPasswordResetEmail(user@example.com, 8I7Y534E); </>
+        /// </example>
+        public void SendPasswordResetEmail(string p_EmailAddress, string p_VerificationCode)
         {
-            MailMessage mail = new MailMessage("oversurgeryresetpass@gmail.com", EmailAddress);
+            var mail = new MailMessage("oversurgeryresetpass@gmail.com", p_EmailAddress);
             mail.Subject = "Password Reset Request";
-            mail.Body = "Someone has requested to reset the password for this account\nVerification Code: " + VerificationCode + "\nDon't worry if you didn't make this request";
-            client.Send(mail);
+            mail.Body = "Someone has requested to reset the password for this account\nVerification Code: " 
+                + p_VerificationCode + "\nDon't worry if you didn't make this request";
+            Client.Send(mail);
         }
 
-        public bool VerifyPasswordReset(string p_user, string p_verificationCode)
+        public bool VerifyPasswordReset(Staff p_user, string p_verificationCode)
         {
             
             if(ml.GetResetRequestCode(p_user) != p_verificationCode)

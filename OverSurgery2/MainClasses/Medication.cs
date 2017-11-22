@@ -4,26 +4,79 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
-    /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)
     /// First Created: 20/10/17
     /// Last Edit: 21/10/17 14:22
-    /// Last Edit by: Lewis Barnes (362490@edu.cwa.ac.uk)
+    /// Last Edit by: E
     /// </summary>
-    class Medication
+    public class Medication
     {
 #region Member Variables
-        private int m_id;
-        private string m_name;
-        private int m_permissionLevel;
-
-        public string Name { get { return m_name; } set { m_name = value; } }
-        public int PermissionLevel { get { return m_permissionLevel; } set { m_permissionLevel = value; } }
-        public int ID { get { return m_id; } set { m_id = value; } }
+        private uint? m_id;
+        private string m_medicationName;
+        private uint? m_permissionLevel;
+        private uint? m_dosage;
 #endregion
 #region Constructors
+        public Medication()
+        {
+        }
 #endregion
+#region Properties
+        public string Name
+        {
+            get
+            {
+                return m_medicationName;
+            }
+            set
+            {
+                m_medicationName = value;
+            }
+        }
+        public uint? PermissionLevel
+        {
+            get
+            {
+                return m_permissionLevel;
+            }
+            set
+            {
+                m_permissionLevel = value;
+            }
+        }
+        public uint? ID
+        {
+            get
+            {
+                return m_id;
+            }
+            set
+            {
+                m_id = value;
+            }
+        }
+        public uint? Dosage
+        {
+            get
+            {
+                return m_dosage;
+            }
+            set
+            {
+                m_dosage = value;
+            }
+        }
+#endregion
+        public void CheckPermission()
+        {
+            // GetPermission_Staff
+
+            //GetPermission_Medication
+
+            //Compare on med.permission <= staff.permission
+        }
     }
 }

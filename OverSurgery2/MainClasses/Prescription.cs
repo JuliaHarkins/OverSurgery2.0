@@ -5,77 +5,176 @@ using System.Text;
 using System.Threading.Tasks;
 
 /*
- * Created By: J
- * Date Created : 1/11/17
- *  this object is used to hold all information needed for a perscription,
- *   and allow for their extention
+ * this object is used to hold all information needed for a Prescription,
+ * and allow for their extention
+ * 
+ * Last Updated : 15/11/17
+ * By: J
  */
 
-namespace OverSurgery.Main_Classes
+namespace OverSurgery2
 {
     /// <summary>
-    /// this object is used to hold all information needed for a perscription,
+    /// this object is used to hold all information needed for a Prescription,
     ///and allow for their extention.
     /// </summary>
     public class Prescription
     {
-#region member Varibles 
+#region Members 
+        MetaLayer ml;
+        int m_prescriptionID;
         int m_medicationID; 
         int m_patientID;
-        int m_extentionCouter;
-        int m_maxExtention;
-        DateTime m_dateMade;
-        DateTime m_enddate;
-        string m_dose;
-        int m_staffID;
-#endregion
+        DateTime m_dateOfNextIssue;
+        bool m_allowExtention;
+        DateTime m_DateIssued;
+        int m_amount;
+        int m_medicalStaffID;
+        #endregion
+        #region Properties
+        public int ID
+        {
+            get
+            {
+                return m_prescriptionID;
+            }
+            set
+            {
+                m_prescriptionID = value;
+            }
+        }
+        public int PatientID
+        {
+            get
+            {
+                return m_patientID;
+            }
+            set
+            {
+                m_patientID = value;
+            }
+        }
+        public DateTime Date
+        {
+            get
+            {
+                return m_DateIssued;
+            }
+            set
+            {
+                m_DateIssued = value;
+            }
+        }
+        public int MedicationID
+        {
+            get
+            {
+                return m_medicationID;
+            }
+            set
+            {
+                m_medicationID = value;
+            }
+        }
+        public int Amount
+        {
+            get
+            {
+                return m_amount;
+            }
+            set
+            {
+                m_amount = value;
+            }
+        }
+        public int MedicalStaffID
+        {
+            get
+            {
+                return m_medicalStaffID;
+            }
+            set
+            {
+                m_medicalStaffID = value;
+            }
+        }
+        public DateTime DateOfNextIssue
+        {
+            get
+            {
+                return m_dateOfNextIssue;
+            }
+            set
+            {
+                m_dateOfNextIssue = value;
+            }
+        }
+        public bool Extendable
+        {
+            get
+            {
+                return m_allowExtention;
+            }
+            set
+            {
+                m_allowExtention = value;
+            }
+        }
+
+        #endregion
 
         /// <summary>
-        /// creates the percription object.  
-        /// 01/11/2017 -J
+        /// Creates the prescriptions
         /// </summary>
-        /// <param name="p_medicationID">holds the id for the medication</param>
-        /// <param name="p_patientID">holds the patients id</param>
-        /// <param name="p_endDate">holds the date the perscription ends</param>
-        /// <param name="p_dose">when and how much medication to take</param>
-        /// <param name="p_staffID">the id of the person who perscribed it.</param>
-#region Constructor
-        public Prescription(int p_medicationID, int p_patientID,int p_maxExtention, DateTime p_endDate, string p_dose, int p_staffID)
+        /// <param name="p_PrescriptionValues">The MedicaltionID, PatientID, ExterationDate, 
+        /// Ammount, MedicalStaffID, DateIssued, and DateOfNextIssue are used to create the
+        /// Prescriptions </param>
+        #region Constructor
+        public Prescription()
         {
-            m_medicationID = p_medicationID;
-            m_patientID = p_patientID;
-            m_enddate = p_endDate;
-            m_dose = p_dose;
-            m_staffID = p_staffID;
-            m_dateMade = DateTime.Now;
-            m_maxExtention = p_maxExtention;
         }
-#endregion
-#region Methods
+        #endregion
+        #region Methods
         /// <summary>
-        /// extents the perscription by one month
+        /// extents the Prescription by one month
         /// </summary>
         public void Extend()
         {
-#region Execution
-            if (m_maxExtention > m_extentionCouter) {
-                m_enddate.AddMonths(1);
-                m_extentionCouter++;
+            #region Execution
+                if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
+                {
+                 m_dateOfNextIssue.AddMonths(1);
+                }
+            else {
+
             }
 #endregion
         }
         /// <summary>
         /// extends by a given amount of months.
         /// </summary>
-        /// <param name="p_months"></param>
+        /// <param name="p_months">the amout of months the Prescription is to be extended by.</param>
         public void Extend(int p_months)
         {
-            int addMonth = m_extentionCouter + p_months;
-            if ( addMonth<= m_maxExtention)
+#region Execution
+
+            if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
             {
-                m_enddate.AddMonths(addMonth);
-                m_extentionCouter += addMonth;
+                m_dateOfNextIssue.AddMonths(p_months);
             }
+#endregion
+        }
+        private bool CheckIfExtenable()
+        {
+#region Exicution
+            if (m_allowExtention == true)
+            {
+                return true;
+            }
+            else{
+                return false;
+            }
+#endregion
         }
 #endregion
 

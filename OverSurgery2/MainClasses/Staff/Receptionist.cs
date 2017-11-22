@@ -3,24 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OverSurgery.Main_Classes;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
-    /// <summary>
-    /// Created By: J
-    /// Date Created : 31/10/17
-    /// </summary>
-    public class Receptionist
+    /*
+    * The object used to update patient details and appointments,
+    * this also includes the creation of appointments, and sends 
+    * extention requests for the doctor to sign off on.
+    * 
+    * Created By: J
+    * Last Updated : 14/11/17
+    */
+    public class Receptionist : Staff
     {
 #region Member Variables
-        string m_firstName;
-        string m_lastName;
-        string m_email;
-        int m_staffID;
-        string m_username;
-        string m_password;
         List<Prescription> m_extension;
+        FormController fc = FormController.Instance();
 #endregion
 #region Properties
         List<Prescription> Extention
@@ -30,17 +28,11 @@ namespace OverSurgery
                 m_extension = value;
             }
         }
-#endregion 
-        public Receptionist(string p_firstName, string p_lastName, string p_email, int p_staffID, string p_username, string p_password)
+        #endregion
+
+        public Receptionist()
         {
-
-            m_firstName = p_firstName;
-            m_lastName = p_lastName;
-            m_email = p_email;
-            m_staffID = p_staffID;
-            m_username = p_username;
-            m_password = p_password;
-
+            
         }
 
         /// <summary>
@@ -48,28 +40,42 @@ namespace OverSurgery
         /// 01/11/2017 -j
         /// </summary>
         /// <param name="p_prescription"></param>
-        public void AddPerscription(Prescription p_prescription)
+        public void AddPrescription(Prescription p_prescription)
         {
             m_extension.Add(p_prescription);
-            //MetaLayer.Instance().AddPerscription(m_extension);
+            //MetaLayer.Instance().AddPrescription(m_extension);
 
         }
+        /// <summary>
+        /// The operation used to Create Appointments.
+        /// </summary>
         public void SetAppointment()
         {
 
         }
+        /// <summary>
+        /// Adds a new patient to the clinic
+        /// </summary>
         public void AddPatient()
         {
 
         }
+        /// <summary>
+        /// edits a patient
+        /// </summary>
         public void EditPatient()
         {
-
         }
+        /// <summary>
+        /// removes an appointment
+        /// </summary>
         public void CancelAppointment()
         {
 
         }
+        /// <summary>
+        /// sets patients ti 'inactive'
+        /// </summary>
         public void RemovePatient()
         {
 

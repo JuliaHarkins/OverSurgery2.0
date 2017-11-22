@@ -4,14 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     public class FormController
     {
+        Staff currentUser;
         private static FormController m_getInstance;
+        MetaLayer ml;
         private FormController()
         {
-
+            ml = MetaLayer.Instance();
         }
         public static FormController Instance()
         {
@@ -21,42 +23,57 @@ namespace OverSurgery
             }
             return m_getInstance;
         }
-
-        public void OpenMainForm(int? type, string currentUser)
+        public void OpenMainForm()
         {
-            switch (type)
+
+            switch(currentUser.Type)
             {
                 case 1:
-                    break;
                 case 2:
-                    break;
                 case 3:
+                    new MedicalStaffForm(currentUser).ShowDialog();
                     break;
                 case 4:
-                    new ReceptionistForm(currentUser);
+                    new ReceptionistForm(currentUser).ShowDialog();
+                    break;
+                case 5:
+                    new ManagerForm(currentUser).ShowDialog();
                     break;
             }
         }
 
-        public void OpenPatientViewForm(int id)
+        public void SetCurrentUser(string p_username)
         {
-            new ViewPatientInfoForm(id);
+            currentUser = ml.GetStaffByUserName(p_username);
+        }
+
+        public void OpenPatientViewForm(Patient p_Patient)
+        {
+            new ViewPatientInfoForm(p_Patient).ShowDialog();
         }
 
         public void OpenForgotPasswordForm()
         {
-            new ForgotPasswordForm();
+            new ForgotPasswordForm().ShowDialog();
         }
         
-        public void OpenPasswordResetForm(string p_user)
+        public void OpenPasswordResetForm(Staff p_user)
         {
-            Console.WriteLine(p_user);
-            new PasswordResetForm(p_user);
+            new PasswordResetForm(p_user).ShowDialog();
         }
 
-        public void OpenEditPatientForm(int p_PatientID)
+        public void OpenEditPatientForm(Patient p_Patient)
         {
-            new EditPatientForm(p_PatientID);
+            new EditPatientForm(p_Patient).ShowDialog();
+        }
+
+        public void OpenNewPatientForm()
+        {
+            new NewPatientForm().ShowDialog();
+        }
+        public void UpdateData()
+        {
+            //
         }
     }
 }

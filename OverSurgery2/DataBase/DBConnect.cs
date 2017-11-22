@@ -9,7 +9,7 @@ using System.Data;
 using System.Data.Common;
 using System.Windows.Forms;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
     /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)

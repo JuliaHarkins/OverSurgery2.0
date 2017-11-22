@@ -1,6 +1,6 @@
-﻿namespace OverSurgery
+﻿namespace OverSurgery2.DataBase
 {
-    partial class DoctorForm
+    partial class ManagerForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,9 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            this.SuspendLayout();
+            // 
+            // ManagerForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Text = "DoctorForm";
+            this.ClientSize = new System.Drawing.Size(1108, 525);
+            this.Name = "ManagerForm";
+            this.Text = "ManagerForm";
+            this.ResumeLayout(false);
+
         }
 
         #endregion

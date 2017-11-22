@@ -8,18 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     public partial class PasswordResetForm : Form
     {
-        MetaLayer ml = MetaLayer.Instance();
-        LoginController lc = LoginController.Instance();
-        string m_currentUser;
-        public PasswordResetForm(string user)
+        Staff m_currentUser;
+        MetaLayer ml;
+        LoginController lc;
+        public PasswordResetForm(Staff p_Staff)
         {
             InitializeComponent();
-            m_currentUser = user;
-            this.ShowDialog();
+            m_currentUser = p_Staff;
+            ml = MetaLayer.Instance();
+            lc = LoginController.Instance();
         }
 
         private void btn_ResetPassword_Click(object sender, EventArgs e)

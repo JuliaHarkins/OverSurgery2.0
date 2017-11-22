@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     /// <summary>
     /// Created by: L
@@ -15,31 +12,45 @@ namespace OverSurgery
     public class PersonFactory
     {
         private static PersonFactory m_instance;
-
+        MetaLayer ml;
+        public enum Gender { Male, Female };
+        private PersonFactory()
+        {
+            ml = MetaLayer.Instance();
+        }
         public static PersonFactory Instance()
         {
             if(null == m_instance)
             {
                 m_instance = new PersonFactory();
+
             }
             return m_instance;
         }
         // Let method decide which type of object to create
-        public Person CreatePerson(params object[] args) // Arg order: Type of person, other args
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <example>
+        /// This example shows you how to use the <see cref="CreateStaff(object[])"/> method.
+        /// <c>CreateStaff</c>
+        /// </example>
+        /// <param name="values">Type(1-5),Forename,Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <returns></returns>
+        public Staff CreateStaff(Dictionary<string, object> values) // Arg order: Type of person, other args
         {
-            switch(args[0].ToString())
+            switch(Convert.ToInt16(values["Type"]))
             {
-                case "Patient":
-                    CreatePatient(args);
-                    break;
-                case "MedicalStaff":
-                    break;
-                case "Doctor":
-                    CreateDoctor(); // Temporarily nulled as not fully implemented
-                    break;
-                case "Receptionist":
-                    CreateReceptionist();
-                    break;
+                case 1:
+                    return CreateMedicalStaff(values);
+                case 2:
+                    return CreateLocum(values);
+                case 3:
+                    return CreateDoctor(values);
+                case 4:
+                    return CreateReceptionist(values);
+                case 5:
+                    return CreateManager(values);
                 default:
                     break;
             }
@@ -47,21 +58,117 @@ namespace OverSurgery
         }
 
         // Return a new patient
-        public Patient CreatePatient(object[] args)
+        public Patient CreatePatient(Dictionary<string,object> p_values)
         {
-            return new Patient() { FirstName = Convert.ToString(args[1]), LastName = Convert.ToString(args[2]) };
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Patient();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
         }
 
+
+
         //Return a new doctor
-        public Doctor CreateDoctor(/*Args here eventually*/)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p_values">Forename, Surname,ID,Email,UserName,Password,PhoneNumber,Gender</param>
+        /// <returns></returns>
+        public Doctor CreateDoctor(Dictionary<string, object> p_values)
         {
-            return null;
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+
+            try
+            {
+                return new Doctor();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
         }
-        
+
         //// Return a new receptionist
-        public Receptionist CreateReceptionist()
+        public Receptionist CreateReceptionist(Dictionary<string,object> p_values)
         {
-            return null;
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+
+            try
+            {
+               return new Receptionist();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public Locum CreateLocum(Dictionary<string, object> p_values)
+        {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Locum();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public MedicalStaff CreateMedicalStaff(Dictionary<string, object> p_values)
+        {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new MedicalStaff();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
+        }
+
+        public Manager CreateManager(Dictionary<string,object> p_values)
+        {
+            if (p_values == null)
+            {
+                throw new ArgumentNullException(nameof(p_values));
+            }
+            try
+            {
+                return new Manager();
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                throw e;
+            }
         }
     }
 }

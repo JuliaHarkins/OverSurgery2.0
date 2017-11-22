@@ -8,16 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery
+namespace OverSurgery2
 {
     public partial class LoginForm : Form
     {
+        LoginController lc;
+        FormController fc;
         public LoginForm()
         {
             InitializeComponent();
+            fc = FormController.Instance();
+            lc = LoginController.Instance();
+
         }
-            LoginController lc = LoginController.Instance();
-            FormController fc = FormController.Instance();
         private void btn_Login_Click(object sender, EventArgs e)
         {
             LoginObserver lo = new LoginObserver();
@@ -29,7 +32,8 @@ namespace OverSurgery
             {
                 Console.WriteLine("\t\tLOGGED IN");
                 this.Hide();
-                fc.OpenMainForm(lc.Type, test["Username"]);
+                fc.SetCurrentUser(test["Username"]);
+                fc.OpenMainForm();
                 txt_Username.Clear();
                 txt_Password.Clear();
                 this.Show();
@@ -50,6 +54,32 @@ namespace OverSurgery
             this.Hide();
             fc.OpenForgotPasswordForm();
             this.Show();
+        }
+
+        private void txt_Password_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.Enter)
+            {
+                LoginObserver lo = new LoginObserver();
+
+
+                Dictionary<string, string> test = lo.LoginPassThrough(txt_Username.Text, txt_Password.Text);
+                bool flg = LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text));
+                if (LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text)))
+                {
+                    Console.WriteLine("\t\tLOGGED IN");
+                    this.Hide();
+                    fc.SetCurrentUser(test["Username"]);
+                    fc.OpenMainForm();
+                    txt_Username.Clear();
+                    txt_Password.Clear();
+                    this.Show();
+                }
+                else
+                {
+                    NonValidLogin();
+                }
+            }
         }
     }
 }

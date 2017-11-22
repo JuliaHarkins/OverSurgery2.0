@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery
+namespace OverSurgery2.DataBase
 {
-    public partial class DoctorForm : Form
+    public partial class ManagerForm : Form
     {
-        public DoctorForm()
+        public ManagerForm()
         {
             InitializeComponent();
         }
