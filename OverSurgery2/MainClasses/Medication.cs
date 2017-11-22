@@ -20,12 +20,8 @@ namespace OverSurgery2
         private uint? m_dosage;
 #endregion
 #region Constructors
-        public Medication(Dictionary<string, object> p_medicationData)
+        public Medication()
         {
-            m_id = Convert.ToUInt16(p_medicationData["MedicationID"]);
-            m_medicationName = Convert.ToString(p_medicationData["MedicationName"]);
-            m_permissionLevel = Convert.ToUInt16(p_medicationData["PermissionLevel"]);
-            m_dosage = Convert.ToUInt16(p_medicationData["Dosage"]);
         }
 #endregion
 #region Properties

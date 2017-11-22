@@ -551,10 +551,10 @@ namespace OverSurgery2
                     };
                 appointments.Add(a);
                 }
-            dr.Close();
-            con.CloseConnection();
+                dr.Close();
+                con.CloseConnection();
             }
-        return appointments;
+            return appointments;
         }
         /// <summary>
         /// finds all prescriptions based on the patient id.
@@ -901,10 +901,9 @@ namespace OverSurgery2
         {
             Rota r;
             List<Rota> rota = new List<Rota>();
-            StringBuilder dat = new StringBuilder();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
+                DbDataReader dr = con.Select("SELECT RotaID, Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
                 while (dr.Read())
                 {
                     r = new Rota
@@ -916,6 +915,8 @@ namespace OverSurgery2
                     };
                     rota.Add(r);
                 }
+                dr.Close();
+                con.CloseConnection();
             }
             return rota;
         }
