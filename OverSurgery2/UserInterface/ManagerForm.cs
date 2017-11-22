@@ -27,6 +27,25 @@ namespace OverSurgery2
 
         BindingSource StaffBinding;
         BindingSource RotaBinding;
+
+        private void cboType_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip type = new ToolTip();
+            type.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
+        }
+
+        private void btnRemoveStaff2_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip deleteonadd = new ToolTip();
+            deleteonadd.SetToolTip(btnRemoveStaff2, "This will delete the staff member from the database");
+        }
+
+        private void btnRemoveStaff_MouseHover(object sender, EventArgs e)
+        {
+            ToolTip deleteonupdate = new ToolTip();
+            deleteonupdate.SetToolTip(btnRemoveStaff, "This will delete the staff member from the database");
+        }
+
         Staff currentUserLoggedIn = null;
         MetaLayer ml;
 
@@ -36,15 +55,6 @@ namespace OverSurgery2
             
             InitializeComponent();
             this.ShowDialog();
-
-            ToolTip type = new ToolTip();
-            type.SetToolTip(this.cboType, "1=MedStaff 2=Locum 3=Doctor 4=Receptionist 5=Manager");
-
-            ToolTip deleteonadd = new ToolTip();
-            deleteonadd.SetToolTip(btnRemoveStaff2, "This will delete the staff member from the database");
-
-            ToolTip deleteonupdate = new ToolTip();
-            deleteonupdate.SetToolTip(btnRemoveStaff, "This will delete the staff member from the database");
 
             // Disable fields according to selected type
             if ((cboType.Text == "1") || (cboType.Text == "2") || (cboType.Text == "3"))
@@ -71,7 +81,7 @@ namespace OverSurgery2
             ml.GetStaffByUserName(m_userName);
 
             //update addressID variable before entering the method below
-            ml.NewGetAddressByID(m_addressID);
+            ml.GetAddressByID(m_addressID);
 
             WriteBoxes();
         }
