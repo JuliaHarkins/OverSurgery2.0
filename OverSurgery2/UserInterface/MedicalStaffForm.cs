@@ -59,10 +59,6 @@ namespace OverSurgery2
         {
 
 #region Showing btn_AddPrescription
-            if (m_currentUser != null)
-            {
-                btn_addPrescription.Visible = false;
-            }
             #endregion
             //checks there is information to load, and shows the relivent appointment information.
 #region LoadingAppointmentList
@@ -161,7 +157,7 @@ namespace OverSurgery2
 #region Button
         private void btn_addPrescription_Click(object sender, EventArgs e)
         {
-
+            new AddPrescription().ShowDialog();
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)
@@ -269,7 +265,7 @@ namespace OverSurgery2
 #region Method
         private void SelectMedicalHistory()
         {
-            if (dgv_AppointmentList.RowCount != 0)
+            if (dgv_AppointmentList != null)
             {
                 lst_MedicalHistory.Clear();
                 lst_MedicalHistory.Columns.Add("Date", 75);

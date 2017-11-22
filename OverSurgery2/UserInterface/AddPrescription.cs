@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery2.UserInterface
+namespace OverSurgery2
 {
     public partial class AddPrescription : Form
     {
@@ -29,6 +29,16 @@ namespace OverSurgery2.UserInterface
         }
 
         private void btn_savePrescription_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_patient_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_notes_Click(object sender, EventArgs e)
         {
 
         }
