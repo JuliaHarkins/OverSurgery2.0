@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace OverSurgery2.UserInterface
+namespace OverSurgery2
 {
     public partial class AddPrescription : Form
     {

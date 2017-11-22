@@ -154,7 +154,8 @@ namespace OverSurgery2
 #region Button
         private void btn_addPrescription_Click(object sender, EventArgs e)
         {
-
+            AddPrescription ap = new AddPrescription();
+            ap.Show();
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)

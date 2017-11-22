@@ -1,4 +1,4 @@
-﻿namespace OverSurgery2.UserInterface
+﻿namespace OverSurgery2
 {
     partial class AddPrescription
     {
@@ -124,7 +124,7 @@
             this.Controls.Add(this.txt_prescriptionNotes);
             this.Name = "AddPrescription";
             this.Text = "AddPrescription";
-            this.Load += new System.EventHandler(this.AddPrescription_Load);
+            this.Load += new System.EventHandler(this.btn_savePrescription_Click);
             this.ResumeLayout(false);
             this.PerformLayout();
 
