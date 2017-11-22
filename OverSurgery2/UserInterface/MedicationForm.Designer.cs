@@ -36,10 +36,22 @@
             this.btnRemoveMed2 = new System.Windows.Forms.Button();
             this.btnUpdateMed = new System.Windows.Forms.Button();
             this.btnSearchMed = new System.Windows.Forms.Button();
-            this.txtSearchUserName = new System.Windows.Forms.TextBox();
+            this.txtSearchMedName = new System.Windows.Forms.TextBox();
             this.lblMedName = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnUpdateRota = new System.Windows.Forms.Button();
+            this.lblNameMed = new System.Windows.Forms.Label();
+            this.txtAddMedName = new System.Windows.Forms.TextBox();
+            this.lblPermission = new System.Windows.Forms.Label();
+            this.txtAddPermission = new System.Windows.Forms.TextBox();
+            this.lblDosage = new System.Windows.Forms.Label();
+            this.txtAddDosage = new System.Windows.Forms.TextBox();
+            this.txtUpdateDosage = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtUpdatePermission = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.txtUpdateMedName = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabAddMed.SuspendLayout();
             this.tabUpdateMed.SuspendLayout();
@@ -57,6 +69,12 @@
             // 
             // tabAddMed
             // 
+            this.tabAddMed.Controls.Add(this.txtAddDosage);
+            this.tabAddMed.Controls.Add(this.lblDosage);
+            this.tabAddMed.Controls.Add(this.txtAddPermission);
+            this.tabAddMed.Controls.Add(this.lblPermission);
+            this.tabAddMed.Controls.Add(this.txtAddMedName);
+            this.tabAddMed.Controls.Add(this.lblNameMed);
             this.tabAddMed.Controls.Add(this.btnRemoveMed);
             this.tabAddMed.Controls.Add(this.btnAddMed);
             this.tabAddMed.Location = new System.Drawing.Point(4, 22);
@@ -87,6 +105,12 @@
             // 
             // tabUpdateMed
             // 
+            this.tabUpdateMed.Controls.Add(this.txtUpdateDosage);
+            this.tabUpdateMed.Controls.Add(this.label1);
+            this.tabUpdateMed.Controls.Add(this.txtUpdatePermission);
+            this.tabUpdateMed.Controls.Add(this.label2);
+            this.tabUpdateMed.Controls.Add(this.txtUpdateMedName);
+            this.tabUpdateMed.Controls.Add(this.label3);
             this.tabUpdateMed.Controls.Add(this.btnRemoveMed2);
             this.tabUpdateMed.Controls.Add(this.btnUpdateMed);
             this.tabUpdateMed.Location = new System.Drawing.Point(4, 22);
@@ -125,12 +149,12 @@
             this.btnSearchMed.UseVisualStyleBackColor = true;
             this.btnSearchMed.Click += new System.EventHandler(this.btnSearchMed_Click);
             // 
-            // txtSearchUserName
+            // txtSearchMedName
             // 
-            this.txtSearchUserName.Location = new System.Drawing.Point(78, 6);
-            this.txtSearchUserName.Name = "txtSearchUserName";
-            this.txtSearchUserName.Size = new System.Drawing.Size(100, 20);
-            this.txtSearchUserName.TabIndex = 28;
+            this.txtSearchMedName.Location = new System.Drawing.Point(78, 6);
+            this.txtSearchMedName.Name = "txtSearchMedName";
+            this.txtSearchMedName.Size = new System.Drawing.Size(100, 20);
+            this.txtSearchMedName.TabIndex = 28;
             // 
             // lblMedName
             // 
@@ -160,6 +184,102 @@
             this.btnUpdateRota.Text = "Update Rota";
             this.btnUpdateRota.UseVisualStyleBackColor = true;
             // 
+            // lblNameMed
+            // 
+            this.lblNameMed.AutoSize = true;
+            this.lblNameMed.Location = new System.Drawing.Point(123, 54);
+            this.lblNameMed.Name = "lblNameMed";
+            this.lblNameMed.Size = new System.Drawing.Size(90, 13);
+            this.lblNameMed.TabIndex = 65;
+            this.lblNameMed.Text = "Medication Name";
+            // 
+            // txtAddMedName
+            // 
+            this.txtAddMedName.Location = new System.Drawing.Point(219, 51);
+            this.txtAddMedName.Name = "txtAddMedName";
+            this.txtAddMedName.Size = new System.Drawing.Size(100, 20);
+            this.txtAddMedName.TabIndex = 66;
+            // 
+            // lblPermission
+            // 
+            this.lblPermission.AutoSize = true;
+            this.lblPermission.Location = new System.Drawing.Point(127, 81);
+            this.lblPermission.Name = "lblPermission";
+            this.lblPermission.Size = new System.Drawing.Size(86, 13);
+            this.lblPermission.TabIndex = 67;
+            this.lblPermission.Text = "Permission Level";
+            // 
+            // txtAddPermission
+            // 
+            this.txtAddPermission.Location = new System.Drawing.Point(219, 78);
+            this.txtAddPermission.Name = "txtAddPermission";
+            this.txtAddPermission.Size = new System.Drawing.Size(100, 20);
+            this.txtAddPermission.TabIndex = 68;
+            // 
+            // lblDosage
+            // 
+            this.lblDosage.AutoSize = true;
+            this.lblDosage.Location = new System.Drawing.Point(169, 108);
+            this.lblDosage.Name = "lblDosage";
+            this.lblDosage.Size = new System.Drawing.Size(44, 13);
+            this.lblDosage.TabIndex = 69;
+            this.lblDosage.Text = "Dosage";
+            // 
+            // txtAddDosage
+            // 
+            this.txtAddDosage.Location = new System.Drawing.Point(219, 105);
+            this.txtAddDosage.Name = "txtAddDosage";
+            this.txtAddDosage.Size = new System.Drawing.Size(100, 20);
+            this.txtAddDosage.TabIndex = 70;
+            // 
+            // txtUpdateDosage
+            // 
+            this.txtUpdateDosage.Location = new System.Drawing.Point(240, 109);
+            this.txtUpdateDosage.Name = "txtUpdateDosage";
+            this.txtUpdateDosage.Size = new System.Drawing.Size(100, 20);
+            this.txtUpdateDosage.TabIndex = 76;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(190, 112);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.TabIndex = 75;
+            this.label1.Text = "Dosage";
+            // 
+            // txtUpdatePermission
+            // 
+            this.txtUpdatePermission.Location = new System.Drawing.Point(240, 82);
+            this.txtUpdatePermission.Name = "txtUpdatePermission";
+            this.txtUpdatePermission.Size = new System.Drawing.Size(100, 20);
+            this.txtUpdatePermission.TabIndex = 74;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(148, 85);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(86, 13);
+            this.label2.TabIndex = 73;
+            this.label2.Text = "Permission Level";
+            // 
+            // txtUpdateMedName
+            // 
+            this.txtUpdateMedName.Location = new System.Drawing.Point(240, 55);
+            this.txtUpdateMedName.Name = "txtUpdateMedName";
+            this.txtUpdateMedName.Size = new System.Drawing.Size(100, 20);
+            this.txtUpdateMedName.TabIndex = 72;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(144, 58);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 13);
+            this.label3.TabIndex = 71;
+            this.label3.Text = "Medication Name";
+            // 
             // MedicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -167,7 +287,7 @@
             this.ClientSize = new System.Drawing.Size(722, 492);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnSearchMed);
-            this.Controls.Add(this.txtSearchUserName);
+            this.Controls.Add(this.txtSearchMedName);
             this.Controls.Add(this.lblMedName);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdateRota);
@@ -175,7 +295,9 @@
             this.Text = "MedicationForm";
             this.tabControl1.ResumeLayout(false);
             this.tabAddMed.ResumeLayout(false);
+            this.tabAddMed.PerformLayout();
             this.tabUpdateMed.ResumeLayout(false);
+            this.tabUpdateMed.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -190,9 +312,21 @@
         private System.Windows.Forms.Button btnRemoveMed2;
         private System.Windows.Forms.Button btnUpdateMed;
         private System.Windows.Forms.Button btnSearchMed;
-        private System.Windows.Forms.TextBox txtSearchUserName;
+        private System.Windows.Forms.TextBox txtSearchMedName;
         private System.Windows.Forms.Label lblMedName;
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnUpdateRota;
+        private System.Windows.Forms.TextBox txtAddMedName;
+        private System.Windows.Forms.Label lblNameMed;
+        private System.Windows.Forms.Label lblPermission;
+        private System.Windows.Forms.TextBox txtAddPermission;
+        private System.Windows.Forms.TextBox txtAddDosage;
+        private System.Windows.Forms.Label lblDosage;
+        private System.Windows.Forms.TextBox txtUpdateDosage;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtUpdatePermission;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox txtUpdateMedName;
+        private System.Windows.Forms.Label label3;
     }
 }
