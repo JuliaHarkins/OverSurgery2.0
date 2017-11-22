@@ -21,6 +21,7 @@ namespace OverSurgery2
             fc = FormController.Instance();
             ml = MetaLayer.Instance();
             lc = LoginController.Instance();
+            btn_Verify.Enabled = false; ;
         }
 
         private void btn_SendEmail_Click(object sender, EventArgs e)
@@ -30,6 +31,7 @@ namespace OverSurgery2
             if(ml.NewResetRequest(txt_UserName.Text, verification))
             {
                 lc.SendPasswordResetEmail(ml.GetStaffEmailByUserName(txt_UserName.Text), verification);
+                btn_Verify.Enabled = true;
             }
             else
             {

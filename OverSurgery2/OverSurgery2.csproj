@@ -87,10 +87,10 @@
     <Compile Include="MainClasses\Staff\Doctor.cs" />
     <Compile Include="MainClasses\LoginObserver.cs" />
     <Compile Include="MainClasses\Staff\Locum.cs" />
-    <Compile Include="NewPatientForm.cs">
+    <Compile Include="UserInterface\NewPatientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewPatientForm.Designer.cs">
+    <Compile Include="UserInterface\NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\AddPrescription.cs">
@@ -196,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicationForm.resx">
       <DependentUpon>MedicationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\NewPatientForm.resx">
+      <DependentUpon>NewPatientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>

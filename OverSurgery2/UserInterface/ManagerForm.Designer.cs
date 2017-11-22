@@ -54,7 +54,6 @@
             this.txtUpdatePostCode = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabAddStaff = new System.Windows.Forms.TabPage();
-            this.btnRemoveStaff2 = new System.Windows.Forms.Button();
             this.txtAddPhone = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtAddPassword = new System.Windows.Forms.TextBox();
@@ -106,7 +105,7 @@
             // 
             // btnRemoveStaff
             // 
-            this.btnRemoveStaff.Location = new System.Drawing.Point(493, 351);
+            this.btnRemoveStaff.Location = new System.Drawing.Point(282, 12);
             this.btnRemoveStaff.Name = "btnRemoveStaff";
             this.btnRemoveStaff.Size = new System.Drawing.Size(91, 23);
             this.btnRemoveStaff.TabIndex = 1;
@@ -319,7 +318,6 @@
             // 
             // tabAddStaff
             // 
-            this.tabAddStaff.Controls.Add(this.btnRemoveStaff2);
             this.tabAddStaff.Controls.Add(this.txtAddPhone);
             this.tabAddStaff.Controls.Add(this.label10);
             this.tabAddStaff.Controls.Add(this.txtAddPassword);
@@ -354,17 +352,6 @@
             this.tabAddStaff.TabIndex = 1;
             this.tabAddStaff.Text = "Add Staff";
             this.tabAddStaff.UseVisualStyleBackColor = true;
-            // 
-            // btnRemoveStaff2
-            // 
-            this.btnRemoveStaff2.Location = new System.Drawing.Point(493, 351);
-            this.btnRemoveStaff2.Name = "btnRemoveStaff2";
-            this.btnRemoveStaff2.Size = new System.Drawing.Size(91, 23);
-            this.btnRemoveStaff2.TabIndex = 64;
-            this.btnRemoveStaff2.Text = "Remove Staff";
-            this.btnRemoveStaff2.UseVisualStyleBackColor = true;
-            this.btnRemoveStaff2.Click += new System.EventHandler(this.btnRemoveStaff2_Click);
-            this.btnRemoveStaff2.MouseHover += new System.EventHandler(this.btnRemoveStaff2_MouseHover);
             // 
             // txtAddPhone
             // 
@@ -550,7 +537,6 @@
             this.tabUpdateStaff.Controls.Add(this.txtUpdateAddressLine);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseNumber);
             this.tabUpdateStaff.Controls.Add(this.txtUpdatePassword);
-            this.tabUpdateStaff.Controls.Add(this.btnRemoveStaff);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseName);
             this.tabUpdateStaff.Controls.Add(this.label4);
             this.tabUpdateStaff.Controls.Add(this.lblPostCode);
@@ -677,6 +663,7 @@
             this.Controls.Add(this.txtSearchUserName);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.btnExit);
+            this.Controls.Add(this.btnRemoveStaff);
             this.Controls.Add(this.btnUpdateRota);
             this.Name = "ManagerForm";
             this.Text = "ManagerForm";
@@ -752,7 +739,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUpdateForename;
-        private System.Windows.Forms.Button btnRemoveStaff2;
         private System.Windows.Forms.Button btnAddMedication;
     }
 }
