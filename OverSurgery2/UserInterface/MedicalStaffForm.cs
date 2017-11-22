@@ -269,7 +269,7 @@ namespace OverSurgery2
 #region Method
         private void SelectMedicalHistory()
         {
-            if (dgv_AppointmentList != null)
+            if (dgv_AppointmentList.RowCount != 0)
             {
                 lst_MedicalHistory.Clear();
                 lst_MedicalHistory.Columns.Add("Date", 75);

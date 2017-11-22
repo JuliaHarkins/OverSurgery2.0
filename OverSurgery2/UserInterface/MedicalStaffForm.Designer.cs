@@ -54,16 +54,17 @@
             // lb_appnotes
             // 
             this.lb_appnotes.AutoSize = true;
-            this.lb_appnotes.Location = new System.Drawing.Point(9, 236);
+            this.lb_appnotes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lb_appnotes.Location = new System.Drawing.Point(12, 240);
             this.lb_appnotes.Name = "lb_appnotes";
-            this.lb_appnotes.Size = new System.Drawing.Size(97, 13);
+            this.lb_appnotes.Size = new System.Drawing.Size(111, 15);
             this.lb_appnotes.TabIndex = 9;
             this.lb_appnotes.Text = "Appointment Notes";
             this.lb_appnotes.Click += new System.EventHandler(this.lb_notes_Click);
             // 
             // btn_addPrescription
             // 
-            this.btn_addPrescription.Location = new System.Drawing.Point(146, 418);
+            this.btn_addPrescription.Location = new System.Drawing.Point(146, 424);
             this.btn_addPrescription.Name = "btn_addPrescription";
             this.btn_addPrescription.Size = new System.Drawing.Size(124, 25);
             this.btn_addPrescription.TabIndex = 10;
@@ -73,7 +74,7 @@
             // 
             // btn_saveNotes
             // 
-            this.btn_saveNotes.Location = new System.Drawing.Point(9, 418);
+            this.btn_saveNotes.Location = new System.Drawing.Point(9, 424);
             this.btn_saveNotes.Name = "btn_saveNotes";
             this.btn_saveNotes.Size = new System.Drawing.Size(129, 25);
             this.btn_saveNotes.TabIndex = 11;
@@ -119,9 +120,10 @@
             // lb_appList
             // 
             this.lb_appList.AutoSize = true;
-            this.lb_appList.Location = new System.Drawing.Point(9, 36);
+            this.lb_appList.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lb_appList.Location = new System.Drawing.Point(8, 34);
             this.lb_appList.Name = "lb_appList";
-            this.lb_appList.Size = new System.Drawing.Size(85, 13);
+            this.lb_appList.Size = new System.Drawing.Size(98, 15);
             this.lb_appList.TabIndex = 15;
             this.lb_appList.Text = "Appointment List";
             this.lb_appList.Click += new System.EventHandler(this.lb_appList_Click);
@@ -129,9 +131,10 @@
             // lb_MedHistory
             // 
             this.lb_MedHistory.AutoSize = true;
-            this.lb_MedHistory.Location = new System.Drawing.Point(9, 461);
+            this.lb_MedHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.lb_MedHistory.Location = new System.Drawing.Point(12, 459);
             this.lb_MedHistory.Name = "lb_MedHistory";
-            this.lb_MedHistory.Size = new System.Drawing.Size(79, 13);
+            this.lb_MedHistory.Size = new System.Drawing.Size(91, 15);
             this.lb_MedHistory.TabIndex = 16;
             this.lb_MedHistory.Text = "Medical History";
             this.lb_MedHistory.Click += new System.EventHandler(this.lb_MedHistory_Click);
@@ -227,7 +230,7 @@
             // 
             // txt_CurrentNotes
             // 
-            this.txt_CurrentNotes.Location = new System.Drawing.Point(9, 252);
+            this.txt_CurrentNotes.Location = new System.Drawing.Point(9, 258);
             this.txt_CurrentNotes.Multiline = true;
             this.txt_CurrentNotes.Name = "txt_CurrentNotes";
             this.txt_CurrentNotes.Size = new System.Drawing.Size(955, 160);
