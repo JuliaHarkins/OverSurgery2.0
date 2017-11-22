@@ -983,8 +983,8 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                con.Update("INSERT INTO Address VALUES (null, " + add.HouseName + ", " + add.HouseNumber + 
-                    ", " + add.StreetName + ", " + add.PostCode + ");");
+                con.Update("INSERT INTO Address VALUES (null, '" + add.HouseName + "', " + add.HouseNumber + 
+                    ", '" + add.StreetName + "', '" + add.PostCode + "');");
                 con.CloseConnection();
             }
         }
