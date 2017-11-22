@@ -505,6 +505,30 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+        public List<Medication> getMedicationByLevel(uint? lvl)
+        {
+            List<Medication> medication = new List<Medication>();
+            Medication m;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT MedicationID, MedicationName, PermissionLevel, Dosage FROM Medication WHERE PermissionLevel <= " + lvl + ";");
+
+                while (dr.Read())
+                {
+                    m = new Medication
+                    {
+                    ID = Convert.ToUInt16(dr.GetInt16(0)),
+                    Name = dr.GetName(1),
+                    PermissionLevel = Convert.ToUInt16(dr.GetInt16(2)),
+                    Dosage = Convert.ToUInt16(dr.GetInt16(3))
+                    };
+                medication.Add(m);
+                }
+            dr.Close();
+            con.CloseConnection();
+            }
+        return medication;
+        }
         /// <summary>
         /// Uses the perscription object to add a new perscription to the databaes.
         /// Last Updated : 15/11/17,

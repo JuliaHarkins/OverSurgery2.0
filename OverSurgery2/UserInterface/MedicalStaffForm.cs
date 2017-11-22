@@ -57,13 +57,6 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
-
-#region Showing btn_AddPrescription
-            if (m_currentUser != null)
-            {
-                btn_addPrescription.Visible = false;
-            }
-            #endregion
             //checks there is information to load, and shows the relivent appointment information.
 #region LoadingAppointmentList
             m_appointmentBinding = new BindingSource();
@@ -269,38 +262,36 @@ namespace OverSurgery2
 #region Method
         private void SelectMedicalHistory()
         {
-            if (dgv_AppointmentList.RowCount != 0)
+            lst_MedicalHistory.Clear();
+            lst_MedicalHistory.Columns.Add("Date", 75);
+            lst_MedicalHistory.Columns.Add("Notes", 425);
+            lst_Prescriptions.Clear();
+            lst_Prescriptions.Columns.Add("Date", 75);
+            lst_Prescriptions.Columns.Add("Medication", 175);
+            lst_Prescriptions.Columns.Add("Amount", 75);
+            lst_Prescriptions.Columns.Add("By", 148);
+
+            m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+            m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+            foreach (MedicalHistory mh in m_medicalHistory)
             {
-                lst_MedicalHistory.Clear();
-                lst_MedicalHistory.Columns.Add("Date", 75);
-                lst_MedicalHistory.Columns.Add("Notes", 425);
-                lst_Prescriptions.Clear();
-                lst_Prescriptions.Columns.Add("Date", 75);
-                lst_Prescriptions.Columns.Add("Medication", 175);
-                lst_Prescriptions.Columns.Add("Amount", 75);
-                lst_Prescriptions.Columns.Add("By", 148);
-
-                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
-                foreach (MedicalHistory mh in m_medicalHistory)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = mh.Date.ToShortDateString();
-                    lvi.SubItems.Add(mh.Notes);
-                    lst_MedicalHistory.Items.Add(lvi);
-                }
-                foreach (Prescription p in m_prescriptions)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = p.Date.ToShortDateString();
-                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                    lvi.SubItems.Add(p.Amount.ToString());
-                    //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                    lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                    lst_Prescriptions.Items.Add(lvi);
-
-                }
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = mh.Date.ToShortDateString();
+                lvi.SubItems.Add(mh.Notes);
+                lst_MedicalHistory.Items.Add(lvi);
             }
+            foreach (Prescription p in m_prescriptions)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = p.Date.ToShortDateString();
+                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                lvi.SubItems.Add(p.Amount.ToString());
+                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
+                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
+                lst_Prescriptions.Items.Add(lvi);
+
+            }
+            
         }
 #endregion
 #region Lists
