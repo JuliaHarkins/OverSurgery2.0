@@ -39,7 +39,10 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnSearchMed_Click(object sender, EventArgs e)
         {
+            m_medName = txtSearchMedName.Text;
+            ml.GetMedicationByName(m_medName);
 
+            WriteBoxes();
         }
 
         /// <summary>

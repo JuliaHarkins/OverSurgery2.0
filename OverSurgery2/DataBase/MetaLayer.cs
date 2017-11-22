@@ -990,6 +990,11 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// Delete medication from the database
+        /// </summary>
+        /// <param name="p_medName"></param>
+        /// <returns></returns>
         public bool DeleteMedication(string p_medName)
         {
             if (con.OpenConnection())
@@ -999,6 +1004,35 @@ namespace OverSurgery2
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Get a medication from a name
+        /// </summary>
+        /// <param name="p_medName"></param>
+        /// <returns></returns>
+        public List<Medication> GetMedicationByName(string p_medName)
+        {
+            Medication m;
+            List<Medication> medList = new List<Medication>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = " + p_medName + " LIMIT 1;");
+                while (dr.Read())
+                {
+                    m = new Medication
+                    {
+                        ID = Convert.ToUInt32(dr.GetInt32(0)),
+                        PermissionLevel = Convert.ToUInt32(dr.GetString(1)),
+                        Name = dr.GetString(2),
+                        Dosage = Convert.ToUInt32(dr.GetString(3))
+                    };
+                    medList.Add(m);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return medList;
         }
     }
 }
