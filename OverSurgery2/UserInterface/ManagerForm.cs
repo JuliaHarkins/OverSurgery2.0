@@ -77,22 +77,27 @@ namespace OverSurgery2
             Address currentAddress = null;
             if (txtSearchUserName.Text != "")
             {
+                // Collect data from the metalayer and store it inside the form
                 currentStaff = MetaLayer.Instance().GetStaffByUserName(txtSearchUserName.Text);
                 currentAddress = MetaLayer.Instance().GetAddressByID(Convert.ToInt32(currentStaff.AddressID));
             }
-            if(currentStaff != null)
+
+            // Change the selected tab to the update tab
+            if (currentStaff != null)
             {
                 tabControl1.SelectedTab = tabUpdateStaff;
             }
+
             try
             {
                 //if(currentStaff.GetType() == typeof(MedicalStaff))
                 //{
                 //    currentStaff = currentStaff as MedicalStaff;
                 //    cboUpdateGender.DataSource = Enum.GetValues(typeof(MedicalStaff.Genders));
-                //    cboUpdateGender.SelectedItem = Enum.Parse(typeof(MedicalStaff.Genders, ))
+                //    cboUpdateGender.SelectedItem = Enum.Parse(typeof(MedicalStaff.Genders, ));
                 //}
                 //update addressID variable before entering the method below
+
                 txtUpdateUserName.Text = currentStaff.Username;
                 txtUpdateForename.Text = currentStaff.Forename;
                 txtUpdateSurname.Text = currentStaff.Surname;
@@ -103,7 +108,6 @@ namespace OverSurgery2
                 txtUpdateHouseNumber.Text = Convert.ToString(currentAddress.HouseNumber);
                 txtUpdatePostCode.Text = currentAddress.PostCode;
                 txtUpdateAddressLine.Text = currentAddress.StreetName;
-
 
             }
             catch
