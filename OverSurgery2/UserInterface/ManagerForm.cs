@@ -23,11 +23,12 @@ namespace OverSurgery2
 
         private void ManagerForm_Load(object sender, EventArgs e)
         {
-
+            cboType.DataSource = Enum.GetValues(typeof(StaffTypes));
         }
 
         BindingSource StaffBinding;
         BindingSource RotaBinding;
+        enum StaffTypes { Nurse, Locum, Doctor, Receptionist, Manager};
 
         private void cboType_MouseHover(object sender, EventArgs e)
         {
@@ -72,15 +73,38 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnSearchUserName_Click(object sender, EventArgs e)
         {
-            m_userName = txtSearchUserName.Text;
-            ml.GetStaffByUserName(m_userName);
-
+            Staff currentStaff = null;
+            Address currentAddress = null;
+            if (txtSearchUserName.Text != "")
+            {
+                currentStaff = MetaLayer.Instance().GetStaffByUserName(txtSearchUserName.Text);
+                currentAddress = MetaLayer.Instance().GetAddressByID(Convert.ToInt32(currentStaff.AddressID));
+            }
+            if(currentStaff != null)
+            {
+                tabControl1.SelectedTab = tabUpdateStaff;
+            }
             try
             {
+                //if(currentStaff.GetType() == typeof(MedicalStaff))
+                //{
+                //    currentStaff = currentStaff as MedicalStaff;
+                //    cboUpdateGender.DataSource = Enum.GetValues(typeof(MedicalStaff.Genders));
+                //    cboUpdateGender.SelectedItem = Enum.Parse(typeof(MedicalStaff.Genders, ))
+                //}
                 //update addressID variable before entering the method below
-                ml.GetAddressByID(m_addressID);
+                txtUpdateUserName.Text = currentStaff.Username;
+                txtUpdateForename.Text = currentStaff.Forename;
+                txtUpdateSurname.Text = currentStaff.Surname;
+                txtUpdateEmail.Text = currentStaff.EmailAddress;
+                //cboUpdateGender.Text = currentStaff.Gender;
+                //txtUpdatePhone.Text = currentStaff.PhoneNumber;
+                txtUpdateHouseName.Text = currentAddress.HouseName;
+                txtUpdateHouseNumber.Text = Convert.ToString(currentAddress.HouseNumber);
+                txtUpdatePostCode.Text = currentAddress.PostCode;
+                txtUpdateAddressLine.Text = currentAddress.StreetName;
 
-                WriteBoxes();
+
             }
             catch
             {
@@ -153,7 +177,7 @@ namespace OverSurgery2
         {  
             try
             {
-                ReadBoxes();
+                //ReadBoxes();
                 m_userName = txtSearchUserName.Text;
 
                 // Verify the user wants to delete the staff member
@@ -224,15 +248,15 @@ namespace OverSurgery2
                     m_houseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
                     m_addressLine = txtAddAddressLine.Text;
                     m_postCode = txtAddPostCode.Text;
+                    
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateStaff"])
                 {
                     m_userName = txtUpdateUserName.Text;
                     m_forename = txtUpdateForename.Text;
                     m_surname = txtUpdateSurname.Text;
-                    m_Gender = Convert.ToInt32(txtUpdateGender.Text);
+                    m_Gender = Convert.ToInt32(cboUpdateGender.Text);
                     m_email = txtUpdateEmail.Text;
-                    m_password = txtUpdatePassword.Text;
                     m_phone = txtUpdatePhone.Text;
                     m_houseName = txtUpdateHouseName.Text;
                     m_houseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text);
@@ -249,6 +273,7 @@ namespace OverSurgery2
                 MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         /// <summary>
         /// Write new values into text boxes
@@ -279,9 +304,8 @@ namespace OverSurgery2
                     txtUpdateUserName.Text = m_userName;
                     txtUpdateForename.Text = m_forename;
                     txtUpdateSurname.Text = m_surname;
-                    txtUpdateGender.Text = Convert.ToString(m_Gender);
+                    cboUpdateGender.Text = Convert.ToString(m_Gender);
                     txtUpdateEmail.Text = m_email;
-                    txtUpdatePassword.Text = m_password;
                     txtUpdatePhone.Text = m_phone;
                     txtUpdateHouseName.Text = m_houseName;
                     txtUpdateHouseNumber.Text = Convert.ToString(m_houseNumber);

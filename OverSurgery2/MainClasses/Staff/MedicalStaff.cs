@@ -21,6 +21,7 @@ namespace OverSurgery2
         private uint? m_gender;
         private string m_genderDisplay;
         private string m_phoneNumber;
+        public enum Genders { Female, Male };
         #endregion
         #region Constructors
         public MedicalStaff()
