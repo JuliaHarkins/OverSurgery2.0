@@ -75,10 +75,18 @@ namespace OverSurgery2
             m_userName = txtSearchUserName.Text;
             ml.GetStaffByUserName(m_userName);
 
-            //update addressID variable before entering the method below
-            ml.GetAddressByID(m_addressID);
+            try
+            {
+                //update addressID variable before entering the method below
+                ml.GetAddressByID(m_addressID);
 
-            WriteBoxes();
+                WriteBoxes();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
@@ -88,9 +96,17 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnUpdateStaff_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.UpdateStaffMember(Staff staffMember);
-            //ml.UpdateAddress(Address staffAddress);          
+            try
+            {
+                ReadBoxes();
+                //ml.UpdateStaffMember(Staff staffMember);
+                //ml.UpdateAddress(Address staffAddress);    
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+      
         }
 
         /// <summary>
@@ -100,24 +116,32 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnAddStaff_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
+            try
+            {
+                ReadBoxes();
 
-            // Add new data to staff
-            Staff staff = new Staff();
-            staff.AddressID = null;
-            staff.Forename = m_forename;
-            staff.Surname = m_surname;
-            staff.Username = m_userName;
-            staff.Password = m_password;
-            ml.AddStaff(staff);
+                // Add new data to staff
+                Staff staff = new Staff();
+                staff.AddressID = null;
+                staff.Forename = m_forename;
+                staff.Surname = m_surname;
+                staff.Username = m_userName;
+                staff.Password = m_password;
+                ml.AddStaff(staff);
 
-            // Add new data to address
-            Address address = new Address();
-            address.HouseName = m_houseName;
-            address.HouseNumber = m_houseNumber;
-            address.StreetName = m_addressLine;
-            address.PostCode = m_postCode;
-            ml.AddAddress(address);
+                // Add new data to address
+                Address address = new Address();
+                address.HouseName = m_houseName;
+                address.HouseNumber = m_houseNumber;
+                address.StreetName = m_addressLine;
+                address.PostCode = m_postCode;
+                ml.AddAddress(address);
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
         }
 
         /// <summary>
@@ -126,11 +150,12 @@ namespace OverSurgery2
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btnRemoveStaff_Click(object sender, EventArgs e)
-        {
-            ReadBoxes();
-            m_userName = txtSearchUserName.Text;
+        {  
             try
             {
+                ReadBoxes();
+                m_userName = txtSearchUserName.Text;
+
                 // Verify the user wants to delete the staff member
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)

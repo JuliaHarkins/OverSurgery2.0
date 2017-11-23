@@ -39,10 +39,18 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnSearchMed_Click(object sender, EventArgs e)
         {
-            m_medName = txtSearchMedName.Text;
-            ml.GetMedicationByName(m_medName);
+            try
+            {
+                m_medName = txtSearchMedName.Text;
+                ml.GetMedicationByName(m_medName);
 
-            WriteBoxes();
+                WriteBoxes();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
 
         /// <summary>
@@ -52,10 +60,10 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnRemoveMed_Click(object sender, EventArgs e)
         {
-            m_medName = txtSearchMedName.Text;
-
             try
             {
+                m_medName = txtSearchMedName.Text;
+
                 // Verify the user wants to delete the medication
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_medName + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
@@ -80,8 +88,16 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnAddMed_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.AddMedication();
+            try
+            {
+                ReadBoxes();
+                //ml.AddMedication();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
@@ -91,8 +107,16 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnUpdateMed_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.UpdateMedication();
+            try
+            {
+                ReadBoxes();
+                //ml.UpdateMedication();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
