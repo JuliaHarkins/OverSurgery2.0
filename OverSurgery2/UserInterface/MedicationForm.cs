@@ -17,8 +17,8 @@ namespace OverSurgery2.UserInterface
 {
     public partial class MedicationForm : Form
     {
-        private int m_medicationID, m_permissionLevel;
-        private string m_medName, m_dosage;
+        private uint m_medicationID, m_permissionLevel, m_dosage;
+        private string m_medName;
         MetaLayer ml;
 
         public MedicationForm()
@@ -120,14 +120,14 @@ namespace OverSurgery2.UserInterface
                 {
                     txtAddMedName.Text = m_medName;
                     txtAddPermission.Text = Convert.ToString(m_permissionLevel);
-                    txtAddDosage.Text = m_dosage;
+                    txtAddDosage.Text = Convert.ToString(m_dosage);
 
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
                     txtUpdateMedName.Text = m_medName;
                     txtUpdatePermission.Text = Convert.ToString(m_permissionLevel);
-                    txtUpdateDosage.Text = m_dosage;
+                    txtUpdateDosage.Text = Convert.ToString(m_dosage);
                 }
                 else
                 {
@@ -151,14 +151,14 @@ namespace OverSurgery2.UserInterface
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
                     m_medName = txtAddMedName.Text;
-                    m_permissionLevel = Convert.ToInt32(txtAddPermission.Text);
-                    m_dosage = txtAddDosage.Text;
+                    m_permissionLevel = Convert.ToUInt32(txtAddPermission.Text);
+                    m_dosage = Convert.ToUInt32(txtAddDosage.Text);
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
                     m_medName = txtUpdateMedName.Text;
-                    m_permissionLevel = Convert.ToInt32(txtUpdatePermission.Text);
-                    m_dosage = txtUpdateDosage.Text;
+                    m_permissionLevel = Convert.ToUInt32(txtUpdatePermission.Text);
+                    m_dosage = Convert.ToUInt32(txtUpdateDosage.Text);
                 }
                 else
                 {
