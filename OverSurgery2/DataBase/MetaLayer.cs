@@ -291,6 +291,7 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
+                return m;
             }
             return m;
         }
@@ -504,6 +505,30 @@ namespace OverSurgery2
                 con.Update("INSERT INTO MedicalHistory VALUES (null" + ", '" + p_mh.Notes + "', " + p_mh.Date.ToString("yyyyMMdd") + ", " + p_mh.PatientID + ");");
                 con.CloseConnection();
             }
+        }
+        public List<Medication> getMedicationByLevel(uint? lvl)
+        {
+            List<Medication> medication = new List<Medication>();
+            Medication m;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT MedicationID, MedicationName, PermissionLevel, Dosage FROM Medication WHERE PermissionLevel <= " + lvl + ";");
+
+                while (dr.Read())
+                {
+                    m = new Medication
+                    {
+                    ID = Convert.ToUInt16(dr.GetInt16(0)),
+                    Name = dr.GetName(1),
+                    PermissionLevel = Convert.ToUInt16(dr.GetInt16(2)),
+                    Dosage = Convert.ToUInt16(dr.GetInt16(3))
+                    };
+                medication.Add(m);
+                }
+            dr.Close();
+            con.CloseConnection();
+            }
+        return medication;
         }
         /// <summary>
         /// Uses the perscription object to add a new perscription to the databaes.
@@ -984,12 +1009,17 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                con.Update("INSERT INTO Address VALUES (null, " + add.HouseName + ", " + add.HouseNumber + 
-                    ", " + add.StreetName + ", " + add.PostCode + ");");
+                con.Update("INSERT INTO Address VALUES (null, '" + add.HouseName + "', " + add.HouseNumber + 
+                    ", '" + add.StreetName + "', '" + add.PostCode + "');");
                 con.CloseConnection();
             }
         }
 
+        /// <summary>
+        /// Delete medication from the database
+        /// </summary>
+        /// <param name="p_medName"></param>
+        /// <returns></returns>
         public bool DeleteMedication(string p_medName)
         {
             if (con.OpenConnection())
@@ -999,6 +1029,35 @@ namespace OverSurgery2
                 return true;
             }
             return false;
+        }
+
+        /// <summary>
+        /// Get a medication from a name
+        /// </summary>
+        /// <param name="p_medName"></param>
+        /// <returns></returns>
+        public List<Medication> GetMedicationByName(string p_medName)
+        {
+            Medication m;
+            List<Medication> medList = new List<Medication>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = " + p_medName + " LIMIT 1;");
+                while (dr.Read())
+                {
+                    m = new Medication
+                    {
+                        ID = Convert.ToUInt32(dr.GetInt32(0)),
+                        PermissionLevel = Convert.ToUInt32(dr.GetString(1)),
+                        Name = dr.GetString(2),
+                        Dosage = Convert.ToUInt32(dr.GetString(3))
+                    };
+                    medList.Add(m);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return medList;
         }
     }
 }
