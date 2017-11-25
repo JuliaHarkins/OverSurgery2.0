@@ -29,7 +29,7 @@ namespace OverSurgery2.UserInterface
         private void btnRemoveMed_MouseHover(object sender, EventArgs e)
         {
             ToolTip deleteonadd = new ToolTip();
-            deleteonadd.SetToolTip(btnRemoveMed, "This will delete the medication specified in the field to the left from the database");
+            deleteonadd.SetToolTip(btnRemoveMed, "This will delete the medication currently being displayed");
         }
 
         /// <summary>
@@ -62,7 +62,7 @@ namespace OverSurgery2.UserInterface
         {
             try
             {
-                m_medName = txtSearchMedName.Text;
+                m_medName = txtUpdateMedName.Text;
 
                 // Verify the user wants to delete the medication
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_medName + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);

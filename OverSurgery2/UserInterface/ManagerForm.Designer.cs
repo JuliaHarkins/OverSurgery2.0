@@ -63,7 +63,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.txtAddForename = new System.Windows.Forms.TextBox();
-            this.txtAddGender = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.txtAddEmail = new System.Windows.Forms.TextBox();
@@ -76,6 +75,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabUpdateStaff = new System.Windows.Forms.TabPage();
+            this.cboUpdateGender = new System.Windows.Forms.ComboBox();
             this.txtUpdatePhone = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.txtUpdateUserName = new System.Windows.Forms.TextBox();
@@ -85,7 +85,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUpdateForename = new System.Windows.Forms.TextBox();
             this.btnAddMedication = new System.Windows.Forms.Button();
-            this.cboUpdateGender = new System.Windows.Forms.ComboBox();
+            this.cboAddGender = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabAddStaff.SuspendLayout();
             this.tabUpdateStaff.SuspendLayout();
@@ -103,7 +103,7 @@
             // 
             // btnRemoveStaff
             // 
-            this.btnRemoveStaff.Location = new System.Drawing.Point(282, 12);
+            this.btnRemoveStaff.Location = new System.Drawing.Point(493, 351);
             this.btnRemoveStaff.Name = "btnRemoveStaff";
             this.btnRemoveStaff.Size = new System.Drawing.Size(91, 23);
             this.btnRemoveStaff.TabIndex = 1;
@@ -223,9 +223,8 @@
             this.cboType.FormattingEnabled = true;
             this.cboType.Location = new System.Drawing.Point(166, 41);
             this.cboType.Name = "cboType";
-            this.cboType.Size = new System.Drawing.Size(121, 21);
+            this.cboType.Size = new System.Drawing.Size(100, 21);
             this.cboType.TabIndex = 25;
-            this.cboType.MouseHover += new System.EventHandler(this.cboType_MouseHover);
             // 
             // lblHouseName
             // 
@@ -303,6 +302,7 @@
             // 
             // tabAddStaff
             // 
+            this.tabAddStaff.Controls.Add(this.cboAddGender);
             this.tabAddStaff.Controls.Add(this.txtAddPhone);
             this.tabAddStaff.Controls.Add(this.label10);
             this.tabAddStaff.Controls.Add(this.txtAddPassword);
@@ -316,7 +316,6 @@
             this.tabAddStaff.Controls.Add(this.label13);
             this.tabAddStaff.Controls.Add(this.label14);
             this.tabAddStaff.Controls.Add(this.txtAddForename);
-            this.tabAddStaff.Controls.Add(this.txtAddGender);
             this.tabAddStaff.Controls.Add(this.label15);
             this.tabAddStaff.Controls.Add(this.txtPracticeNumberAdd);
             this.tabAddStaff.Controls.Add(this.lblPracticeNumber);
@@ -418,13 +417,6 @@
             this.txtAddForename.Size = new System.Drawing.Size(100, 20);
             this.txtAddForename.TabIndex = 50;
             // 
-            // txtAddGender
-            // 
-            this.txtAddGender.Location = new System.Drawing.Point(165, 236);
-            this.txtAddGender.Name = "txtAddGender";
-            this.txtAddGender.Size = new System.Drawing.Size(100, 20);
-            this.txtAddGender.TabIndex = 55;
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -522,6 +514,7 @@
             this.tabUpdateStaff.Controls.Add(this.label5);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateAddressLine);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseNumber);
+            this.tabUpdateStaff.Controls.Add(this.btnRemoveStaff);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseName);
             this.tabUpdateStaff.Controls.Add(this.lblPostCode);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateUserName);
@@ -544,6 +537,14 @@
             this.tabUpdateStaff.TabIndex = 0;
             this.tabUpdateStaff.Text = "Update Staff";
             this.tabUpdateStaff.UseVisualStyleBackColor = true;
+            // 
+            // cboUpdateGender
+            // 
+            this.cboUpdateGender.FormattingEnabled = true;
+            this.cboUpdateGender.Location = new System.Drawing.Point(166, 167);
+            this.cboUpdateGender.Name = "cboUpdateGender";
+            this.cboUpdateGender.Size = new System.Drawing.Size(100, 21);
+            this.cboUpdateGender.TabIndex = 42;
             // 
             // txtUpdatePhone
             // 
@@ -619,13 +620,13 @@
             this.btnAddMedication.UseVisualStyleBackColor = true;
             this.btnAddMedication.Click += new System.EventHandler(this.btnAddMedication_Click);
             // 
-            // cboUpdateGender
+            // cboAddGender
             // 
-            this.cboUpdateGender.FormattingEnabled = true;
-            this.cboUpdateGender.Location = new System.Drawing.Point(166, 167);
-            this.cboUpdateGender.Name = "cboUpdateGender";
-            this.cboUpdateGender.Size = new System.Drawing.Size(100, 21);
-            this.cboUpdateGender.TabIndex = 42;
+            this.cboAddGender.FormattingEnabled = true;
+            this.cboAddGender.Location = new System.Drawing.Point(166, 237);
+            this.cboAddGender.Name = "cboAddGender";
+            this.cboAddGender.Size = new System.Drawing.Size(99, 21);
+            this.cboAddGender.TabIndex = 64;
             // 
             // ManagerForm
             // 
@@ -638,7 +639,6 @@
             this.Controls.Add(this.txtSearchUserName);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnRemoveStaff);
             this.Controls.Add(this.btnUpdateRota);
             this.Name = "ManagerForm";
             this.Text = "ManagerForm";
@@ -690,7 +690,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtAddForename;
-        private System.Windows.Forms.TextBox txtAddGender;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtAddEmail;
@@ -713,5 +712,6 @@
         private System.Windows.Forms.TextBox txtUpdateForename;
         private System.Windows.Forms.Button btnAddMedication;
         private System.Windows.Forms.ComboBox cboUpdateGender;
+        private System.Windows.Forms.ComboBox cboAddGender;
     }
 }
