@@ -36,7 +36,6 @@
             this.lblPermission = new System.Windows.Forms.Label();
             this.txtAddMedName = new System.Windows.Forms.TextBox();
             this.lblNameMed = new System.Windows.Forms.Label();
-            this.btnRemoveMed = new System.Windows.Forms.Button();
             this.btnAddMed = new System.Windows.Forms.Button();
             this.tabUpdateMed = new System.Windows.Forms.TabPage();
             this.txtUpdateDosage = new System.Windows.Forms.TextBox();
@@ -46,6 +45,7 @@
             this.txtUpdateMedName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.btnUpdateMed = new System.Windows.Forms.Button();
+            this.btnRemoveMed = new System.Windows.Forms.Button();
             this.btnSearchMed = new System.Windows.Forms.Button();
             this.txtSearchMedName = new System.Windows.Forms.TextBox();
             this.lblMedName = new System.Windows.Forms.Label();
@@ -131,17 +131,6 @@
             this.lblNameMed.TabIndex = 65;
             this.lblNameMed.Text = "Medication Name";
             // 
-            // btnRemoveMed
-            // 
-            this.btnRemoveMed.Location = new System.Drawing.Point(282, 4);
-            this.btnRemoveMed.Name = "btnRemoveMed";
-            this.btnRemoveMed.Size = new System.Drawing.Size(91, 23);
-            this.btnRemoveMed.TabIndex = 64;
-            this.btnRemoveMed.Text = "Remove Med";
-            this.btnRemoveMed.UseVisualStyleBackColor = true;
-            this.btnRemoveMed.Click += new System.EventHandler(this.btnRemoveMed_Click);
-            this.btnRemoveMed.MouseHover += new System.EventHandler(this.btnRemoveMed_MouseHover);
-            // 
             // btnAddMed
             // 
             this.btnAddMed.Location = new System.Drawing.Point(590, 351);
@@ -160,6 +149,7 @@
             this.tabUpdateMed.Controls.Add(this.label2);
             this.tabUpdateMed.Controls.Add(this.txtUpdateMedName);
             this.tabUpdateMed.Controls.Add(this.label3);
+            this.tabUpdateMed.Controls.Add(this.btnRemoveMed);
             this.tabUpdateMed.Controls.Add(this.btnUpdateMed);
             this.tabUpdateMed.Location = new System.Drawing.Point(4, 22);
             this.tabUpdateMed.Name = "tabUpdateMed";
@@ -227,6 +217,17 @@
             this.btnUpdateMed.UseVisualStyleBackColor = true;
             this.btnUpdateMed.Click += new System.EventHandler(this.btnUpdateMed_Click);
             // 
+            // btnRemoveMed
+            // 
+            this.btnRemoveMed.Location = new System.Drawing.Point(493, 351);
+            this.btnRemoveMed.Name = "btnRemoveMed";
+            this.btnRemoveMed.Size = new System.Drawing.Size(91, 23);
+            this.btnRemoveMed.TabIndex = 64;
+            this.btnRemoveMed.Text = "Remove Med";
+            this.btnRemoveMed.UseVisualStyleBackColor = true;
+            this.btnRemoveMed.Click += new System.EventHandler(this.btnRemoveMed_Click);
+            this.btnRemoveMed.MouseHover += new System.EventHandler(this.btnRemoveMed_MouseHover);
+            // 
             // btnSearchMed
             // 
             this.btnSearchMed.Location = new System.Drawing.Point(185, 4);
@@ -284,7 +285,6 @@
             this.Controls.Add(this.lblMedName);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.btnUpdateRota);
-            this.Controls.Add(this.btnRemoveMed);
             this.Name = "MedicationForm";
             this.Text = "MedicationForm";
             this.tabControl1.ResumeLayout(false);

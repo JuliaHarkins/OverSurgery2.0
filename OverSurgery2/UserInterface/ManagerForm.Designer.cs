@@ -36,7 +36,6 @@
             this.lblPracticeNumber = new System.Windows.Forms.Label();
             this.txtPracticeNumberAdd = new System.Windows.Forms.TextBox();
             this.lblGender = new System.Windows.Forms.Label();
-            this.txtUpdateGender = new System.Windows.Forms.TextBox();
             this.lblEmail = new System.Windows.Forms.Label();
             this.txtUpdateEmail = new System.Windows.Forms.TextBox();
             this.lblUserName = new System.Windows.Forms.Label();
@@ -64,7 +63,6 @@
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.txtAddForename = new System.Windows.Forms.TextBox();
-            this.txtAddGender = new System.Windows.Forms.TextBox();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.txtAddEmail = new System.Windows.Forms.TextBox();
@@ -77,10 +75,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.tabUpdateStaff = new System.Windows.Forms.TabPage();
+            this.cboUpdateGender = new System.Windows.Forms.ComboBox();
             this.txtUpdatePhone = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.txtUpdatePassword = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.txtUpdateUserName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.txtUpdateSurname = new System.Windows.Forms.TextBox();
@@ -88,6 +85,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUpdateForename = new System.Windows.Forms.TextBox();
             this.btnAddMedication = new System.Windows.Forms.Button();
+            this.cboAddGender = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabAddStaff.SuspendLayout();
             this.tabUpdateStaff.SuspendLayout();
@@ -105,7 +103,7 @@
             // 
             // btnRemoveStaff
             // 
-            this.btnRemoveStaff.Location = new System.Drawing.Point(282, 12);
+            this.btnRemoveStaff.Location = new System.Drawing.Point(493, 351);
             this.btnRemoveStaff.Name = "btnRemoveStaff";
             this.btnRemoveStaff.Size = new System.Drawing.Size(91, 23);
             this.btnRemoveStaff.TabIndex = 1;
@@ -163,23 +161,16 @@
             // lblGender
             // 
             this.lblGender.AutoSize = true;
-            this.lblGender.Location = new System.Drawing.Point(118, 208);
+            this.lblGender.Location = new System.Drawing.Point(118, 171);
             this.lblGender.Name = "lblGender";
             this.lblGender.Size = new System.Drawing.Size(42, 13);
             this.lblGender.TabIndex = 16;
             this.lblGender.Text = "Gender";
             // 
-            // txtUpdateGender
-            // 
-            this.txtUpdateGender.Location = new System.Drawing.Point(166, 205);
-            this.txtUpdateGender.Name = "txtUpdateGender";
-            this.txtUpdateGender.Size = new System.Drawing.Size(100, 20);
-            this.txtUpdateGender.TabIndex = 17;
-            // 
             // lblEmail
             // 
             this.lblEmail.AutoSize = true;
-            this.lblEmail.Location = new System.Drawing.Point(128, 234);
+            this.lblEmail.Location = new System.Drawing.Point(128, 197);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(32, 13);
             this.lblEmail.TabIndex = 18;
@@ -187,7 +178,7 @@
             // 
             // txtUpdateEmail
             // 
-            this.txtUpdateEmail.Location = new System.Drawing.Point(166, 231);
+            this.txtUpdateEmail.Location = new System.Drawing.Point(166, 194);
             this.txtUpdateEmail.Name = "txtUpdateEmail";
             this.txtUpdateEmail.Size = new System.Drawing.Size(100, 20);
             this.txtUpdateEmail.TabIndex = 19;
@@ -230,17 +221,10 @@
             // cboType
             // 
             this.cboType.FormattingEnabled = true;
-            this.cboType.Items.AddRange(new object[] {
-            "1",
-            "2",
-            "3",
-            "4",
-            "5"});
             this.cboType.Location = new System.Drawing.Point(166, 41);
             this.cboType.Name = "cboType";
-            this.cboType.Size = new System.Drawing.Size(121, 21);
+            this.cboType.Size = new System.Drawing.Size(100, 21);
             this.cboType.TabIndex = 25;
-            this.cboType.MouseHover += new System.EventHandler(this.cboType_MouseHover);
             // 
             // lblHouseName
             // 
@@ -318,6 +302,7 @@
             // 
             // tabAddStaff
             // 
+            this.tabAddStaff.Controls.Add(this.cboAddGender);
             this.tabAddStaff.Controls.Add(this.txtAddPhone);
             this.tabAddStaff.Controls.Add(this.label10);
             this.tabAddStaff.Controls.Add(this.txtAddPassword);
@@ -331,7 +316,6 @@
             this.tabAddStaff.Controls.Add(this.label13);
             this.tabAddStaff.Controls.Add(this.label14);
             this.tabAddStaff.Controls.Add(this.txtAddForename);
-            this.tabAddStaff.Controls.Add(this.txtAddGender);
             this.tabAddStaff.Controls.Add(this.label15);
             this.tabAddStaff.Controls.Add(this.txtPracticeNumberAdd);
             this.tabAddStaff.Controls.Add(this.lblPracticeNumber);
@@ -433,13 +417,6 @@
             this.txtAddForename.Size = new System.Drawing.Size(100, 20);
             this.txtAddForename.TabIndex = 50;
             // 
-            // txtAddGender
-            // 
-            this.txtAddGender.Location = new System.Drawing.Point(165, 236);
-            this.txtAddGender.Name = "txtAddGender";
-            this.txtAddGender.Size = new System.Drawing.Size(100, 20);
-            this.txtAddGender.TabIndex = 55;
-            // 
             // label15
             // 
             this.label15.AutoSize = true;
@@ -531,14 +508,14 @@
             // 
             // tabUpdateStaff
             // 
+            this.tabUpdateStaff.Controls.Add(this.cboUpdateGender);
             this.tabUpdateStaff.Controls.Add(this.txtUpdatePhone);
             this.tabUpdateStaff.Controls.Add(this.txtUpdatePostCode);
             this.tabUpdateStaff.Controls.Add(this.label5);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateAddressLine);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseNumber);
-            this.tabUpdateStaff.Controls.Add(this.txtUpdatePassword);
+            this.tabUpdateStaff.Controls.Add(this.btnRemoveStaff);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateHouseName);
-            this.tabUpdateStaff.Controls.Add(this.label4);
             this.tabUpdateStaff.Controls.Add(this.lblPostCode);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateUserName);
             this.tabUpdateStaff.Controls.Add(this.lblAddressLine);
@@ -550,7 +527,6 @@
             this.tabUpdateStaff.Controls.Add(this.label2);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateForename);
             this.tabUpdateStaff.Controls.Add(this.btnUpdateStaff);
-            this.tabUpdateStaff.Controls.Add(this.txtUpdateGender);
             this.tabUpdateStaff.Controls.Add(this.lblGender);
             this.tabUpdateStaff.Controls.Add(this.lblEmail);
             this.tabUpdateStaff.Controls.Add(this.txtUpdateEmail);
@@ -562,9 +538,17 @@
             this.tabUpdateStaff.Text = "Update Staff";
             this.tabUpdateStaff.UseVisualStyleBackColor = true;
             // 
+            // cboUpdateGender
+            // 
+            this.cboUpdateGender.FormattingEnabled = true;
+            this.cboUpdateGender.Location = new System.Drawing.Point(166, 167);
+            this.cboUpdateGender.Name = "cboUpdateGender";
+            this.cboUpdateGender.Size = new System.Drawing.Size(100, 21);
+            this.cboUpdateGender.TabIndex = 42;
+            // 
             // txtUpdatePhone
             // 
-            this.txtUpdatePhone.Location = new System.Drawing.Point(166, 179);
+            this.txtUpdatePhone.Location = new System.Drawing.Point(166, 142);
             this.txtUpdatePhone.Name = "txtUpdatePhone";
             this.txtUpdatePhone.Size = new System.Drawing.Size(100, 20);
             this.txtUpdatePhone.TabIndex = 33;
@@ -572,27 +556,11 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(82, 182);
+            this.label5.Location = new System.Drawing.Point(82, 145);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(78, 13);
             this.label5.TabIndex = 32;
             this.label5.Text = "Phone Number";
-            // 
-            // txtUpdatePassword
-            // 
-            this.txtUpdatePassword.Location = new System.Drawing.Point(166, 63);
-            this.txtUpdatePassword.Name = "txtUpdatePassword";
-            this.txtUpdatePassword.Size = new System.Drawing.Size(100, 20);
-            this.txtUpdatePassword.TabIndex = 30;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(107, 67);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 13);
-            this.label4.TabIndex = 29;
-            this.label4.Text = "Password";
             // 
             // txtUpdateUserName
             // 
@@ -612,7 +580,7 @@
             // 
             // txtUpdateSurname
             // 
-            this.txtUpdateSurname.Location = new System.Drawing.Point(166, 153);
+            this.txtUpdateSurname.Location = new System.Drawing.Point(166, 116);
             this.txtUpdateSurname.Name = "txtUpdateSurname";
             this.txtUpdateSurname.Size = new System.Drawing.Size(100, 20);
             this.txtUpdateSurname.TabIndex = 12;
@@ -620,7 +588,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(111, 156);
+            this.label1.Location = new System.Drawing.Point(111, 119);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 13);
             this.label1.TabIndex = 11;
@@ -629,7 +597,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(106, 130);
+            this.label2.Location = new System.Drawing.Point(106, 93);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 13);
             this.label2.TabIndex = 10;
@@ -637,7 +605,7 @@
             // 
             // txtUpdateForename
             // 
-            this.txtUpdateForename.Location = new System.Drawing.Point(166, 127);
+            this.txtUpdateForename.Location = new System.Drawing.Point(166, 90);
             this.txtUpdateForename.Name = "txtUpdateForename";
             this.txtUpdateForename.Size = new System.Drawing.Size(100, 20);
             this.txtUpdateForename.TabIndex = 9;
@@ -652,6 +620,14 @@
             this.btnAddMedication.UseVisualStyleBackColor = true;
             this.btnAddMedication.Click += new System.EventHandler(this.btnAddMedication_Click);
             // 
+            // cboAddGender
+            // 
+            this.cboAddGender.FormattingEnabled = true;
+            this.cboAddGender.Location = new System.Drawing.Point(166, 237);
+            this.cboAddGender.Name = "cboAddGender";
+            this.cboAddGender.Size = new System.Drawing.Size(99, 21);
+            this.cboAddGender.TabIndex = 64;
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -663,7 +639,6 @@
             this.Controls.Add(this.txtSearchUserName);
             this.Controls.Add(this.lblUserName);
             this.Controls.Add(this.btnExit);
-            this.Controls.Add(this.btnRemoveStaff);
             this.Controls.Add(this.btnUpdateRota);
             this.Name = "ManagerForm";
             this.Text = "ManagerForm";
@@ -688,7 +663,6 @@
         private System.Windows.Forms.Label lblPracticeNumber;
         private System.Windows.Forms.TextBox txtPracticeNumberAdd;
         private System.Windows.Forms.Label lblGender;
-        private System.Windows.Forms.TextBox txtUpdateGender;
         private System.Windows.Forms.Label lblEmail;
         private System.Windows.Forms.TextBox txtUpdateEmail;
         private System.Windows.Forms.Label lblUserName;
@@ -716,7 +690,6 @@
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TextBox txtAddForename;
-        private System.Windows.Forms.TextBox txtAddGender;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtAddEmail;
@@ -731,8 +704,6 @@
         private System.Windows.Forms.TabPage tabUpdateStaff;
         private System.Windows.Forms.TextBox txtUpdatePhone;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox txtUpdatePassword;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtUpdateUserName;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtUpdateSurname;
@@ -740,5 +711,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtUpdateForename;
         private System.Windows.Forms.Button btnAddMedication;
+        private System.Windows.Forms.ComboBox cboUpdateGender;
+        private System.Windows.Forms.ComboBox cboAddGender;
     }
 }

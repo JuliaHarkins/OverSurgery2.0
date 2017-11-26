@@ -291,6 +291,7 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
+                return m;
             }
             return m;
         }
@@ -1017,6 +1018,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Delete medication from the database
+        /// Last Updated : 20/11/17,
+        /// By R
         /// </summary>
         /// <param name="p_medName"></param>
         /// <returns></returns>
@@ -1033,6 +1036,8 @@ namespace OverSurgery2
 
         /// <summary>
         /// Get a medication from a name
+        /// Last Updated : 20/11/17,
+        /// By R
         /// </summary>
         /// <param name="p_medName"></param>
         /// <returns></returns>

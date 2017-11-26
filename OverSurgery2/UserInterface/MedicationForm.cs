@@ -17,9 +17,10 @@ namespace OverSurgery2.UserInterface
 {
     public partial class MedicationForm : Form
     {
-        private int m_medicationID, m_permissionLevel;
-        private string m_medName, m_dosage;
-        MetaLayer ml;
+        private uint m_medicationID, m_permissionLevel, m_dosage;
+        private string m_medName;
+        MetaLayer ml = MetaLayer.Instance();
+        Medication med = null;
 
         public MedicationForm()
         {
@@ -29,7 +30,7 @@ namespace OverSurgery2.UserInterface
         private void btnRemoveMed_MouseHover(object sender, EventArgs e)
         {
             ToolTip deleteonadd = new ToolTip();
-            deleteonadd.SetToolTip(btnRemoveMed, "This will delete the medication specified in the field to the left from the database");
+            deleteonadd.SetToolTip(btnRemoveMed, "This will delete the medication currently being displayed");
         }
 
         /// <summary>
@@ -39,10 +40,18 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnSearchMed_Click(object sender, EventArgs e)
         {
-            m_medName = txtSearchMedName.Text;
-            ml.GetMedicationByName(m_medName);
+            try
+            {
+                med.Name = txtSearchMedName.Text;
+                ml.GetMedicationByName(med.Name);
 
-            WriteBoxes();
+                WriteBoxes();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+           
         }
 
         /// <summary>
@@ -52,15 +61,15 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnRemoveMed_Click(object sender, EventArgs e)
         {
-            m_medName = txtSearchMedName.Text;
-
             try
             {
+                med.Name = txtUpdateMedName.Text;
+
                 // Verify the user wants to delete the medication
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_medName + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    ml.DeleteMedication(m_medName);
+                    ml.DeleteMedication(med.Name);
                 }
                 else
                 {
@@ -80,8 +89,16 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnAddMed_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.AddMedication();
+            try
+            {
+                ReadBoxes();
+                //ml.AddMedication();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
@@ -91,8 +108,16 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnUpdateMed_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.UpdateMedication();
+            try
+            {
+                ReadBoxes();
+                //ml.UpdateMedication();
+            }
+            catch
+            {
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
@@ -118,16 +143,16 @@ namespace OverSurgery2.UserInterface
                 //Check the tab the user is currently in
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
-                    txtAddMedName.Text = m_medName;
-                    txtAddPermission.Text = Convert.ToString(m_permissionLevel);
-                    txtAddDosage.Text = m_dosage;
+                    txtAddMedName.Text = med.Name;
+                    txtAddPermission.Text = Convert.ToString(med.PermissionLevel);
+                    txtAddDosage.Text = Convert.ToString(med.Dosage);
 
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
-                    txtUpdateMedName.Text = m_medName;
-                    txtUpdatePermission.Text = Convert.ToString(m_permissionLevel);
-                    txtUpdateDosage.Text = m_dosage;
+                    txtUpdateMedName.Text = med.Name;
+                    txtUpdatePermission.Text = Convert.ToString(med.PermissionLevel);
+                    txtUpdateDosage.Text = Convert.ToString(med.Dosage);
                 }
                 else
                 {
@@ -150,15 +175,13 @@ namespace OverSurgery2.UserInterface
                 //Check the tab the user is currently in
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
-                    m_medName = txtAddMedName.Text;
-                    m_permissionLevel = Convert.ToInt32(txtAddPermission.Text);
-                    m_dosage = txtAddDosage.Text;
+                    tabControl1.SelectedTab = tabUpdateMed;
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
-                    m_medName = txtUpdateMedName.Text;
-                    m_permissionLevel = Convert.ToInt32(txtUpdatePermission.Text);
-                    m_dosage = txtUpdateDosage.Text;
+                    med.Name = txtUpdateMedName.Text;
+                    med.PermissionLevel = Convert.ToUInt32(txtUpdatePermission.Text);
+                    med.Dosage = Convert.ToUInt32(txtUpdateDosage.Text);
                 }
                 else
                 {
