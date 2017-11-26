@@ -43,11 +43,13 @@
             this.lbl_PhoneNumberText = new System.Windows.Forms.Label();
             this.lbl_DoctorNameText = new System.Windows.Forms.Label();
             this.lbl_DoctorName = new System.Windows.Forms.Label();
+            this.lst_PatientsPres = new System.Windows.Forms.ListView();
+            this.btn_Extend = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btn_EditPatient
             // 
-            this.btn_EditPatient.Location = new System.Drawing.Point(9, 353);
+            this.btn_EditPatient.Location = new System.Drawing.Point(13, 481);
             this.btn_EditPatient.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btn_EditPatient.Name = "btn_EditPatient";
             this.btn_EditPatient.Size = new System.Drawing.Size(112, 35);
@@ -196,11 +198,34 @@
             this.lbl_DoctorName.TabIndex = 16;
             this.lbl_DoctorName.Text = "Doctor:";
             // 
+            // lst_PatientsPres
+            // 
+            this.lst_PatientsPres.Cursor = System.Windows.Forms.Cursors.Default;
+            this.lst_PatientsPres.FullRowSelect = true;
+            this.lst_PatientsPres.Location = new System.Drawing.Point(12, 227);
+            this.lst_PatientsPres.Name = "lst_PatientsPres";
+            this.lst_PatientsPres.Size = new System.Drawing.Size(517, 246);
+            this.lst_PatientsPres.TabIndex = 18;
+            this.lst_PatientsPres.UseCompatibleStateImageBehavior = false;
+            this.lst_PatientsPres.View = System.Windows.Forms.View.Details;
+            // 
+            // btn_Extend
+            // 
+            this.btn_Extend.Location = new System.Drawing.Point(388, 479);
+            this.btn_Extend.Name = "btn_Extend";
+            this.btn_Extend.Size = new System.Drawing.Size(141, 37);
+            this.btn_Extend.TabIndex = 19;
+            this.btn_Extend.Text = "btn_Extend";
+            this.btn_Extend.UseVisualStyleBackColor = true;
+            this.btn_Extend.Click += new System.EventHandler(this.btn_Extend_Click);
+            // 
             // ViewPatientInfoForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(393, 402);
+            this.ClientSize = new System.Drawing.Size(541, 530);
+            this.Controls.Add(this.btn_Extend);
+            this.Controls.Add(this.lst_PatientsPres);
             this.Controls.Add(this.lbl_DoctorNameText);
             this.Controls.Add(this.lbl_DoctorName);
             this.Controls.Add(this.lbl_PhoneNumberText);
@@ -243,5 +268,7 @@
         private System.Windows.Forms.Label lbl_PhoneNumberText;
         private System.Windows.Forms.Label lbl_DoctorNameText;
         private System.Windows.Forms.Label lbl_DoctorName;
+        private System.Windows.Forms.ListView lst_PatientsPres;
+        private System.Windows.Forms.Button btn_Extend;
     }
 }
