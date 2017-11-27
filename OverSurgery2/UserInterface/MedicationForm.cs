@@ -181,7 +181,7 @@ namespace OverSurgery2.UserInterface
                 {
                     med.Name = txtUpdateMedName.Text;
                     med.PermissionLevel = Convert.ToUInt32(txtUpdatePermission.Text);
-                    med.Dosage = Convert.ToUInt32(txtUpdateDosage.Text);
+                    med.Dosage = txtUpdateDosage.Text;
                 }
                 else
                 {
