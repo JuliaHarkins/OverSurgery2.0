@@ -30,9 +30,9 @@ namespace OverSurgery2
         private void AddPrescription_Load(object sender, EventArgs e)
         {
             #region LoadMedication
-            lst_medication.Columns.Add("Medication", 75);
+            lst_medication.Columns.Add("Medication", 125);
             lst_medication.Columns.Add("Dosage", 75);
-            lst_medication.Columns.Add("Permission Level",91);
+            lst_medication.Columns.Add("Permission Level",95);
 
             foreach (Medication m in m_medication)
             {
@@ -59,6 +59,26 @@ namespace OverSurgery2
         }
 
         private void lst_medication_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lb_notes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void monthCalendar1_DateChanged(object sender, DateRangeEventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_prescriptionNotes_TextChanged(object sender, EventArgs e)
         {
 
         }
