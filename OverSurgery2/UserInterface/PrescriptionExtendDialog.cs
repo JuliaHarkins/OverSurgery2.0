@@ -38,8 +38,6 @@ namespace OverSurgery2
             else
             {
                 MessageBox.Show(Convert.ToInt32(cbx_Months.SelectedItem.ToString()).ToString());
-
-                // m_extendPres.Extend(Convert.ToInt32(cbx_Months.SelectedItem.ToString()));
             }
         }
     }
