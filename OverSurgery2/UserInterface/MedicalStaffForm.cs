@@ -156,11 +156,11 @@ namespace OverSurgery2
         {
             if (m_currentUser != null)
             {
-                new AddPrescription(m_currentUser).ShowDialog();
+                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
             }
             else
             {
-                new AddPrescription(m_currentDoctor).ShowDialog();
+                new AddPrescription(m_currentDoctor, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
             }
         }
 
