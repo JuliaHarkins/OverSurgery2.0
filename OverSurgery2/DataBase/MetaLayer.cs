@@ -264,7 +264,7 @@ namespace OverSurgery2
 
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM medicalstaff INNER JOIN staff on medicalstaff.staffid = staff.staffid WHERE staff.staffid =" + p_id + ";");
+                DbDataReader dr = con.Select("SELECT * FROM medicalstaff m, staff s WHERE m.staffID =" + p_id + " AND m.staffID = s.staffID;");
 
                 while (dr.Read())
                 {

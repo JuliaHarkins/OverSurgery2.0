@@ -30,7 +30,7 @@ CREATE TABLE `MedicalStaff` (
     `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
     `StaffID` INT(8) NOT NULL,
-    `Gender` TINYINT NOT NULL default 0,
+    `Gender` TINYINT(2) NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),
     FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
