@@ -257,7 +257,6 @@ namespace OverSurgery2
             }
             return s;
         }
-
         public Staff GetMedicalStaffByStaffID(int p_id, int type)
         {
             MedicalStaff m = null;

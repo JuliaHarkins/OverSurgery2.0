@@ -16,12 +16,12 @@ namespace OverSurgery2
         MetaLayer ml = MetaLayer.Instance();
         MedicalStaff m_currentUser;
         List<Medication> m_medication;
-        Patient m_patient;
+        int  m_patientID;
 #endregion
-        public AddPrescription(Staff p_currentUser, Patient p_patient)
+        public AddPrescription(Staff p_currentUser, int p_patientID)
         {
             m_currentUser = p_currentUser as MedicalStaff;
-            m_patient = p_patient;
+            m_patientID = p_patientID;
             m_medication = ml.getMedicationOnMedStaffID(m_currentUser.MedicalStaffID);
             InitializeComponent();
 
