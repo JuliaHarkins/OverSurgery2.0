@@ -281,7 +281,6 @@ namespace OverSurgery2
                         Username = dr.GetString(11),
                         Password = dr.GetString(12),
                         Type = type
-
                         };
 
                 }

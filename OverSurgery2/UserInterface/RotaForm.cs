@@ -24,7 +24,6 @@ namespace OverSurgery2
         {
             ml = MetaLayer.Instance();
             List<Rota> rotaData = ml.GetStaffRota();
-            MessageBox.Show(rotaData.ElementAtOrDefault(0).Forename + "\n" + rotaData.ElementAtOrDefault(0).Surname + "\n" + rotaData.ElementAtOrDefault(0).Days);
 
             for (int i = 0, j = 0; j < rotaData.Count; i++, j++)
             {
@@ -72,6 +71,11 @@ namespace OverSurgery2
                     dG_Rota[6, i].Style.BackColor = Color.Red;
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
