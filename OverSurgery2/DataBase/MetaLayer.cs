@@ -19,7 +19,6 @@ namespace OverSurgery2
     {
         DataConnection con = DBFactory.Instance();
         static private MetaLayer m_Instance = null;
-        PersonFactory pf;
         private MetaLayer() {
         }
 
@@ -34,7 +33,6 @@ namespace OverSurgery2
 
         public List<Patient> GetPatients()
         {
-            pf = PersonFactory.Instance();
             List<Patient> patients = new List<Patient>();
             Patient p = null;
             if (con.OpenConnection())
@@ -136,22 +134,21 @@ namespace OverSurgery2
         }
 
 
-        public bool InsertNewPatient(Dictionary<string, object> p_PatientValues)
+        public bool InsertNewPatient(Patient p_Patient)
         {
             {
                 if (con.OpenConnection())
                 {
                     try
                     {
-                        con.Insert("INSERT INTO patient VALUES (NULL," + p_PatientValues["Forename"] + "," + p_PatientValues["Surname"] + "," + p_PatientValues["Gender"] + "," + p_PatientValues["DateOfBirth"] + "," + p_PatientValues["PhoneNumber"] + "," +
-                            p_PatientValues["RegisteredDoctorID"] + p_PatientValues["AddressID"] + ");");
+                        con.Insert("INSERT INTO patient VALUES (NULL," + p_Patient.Forename + "," + p_Patient.Surname + "," + p_Patient.Gender + "," + p_Patient.DateOfBirth + "," + p_Patient.PhoneNumber + "," +
+                            p_Patient.RegisteredDoctorID + p_Patient.AddressID + ");");
                         con.CloseConnection();
                         return true;
 
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.Message);
                         throw e;
                     }
                 }
@@ -554,7 +551,7 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
-                    con.Update("INSERT INTO MedicalHistory VALUES (null, " + Convert.ToInt32(p_p.Date.ToString("yyyyMMdd")) + ", " + Convert.ToInt32(p_p.DateOfNextIssue.ToString("yyyyMMdd")) + ", " + p_p.Amount + ", " + p_p.Extendable +
+                con.Update("INSERT INTO MedicalHistory VALUES (null, " + Convert.ToInt32(p_p.Date.ToString("yyyyMMdd")) + ", " + Convert.ToInt32(p_p.DateOfNextIssue.Value.ToString("yyyyMMdd")) + ", " + p_p.Amount + ", " + p_p.Extendable +
                     ", " + p_p.MedicationID + ", '" + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
                     con.CloseConnection();
                 }
@@ -609,14 +606,23 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID =  " + p_patientID +  " ORDER BY DateIssued;");
-                    
+                DateTime? NextIssueDate;   
                 while (dr.Read())
                 {
+                    try
+                    {
+                       NextIssueDate = dr.GetFieldValue<DateTime?>(2);
+                    }
+                    catch
+                    {
+                        NextIssueDate = null;
+                    }
                     p = new Prescription
                     {
                         ID = dr.GetInt16(0) ,
                         Date = dr.GetDateTime(1),
-                        DateOfNextIssue = dr.GetDateTime(2) ,
+                        //DateOfNextIssue = dr.GetDateTime(2),
+                        DateOfNextIssue = NextIssueDate,
                         Amount = dr.GetInt16(3) ,
                         Extendable = dr.GetBoolean(4) ,
                         MedicationID = dr.GetInt16(5),

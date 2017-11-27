@@ -148,49 +148,49 @@
             this.txt_Forename.Location = new System.Drawing.Point(126, 6);
             this.txt_Forename.Name = "txt_Forename";
             this.txt_Forename.Size = new System.Drawing.Size(170, 26);
-            this.txt_Forename.TabIndex = 10;
+            this.txt_Forename.TabIndex = 1;
             // 
             // txt_Surname
             // 
             this.txt_Surname.Location = new System.Drawing.Point(126, 38);
             this.txt_Surname.Name = "txt_Surname";
             this.txt_Surname.Size = new System.Drawing.Size(170, 26);
-            this.txt_Surname.TabIndex = 11;
+            this.txt_Surname.TabIndex = 2;
             // 
             // txt_PhoneNumber
             // 
             this.txt_PhoneNumber.Location = new System.Drawing.Point(126, 134);
             this.txt_PhoneNumber.Name = "txt_PhoneNumber";
             this.txt_PhoneNumber.Size = new System.Drawing.Size(170, 26);
-            this.txt_PhoneNumber.TabIndex = 15;
+            this.txt_PhoneNumber.TabIndex = 5;
             // 
             // txt_Street
             // 
             this.txt_Street.Location = new System.Drawing.Point(126, 250);
             this.txt_Street.Name = "txt_Street";
             this.txt_Street.Size = new System.Drawing.Size(170, 26);
-            this.txt_Street.TabIndex = 16;
+            this.txt_Street.TabIndex = 8;
             // 
             // txt_PostCode
             // 
             this.txt_PostCode.Location = new System.Drawing.Point(126, 282);
             this.txt_PostCode.Name = "txt_PostCode";
             this.txt_PostCode.Size = new System.Drawing.Size(170, 26);
-            this.txt_PostCode.TabIndex = 17;
+            this.txt_PostCode.TabIndex = 9;
             // 
             // txt_HouseNumber
             // 
             this.txt_HouseNumber.Location = new System.Drawing.Point(126, 218);
             this.txt_HouseNumber.Name = "txt_HouseNumber";
             this.txt_HouseNumber.Size = new System.Drawing.Size(170, 26);
-            this.txt_HouseNumber.TabIndex = 18;
+            this.txt_HouseNumber.TabIndex = 7;
             // 
             // txt_HouseName
             // 
             this.txt_HouseName.Location = new System.Drawing.Point(126, 186);
             this.txt_HouseName.Name = "txt_HouseName";
             this.txt_HouseName.Size = new System.Drawing.Size(170, 26);
-            this.txt_HouseName.TabIndex = 19;
+            this.txt_HouseName.TabIndex = 6;
             // 
             // cbx_Gender
             // 
@@ -198,7 +198,7 @@
             this.cbx_Gender.Location = new System.Drawing.Point(126, 102);
             this.cbx_Gender.Name = "cbx_Gender";
             this.cbx_Gender.Size = new System.Drawing.Size(170, 28);
-            this.cbx_Gender.TabIndex = 20;
+            this.cbx_Gender.TabIndex = 4;
             // 
             // dtp_DateOfBirth
             // 
@@ -206,7 +206,7 @@
             this.dtp_DateOfBirth.MaxDate = new System.DateTime(2017, 11, 22, 19, 22, 41, 0);
             this.dtp_DateOfBirth.Name = "dtp_DateOfBirth";
             this.dtp_DateOfBirth.Size = new System.Drawing.Size(170, 26);
-            this.dtp_DateOfBirth.TabIndex = 21;
+            this.dtp_DateOfBirth.TabIndex = 3;
             this.dtp_DateOfBirth.Value = new System.DateTime(2017, 11, 22, 0, 0, 0, 0);
             // 
             // btn_SavePatient
@@ -214,7 +214,7 @@
             this.btn_SavePatient.Location = new System.Drawing.Point(295, 315);
             this.btn_SavePatient.Name = "btn_SavePatient";
             this.btn_SavePatient.Size = new System.Drawing.Size(121, 33);
-            this.btn_SavePatient.TabIndex = 22;
+            this.btn_SavePatient.TabIndex = 10;
             this.btn_SavePatient.Text = "Save Patient";
             this.btn_SavePatient.UseVisualStyleBackColor = true;
             this.btn_SavePatient.Click += new System.EventHandler(this.btn_SavePatient_Click);
