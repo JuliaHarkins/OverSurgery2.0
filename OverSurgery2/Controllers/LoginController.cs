@@ -20,6 +20,7 @@ namespace OverSurgery2
         private int? m_type;
         private static LoginController m_getInstance;
         SmtpClient Client;
+        private Dictionary<string, string> m_LoginDetails;
         private LoginController()
         {
             Client = new SmtpClient();
@@ -43,6 +44,7 @@ namespace OverSurgery2
                 m_type = value;
             }
         }
+        public Dictionary<string, string> LoginDetails { get { return m_LoginDetails; } }
         public static LoginController Instance()
         {
             if(m_getInstance == null)
@@ -74,6 +76,11 @@ namespace OverSurgery2
                 {
                     m_flg = true;
                     Type = m_login.Item3;
+                    m_LoginDetails = new Dictionary<string, string>
+                    {
+                        {"Username", p_username },
+                        {"Password", p_password }
+                    };
                 }
             }
             else

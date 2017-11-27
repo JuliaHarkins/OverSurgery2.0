@@ -31,6 +31,7 @@ namespace OverSurgery2
             if(ml.NewResetRequest(txt_UserName.Text, verification))
             {
                 lc.SendPasswordResetEmail(ml.GetStaffEmailByUserName(txt_UserName.Text), verification);
+                Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.PasswordResetRequest, txt_UserName.Text, "Password Reset Requested"));
                 btn_Verify.Enabled = true;
             }
             else

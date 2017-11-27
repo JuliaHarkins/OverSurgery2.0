@@ -67,6 +67,13 @@
     <Compile Include="DataBase\ManagerForm.Designer.cs">
       <DependentUpon>ManagerForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
+    <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\PrescriptionExtendDialog.Designer.cs">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="Timing.cs" />
     <Compile Include="UserInterface\MedicationForm.cs">
       <SubType>Form</SubType>
@@ -121,7 +128,6 @@
     <Compile Include="MainClasses\Patient.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="MainClasses\Person.cs" />
-    <Compile Include="PersonFactory.cs" />
     <Compile Include="MainClasses\Prescription.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +172,9 @@
     </Compile>
     <EmbeddedResource Include="DataBase\ManagerForm.resx">
       <DependentUpon>ManagerForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

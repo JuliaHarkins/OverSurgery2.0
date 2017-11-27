@@ -34,6 +34,7 @@ namespace OverSurgery2
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
+            #region Execution
             PatientPres = new BindingSource();
             Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
@@ -61,6 +62,7 @@ namespace OverSurgery2
             lst_PatientsPres.Columns.Add("Medication");
             lst_PatientsPres.Columns.Add("Amount");
             lst_PatientsPres.Columns.Add("By");
+            // Add each item to the list based on prescriptions
             foreach (Prescription p in m_PatientPrescriptions)
             {
                 ListViewItem lvi = new ListViewItem();
@@ -75,6 +77,7 @@ namespace OverSurgery2
             {
                 column.Width = -2;
             }
+#endregion
         }
 
         private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -87,9 +90,17 @@ namespace OverSurgery2
 
         private void btn_Extend_Click(object sender, EventArgs e)
         {
-            int sel = lst_PatientsPres.SelectedIndices[0];
-            var pres = m_PatientPrescriptions.ElementAt(sel);
-            pres.Extend();
+            Prescription pres = null;
+            try
+            {
+                int sel = lst_PatientsPres.SelectedIndices[0];
+                pres = m_PatientPrescriptions.ElementAt(sel);
+                new PrescriptionExtendDialog(pres).ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show(this,"No prescription selected.");
+            }
         }
     }
     public class Address

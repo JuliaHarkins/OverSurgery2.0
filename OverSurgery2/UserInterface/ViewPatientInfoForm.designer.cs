@@ -211,11 +211,11 @@
             // 
             // btn_Extend
             // 
-            this.btn_Extend.Location = new System.Drawing.Point(388, 479);
+            this.btn_Extend.Location = new System.Drawing.Point(368, 479);
             this.btn_Extend.Name = "btn_Extend";
-            this.btn_Extend.Size = new System.Drawing.Size(141, 37);
+            this.btn_Extend.Size = new System.Drawing.Size(161, 37);
             this.btn_Extend.TabIndex = 19;
-            this.btn_Extend.Text = "btn_Extend";
+            this.btn_Extend.Text = "Extend Prescription";
             this.btn_Extend.UseVisualStyleBackColor = true;
             this.btn_Extend.Click += new System.EventHandler(this.btn_Extend_Click);
             // 

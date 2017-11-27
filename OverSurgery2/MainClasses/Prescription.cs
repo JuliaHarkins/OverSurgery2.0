@@ -25,8 +25,8 @@ namespace OverSurgery2
         int m_prescriptionID;
         int m_medicationID; 
         int m_patientID;
-        DateTime m_dateOfNextIssue;
-        bool m_allowExtention;
+        DateTime? m_dateOfNextIssue;
+        bool m_allowExtension;
         DateTime m_DateIssued;
         int m_amount;
         int m_medicalStaffID;
@@ -98,7 +98,7 @@ namespace OverSurgery2
                 m_medicalStaffID = value;
             }
         }
-        public DateTime DateOfNextIssue
+        public DateTime? DateOfNextIssue
         {
             get
             {
@@ -113,11 +113,11 @@ namespace OverSurgery2
         {
             get
             {
-                return m_allowExtention;
+                return m_allowExtension;
             }
             set
             {
-                m_allowExtention = value;
+                m_allowExtension = value;
             }
         }
 
@@ -141,9 +141,9 @@ namespace OverSurgery2
         public void Extend()
         {
             #region Execution
-                if (m_dateOfNextIssue < DateTime.Now && CheckIfExtenable() == true)
+                if (m_dateOfNextIssue < DateTime.Now && CheckIfExtendable() == true)
                 {
-                 m_dateOfNextIssue.AddMonths(1);
+                 m_dateOfNextIssue.Value.AddMonths(1);
                 }
             else {
 
@@ -154,24 +154,26 @@ namespace OverSurgery2
         /// extends by a given amount of months.
         /// </summary>
         /// <param name="p_months">the amout of months the Prescription is to be extended by.</param>
-        public void Extend(int p_months)
+        public bool Extend(int p_months)
         {
 #region Execution
-
-            if (m_dateOfNextIssue > DateTime.Now && CheckIfExtenable() == true)
+            if (m_dateOfNextIssue > DateTime.Now && CheckIfExtendable() == true)
             {
-                m_dateOfNextIssue.AddMonths(p_months);
+                m_dateOfNextIssue.Value.AddMonths(p_months);
+                return true;
             }
+            return false;
 #endregion
         }
-        private bool CheckIfExtenable()
+        private bool CheckIfExtendable()
         {
-#region Exicution
-            if (m_allowExtention == true)
+#region Execution
+            if (m_allowExtension == true)
             {
                 return true;
             }
-            else{
+            else
+            {
                 return false;
             }
 #endregion
