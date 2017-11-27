@@ -506,27 +506,41 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
-        public List<Medication> getMedicationByLevel(uint? lvl)
+        /// <summary>
+        /// gets the medication avalible to the medicalstaff member using their staff id.
+        /// Last Updated : 27/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="id">medicalStaffID</param>
+        /// <returns></returns>
+        public List<Medication> getMedicationOnMedStaffID(uint? id)
         {
+            int permissionLevel = 0;
             List<Medication> medication = new List<Medication>();
             Medication m;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT MedicationID, MedicationName, PermissionLevel, Dosage FROM Medication WHERE PermissionLevel <= " + lvl + ";");
-
-                while (dr.Read())
+                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + id + ";");
+                while (dr1.Read())
                 {
-                    m = new Medication
-                    {
-                    ID = Convert.ToUInt16(dr.GetInt16(0)),
-                    Name = dr.GetName(1),
-                    PermissionLevel = Convert.ToUInt16(dr.GetInt16(2)),
-                    Dosage = Convert.ToUInt16(dr.GetInt16(3))
-                    };
-                medication.Add(m);
+                    permissionLevel = dr1.GetInt32(0);
                 }
-            dr.Close();
-            con.CloseConnection();
+                dr1.Close();
+
+                DbDataReader dr2 = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE PermissionLevel <= " +  permissionLevel + ";");
+
+                while (dr2.Read())
+                {
+                    m = new Medication();
+                    m.ID = Convert.ToUInt16(dr2.GetInt16(0));
+                    m.PermissionLevel = Convert.ToUInt16(dr2.GetInt16(1));
+                    m.Name = dr2.GetString(2);
+                    m.Dosage = dr2.GetString(3);
+
+                    medication.Add(m);
+                }
+                dr2.Close();
+                con.CloseConnection();
             }
         return medication;
         }
@@ -574,7 +588,7 @@ namespace OverSurgery2
                         MedicalStaffID = dr.GetInt16(5),
                         PatientID = dr.GetInt16(6)
                     };
-                appointments.Add(a);
+                    appointments.Add(a);
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -610,7 +624,6 @@ namespace OverSurgery2
                         MedicalStaffID = dr.GetInt16(7)
                     };
                     prescriptions.Add(p);
-
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -1055,7 +1068,7 @@ namespace OverSurgery2
                         ID = Convert.ToUInt32(dr.GetInt32(0)),
                         PermissionLevel = Convert.ToUInt32(dr.GetString(1)),
                         Name = dr.GetString(2),
-                        Dosage = Convert.ToUInt32(dr.GetString(3))
+                        Dosage = dr.GetString(3)
                     };
                     medList.Add(m);
                 }
