@@ -91,7 +91,7 @@ CREATE TABLE `OnCall` (
 CREATE TABLE `Prescription` (
     `PrescriptionID` INT(8) NOT NULL auto_increment,
     `DateIssued` DATE NOT NULL default 19991231,
-    `DateOfNextIssue` DATE NULL default 19991231,
+    `DateOfNextIssue` DATE NULL default 30001231,
     `Amount` INT(2) NOT NULL default 0,
     `Extendable` BOOLEAN NOT NULL default 0,
     `MedicationID` INT(8) NOT NULL default 0,
@@ -198,8 +198,8 @@ INSERT INTO Prescription VALUES (5, 20170912, null, 14, 0, 2, 3, 6);
 INSERT INTO Prescription VALUES (6, 20171001, 20171101, 32, 1, 3, 4, 5);
 
 INSERT INTO Extension VALUES (1, 0, 1, null, 4, null);
-INSERT INTO Extension VALUES (2, 1, 3, 20171001, 1, 'Doctor Unavailable');
-INSERT INTO Extension VALUES (3, 0, 2, null, 1, null);
+INSERT INTO Extension VALUES (2, 1, 3, 20171001, 4, 'Doctor Unavailable');
+INSERT INTO Extension VALUES (3, 0, 2, null, 4, null);
 
 INSERT INTO DayOfWeek VALUES (1, 'Mon');
 INSERT INTO DayOfWeek VALUES (2, 'Tue');

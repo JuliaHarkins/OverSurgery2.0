@@ -522,7 +522,7 @@ namespace OverSurgery2
                 }
                 dr1.Close();
 
-                DbDataReader dr2 = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE PermissionLevel <= " +  permissionLevel + ";");
+                DbDataReader dr2 = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE PermissionLevel <= " +  permissionLevel + " ORDER BY MedicationName;");
 
                 while (dr2.Read())
                 {
@@ -547,13 +547,22 @@ namespace OverSurgery2
         /// <param name="p_p">the perscription</param>
         public void AddPrescriptionToTheDatabase(Prescription p_p)
             {
-                if (con.OpenConnection())
+            if (con.OpenConnection())
                 {
-                con.Update("INSERT INTO MedicalHistory VALUES (null, " + Convert.ToInt32(p_p.Date.ToString("yyyyMMdd")) + ", " + Convert.ToInt32(p_p.DateOfNextIssue.Value.ToString("yyyyMMdd")) + ", " + p_p.Amount + ", " + p_p.Extendable +
-                    ", " + p_p.MedicationID + ", '" + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
-                    con.CloseConnection();
+                    if (p_p.DateOfNextIssue == null)
+                    {
+                        con.Update("INSERT INTO Prescription VALUES (null, " + p_p.Date.ToString("yyyyMMdd") + ", null, " + p_p.Amount + ", " + p_p.Extendable +
+                        ", " + p_p.MedicationID + ", " + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
+                    }
+                    else
+                    {
+                        con.Update("INSERT INTO Prescription VALUES (null, " + p_p.Date.ToString("yyyyMMdd") + ", " + p_p.DateOfNextIssue.Value.ToString("yyyyMMdd") + ", " + p_p.Amount + ", " + p_p.Extendable +
+                        ", " + p_p.MedicationID + ", " + p_p.PatientID + ", " + p_p.MedicalStaffID + ");");
+                        con.CloseConnection();
+                    }
                 }
-            }
+        con.CloseConnection();
+        }
 
         /// <summary>
         /// Finds the appointments for one medical staff member for a given day.
@@ -619,7 +628,6 @@ namespace OverSurgery2
                     {
                         ID = dr.GetInt16(0) ,
                         Date = dr.GetDateTime(1),
-                        //DateOfNextIssue = dr.GetDateTime(2),
                         DateOfNextIssue = NextIssueDate,
                         Amount = dr.GetInt16(3) ,
                         Extendable = dr.GetBoolean(4) ,
@@ -666,7 +674,7 @@ namespace OverSurgery2
             return medicalHistoy;
         }
         /// <summary>
-        /// finsds the name of the medication based off the id
+        /// finds the name of the medication based off the id
         /// Last Updated : 17/11/17,
         /// By j
         /// </summary>

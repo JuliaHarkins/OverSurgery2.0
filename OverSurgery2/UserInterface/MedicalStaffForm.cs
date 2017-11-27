@@ -28,7 +28,6 @@ namespace OverSurgery2
         List<Prescription> m_prescriptions;
         MedicalStaff m_currentUser; 
         int m_appointmentListCounter;                     //the current position in the appointment list.
-        Doctor m_currentDoctor;
         #endregion
 #region Constructor
         /// <summary>
@@ -38,14 +37,8 @@ namespace OverSurgery2
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
         {
-            if(p_currentUser.GetType() == typeof(Doctor))
-            {
-                m_currentDoctor = p_currentUser as Doctor;
-            }
-            else if(p_currentUser.GetType() == typeof(MedicalStaff))
-            {
-                m_currentUser = p_currentUser as MedicalStaff;
-            }
+            
+            m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
         }
 #endregion
@@ -60,16 +53,9 @@ namespace OverSurgery2
             //checks there is information to load, and shows the relivent appointment information.
 #region LoadingAppointmentList
             m_appointmentBinding = new BindingSource();
-            if (m_currentDoctor != null)
-            {
-                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
-            }
-            else if (m_currentUser != null)
-            {
 
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
-                
-            }
+            
             foreach (Appointment a in m_appointments)
             {
                 a.SetNameDisplay();
@@ -100,28 +86,27 @@ namespace OverSurgery2
             SelectMedicalHistory();
             //shows the current user
 #region ShowCurrentUser
-            if (m_currentUser != null)
-            {
+
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
-            }
-            else if (m_currentDoctor != null)
-            {
-                lb_currentUser.Text = "Current User : " + m_currentDoctor.Forename + " " + m_currentDoctor.Surname;
-            }
+
             #endregion
 #region SetsExtentionAmount
             //checks if the user is a doctor and shows the amount of extentions,
-            //or it hites the button from non-doctors
-            if (m_currentUser == null)
+            //or it hides the button from non-doctors
+            if (m_currentUser.Type == 3)//m_currentUser.GetType() typeof(Doctor))
             {
-                if (m_currentDoctor.Extension !=null)
+                Doctor d = new Doctor();
+                d = (Doctor)m_currentUser;
+                if (d.Extension !=null)
                 {
-                    btn_extRequest.Text = "Extention Requests : " + m_currentDoctor.Extension.Count;
+                    btn_extRequest.Text = "Extention Requests : " + d.Extension.Count;
+                    
                 }
                 else
                 {
                     btn_extRequest.Text = "Extention Requests : 0";
                 }
+                btn_extRequest.Visible = true;
             }
             else
             {
@@ -158,10 +143,7 @@ namespace OverSurgery2
             {
                 new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
             }
-            else
-            {
-                new AddPrescription(m_currentDoctor, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
-            }
+            SelectMedicalHistory();
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)
