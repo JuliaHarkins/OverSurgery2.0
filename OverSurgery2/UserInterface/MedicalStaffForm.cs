@@ -154,8 +154,14 @@ namespace OverSurgery2
 #region Button
         private void btn_addPrescription_Click(object sender, EventArgs e)
         {
-            AddPrescription ap = new AddPrescription();
-            ap.Show();
+            if (m_currentUser != null)
+            {
+                new AddPrescription(m_currentUser).ShowDialog();
+            }
+            else
+            {
+                new AddPrescription(m_currentDoctor).ShowDialog();
+            }
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)

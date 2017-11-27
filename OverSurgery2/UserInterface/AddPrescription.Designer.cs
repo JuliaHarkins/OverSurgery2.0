@@ -108,6 +108,7 @@
             this.lst_medication.Size = new System.Drawing.Size(246, 110);
             this.lst_medication.TabIndex = 8;
             this.lst_medication.UseCompatibleStateImageBehavior = false;
+            this.lst_medication.View = System.Windows.Forms.View.Details;
             // 
             // AddPrescription
             // 
@@ -124,7 +125,7 @@
             this.Controls.Add(this.txt_prescriptionNotes);
             this.Name = "AddPrescription";
             this.Text = "AddPrescription";
-            this.Load += new System.EventHandler(this.btn_savePrescription_Click);
+            this.Load += new System.EventHandler(this.AddPrescription_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

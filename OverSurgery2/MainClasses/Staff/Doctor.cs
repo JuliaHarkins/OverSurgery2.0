@@ -16,36 +16,9 @@ namespace OverSurgery2
      */
     public class Doctor : MedicalStaff
     {
-        #region Member Variables 
-        bool m_onCall;
-        List<Prescription> m_extension;
-        MetaLayer ml;
-
-        #endregion
         #region Properties
-        public bool OnCall
-        {
-            get
-            {
-                return m_onCall;
-            }
-            set
-            {
-                m_onCall = value;
-            }
-        }
-        public List<Prescription> Extension
-        {
-            get
-            {
-                return m_extension;
-            }
-            set
-            {
-                m_extension = value;
-            }
-
-        }
+        public bool OnCall { get; set; }
+        public List<Prescription> Extension { get; set; }
 
         #endregion
         /// <summary>
@@ -79,11 +52,11 @@ namespace OverSurgery2
         /// <param name="p_prescription">the Prescription object that isn't to be extented</param>
         private void RemoveExtention(Prescription p_prescription)
         {
-            m_extension.Remove(p_prescription);
+            Extension.Remove(p_prescription);
         }
         public void addExtention(Prescription p_p)
         {
-            m_extension.Add(p_p);
+            Extension.Add(p_p);
         }
         #endregion
     }

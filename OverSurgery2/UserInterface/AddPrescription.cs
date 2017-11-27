@@ -13,23 +13,26 @@ namespace OverSurgery2
     public partial class AddPrescription : Form
     {
         #region Members
-        MetaLayer ml;
+        MetaLayer ml = MetaLayer.Instance();
         MedicalStaff m_currentUser;
         List<Medication> m_medication;
+        Patient m_patient;
 #endregion
-        public AddPrescription()
+        public AddPrescription(Staff p_currentUser, Patient p_patient)
         {
+            m_currentUser = p_currentUser as MedicalStaff;
+            m_patient = p_patient;
+            m_medication = ml.getMedicationOnMedStaffID(m_currentUser.MedicalStaffID);
             InitializeComponent();
+
         }
 
         private void AddPrescription_Load(object sender, EventArgs e)
         {
             #region LoadMedication
-            ml.getMedicationByLevel(m_currentUser.PrescriptionLevel);
-
-            lst_medication.Columns.Add("Medication");
-            lst_medication.Columns.Add("Dosage");
-            lst_medication.Columns.Add("Permission Level");
+            lst_medication.Columns.Add("Medication", 75);
+            lst_medication.Columns.Add("Dosage", 75);
+            lst_medication.Columns.Add("Permission Level",91);
 
             foreach (Medication m in m_medication)
             {
