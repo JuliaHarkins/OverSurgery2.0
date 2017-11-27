@@ -53,7 +53,6 @@ namespace OverSurgery2
             currentUserLoggedIn = p_currentUser;
             
             InitializeComponent();
-
             // Disable fields according to selected type
             if ((cboType.Text == "1") || (cboType.Text == "2") || (cboType.Text == "3"))
             {
