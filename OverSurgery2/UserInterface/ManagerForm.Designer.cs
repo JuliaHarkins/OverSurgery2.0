@@ -53,6 +53,7 @@
             this.txtUpdatePostCode = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabAddStaff = new System.Windows.Forms.TabPage();
+            this.cboAddGender = new System.Windows.Forms.ComboBox();
             this.txtAddPhone = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtAddPassword = new System.Windows.Forms.TextBox();
@@ -85,7 +86,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtUpdateForename = new System.Windows.Forms.TextBox();
             this.btnAddMedication = new System.Windows.Forms.Button();
-            this.cboAddGender = new System.Windows.Forms.ComboBox();
+            this.cboUpdateType = new System.Windows.Forms.ComboBox();
+            this.lbl_UpdateType = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabAddStaff.SuspendLayout();
             this.tabUpdateStaff.SuspendLayout();
@@ -225,6 +227,7 @@
             this.cboType.Name = "cboType";
             this.cboType.Size = new System.Drawing.Size(100, 21);
             this.cboType.TabIndex = 25;
+            this.cboType.SelectedValueChanged += new System.EventHandler(this.cboType_SelectedValueChanged);
             // 
             // lblHouseName
             // 
@@ -336,6 +339,14 @@
             this.tabAddStaff.TabIndex = 1;
             this.tabAddStaff.Text = "Add Staff";
             this.tabAddStaff.UseVisualStyleBackColor = true;
+            // 
+            // cboAddGender
+            // 
+            this.cboAddGender.FormattingEnabled = true;
+            this.cboAddGender.Location = new System.Drawing.Point(166, 237);
+            this.cboAddGender.Name = "cboAddGender";
+            this.cboAddGender.Size = new System.Drawing.Size(99, 21);
+            this.cboAddGender.TabIndex = 64;
             // 
             // txtAddPhone
             // 
@@ -508,6 +519,8 @@
             // 
             // tabUpdateStaff
             // 
+            this.tabUpdateStaff.Controls.Add(this.lbl_UpdateType);
+            this.tabUpdateStaff.Controls.Add(this.cboUpdateType);
             this.tabUpdateStaff.Controls.Add(this.cboUpdateGender);
             this.tabUpdateStaff.Controls.Add(this.txtUpdatePhone);
             this.tabUpdateStaff.Controls.Add(this.txtUpdatePostCode);
@@ -620,13 +633,22 @@
             this.btnAddMedication.UseVisualStyleBackColor = true;
             this.btnAddMedication.Click += new System.EventHandler(this.btnAddMedication_Click);
             // 
-            // cboAddGender
+            // cboUpdateType
             // 
-            this.cboAddGender.FormattingEnabled = true;
-            this.cboAddGender.Location = new System.Drawing.Point(166, 237);
-            this.cboAddGender.Name = "cboAddGender";
-            this.cboAddGender.Size = new System.Drawing.Size(99, 21);
-            this.cboAddGender.TabIndex = 64;
+            this.cboUpdateType.FormattingEnabled = true;
+            this.cboUpdateType.Location = new System.Drawing.Point(166, 10);
+            this.cboUpdateType.Name = "cboUpdateType";
+            this.cboUpdateType.Size = new System.Drawing.Size(100, 21);
+            this.cboUpdateType.TabIndex = 43;
+            // 
+            // lbl_UpdateType
+            // 
+            this.lbl_UpdateType.AutoSize = true;
+            this.lbl_UpdateType.Location = new System.Drawing.Point(128, 13);
+            this.lbl_UpdateType.Name = "lbl_UpdateType";
+            this.lbl_UpdateType.Size = new System.Drawing.Size(31, 13);
+            this.lbl_UpdateType.TabIndex = 44;
+            this.lbl_UpdateType.Text = "Type";
             // 
             // ManagerForm
             // 
@@ -713,5 +735,7 @@
         private System.Windows.Forms.Button btnAddMedication;
         private System.Windows.Forms.ComboBox cboUpdateGender;
         private System.Windows.Forms.ComboBox cboAddGender;
+        private System.Windows.Forms.Label lbl_UpdateType;
+        private System.Windows.Forms.ComboBox cboUpdateType;
     }
 }

@@ -15,7 +15,6 @@ namespace OverSurgery2
     {
         List<Rota> StaffTimes = new List<Rota>();
         MetaLayer ml;
-        private static Rota m_instance;
         private int m_rotaEntryID, m_medicalStaffID, m_startTime, m_endTime;
         private string m_forename, m_surname, m_days;
 

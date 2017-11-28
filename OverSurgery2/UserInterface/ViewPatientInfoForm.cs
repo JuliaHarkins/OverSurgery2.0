@@ -105,11 +105,13 @@ namespace OverSurgery2
     }
     public class Address
     {
+        int m_ID;
         string m_houseName;
         int? m_houseNumber;
         string m_postCode;
         string m_streetName;
 
+        public int AddressID { get { return m_ID; } set { m_ID = value; } }
         public string HouseName { get { return m_houseName; } set { m_houseName = value; } }
         public int? HouseNumber { get { return m_houseNumber; } set { m_houseNumber = value; } }
         public string PostCode { get { return m_postCode; } set { m_postCode = value; } }
