@@ -100,7 +100,15 @@ namespace OverSurgery2
             {
                 ReadBoxes();
                 MetaLayer.Instance().UpdateStaffMember(searchedStaff);
-                MetaLayer.Instance().UpdateAddress(searchedAddress,Convert.ToInt32(searchedStaff.AddressID));    
+                
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            try
+            {
+                MetaLayer.Instance().UpdateAddress(searchedAddress, Convert.ToInt32(searchedStaff.AddressID));
             }
             catch(Exception ex)
             {
@@ -177,9 +185,9 @@ namespace OverSurgery2
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
             }
             
         }
@@ -267,23 +275,27 @@ namespace OverSurgery2
                     searchedStaff.EmailAddress = txtUpdateEmail.Text;
                     searchedStaff.Type = (int)cboUpdateType.SelectedValue + 1;
                     //searchedStaff.PhoneNumber = txtUpdatePhone.Text;
-                    searchedAddress = new Address()
+
+                    if (txtUpdatePostCode.Text.Length > 10)
                     {
-                        HouseName = txtUpdateHouseName.Text,
-                        HouseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text),
-                        StreetName = txtUpdateAddressLine.Text,
-                        PostCode = txtUpdatePostCode.Text
+                        MessageBox.Show("Postcode Too Long! Max 10 Characters!");
+                    }
+                    else
+                    {
+                        searchedAddress = new Address()
+                        {
+                            HouseName = txtUpdateHouseName.Text,
+                            HouseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text),
+                            StreetName = txtUpdateAddressLine.Text,
+                            PostCode = txtUpdatePostCode.Text
+                        };
+                    }
                     };
                 }
-                else
+                catch(Exception ex)
                 {
-
+                    throw ex;
                 }
-            }
-            catch
-            {
-                MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
 

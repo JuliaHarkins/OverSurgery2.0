@@ -60,6 +60,22 @@ namespace OverSurgery2
             }
             return patients;
         }
+
+        public int getDoctorWithLowestPatient()
+        {
+            int lowest = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("select count(patientid),regestereddoctorid from patient p, medicalstaff m where p.regestereddoctorid = m.medicalstaffid group by m.medicalstaffid order by m.medicalstaffid asc Limit 1;");
+                while (dr.Read())
+                {
+                    lowest = dr.GetInt16(1);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return lowest;
+        }
         //ME!
         public Tuple<string, string, int?> GetLogin(string p_username)
         {
@@ -141,11 +157,11 @@ namespace OverSurgery2
                 {
                     try
                     {
-                        con.Insert("INSERT INTO patient VALUES (NULL," + p_Patient.Forename + "," + p_Patient.Surname + "," + p_Patient.Gender + "," + p_Patient.DateOfBirth + "," + p_Patient.PhoneNumber + "," +
-                            p_Patient.RegisteredDoctorID + p_Patient.AddressID + ");");
+                        con.Insert("INSERT INTO patient VALUES (NULL,'" + p_Patient.Forename + "','" + p_Patient.Surname + "'," + p_Patient.Gender + "," + Convert.ToInt32(p_Patient.DateOfBirth.ToString("yyyyMMdd")) + ",'" + p_Patient.PhoneNumber + "'," +
+                            p_Patient.RegisteredDoctorID + ","+ p_Patient.AddressID + ");");
                         con.CloseConnection();
                         return true;
-
+                        
                     }
                     catch (Exception e)
                     {
@@ -1128,8 +1144,8 @@ namespace OverSurgery2
             int addid = id;
             if (con.OpenConnection())
             {
-                con.Update("UPDATE Address Set HouseName = '" + add.HouseName + "', HouseNumber = "
-                    + add.HouseNumber + ", AddressLine1 = '" + add.StreetName + "', PostCode = '"
+                con.Update("UPDATE Address Set HouseName = '" + add.HouseName + "', HouseNumber = '"
+                    + add.HouseNumber + "', AddressLine1 = '" + add.StreetName + "', PostCode = '"
                     + add.PostCode + "' WHERE AddressID = "+id+";");
                 con.CloseConnection();
             }

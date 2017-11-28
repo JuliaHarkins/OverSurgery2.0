@@ -54,6 +54,10 @@ namespace OverSurgery2
             {
                 lbl_HouseNameNumberText.Text = ad.HouseName;
             }
+            else if(ad.HouseName != "" && ad.HouseNumber !=null)
+            {
+                lbl_HouseNameNumberText.Text = ad.HouseName + " " + ad.HouseNumber;
+            }
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
             m_PatientPrescriptions = ml.GetPatientsPrescriptions(currentPatient.ID);
