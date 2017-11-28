@@ -36,25 +36,25 @@ namespace OverSurgery2
         {
             pf = PersonFactory.Instance();
             List<Patient> patients = new List<Patient>();
+            Patient p = null;
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM patient ORDER BY Surname;");
-                Dictionary<string, object> values = null;
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
-                    values = new Dictionary<string, object>
+                    p = new Patient
                     {
-                        { "ID", dr.GetInt16(0) },
-                        { "Forename", dr.GetString(1) },
-                        { "Surname", dr.GetString(2) },
-                        { "Gender", dr.GetInt16(3) },
-                        { "DateOfBirth", dr.GetDateTime(4) },
-                        { "PhoneNumber", dr.GetString(5) },
-                        { "RegisteredDoctorID", dr.GetInt16(6) },
-                        { "AddressID", dr.GetInt16(7) },
+                        ID = dr.GetInt16(0),
+                        Forename = dr.GetString(1),
+                        Surname = dr.GetString(2),
+                        Gender = Convert.ToUInt16(dr.GetInt16(3)),
+                        DateOfBirth = dr.GetDateTime(4),
+                        PhoneNumber = dr.GetString(5),
+                        RegisteredDoctorID = dr.GetInt16(6),
+                        AddressID = Convert.ToUInt16(dr.GetInt16(7))
                     };
-                    patients.Add(pf.CreatePatient(values));
+                    patients.Add(p);
                 }
                 // Close Data Reader
                 dr.Close();
@@ -751,80 +751,80 @@ namespace OverSurgery2
                 return appointments;
             }
 
-            /// <summary>
-            /// Get all rota information from the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            public Rota GetStaffRota()
-            {
-                // Read appointment values into dictionary
-                Dictionary<string, object> rotaValues;
-                rotaValues = null;
-                if (con.OpenConnection())
-                {
-                    // Find all rota data
-                    DbDataReader dr1 = con.Select("SELECT * FROM Rota;");
-                    while (dr1.Read())
-                    {
+            ///// <summary>
+            ///// Get all rota information from the database
+            ///// Last Updated : 15/11/17,
+            ///// By R
+            ///// </summary>
+            //public Rota GetStaffRota()
+            //{
+            //    // Read appointment values into dictionary
+            //    Dictionary<string, object> rotaValues;
+            //    rotaValues = null;
+            //    if (con.OpenConnection())
+            //    {
+            //        // Find all rota data
+            //        DbDataReader dr1 = con.Select("SELECT * FROM Rota;");
+            //        while (dr1.Read())
+            //        {
 
-                        rotaValues = new Dictionary<string, object>
+            //            rotaValues = new Dictionary<string, object>
+            //        {
+            //            { "RotaID", dr1.GetInt16(0) },
+            //            { "MedicalStaffID", dr1.GetString(1) },
+            //            { "StartDateTime", dr1.GetString(2) },
+            //            { "EndDateTime", dr1.GetString(3) },
+            //        };
+
+            //        }
+            //        dr1.Close();
+            //        con.CloseConnection();
+            //    }
+            //    return new Rota(rotaValues);
+            //}
+
+        /// <summary>
+        /// Get all rota information for a specific staff member from the database
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_rotaEntryID"></param>
+        /// <returns></returns>
+        public Rota GetStaffRotaByID(Rota p_rota)
+        {
+            // Read appointment values into dictionary
+            Dictionary<string, object> rotaValues;
+            rotaValues = null;
+            if (con.OpenConnection())
+            {
+                // Find all rota data
+                DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
+                while (dr1.Read())
+                {
+
+                    rotaValues = new Dictionary<string, object>
                     {
                         { "RotaID", dr1.GetInt16(0) },
                         { "MedicalStaffID", dr1.GetString(1) },
                         { "StartDateTime", dr1.GetString(2) },
                         { "EndDateTime", dr1.GetString(3) },
-                    };
-
-                    }
-                    dr1.Close();
-                    con.CloseConnection();
-                }
-                return new Rota(rotaValues);
-            }
-
-            /// <summary>
-            /// Get all rota information for a specific staff member from the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="p_rotaEntryID"></param>
-            /// <returns></returns>
-            public Rota GetStaffRotaByID(Rota p_rota)
-            {
-                // Read appointment values into dictionary
-                Dictionary<string, object> rotaValues;
-                rotaValues = null;
-                if (con.OpenConnection())
-                {
-                    // Find all rota data
-                    DbDataReader dr1 = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
-                    while (dr1.Read())
-                    {
-
-                        rotaValues = new Dictionary<string, object>
-                    {
-                        { "RotaID", dr1.GetInt16(0) },
-                        { "MedicalStaffID", dr1.GetString(1) },
-                        { "StartDateTime", dr1.GetString(2) },
-                        { "EndDateTime", dr1.GetString(3) },
 
                     };
 
-                    }
-                    dr1.Close();
-                    con.CloseConnection();
                 }
-                return new Rota(rotaValues);
+                dr1.Close();
+                con.CloseConnection();
             }
+            return new Rota(rotaValues);
+        }
 
-            /// <summary>
-            /// Add new rota entry to the database
-            /// Last Updated : 15/11/17,
-            /// By R
-            /// </summary>
-            /// <param name="rota"></param>
-            public void AddRota(Rota rota)
+        /// <summary>
+        /// Add new rota entry to the database
+        /// Last Updated : 15/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="rota"></param>
+        public void AddRota(Rota rota)
             {
                 if (con.OpenConnection())
                 {
@@ -908,21 +908,45 @@ namespace OverSurgery2
                 }
             }
 
-            /// <summary>
-            /// Delete a staff member from the database
-            /// Last Updated : 17/11/17,
-            /// By R
-            /// </summary>
-            public bool DeleteStaff(string p_username)
+        /// <summary>
+        /// Delete a staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        public bool DeleteStaff(string p_username)
+        {
+            if (con.OpenConnection())
             {
-                if (con.OpenConnection())
-                {
-                    con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
-                    con.CloseConnection();
-                    return true;
-                }
-                return false;
+                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
+                con.CloseConnection();
+                return true;
             }
+            return false;
+        }
+
+        public List<Rota> GetStaffRota()
+        {
+            Rota r;
+            List<Rota> rota = new List<Rota>();
+            StringBuilder dat = new StringBuilder();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT RotaID, Forename, Surname, GROUP_CONCAT(DayName) FROM Rota r, Staff s, DayOfWeek" +
+                    " d WHERE r.DayID = d.DayID, r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID");
+                while (dr.Read())
+                {
+                    r = new Rota
+                    {
+                        RotaID = dr.GetInt32(0),
+                        Forename = dr.GetString(1),
+                        Surname = dr.GetString(2),
+                        Days = dr.GetString(3)
+                    };
+                    rota.Add(r);
+                }
+            }
+            return rota;
+        }
 
             /// <summary>
             /// Update a staff members details
