@@ -643,6 +643,22 @@ namespace OverSurgery2
             }
             return prescriptions;
         }
+        public int DoctorExtentionCount(int p_id)
+        {
+            int i = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " ORDER BY DateOfExtension DESC;");
+                while (dr.Read())
+                {
+                    i = dr.GetInt16(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
+                    return i;
+        }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
         /// Last Updated : 16/11/17,
