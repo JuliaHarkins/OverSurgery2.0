@@ -37,7 +37,6 @@ namespace OverSurgery2
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
         {
-            
             m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
         }
@@ -148,7 +147,7 @@ namespace OverSurgery2
 
         private void btn_extRequest_Click(object sender, EventArgs e)
         {
-
+            new MedicalExtention(Convert.ToInt32(m_currentUser.MedicalStaffID)).ShowDialog();
                 
         }
         /// <summary>
