@@ -507,16 +507,16 @@ namespace OverSurgery2
         /// Last Updated : 27/11/17,
         /// By j
         /// </summary>
-        /// <param name="id">medicalStaffID</param>
+        /// <param name="p_id">medicalStaffID</param>
         /// <returns></returns>
-        public List<Medication> getMedicationOnMedStaffID(uint? id)
+        public List<Medication> getMedicationOnMedStaffID(uint? p_id)
         {
             int permissionLevel = 0;
             List<Medication> medication = new List<Medication>();
             Medication m;
             if (con.OpenConnection())
             {
-                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + id + ";");
+                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + p_id + ";");
                 while (dr1.Read())
                 {
                     permissionLevel = dr1.GetInt32(0);
@@ -642,6 +642,59 @@ namespace OverSurgery2
                 con.CloseConnection();
                 return prescriptions;
             }
+            return prescriptions;
+        }/// <summary>
+         /// Counts the extentions for the doctor
+         /// Last Updated : 28/11/17,
+         /// By j
+         /// </summary>
+         /// <param name="p_id">the doctors id</param>
+         /// <returns></returns>
+        public int DoctorExtentionCount(int p_id)
+        {
+            int i = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " ORDER BY DateOfExtension DESC;");
+                while (dr.Read())
+                {
+                    i = dr.GetInt16(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
+                    return i;
+        }/// <summary>
+         /// gets the list of extended prescriptions based off the staff id
+         /// Last Updated : 21/11/17,
+         /// By j
+         /// </summary>
+         /// <param name="p_id"></param>
+         /// <returns></returns>
+        public List<Prescription> GetExtentionRequests(int p_id)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            Prescription p;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT Prescription.PrescriptionID, Prescription.DateIssued, Prescription.Amount, Prescription.MedicationID, Prescription.PatientID FROM Prescription, Extension WHERE Extension.MedicalStaffID = " + p_id + " AND Prescription.PrescriptionID = Extension.PrescriptionID AND Extended = 0;");
+                while (dr.Read())
+                {
+                    p = new Prescription
+                    {
+                        ID =dr.GetInt16(0),
+                        Date = dr.GetDateTime(1),
+                        Amount =dr.GetInt16(2),
+                        MedicationID = dr.GetInt16(3),
+                        PatientID = dr.GetInt16(4)
+                    };
+                    prescriptions.Add(p);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
             return prescriptions;
         }
         /// <summary>
