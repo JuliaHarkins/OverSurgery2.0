@@ -177,8 +177,21 @@ namespace OverSurgery2
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    MetaLayer.Instance().DeleteStaff(m_userName);
+                    // Delete address
                     MetaLayer.Instance().DeleteAddress(Convert.ToInt32(m_addressID));
+
+                    // Get the medical staff entry if it exists
+                    if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
+                    {
+                        m = new MedicalStaff()
+                        {
+                            MedicalStaffID = Convert.ToUInt32(MetaLayer.Instance().GetMedicalStaffByStaffID(searchedStaff.StaffID, searchedStaff.Type))
+                        };
+                    }
+
+                    // Delete the staff memeber along with and medical staff entries
+                    MetaLayer.Instance().DeleteStaff(m_userName, Convert.ToUInt32(m.MedicalStaffID));
+                    
                 }
                 else
                 {
@@ -232,7 +245,8 @@ namespace OverSurgery2
                     searchedStaff.Username = txtAddUserName.Text;
                     searchedStaff.Forename = txtAddForename.Text;
                     searchedStaff.Surname = txtAddSurname.Text;
-                    //searchedStaff.PracticeNumber = Convert.ToInt32(txtPracticeNumberAdd.Text);
+                    
+                    // Check to see if the staff memeer is a medical staff member
                     if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
                     {
                         m = new MedicalStaff()
@@ -247,6 +261,7 @@ namespace OverSurgery2
                             EmailAddress = txtAddEmail.Text,
                             Type = (int)cboType.SelectedIndex + 1
                         };
+
                         searchedAddress = new Address();
                         searchedAddress.HouseName = txtAddHouseName.Text;
                         searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);

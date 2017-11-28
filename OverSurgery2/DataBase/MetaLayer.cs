@@ -996,6 +996,11 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// add a medical staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
         public void AddMedicalStaff(MedicalStaff m)
         {
             if (con.OpenConnection())
@@ -1027,6 +1032,11 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// update a staff member in the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
         public void UpdateMedicalStaff(MedicalStaff m)
         {
             if (con.OpenConnection())
@@ -1056,8 +1066,20 @@ namespace OverSurgery2
         /// Last Updated : 17/11/17,
         /// By R
         /// </summary>
-        public bool DeleteStaff(string p_username)
+        public bool DeleteStaff(string p_username, uint p_medStaffID)
         {
+            // Delete medical staff entry
+            if (p_medStaffID != null)
+            {
+                if (con.OpenConnection())
+                {
+                    con.Update("DELETE FROM MedicalStaff WHERE MedicalStaffID ='" + p_medStaffID + "';");
+                    con.CloseConnection();
+                    
+                }
+            }
+
+            // Delete normal staff entry
             if (con.OpenConnection())
             {
                 con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
