@@ -29,6 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btn_Logout = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.AppointmentsTab = new System.Windows.Forms.TabPage();
@@ -40,6 +46,7 @@
             this.btn_NewApp = new System.Windows.Forms.Button();
             this.DataGridAppointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
+            this.lbl_PatientCount = new System.Windows.Forms.Label();
             this.btn_ViewAllPatients = new System.Windows.Forms.Button();
             this.lbl_SearchForPatient = new System.Windows.Forms.Label();
             this.txt_SearchForename = new System.Windows.Forms.TextBox();
@@ -60,10 +67,11 @@
             // btn_Logout
             // 
             this.btn_Logout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Logout.Location = new System.Drawing.Point(875, 389);
+            this.btn_Logout.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Logout.Location = new System.Drawing.Point(841, 526);
             this.btn_Logout.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Logout.Name = "btn_Logout";
-            this.btn_Logout.Size = new System.Drawing.Size(56, 19);
+            this.btn_Logout.Size = new System.Drawing.Size(86, 33);
             this.btn_Logout.TabIndex = 0;
             this.btn_Logout.Text = "Logout";
             this.btn_Logout.UseVisualStyleBackColor = true;
@@ -76,10 +84,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.AppointmentsTab);
             this.tabControl1.Controls.Add(this.PatientsTab);
+            this.tabControl1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(919, 372);
+            this.tabControl1.Size = new System.Drawing.Size(919, 506);
             this.tabControl1.TabIndex = 1;
             // 
             // AppointmentsTab
@@ -91,19 +100,20 @@
             this.AppointmentsTab.Controls.Add(this.btn_SearchApp);
             this.AppointmentsTab.Controls.Add(this.btn_NewApp);
             this.AppointmentsTab.Controls.Add(this.DataGridAppointments);
-            this.AppointmentsTab.Location = new System.Drawing.Point(4, 22);
+            this.AppointmentsTab.Location = new System.Drawing.Point(4, 29);
             this.AppointmentsTab.Name = "AppointmentsTab";
             this.AppointmentsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.AppointmentsTab.Size = new System.Drawing.Size(911, 346);
+            this.AppointmentsTab.Size = new System.Drawing.Size(911, 473);
             this.AppointmentsTab.TabIndex = 0;
             this.AppointmentsTab.Text = "Appointments";
             this.AppointmentsTab.UseVisualStyleBackColor = true;
             // 
             // btn_ViewAllApp
             // 
-            this.btn_ViewAllApp.Location = new System.Drawing.Point(6, 5);
+            this.btn_ViewAllApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_ViewAllApp.Location = new System.Drawing.Point(6, 4);
             this.btn_ViewAllApp.Name = "btn_ViewAllApp";
-            this.btn_ViewAllApp.Size = new System.Drawing.Size(75, 23);
+            this.btn_ViewAllApp.Size = new System.Drawing.Size(75, 28);
             this.btn_ViewAllApp.TabIndex = 2;
             this.btn_ViewAllApp.Text = "View All";
             this.btn_ViewAllApp.UseVisualStyleBackColor = true;
@@ -112,18 +122,20 @@
             // 
             this.lbl_SearchAppByPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_SearchAppByPatient.AutoSize = true;
-            this.lbl_SearchAppByPatient.Location = new System.Drawing.Point(437, 11);
+            this.lbl_SearchAppByPatient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_SearchAppByPatient.Location = new System.Drawing.Point(352, 10);
             this.lbl_SearchAppByPatient.Name = "lbl_SearchAppByPatient";
-            this.lbl_SearchAppByPatient.Size = new System.Drawing.Size(171, 13);
+            this.lbl_SearchAppByPatient.Size = new System.Drawing.Size(256, 20);
             this.lbl_SearchAppByPatient.TabIndex = 12;
             this.lbl_SearchAppByPatient.Text = "Search for Appointment by Patient:";
             // 
             // txt_SearchAppForename
             // 
             this.txt_SearchAppForename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_SearchAppForename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_SearchAppForename.Location = new System.Drawing.Point(614, 7);
             this.txt_SearchAppForename.Name = "txt_SearchAppForename";
-            this.txt_SearchAppForename.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchAppForename.Size = new System.Drawing.Size(100, 26);
             this.txt_SearchAppForename.TabIndex = 3;
             this.txt_SearchAppForename.Text = "Forename";
             this.txt_SearchAppForename.Enter += new System.EventHandler(this.txt_SearchAppForename_Enter);
@@ -132,9 +144,10 @@
             // txt_SearchAppSurname
             // 
             this.txt_SearchAppSurname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_SearchAppSurname.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_SearchAppSurname.Location = new System.Drawing.Point(720, 7);
             this.txt_SearchAppSurname.Name = "txt_SearchAppSurname";
-            this.txt_SearchAppSurname.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchAppSurname.Size = new System.Drawing.Size(100, 26);
             this.txt_SearchAppSurname.TabIndex = 4;
             this.txt_SearchAppSurname.Text = "Surname";
             this.txt_SearchAppSurname.Enter += new System.EventHandler(this.txt_SearchAppSurname_Enter);
@@ -143,10 +156,11 @@
             // btn_SearchApp
             // 
             this.btn_SearchApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_SearchApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_SearchApp.Location = new System.Drawing.Point(825, 8);
             this.btn_SearchApp.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SearchApp.Name = "btn_SearchApp";
-            this.btn_SearchApp.Size = new System.Drawing.Size(80, 19);
+            this.btn_SearchApp.Size = new System.Drawing.Size(80, 25);
             this.btn_SearchApp.TabIndex = 5;
             this.btn_SearchApp.Text = "Search";
             this.btn_SearchApp.UseVisualStyleBackColor = true;
@@ -155,10 +169,10 @@
             // btn_NewApp
             // 
             this.btn_NewApp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_NewApp.Location = new System.Drawing.Point(5, 322);
+            this.btn_NewApp.Location = new System.Drawing.Point(6, 441);
             this.btn_NewApp.Margin = new System.Windows.Forms.Padding(2);
             this.btn_NewApp.Name = "btn_NewApp";
-            this.btn_NewApp.Size = new System.Drawing.Size(80, 19);
+            this.btn_NewApp.Size = new System.Drawing.Size(132, 27);
             this.btn_NewApp.TabIndex = 7;
             this.btn_NewApp.Text = "New Patient";
             this.btn_NewApp.UseVisualStyleBackColor = true;
@@ -169,21 +183,38 @@
             this.DataGridAppointments.AllowUserToDeleteRows = false;
             this.DataGridAppointments.AllowUserToResizeColumns = false;
             this.DataGridAppointments.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataGridAppointments.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.DataGridAppointments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.DataGridAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.DataGridAppointments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DataGridAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridAppointments.Location = new System.Drawing.Point(6, 30);
+            this.DataGridAppointments.Location = new System.Drawing.Point(6, 39);
             this.DataGridAppointments.Name = "DataGridAppointments";
             this.DataGridAppointments.ReadOnly = true;
+            this.DataGridAppointments.RowHeadersVisible = false;
             this.DataGridAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            this.DataGridAppointments.Size = new System.Drawing.Size(899, 287);
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataGridAppointments.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.DataGridAppointments.Size = new System.Drawing.Size(899, 397);
             this.DataGridAppointments.TabIndex = 6;
             // 
             // PatientsTab
             // 
+            this.PatientsTab.Controls.Add(this.lbl_PatientCount);
             this.PatientsTab.Controls.Add(this.btn_ViewAllPatients);
             this.PatientsTab.Controls.Add(this.lbl_SearchForPatient);
             this.PatientsTab.Controls.Add(this.txt_SearchForename);
@@ -191,19 +222,31 @@
             this.PatientsTab.Controls.Add(this.btn_SearchPatient);
             this.PatientsTab.Controls.Add(this.btn_NewPatient);
             this.PatientsTab.Controls.Add(this.DataGridPatients);
-            this.PatientsTab.Location = new System.Drawing.Point(4, 22);
+            this.PatientsTab.Location = new System.Drawing.Point(4, 29);
             this.PatientsTab.Name = "PatientsTab";
             this.PatientsTab.Padding = new System.Windows.Forms.Padding(3);
-            this.PatientsTab.Size = new System.Drawing.Size(911, 346);
+            this.PatientsTab.Size = new System.Drawing.Size(911, 473);
             this.PatientsTab.TabIndex = 1;
             this.PatientsTab.Text = "Patients";
             this.PatientsTab.UseVisualStyleBackColor = true;
+            // 
+            // lbl_PatientCount
+            // 
+            this.lbl_PatientCount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.lbl_PatientCount.Cursor = System.Windows.Forms.Cursors.SizeAll;
+            this.lbl_PatientCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbl_PatientCount.Location = new System.Drawing.Point(707, 444);
+            this.lbl_PatientCount.Name = "lbl_PatientCount";
+            this.lbl_PatientCount.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.lbl_PatientCount.Size = new System.Drawing.Size(198, 20);
+            this.lbl_PatientCount.TabIndex = 14;
+            this.lbl_PatientCount.Text = "Number of Patients:";
             // 
             // btn_ViewAllPatients
             // 
             this.btn_ViewAllPatients.Location = new System.Drawing.Point(6, 4);
             this.btn_ViewAllPatients.Name = "btn_ViewAllPatients";
-            this.btn_ViewAllPatients.Size = new System.Drawing.Size(75, 23);
+            this.btn_ViewAllPatients.Size = new System.Drawing.Size(75, 28);
             this.btn_ViewAllPatients.TabIndex = 7;
             this.btn_ViewAllPatients.Text = "View All";
             this.btn_ViewAllPatients.UseVisualStyleBackColor = true;
@@ -213,18 +256,19 @@
             // 
             this.lbl_SearchForPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.lbl_SearchForPatient.AutoSize = true;
-            this.lbl_SearchForPatient.Location = new System.Drawing.Point(513, 9);
+            this.lbl_SearchForPatient.Location = new System.Drawing.Point(467, 10);
             this.lbl_SearchForPatient.Name = "lbl_SearchForPatient";
-            this.lbl_SearchForPatient.Size = new System.Drawing.Size(95, 13);
+            this.lbl_SearchForPatient.Size = new System.Drawing.Size(141, 20);
             this.lbl_SearchForPatient.TabIndex = 6;
             this.lbl_SearchForPatient.Text = "Search for Patient:";
             // 
             // txt_SearchForename
             // 
             this.txt_SearchForename.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_SearchForename.Location = new System.Drawing.Point(614, 6);
+            this.txt_SearchForename.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txt_SearchForename.Location = new System.Drawing.Point(614, 7);
             this.txt_SearchForename.Name = "txt_SearchForename";
-            this.txt_SearchForename.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchForename.Size = new System.Drawing.Size(100, 26);
             this.txt_SearchForename.TabIndex = 5;
             this.txt_SearchForename.Text = "Forename";
             this.txt_SearchForename.Enter += new System.EventHandler(this.txt_SearchForename_Enter);
@@ -233,9 +277,9 @@
             // txt_SearchSurname
             // 
             this.txt_SearchSurname.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.txt_SearchSurname.Location = new System.Drawing.Point(720, 6);
+            this.txt_SearchSurname.Location = new System.Drawing.Point(720, 7);
             this.txt_SearchSurname.Name = "txt_SearchSurname";
-            this.txt_SearchSurname.Size = new System.Drawing.Size(100, 20);
+            this.txt_SearchSurname.Size = new System.Drawing.Size(100, 26);
             this.txt_SearchSurname.TabIndex = 4;
             this.txt_SearchSurname.Text = "Surname";
             this.txt_SearchSurname.Enter += new System.EventHandler(this.txt_SearchSurname_Enter);
@@ -247,7 +291,7 @@
             this.btn_SearchPatient.Location = new System.Drawing.Point(825, 7);
             this.btn_SearchPatient.Margin = new System.Windows.Forms.Padding(2);
             this.btn_SearchPatient.Name = "btn_SearchPatient";
-            this.btn_SearchPatient.Size = new System.Drawing.Size(80, 19);
+            this.btn_SearchPatient.Size = new System.Drawing.Size(80, 26);
             this.btn_SearchPatient.TabIndex = 3;
             this.btn_SearchPatient.Text = "Search";
             this.btn_SearchPatient.UseVisualStyleBackColor = true;
@@ -256,10 +300,10 @@
             // btn_NewPatient
             // 
             this.btn_NewPatient.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btn_NewPatient.Location = new System.Drawing.Point(5, 321);
+            this.btn_NewPatient.Location = new System.Drawing.Point(6, 441);
             this.btn_NewPatient.Margin = new System.Windows.Forms.Padding(2);
             this.btn_NewPatient.Name = "btn_NewPatient";
-            this.btn_NewPatient.Size = new System.Drawing.Size(80, 19);
+            this.btn_NewPatient.Size = new System.Drawing.Size(132, 27);
             this.btn_NewPatient.TabIndex = 2;
             this.btn_NewPatient.Text = "New Patient";
             this.btn_NewPatient.UseVisualStyleBackColor = true;
@@ -271,24 +315,45 @@
             this.DataGridPatients.AllowUserToDeleteRows = false;
             this.DataGridPatients.AllowUserToResizeColumns = false;
             this.DataGridPatients.AllowUserToResizeRows = false;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.DataGridPatients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
             this.DataGridPatients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.DataGridPatients.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DataGridPatients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             this.DataGridPatients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridPatients.Location = new System.Drawing.Point(6, 30);
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.DataGridPatients.DefaultCellStyle = dataGridViewCellStyle6;
+            this.DataGridPatients.Location = new System.Drawing.Point(6, 38);
             this.DataGridPatients.Name = "DataGridPatients";
             this.DataGridPatients.ReadOnly = true;
-            this.DataGridPatients.Size = new System.Drawing.Size(899, 286);
+            this.DataGridPatients.Size = new System.Drawing.Size(899, 398);
             this.DataGridPatients.TabIndex = 1;
-            this.DataGridPatients.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DataGridPatients_CellMouseClick);
+            this.DataGridPatients.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPatients_CellContentClick);
             // 
             // btn_Reload
             // 
             this.btn_Reload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Reload.Location = new System.Drawing.Point(815, 389);
+            this.btn_Reload.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_Reload.Location = new System.Drawing.Point(769, 526);
             this.btn_Reload.Margin = new System.Windows.Forms.Padding(2);
             this.btn_Reload.Name = "btn_Reload";
-            this.btn_Reload.Size = new System.Drawing.Size(56, 19);
+            this.btn_Reload.Size = new System.Drawing.Size(68, 33);
             this.btn_Reload.TabIndex = 4;
             this.btn_Reload.Text = "Reload";
             this.btn_Reload.UseVisualStyleBackColor = true;
@@ -297,10 +362,11 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.ClientSize = new System.Drawing.Size(942, 419);
+            this.ClientSize = new System.Drawing.Size(942, 563);
             this.Controls.Add(this.btn_Reload);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_Logout);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "ReceptionistForm";
             this.Text = "ReceptionistForm";
@@ -340,5 +406,6 @@
         private System.Windows.Forms.TextBox txt_SearchAppSurname;
         private System.Windows.Forms.Button btn_SearchApp;
         private System.Windows.Forms.Button btn_NewApp;
+        private System.Windows.Forms.Label lbl_PatientCount;
     }
 }

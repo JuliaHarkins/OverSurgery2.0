@@ -41,16 +41,17 @@ namespace OverSurgery2
             return m_getInstance;
         }
 
-        public void AddNewPatient(Dictionary<string,object> p_PatientValues)
+        public void AddNewPatient(Patient p_newPatient)
         {
-            patients.Add(PersonFactory.Instance().CreatePatient(p_PatientValues));
-            MetaLayer.Instance().InsertNewPatient(p_PatientValues);
+            patients.Add(p_newPatient);
+            MetaLayer.Instance().InsertNewPatient(p_newPatient);
         }
 
         public void UpdatePatientDoctorDisplay()
         {
             foreach(Patient p in patients)
             {
+                p.SetGenderDisplay();
                 p.SetDoctorDisplay();
             }
         }

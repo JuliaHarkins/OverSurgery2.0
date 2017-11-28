@@ -9,22 +9,18 @@ using System.Net;
 namespace OverSurgery2
 {
     /// <summary>
-    /// Created by: Lewis Barnes (362490@edu.cwa.ac.uk)
-    /// First Created: 20/10/17
-    /// Last Edit: 21/10/17 14:22
-    /// Last Edit by: Lewis Barnes (362490@edu.cwa.ac.uk)
+    /// Controls the login of users
     /// </summary>
     public class LoginController
     {
         MetaLayer ml;
         PatientController pc;
         FormController fc;
-        PersonFactory pf;
-        Staff userLoggedIn;
         private static Random random = new Random();
         private int? m_type;
         private static LoginController m_getInstance;
         SmtpClient Client;
+        private Dictionary<string, string> m_LoginDetails;
         private LoginController()
         {
             Client = new SmtpClient();
@@ -35,10 +31,7 @@ namespace OverSurgery2
             Client.EnableSsl = true;
             Client.Credentials = new NetworkCredential("oversurgeryresetpass@gmail.com", "oversurgery1");
             ml = MetaLayer.Instance();
-            pc = PatientController.Instance();
             fc = FormController.Instance();
-            pf = PersonFactory.Instance();
-
         }
         public int? Type
         {
@@ -51,6 +44,7 @@ namespace OverSurgery2
                 m_type = value;
             }
         }
+        public Dictionary<string, string> LoginDetails { get { return m_LoginDetails; } }
         public static LoginController Instance()
         {
             if(m_getInstance == null)
@@ -82,6 +76,11 @@ namespace OverSurgery2
                 {
                     m_flg = true;
                     Type = m_login.Item3;
+                    m_LoginDetails = new Dictionary<string, string>
+                    {
+                        {"Username", p_username },
+                        {"Password", p_password }
+                    };
                 }
             }
             else

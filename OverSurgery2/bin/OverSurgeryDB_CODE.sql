@@ -27,10 +27,10 @@ CREATE TABLE `Staff` (
 CREATE TABLE `MedicalStaff` (
     `MedicalStaffID` INT(8) NOT NULL auto_increment,
     `MedicalPracticeNumber` VARCHAR(35) NOT NULL default '',
-    `PermissionLevel` TINYINT(1) NOT NULL default 0,
+    `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
     `StaffID` INT(8) NOT NULL,
-    `Gender` TINYINT NOT NULL default 0,
+    `Gender` TINYINT(2) NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),
     FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -91,7 +91,7 @@ CREATE TABLE `OnCall` (
 CREATE TABLE `Prescription` (
     `PrescriptionID` INT(8) NOT NULL auto_increment,
     `DateIssued` DATE NOT NULL default 19991231,
-    `DateOfNextIssue` DATE NULL default 19991231,
+    `DateOfNextIssue` DATE NULL default 30001231,
     `Amount` INT(2) NOT NULL default 0,
     `Extendable` BOOLEAN NOT NULL default 0,
     `MedicationID` INT(8) NOT NULL default 0,
@@ -158,12 +158,12 @@ INSERT INTO Staff VALUES (7, 'Doctor', 'Test', 'Test.OverSurgery@gmail.com',2 , 
 INSERT INTO Staff VALUES (8, 'Nurse', 'Test', 'Someone.OverSurgery@gmail.com',2 , 'Nurse', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 1);
 INSERT INTO Staff VALUES (9, 'Locum', 'Test', 'Test.OverSurgery@gmail.com',3 , 'Locum', '$2a$13$/8Wncr26eAmxD1l6cAF9FuGh9peis64eMEcl3c6s/qJjluxZ63V8a', 2);
 
-INSERT INTO MedicalStaff VALUES (1, '123456789AB', 3, 1, 0);
-INSERT INTO MedicalStaff VALUES (2, '987654321BA', 3, 9, 1);
-INSERT INTO MedicalStaff VALUES (3, '159753824QW', 1, 8, 0);
-INSERT INTO MedicalStaff VALUES (4, '953718462BV', 3, 7, 1);
-INSERT INTO MedicalStaff VALUES (5, '464868461WH', 1, 4, 1);
-INSERT INTO MedicalStaff VALUES (6, '764281546PX', 2, 2, 0);
+INSERT INTO MedicalStaff VALUES (1, '123456789AB', '+447634395183', 3, 1, 0);
+INSERT INTO MedicalStaff VALUES (2, '987654321BA', '01563572805', 3, 9, 1);
+INSERT INTO MedicalStaff VALUES (3, '159753824QW', '07829405285', 1, 8, 0);
+INSERT INTO MedicalStaff VALUES (4, '953718462BV', '01553490294', 3, 7, 1);
+INSERT INTO MedicalStaff VALUES (5, '464868461WH', '+447911363901', 1, 4, 1);
+INSERT INTO MedicalStaff VALUES (6, '764281546PX', '+447911363901', 2, 2, 0);
 
 INSERT INTO Patient VALUES (1, 'Steven', 'Smith', 1, 19800615, '+447634395183', 1, 3);
 INSERT INTO Patient VALUES (2, 'Jane', 'Hollo', 0, 19451112, '01563572805', 4, 4);
@@ -177,12 +177,6 @@ INSERT INTO Appointment VALUES (3, 20171110, 161500, '', 0, 4, 5);
 INSERT INTO Appointment VALUES (4, 20171109, 161500, '', 0, 3, 3);
 
 INSERT INTO MedicalHistory VALUES (1, 'Test', 10171214, 1);
--- INSERT INTO MedicalHistory VALUES (2, '');
--- INSERT INTO MedicalHistory VALUES (3, '');
--- INSERT INTO MedicalHistory VALUES (4, '');
--- INSERT INTO MedicalHistory VALUES (5, '');
--- INSERT INTO MedicalHistory VALUES (6, '');
--- INSERT INTO MedicalHistory VALUES (7, '');
 
 INSERT INTO Medication VALUES (1, 1, 'Parasetomol', '500mg');
 INSERT INTO Medication VALUES (2, 1, 'Asprin', '50mg');
@@ -204,5 +198,29 @@ INSERT INTO Prescription VALUES (5, 20170912, null, 14, 0, 2, 3, 6);
 INSERT INTO Prescription VALUES (6, 20171001, 20171101, 32, 1, 3, 4, 5);
 
 INSERT INTO Extension VALUES (1, 0, 1, null, 4, null);
-INSERT INTO Extension VALUES (2, 1, 3, 20171001, 1, 'Doctor Unavailable');
-INSERT INTO Extension VALUES (3, 0, 2, null, 1, null);
+INSERT INTO Extension VALUES (2, 1, 3, 20171001, 4, 'Doctor Unavailable');
+INSERT INTO Extension VALUES (3, 0, 2, null, 4, null);
+
+INSERT INTO DayOfWeek VALUES (1, 'Mon');
+INSERT INTO DayOfWeek VALUES (2, 'Tue');
+INSERT INTO DayOfWeek VALUES (3, 'Wed');
+INSERT INTO DayOfWeek VALUES (4, 'Thur');
+INSERT INTO DayOfWeek VALUES (5, 'Fri');
+INSERT INTO DayOfWeek VALUES (6, 'Default');
+
+INSERT INTO Rota VALUES (1, 1, 1);
+INSERT INTO Rota VALUES (2, 2, 1);
+INSERT INTO Rota VALUES (3, 3, 1);
+INSERT INTO Rota VALUES (4, 4, 1);
+INSERT INTO Rota VALUES (5, 5, 1);
+INSERT INTO Rota VALUES (6, 1, 2);
+INSERT INTO Rota VALUES (7, 3, 2);
+INSERT INTO Rota VALUES (8, 4, 2);
+
+INSERT INTO Rota VALUES (9, 6, 3);
+INSERT INTO Rota VALUES (10, 6, 4);
+INSERT INTO Rota VALUES (11, 6, 5);
+INSERT INTO Rota VALUES (12, 6, 6);
+INSERT INTO Rota VALUES (13, 6, 7);
+INSERT INTO Rota VALUES (14, 6, 8);
+INSERT INTO Rota VALUES (15, 6, 9);

@@ -15,6 +15,8 @@ namespace OverSurgery2
         Patient currentPatient;
         MetaLayer ml;
         FormController fc;
+        BindingSource PatientPres;
+        List<Prescription> m_PatientPrescriptions;
         public ViewPatientInfoForm(Patient p_Patient)
         {
             currentPatient = p_Patient;
@@ -32,11 +34,18 @@ namespace OverSurgery2
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
-            Address ad = MetaLayer.Instance().NewGetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            #region Execution
+            PatientPres = new BindingSource();
+            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;
-            lbl_DateOfBirthText.Text = currentPatient.DateOfBirth.ToShortDateString();
+            TimeSpan yearsOld = (DateTime.Now - currentPatient.DateOfBirth);
+            var yearsVal = yearsOld.Days / 365;
+            var monthsVal = (yearsOld.Days - yearsVal * 365) / 30;
+            lbl_DateOfBirthText.Text = currentPatient.DateOfBirth.ToShortDateString() + " (" + yearsVal + " Years, " + monthsVal + " Months)";
+            lbl_PhoneNumberText.Text = currentPatient.PhoneNumber;
+            lbl_DoctorNameText.Text = currentPatient.DoctorDisplay;
             if(ad.HouseName == "")
             {
                 lbl_HouseNameNumberText.Text = Convert.ToString(ad.HouseNumber);
@@ -47,10 +56,51 @@ namespace OverSurgery2
             }
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
+            m_PatientPrescriptions = ml.GetPatientsPrescriptions(currentPatient.ID);
+            lst_PatientsPres.Clear();
+            lst_PatientsPres.Columns.Add("Date");
+            lst_PatientsPres.Columns.Add("Medication");
+            lst_PatientsPres.Columns.Add("Amount");
+            lst_PatientsPres.Columns.Add("By");
+            // Add each item to the list based on prescriptions
+            foreach (Prescription p in m_PatientPrescriptions)
+            {
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = p.Date.ToShortDateString();
+                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                lvi.SubItems.Add(p.Amount.ToString());
+                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
+                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
+                lst_PatientsPres.Items.Add(lvi);
+            }
+            foreach (ColumnHeader column in lst_PatientsPres.Columns)
+            {
+                column.Width = -2;
+            }
+#endregion
         }
 
         private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+        }
+
+        private void lst_PatientsPres_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btn_Extend_Click(object sender, EventArgs e)
+        {
+            Prescription pres = null;
+            try
+            {
+                int sel = lst_PatientsPres.SelectedIndices[0];
+                pres = m_PatientPrescriptions.ElementAt(sel);
+                new PrescriptionExtendDialog(pres).ShowDialog();
+            }
+            catch
+            {
+                MessageBox.Show(this,"No prescription selected.");
+            }
         }
     }
     public class Address

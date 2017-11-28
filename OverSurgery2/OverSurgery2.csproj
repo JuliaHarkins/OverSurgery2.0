@@ -32,7 +32,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>
+    </StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>syringe.ico</ApplicationIcon>
@@ -60,13 +61,20 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RotaController.cs" />
-    <Compile Include="DataBase\ManagerForm.cs">
+    <Compile Include="Logger.cs" />
+    <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataBase\ManagerForm.Designer.cs">
-      <DependentUpon>ManagerForm.cs</DependentUpon>
+    <Compile Include="UserInterface\PrescriptionExtendDialog.Designer.cs">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Timing.cs" />
+    <Compile Include="UserInterface\MedicationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\MedicationForm.Designer.cs">
+      <DependentUpon>MedicationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\RotaForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -80,10 +88,10 @@
     <Compile Include="MainClasses\Staff\Doctor.cs" />
     <Compile Include="MainClasses\LoginObserver.cs" />
     <Compile Include="MainClasses\Staff\Locum.cs" />
-    <Compile Include="NewPatientForm.cs">
+    <Compile Include="UserInterface\NewPatientForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="NewPatientForm.Designer.cs">
+    <Compile Include="UserInterface\NewPatientForm.Designer.cs">
       <DependentUpon>NewPatientForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\AddPrescription.cs">
@@ -114,7 +122,6 @@
     <Compile Include="MainClasses\Patient.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="MainClasses\Person.cs" />
-    <Compile Include="PersonFactory.cs" />
     <Compile Include="MainClasses\Prescription.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -157,8 +164,8 @@
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DataBase\ManagerForm.resx">
-      <DependentUpon>ManagerForm.cs</DependentUpon>
+    <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -186,6 +193,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalStaffForm.resx">
       <DependentUpon>MedicalStaffForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\MedicationForm.resx">
+      <DependentUpon>MedicationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\NewPatientForm.resx">
+      <DependentUpon>NewPatientForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>

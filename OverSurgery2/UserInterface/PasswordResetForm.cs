@@ -29,12 +29,18 @@ namespace OverSurgery2
             {
                 if(ml.UpdateStaffPassword(m_currentUser, lc.HashPassword(txt_VerifyPassword.Text)))
                 {
+                    Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.PasswordChange, m_currentUser.Username, "Password Reset"));
                     MessageBox.Show("Password Reset!");
+                }
+                else
+                {
+                    Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.FailedPasswordChange, m_currentUser.Username, "Password Change Failed"));
+                    MessageBox.Show("Sorry your password could not be reset, please contact your manager");
                 }
             }
             else
             {
-                Console.WriteLine("Notworking");
+                MessageBox.Show("Your two passwords did not match!");
             }
             this.Close();
             this.Dispose();

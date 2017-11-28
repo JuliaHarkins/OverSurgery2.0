@@ -1,4 +1,4 @@
-﻿namespace OverSurgery2.UserInterface
+﻿namespace OverSurgery2
 {
     partial class AddPrescription
     {
@@ -28,43 +28,31 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lst_Medication = new System.Windows.Forms.ListBox();
-            this.txt_prescriptionNotes = new System.Windows.Forms.TextBox();
             this.lb_patient = new System.Windows.Forms.Label();
             this.btn_savePrescription = new System.Windows.Forms.Button();
-            this.lb_medication = new System.Windows.Forms.Label();
-            this.lb_notes = new System.Windows.Forms.Label();
+            this.lb_amount = new System.Windows.Forms.Label();
+            this.lst_medication = new System.Windows.Forms.ListView();
+            this.dtp_dateOfNextExtention = new System.Windows.Forms.DateTimePicker();
+            this.cb_extenable = new System.Windows.Forms.CheckBox();
+            this.lb_dateOfNextIssue = new System.Windows.Forms.Label();
+            this.nud_amount = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_amount)).BeginInit();
             this.SuspendLayout();
-            // 
-            // lst_Medication
-            // 
-            this.lst_Medication.FormattingEnabled = true;
-            this.lst_Medication.Location = new System.Drawing.Point(12, 72);
-            this.lst_Medication.Name = "lst_Medication";
-            this.lst_Medication.Size = new System.Drawing.Size(250, 121);
-            this.lst_Medication.TabIndex = 0;
-            // 
-            // txt_prescriptionNotes
-            // 
-            this.txt_prescriptionNotes.Location = new System.Drawing.Point(268, 72);
-            this.txt_prescriptionNotes.Multiline = true;
-            this.txt_prescriptionNotes.Name = "txt_prescriptionNotes";
-            this.txt_prescriptionNotes.Size = new System.Drawing.Size(342, 121);
-            this.txt_prescriptionNotes.TabIndex = 1;
             // 
             // lb_patient
             // 
             this.lb_patient.AutoSize = true;
             this.lb_patient.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lb_patient.Location = new System.Drawing.Point(12, 24);
+            this.lb_patient.Location = new System.Drawing.Point(24, 18);
             this.lb_patient.Name = "lb_patient";
             this.lb_patient.Size = new System.Drawing.Size(132, 20);
             this.lb_patient.TabIndex = 2;
             this.lb_patient.Text = "Prescription For : ";
+            this.lb_patient.Click += new System.EventHandler(this.lb_patient_Click);
             // 
             // btn_savePrescription
             // 
-            this.btn_savePrescription.Location = new System.Drawing.Point(468, 199);
+            this.btn_savePrescription.Location = new System.Drawing.Point(494, 187);
             this.btn_savePrescription.Name = "btn_savePrescription";
             this.btn_savePrescription.Size = new System.Drawing.Size(142, 23);
             this.btn_savePrescription.TabIndex = 3;
@@ -72,50 +60,94 @@
             this.btn_savePrescription.UseVisualStyleBackColor = true;
             this.btn_savePrescription.Click += new System.EventHandler(this.btn_savePrescription_Click);
             // 
-            // lb_medication
+            // lb_amount
             // 
-            this.lb_medication.AutoSize = true;
-            this.lb_medication.Location = new System.Drawing.Point(26, 56);
-            this.lb_medication.Name = "lb_medication";
-            this.lb_medication.Size = new System.Drawing.Size(59, 13);
-            this.lb_medication.TabIndex = 4;
-            this.lb_medication.Text = "Medication";
+            this.lb_amount.AutoSize = true;
+            this.lb_amount.Location = new System.Drawing.Point(406, 57);
+            this.lb_amount.Name = "lb_amount";
+            this.lb_amount.Size = new System.Drawing.Size(101, 13);
+            this.lb_amount.TabIndex = 5;
+            this.lb_amount.Text = "Prescription Amount";
+            this.lb_amount.Click += new System.EventHandler(this.lb_notes_Click);
             // 
-            // lb_notes
+            // lst_medication
             // 
-            this.lb_notes.AutoSize = true;
-            this.lb_notes.Location = new System.Drawing.Point(288, 56);
-            this.lb_notes.Name = "lb_notes";
-            this.lb_notes.Size = new System.Drawing.Size(93, 13);
-            this.lb_notes.TabIndex = 5;
-            this.lb_notes.Text = "Prescription Notes";
+            this.lst_medication.Location = new System.Drawing.Point(28, 55);
+            this.lst_medication.MultiSelect = false;
+            this.lst_medication.Name = "lst_medication";
+            this.lst_medication.Size = new System.Drawing.Size(364, 155);
+            this.lst_medication.TabIndex = 8;
+            this.lst_medication.UseCompatibleStateImageBehavior = false;
+            this.lst_medication.View = System.Windows.Forms.View.Details;
+            this.lst_medication.SelectedIndexChanged += new System.EventHandler(this.lst_medication_SelectedIndexChanged_1);
+            // 
+            // dtp_dateOfNextExtention
+            // 
+            this.dtp_dateOfNextExtention.Location = new System.Drawing.Point(409, 136);
+            this.dtp_dateOfNextExtention.Name = "dtp_dateOfNextExtention";
+            this.dtp_dateOfNextExtention.Size = new System.Drawing.Size(227, 20);
+            this.dtp_dateOfNextExtention.TabIndex = 12;
+            this.dtp_dateOfNextExtention.ValueChanged += new System.EventHandler(this.dtp_dateOfNextExtention_ValueChanged);
+            // 
+            // cb_extenable
+            // 
+            this.cb_extenable.AutoSize = true;
+            this.cb_extenable.Location = new System.Drawing.Point(409, 100);
+            this.cb_extenable.Name = "cb_extenable";
+            this.cb_extenable.Size = new System.Drawing.Size(73, 17);
+            this.cb_extenable.TabIndex = 14;
+            this.cb_extenable.Text = "Extenable";
+            this.cb_extenable.UseVisualStyleBackColor = true;
+            this.cb_extenable.CheckedChanged += new System.EventHandler(this.cb_extenable_CheckedChanged);
+            // 
+            // lb_dateOfNextIssue
+            // 
+            this.lb_dateOfNextIssue.AutoSize = true;
+            this.lb_dateOfNextIssue.Location = new System.Drawing.Point(406, 120);
+            this.lb_dateOfNextIssue.Name = "lb_dateOfNextIssue";
+            this.lb_dateOfNextIssue.Size = new System.Drawing.Size(97, 13);
+            this.lb_dateOfNextIssue.TabIndex = 15;
+            this.lb_dateOfNextIssue.Text = "Date Of Next Issue";
+            this.lb_dateOfNextIssue.Click += new System.EventHandler(this.lb_dateOfNextIssue_Click);
+            // 
+            // nud_amount
+            // 
+            this.nud_amount.Location = new System.Drawing.Point(513, 55);
+            this.nud_amount.Name = "nud_amount";
+            this.nud_amount.Size = new System.Drawing.Size(123, 20);
+            this.nud_amount.TabIndex = 16;
+            this.nud_amount.ValueChanged += new System.EventHandler(this.nud_amount_ValueChanged);
             // 
             // AddPrescription
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(622, 238);
-            this.Controls.Add(this.lb_notes);
-            this.Controls.Add(this.lb_medication);
+            this.ClientSize = new System.Drawing.Size(680, 226);
+            this.Controls.Add(this.nud_amount);
+            this.Controls.Add(this.lb_dateOfNextIssue);
+            this.Controls.Add(this.cb_extenable);
+            this.Controls.Add(this.dtp_dateOfNextExtention);
+            this.Controls.Add(this.lst_medication);
+            this.Controls.Add(this.lb_amount);
             this.Controls.Add(this.btn_savePrescription);
             this.Controls.Add(this.lb_patient);
-            this.Controls.Add(this.txt_prescriptionNotes);
-            this.Controls.Add(this.lst_Medication);
             this.Name = "AddPrescription";
             this.Text = "AddPrescription";
             this.Load += new System.EventHandler(this.AddPrescription_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.nud_amount)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.ListBox lst_Medication;
-        private System.Windows.Forms.TextBox txt_prescriptionNotes;
         private System.Windows.Forms.Label lb_patient;
         private System.Windows.Forms.Button btn_savePrescription;
-        private System.Windows.Forms.Label lb_medication;
-        private System.Windows.Forms.Label lb_notes;
+        private System.Windows.Forms.Label lb_amount;
+        private System.Windows.Forms.ListView lst_medication;
+        private System.Windows.Forms.DateTimePicker dtp_dateOfNextExtention;
+        private System.Windows.Forms.CheckBox cb_extenable;
+        private System.Windows.Forms.Label lb_dateOfNextIssue;
+        private System.Windows.Forms.NumericUpDown nud_amount;
     }
 }

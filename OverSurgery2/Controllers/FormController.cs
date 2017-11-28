@@ -25,16 +25,8 @@ namespace OverSurgery2
         }
         public void OpenMainForm()
         {
-            Dictionary<Type, int> StaffTypes = new Dictionary<Type, int>
-            {
-                {typeof(MedicalStaff),1 },
-                {typeof(Locum),2},
-                {typeof(Doctor), 3},
-                {typeof(Receptionist),4},
-                {typeof(Manager), 5 }
-            };
 
-            switch(StaffTypes[currentUser.GetType()])
+            switch(currentUser.Type)
             {
                 case 1:
                 case 2:
@@ -81,7 +73,7 @@ namespace OverSurgery2
         }
         public void UpdateData()
         {
-            //
+           
         }
     }
 }
