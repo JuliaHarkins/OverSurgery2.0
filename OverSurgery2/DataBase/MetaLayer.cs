@@ -506,16 +506,16 @@ namespace OverSurgery2
         /// Last Updated : 27/11/17,
         /// By j
         /// </summary>
-        /// <param name="id">medicalStaffID</param>
+        /// <param name="p_id">medicalStaffID</param>
         /// <returns></returns>
-        public List<Medication> getMedicationOnMedStaffID(uint? id)
+        public List<Medication> getMedicationOnMedStaffID(uint? p_id)
         {
             int permissionLevel = 0;
             List<Medication> medication = new List<Medication>();
             Medication m;
             if (con.OpenConnection())
             {
-                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + id + ";");
+                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + p_id + ";");
                 while (dr1.Read())
                 {
                     permissionLevel = dr1.GetInt32(0);
@@ -642,7 +642,11 @@ namespace OverSurgery2
                 return prescriptions;
             }
             return prescriptions;
-        }
+        }/// <summary>
+        /// Counts the extentions for the doctor
+        /// </summary>
+        /// <param name="p_id">the doctors id</param>
+        /// <returns></returns>
         public int DoctorExtentionCount(int p_id)
         {
             int i = 0;
@@ -658,6 +662,27 @@ namespace OverSurgery2
             }
 
                     return i;
+        }
+        public List<Prescription> getExtentionRequests(int p_id)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            Prescription p;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT Prescription.PrescriptionID, Prescription.DateIssued, Prescription.Ammount, Prescription.PatientID FROM Prescription, Extension WHERE MedicalStaffID = " + p_id+ " AND Prescription.PrescriptionID = Extension.PrescriptionID;");
+                while (dr.Read())
+                {
+                    p = new Prescription
+                    {
+
+                    };
+                    prescriptions.Add(p);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
+            return prescriptions;
         }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
