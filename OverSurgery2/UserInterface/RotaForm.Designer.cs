@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             this.dG_Rota = new System.Windows.Forms.DataGridView();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.Staff_Forename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Staff_Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Day_Monday = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -36,8 +38,7 @@
             this.Day_Wednesday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Day_Thursday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Day_Friday = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnUpdate = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.StaffID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dG_Rota)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,14 +56,37 @@
             this.Day_Tuesday,
             this.Day_Wednesday,
             this.Day_Thursday,
-            this.Day_Friday});
-            this.dG_Rota.Location = new System.Drawing.Point(10, 11);
-            this.dG_Rota.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Day_Friday,
+            this.StaffID});
+            this.dG_Rota.Location = new System.Drawing.Point(13, 14);
+            this.dG_Rota.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dG_Rota.Name = "dG_Rota";
             this.dG_Rota.ReadOnly = true;
             this.dG_Rota.RowTemplate.Height = 24;
-            this.dG_Rota.Size = new System.Drawing.Size(759, 377);
+            this.dG_Rota.Size = new System.Drawing.Size(1012, 464);
             this.dG_Rota.TabIndex = 0;
+            // 
+            // btnUpdate
+            // 
+            this.btnUpdate.Location = new System.Drawing.Point(13, 501);
+            this.btnUpdate.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(123, 23);
+            this.btnUpdate.TabIndex = 1;
+            this.btnUpdate.Text = "Update Rota";
+            this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(900, 501);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(123, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Exit";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Staff_Forename
             // 
@@ -106,36 +130,21 @@
             this.Day_Friday.Name = "Day_Friday";
             this.Day_Friday.ReadOnly = true;
             // 
-            // btnUpdate
+            // StaffID
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(10, 407);
-            this.btnUpdate.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(92, 19);
-            this.btnUpdate.TabIndex = 1;
-            this.btnUpdate.Text = "Update Rota";
-            this.btnUpdate.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(675, 407);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(92, 19);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "Exit";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.StaffID.HeaderText = "StaffID";
+            this.StaffID.Name = "StaffID";
+            this.StaffID.ReadOnly = true;
             // 
             // RotaForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(778, 436);
+            this.ClientSize = new System.Drawing.Size(1037, 537);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.btnUpdate);
             this.Controls.Add(this.dG_Rota);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "RotaForm";
             this.Text = "RotaForm";
             ((System.ComponentModel.ISupportInitialize)(this.dG_Rota)).EndInit();
@@ -147,6 +156,7 @@
 
         private System.Windows.Forms.DataGridView dG_Rota;
         private System.Windows.Forms.Button btnUpdate;
+        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Staff_Forename;
         private System.Windows.Forms.DataGridViewTextBoxColumn Staff_Surname;
         private System.Windows.Forms.DataGridViewTextBoxColumn Day_Monday;
@@ -154,6 +164,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Day_Wednesday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Day_Thursday;
         private System.Windows.Forms.DataGridViewTextBoxColumn Day_Friday;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StaffID;
     }
 }
