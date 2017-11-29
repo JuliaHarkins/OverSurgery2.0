@@ -18,21 +18,20 @@ namespace OverSurgery2
 {
     public partial class ManagerForm : Form
     {
-        private string m_userName, m_forename, m_surname, m_email, m_password, m_phone, m_houseName, m_addressLine, m_postCode;
-        private int m_staffID, m_practiceNumber, m_Gender, m_type, m_houseNumber;
+        private string m_userName;
         private uint m_addressID;
 
         Staff currentUserLoggedIn = null;                                                                                           // Details on the current user who is logged in
         Staff searchedStaff = null;                                                                                                 // Searched staff members details
-        Address searchedAddress = null;                                                                                             // Searched staff members address details
-        MetaLayer ml;
-        BindingSource StaffBinding;
-        BindingSource RotaBinding;   
+        MedicalStaff m = null;
+        Address searchedAddress = null;                                                                                             // Searched staff members address details  
 
         private void ManagerForm_Load(object sender, EventArgs e)
         {
             //Set combo box values
             cboType.DataSource = Enum.GetValues(typeof(StaffTypes));
+            cboUpdateType.DataSource = Enum.GetValues(typeof(StaffTypes));
+            cboAddGender.DataSource = Enum.GetValues(typeof(MedicalStaff.Genders));
         }
 
         enum StaffTypes { Nurse, Locum, Doctor, Receptionist, Manager };
@@ -54,16 +53,7 @@ namespace OverSurgery2
             
             InitializeComponent();
             // Disable fields according to selected type
-            if ((cboType.Text == "1") || (cboType.Text == "2") || (cboType.Text == "3"))
-            {
-                txtAddPhone.Enabled = true;
-                cboAddGender.Enabled = true;
-            }
-            else
-            {
-                txtAddPhone.Enabled = false;
-                cboAddGender.Enabled = false;
-            }
+            
 
         }
 
@@ -92,9 +82,9 @@ namespace OverSurgery2
             {
                 WriteBoxes();
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
             }
             
         }
@@ -110,11 +100,19 @@ namespace OverSurgery2
             {
                 ReadBoxes();
                 MetaLayer.Instance().UpdateStaffMember(searchedStaff);
-                MetaLayer.Instance().UpdateAddress(searchedAddress);    
+                
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+            }
+            try
+            {
+                MetaLayer.Instance().UpdateAddress(searchedAddress, Convert.ToInt32(searchedStaff.AddressID));
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
       
         }
@@ -129,12 +127,34 @@ namespace OverSurgery2
             try
             {
                 ReadBoxes();
-                ml.AddStaff(searchedStaff);
-                ml.AddAddress(searchedAddress);
+                
+                if (cboType.SelectedIndex != 3 || cboType.SelectedIndex !=4)
+                {
+                    m.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
+                    MetaLayer.Instance().AddMedicalStaff(m);
+                }
+                else
+                {
+                    searchedStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
+                    MetaLayer.Instance().AddStaff(searchedStaff);
+                }
+
+                foreach(Control c in this.Controls)
+                {
+                    if(c is TextBox)
+                    {
+                        TextBox tb = c as TextBox;
+                        if(tb.Text != String.Empty)
+                        {
+                            tb.Text = String.Empty;
+                        }
+                    }
+                }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -148,25 +168,27 @@ namespace OverSurgery2
         {  
             try
             {
-                //ReadBoxes();
-                m_userName = txtUpdateUserName.Text;
-                m_addressID = Convert.ToUInt32(searchedStaff.AddressID);
 
                 // Verify the user wants to delete the staff member
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    MetaLayer.Instance().DeleteStaff(m_userName);
-                    MetaLayer.Instance().DeleteAddress(Convert.ToInt32(m_addressID));
+                    // Delete address
+
+                    // Get the medical staff entry if it exists
+
+                    // Delete the staff memeber along with and medical staff entries
+                    MetaLayer.Instance().DeleteStaff(searchedStaff);
+                    
                 }
                 else
                 {
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
             }
             
         }
@@ -207,20 +229,45 @@ namespace OverSurgery2
                 //check the tab the user is currently in
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddStaff"])
                 {
+                    searchedStaff = new Staff();
                     searchedStaff.Username = txtAddUserName.Text;
                     searchedStaff.Forename = txtAddForename.Text;
                     searchedStaff.Surname = txtAddSurname.Text;
-                    //searchedStaff.PracticeNumber = Convert.ToInt32(txtPracticeNumberAdd.Text);
-                    //searchedStaff.Gender = Convert.ToInt32(cboAddGender.Text);
-                    searchedStaff.EmailAddress = txtAddEmail.Text;
-                    searchedStaff.Type = Convert.ToInt32(cboType.Text);
-                    searchedStaff.Password = txtAddPassword.Text;
-                    //searchedStaff.PhoneNumber = txtAddPhone.Text;
-                    searchedAddress.HouseName = txtAddHouseName.Text;
-                    searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
-                    searchedAddress.StreetName = txtAddAddressLine.Text;
-                    searchedAddress.PostCode = txtAddPostCode.Text;
                     
+                    // Check to see if the staff memeer is a medical staff member
+                    if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
+                    {
+                        m = new MedicalStaff()
+                        {
+                            Username = txtAddUserName.Text,
+                            Forename = txtAddForename.Text,
+                            Surname = txtAddSurname.Text,
+                            Gender = (uint)cboAddGender.SelectedIndex,
+                            Password = LoginController.Instance().HashPassword(txtAddPassword.Text),
+                            PhoneNumber = txtAddPhone.Text,
+                            PracticeNumber = txtPracticeNumberAdd.Text,
+                            EmailAddress = txtAddEmail.Text,
+                            Type = (int)cboType.SelectedIndex + 1
+                        };
+
+                        searchedAddress = new Address();
+                        searchedAddress.HouseName = txtAddHouseName.Text;
+                        searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
+                        searchedAddress.StreetName = txtAddAddressLine.Text;
+                        searchedAddress.PostCode = txtAddPostCode.Text;
+                    }
+                    else
+                    {
+                        searchedStaff.EmailAddress = txtAddEmail.Text;
+                        searchedStaff.Type = (int)cboType.SelectedIndex + 1;
+                        searchedStaff.Password = LoginController.Instance().HashPassword(txtAddPassword.Text);
+                        searchedAddress = new Address();
+                        searchedAddress.HouseName = txtAddHouseName.Text;
+                        searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
+                        searchedAddress.StreetName = txtAddAddressLine.Text;
+                        searchedAddress.PostCode = txtAddPostCode.Text;
+                    }
+
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateStaff"])
                 {
@@ -229,21 +276,29 @@ namespace OverSurgery2
                     searchedStaff.Surname = txtUpdateSurname.Text;
                     //searchedStaff.Gender = Convert.ToInt32(cboUpdateGender.Text);
                     searchedStaff.EmailAddress = txtUpdateEmail.Text;
+                    searchedStaff.Type = (int)cboUpdateType.SelectedValue + 1;
                     //searchedStaff.PhoneNumber = txtUpdatePhone.Text;
-                    searchedAddress.HouseName = txtUpdateHouseName.Text;
-                    searchedAddress.HouseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text);
-                    searchedAddress.StreetName = txtUpdateAddressLine.Text;
-                    searchedAddress.PostCode = txtUpdatePostCode.Text;
-                }
-                else
-                {
 
+                    if (txtUpdatePostCode.Text.Length > 10)
+                    {
+                        MessageBox.Show("Postcode Too Long! Max 10 Characters!");
+                    }
+                    else
+                    {
+                        searchedAddress = new Address()
+                        {
+                            HouseName = txtUpdateHouseName.Text,
+                            HouseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text),
+                            StreetName = txtUpdateAddressLine.Text,
+                            PostCode = txtUpdatePostCode.Text
+                        };
+                    }
+                    };
                 }
-            }
-            catch
-            {
-                MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+                catch(Exception ex)
+                {
+                    throw ex;
+                }
         }
 
 
@@ -271,6 +326,7 @@ namespace OverSurgery2
                     txtUpdateHouseNumber.Text = Convert.ToString(searchedAddress.HouseNumber);
                     txtUpdatePostCode.Text = searchedAddress.PostCode;
                     txtUpdateAddressLine.Text = searchedAddress.StreetName;
+                    cboUpdateType.SelectedIndex = searchedStaff.Type - 1;
                 }
                 else
                 {
@@ -293,5 +349,19 @@ namespace OverSurgery2
             this.Close();
         }
 
+        private void cboType_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (((int)cboType.SelectedValue == 3) || ((int)cboType.SelectedValue == 4))
+            {
+                txtAddPhone.Enabled = false;
+                cboAddGender.Enabled = false;
+                
+            }
+            else
+            {
+                txtAddPhone.Enabled = true;
+                cboAddGender.Enabled = true;
+            }
+        }
     }
 }

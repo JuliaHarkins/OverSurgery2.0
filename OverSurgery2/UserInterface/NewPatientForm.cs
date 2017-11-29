@@ -26,7 +26,7 @@ namespace OverSurgery2
 
         private void btn_SavePatient_Click(object sender, EventArgs e)
         {
-            bool controlsValidated = false;
+            bool controlsValidated = true;
             StringBuilder sb = new StringBuilder();
             bool numNameVal = false;
             foreach(Control c in this.Controls)
@@ -42,17 +42,22 @@ namespace OverSurgery2
                         {
                             case "txt_Forename":
                                 sb.Append("Forename must not be empty\r\n");
+                                controlsValidated = false;
                                 break;
                             case "txt_Surname":
                                 sb.Append("Surname must not be empty\r\n");
+                                controlsValidated = false;
                                 break;
                             case "txt_PhoneNumber":
                                 sb.Append("Phone Number must not be empty\r\n");
+                                controlsValidated = false;
+
                                 break;
                             case "txt_HouseName":
                                 if (txt_HouseNumber.Text == String.Empty && !numNameVal)
                                 {
                                     sb.Append("You must provide either a house name or number\r\n");
+                                    controlsValidated = false;
                                     numNameVal = true;
                                 }
                                 break;
@@ -60,14 +65,17 @@ namespace OverSurgery2
                                 if (txt_HouseName.Text == String.Empty && !numNameVal)
                                 {
                                     sb.Append("You must provide either a house name or number\r\n");
+                                    controlsValidated = false;
                                     numNameVal = true;
                                 }
                                 break;
                             case "txt_Street":
                                 sb.Append("Street name must not be empty\r\n");
+                                controlsValidated = false;
                                 break;
                             case "txt_PostCode":
                                 sb.Append("Postcode must not be empty\r\n");
+                                controlsValidated = false;
                                 break;
                         }
                         #endregion
@@ -88,15 +96,20 @@ namespace OverSurgery2
                     StreetName = txt_Street.Text,
                     PostCode = txt_PostCode.Text
                 };
-                MetaLayer.Instance().AddAddress(a);
+                 int addressid = MetaLayer.Instance().AddAddress(a);
                 Patient p = new Patient
                 {
                     Forename = txt_Forename.Text,
                     Surname = txt_Surname.Text,
-                    DateOfBirth = dtp_DateOfBirth.Value,
+                    DateOfBirth = dtp_DateOfBirth.Value.Date,
                     Gender = (int)cbx_Gender.SelectedValue,
                     PhoneNumber = txt_PhoneNumber.Text,
+                    AddressID = (uint)addressid,
+                    RegisteredDoctorID = MetaLayer.Instance().getDoctorWithLowestPatient()
                 };
+                MetaLayer.Instance().InsertNewPatient(p);
+                this.Close();
+                //PatientController.Instance().UpdatePatientList();
             }
         }
     }

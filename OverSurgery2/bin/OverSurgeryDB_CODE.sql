@@ -27,8 +27,8 @@ CREATE TABLE `Staff` (
 CREATE TABLE `MedicalStaff` (
     `MedicalStaffID` INT(8) NOT NULL auto_increment,
     `MedicalPracticeNumber` VARCHAR(35) NOT NULL default '',
-    `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
+    `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `StaffID` INT(8) NOT NULL,
     `Gender` TINYINT(2) NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),

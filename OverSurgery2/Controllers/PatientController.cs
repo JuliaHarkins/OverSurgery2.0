@@ -41,6 +41,12 @@ namespace OverSurgery2
             return m_getInstance;
         }
 
+        public void UpdatePatientList()
+        {
+            patients = MetaLayer.Instance().GetPatients();
+            UpdatePatientDoctorDisplay();
+        }
+
         public void AddNewPatient(Patient p_newPatient)
         {
             patients.Add(p_newPatient);

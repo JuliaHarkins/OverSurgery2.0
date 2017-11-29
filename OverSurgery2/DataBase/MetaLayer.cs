@@ -60,6 +60,22 @@ namespace OverSurgery2
             }
             return patients;
         }
+
+        public int getDoctorWithLowestPatient()
+        {
+            int lowest = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("select count(patientid),regestereddoctorid from patient p, medicalstaff m where p.regestereddoctorid = m.medicalstaffid group by m.medicalstaffid order by m.medicalstaffid asc Limit 1;");
+                while (dr.Read())
+                {
+                    lowest = dr.GetInt16(1);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return lowest;
+        }
         //ME!
         public Tuple<string, string, int?> GetLogin(string p_username)
         {
@@ -141,11 +157,11 @@ namespace OverSurgery2
                 {
                     try
                     {
-                        con.Insert("INSERT INTO patient VALUES (NULL," + p_Patient.Forename + "," + p_Patient.Surname + "," + p_Patient.Gender + "," + p_Patient.DateOfBirth + "," + p_Patient.PhoneNumber + "," +
-                            p_Patient.RegisteredDoctorID + p_Patient.AddressID + ");");
+                        con.Insert("INSERT INTO patient VALUES (NULL,'" + p_Patient.Forename + "','" + p_Patient.Surname + "'," + p_Patient.Gender + "," + Convert.ToInt32(p_Patient.DateOfBirth.ToString("yyyyMMdd")) + ",'" + p_Patient.PhoneNumber + "'," +
+                            p_Patient.RegisteredDoctorID + ","+ p_Patient.AddressID + ");");
                         con.CloseConnection();
                         return true;
-
+                        
                     }
                     catch (Exception e)
                     {
@@ -193,6 +209,7 @@ namespace OverSurgery2
                     }
                     a = new Address
                     {
+                        AddressID = dr.GetInt32(0),
                         HouseName = houseName,
                         HouseNumber = houseNumber,
                         StreetName = dr.GetString(3),
@@ -506,16 +523,16 @@ namespace OverSurgery2
         /// Last Updated : 27/11/17,
         /// By j
         /// </summary>
-        /// <param name="id">medicalStaffID</param>
+        /// <param name="p_id">medicalStaffID</param>
         /// <returns></returns>
-        public List<Medication> getMedicationOnMedStaffID(uint? id)
+        public List<Medication> getMedicationOnMedStaffID(uint? p_id)
         {
             int permissionLevel = 0;
             List<Medication> medication = new List<Medication>();
             Medication m;
             if (con.OpenConnection())
             {
-                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + id + ";");
+                DbDataReader dr1 = con.Select("SELECT PermissionLevel FROM MedicalStaff WHERE MedicalStaffID =" + p_id + ";");
                 while (dr1.Read())
                 {
                     permissionLevel = dr1.GetInt32(0);
@@ -641,6 +658,59 @@ namespace OverSurgery2
                 con.CloseConnection();
                 return prescriptions;
             }
+            return prescriptions;
+        }/// <summary>
+         /// Counts the extentions for the doctor
+         /// Last Updated : 28/11/17,
+         /// By j
+         /// </summary>
+         /// <param name="p_id">the doctors id</param>
+         /// <returns></returns>
+        public int DoctorExtentionCount(int p_id)
+        {
+            int i = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " ORDER BY DateOfExtension DESC;");
+                while (dr.Read())
+                {
+                    i = dr.GetInt16(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
+                    return i;
+        }/// <summary>
+         /// gets the list of extended prescriptions based off the staff id
+         /// Last Updated : 21/11/17,
+         /// By j
+         /// </summary>
+         /// <param name="p_id"></param>
+         /// <returns></returns>
+        public List<Prescription> GetExtentionRequests(int p_id)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            Prescription p;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT Prescription.PrescriptionID, Prescription.DateIssued, Prescription.Amount, Prescription.MedicationID, Prescription.PatientID FROM Prescription, Extension WHERE Extension.MedicalStaffID = " + p_id + " AND Prescription.PrescriptionID = Extension.PrescriptionID AND Extended = 0;");
+                while (dr.Read())
+                {
+                    p = new Prescription
+                    {
+                        ID =dr.GetInt16(0),
+                        Date = dr.GetDateTime(1),
+                        Amount =dr.GetInt16(2),
+                        MedicationID = dr.GetInt16(3),
+                        PatientID = dr.GetInt16(4)
+                    };
+                    prescriptions.Add(p);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
             return prescriptions;
         }
         /// <summary>
@@ -920,8 +990,73 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
 
-                con.Update("INSERT INTO Staff VALUES (null, " + staff.Forename + ", " + staff.Surname + ", " + staff.EmailAddress + ", " +
-                    Convert.ToInt32(staff.AddressID) + ", " + staff.Username + ", " + staff.Password + ");");
+                con.Insert("INSERT INTO Staff VALUES (null, '" + staff.Forename + "', '" + staff.Surname + "', '" + staff.EmailAddress + "', '" +
+                    Convert.ToInt32(staff.AddressID) + "', '" + staff.Username + "', '" + staff.Password + "'," + staff.Type + ");");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// add a medical staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        public void AddMedicalStaff(MedicalStaff m)
+        {
+            if (con.OpenConnection())
+            {
+                int staffid = 0;
+                int permissionLevel = 0;
+                con.Insert("INSERT INTO Staff VALUES (null, '" + m.Forename + "', '" + m.Surname + "', '" + m.EmailAddress + "', '" +
+                    Convert.ToInt32(m.AddressID) + "', '" + m.Username + "', '" + m.Password + "'," + m.Type + ");");
+                DbDataReader dr = con.Select("Select staffid from staff where username ='" + m.Username + "';");
+                while (dr.Read())
+                {
+                    staffid = dr.GetInt32(0);
+                }
+                if(m.Type == 1)
+                {
+                    permissionLevel = 1;
+                }
+                else if(m.Type == 2)
+                {
+                    permissionLevel = 2;
+                }
+                else if(m.Type == 3)
+                {
+                    permissionLevel = 3;
+                }
+                dr.Close();
+                con.Insert("INSERT INTO MedicalStaff VALUES (null, '" + m.PracticeNumber + "','" + m.PhoneNumber + "','" +permissionLevel + "'," + staffid + "," + m.Gender + ");");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// update a staff member in the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
+        public void UpdateMedicalStaff(MedicalStaff m)
+        {
+            if (con.OpenConnection())
+            {
+                int permissionLevel = 0;
+                con.Insert("UPDATE Staff SET forename='"  +m.Forename + "', surname='" + m.Surname + "', emailaddress='" + m.EmailAddress + "', addressid='" +
+                    Convert.ToInt32(m.AddressID) + "', username='" + m.Username + "', type='" + m.Type + "WHERE staffid="+m.StaffID+";");
+                if (m.Type == 1)
+                {
+                    permissionLevel = 1;
+                }
+                else if (m.Type == 2)
+                {
+                    permissionLevel = 2;
+                }
+                else if (m.Type == 3)
+                {
+                    permissionLevel = 3;
+                }
+                con.Insert("UPDATE MedicalStaff SET practicenumber='" + m.PracticeNumber + "',phonenumber='" + m.PhoneNumber + "',permissonlevel='" + permissionLevel + ",gender=" + m.Gender + "WHERE medicalstaffid="+m.MedicalStaffID+";");
                 con.CloseConnection();
             }
         }
@@ -931,15 +1066,36 @@ namespace OverSurgery2
         /// Last Updated : 17/11/17,
         /// By R
         /// </summary>
-        public bool DeleteStaff(string p_username)
+        public void DeleteStaff(Staff p_staff)
         {
-            if (con.OpenConnection())
+            // Delete medical staff entry
+            int medStaffID = 0;
+            if (p_staff.Type == 1 || p_staff.Type == 2 || p_staff.Type == 3)
             {
-                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
-                con.CloseConnection();
-                return true;
+                if (con.OpenConnection())
+                {
+                    DbDataReader dr = con.Select("SELECT MedicalStaffID FROM MedicalStaff WHERE MedicalStaff.StaffID =" + p_staff.StaffID + ";");
+                    while (dr.Read())
+                    {
+                        medStaffID = dr.GetInt32(0);
+                    }
+                    dr.Close();
+                    con.Delete("DELETE FROM MedicalStaff WHERE MedicalStaffID =" + medStaffID + ";");
+                    con.Delete("DELETE FROM Staff WHERE StaffID =" + p_staff.StaffID + ";");
+                    con.CloseConnection();
+                }
             }
-            return false;
+            else
+            {
+                if (con.OpenConnection())
+                {
+                    con.Update("DELETE FROM Staff WHERE StaffID ='" + p_staff.StaffID+ "';");
+                    con.CloseConnection();
+                }
+
+            }
+            // Delete normal staff entry
+            
         }
 
         /// <summary>
@@ -1061,10 +1217,10 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                con.Update("UPDATE Staff Set Forename = " + staff.Forename + ", Surname = "
-                    + staff.Surname + ", Email = '" + staff.EmailAddress + ", Username = "
-                    + staff.Username + ", Password = " + staff.Password + /*", Type = " 
-                + staff.Type + */" WHERE StaffID = " + staff.StaffID + " LIMIT 1;");
+                con.Update("UPDATE Staff Set Forename = '" + staff.Forename + "', Surname = '"
+                    + staff.Surname + "', Email = '" + staff.EmailAddress + "', Username = '"
+                    + staff.Username + "', Type = "
+                + staff.Type + " WHERE StaffID = " + staff.StaffID + ";");
                 con.CloseConnection();
             }
         }
@@ -1093,13 +1249,14 @@ namespace OverSurgery2
         /// By R
         /// </summary>
         /// <param name="add"></param>
-        public void UpdateAddress(Address add)
+        public void UpdateAddress(Address add, int id)
         {
+            int addid = id;
             if (con.OpenConnection())
             {
-                con.Update("UPDATE Address Set HouseName = " + add.HouseName + ", HouseNumber = "
-                    + add.HouseNumber + ", AddressLine1 = '" + add.StreetName + ", PostCode = "
-                    + add.PostCode + " WHERE AddressID = " + /*add.AddressID +*/ " LIMIT 1;");
+                con.Update("UPDATE Address Set HouseName = '" + add.HouseName + "', HouseNumber = '"
+                    + add.HouseNumber + "', AddressLine1 = '" + add.StreetName + "', PostCode = '"
+                    + add.PostCode + "' WHERE AddressID = "+id+";");
                 con.CloseConnection();
             }
         }
@@ -1110,14 +1267,23 @@ namespace OverSurgery2
         /// By R
         /// </summary>
         /// <param name="add"></param>
-        public void AddAddress(Address add)
+        public int AddAddress(Address add)
         {
+            int addid = 0;
             if (con.OpenConnection())
             {
                 con.Update("INSERT INTO Address VALUES (null, '" + add.HouseName + "', " + add.HouseNumber + 
                     ", '" + add.StreetName + "', '" + add.PostCode + "');");
+                DbDataReader dr = con.Select("SELECT addressid FROM address where housename ='" + add.HouseName + "' and housenumber='" + add.HouseNumber + 
+                    "' and addressLine1='" + add.StreetName + "' and postcode='" + add.PostCode + "';");
+                while (dr.Read())
+                {
+                    addid = dr.GetInt32(0);
+                }
+                dr.Close();
                 con.CloseConnection();
             }
+            return addid;
         }
 
         /// <summary>
@@ -1167,6 +1333,37 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return medList;
+        }
+
+        /// <summary>
+        /// Add a new medication to the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_med"></param>
+        public void AddMedication(Medication p_med)
+        {
+            if (con.OpenConnection())
+            {
+                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', " + p_med.Name + ", '" + p_med.Dosage + "');");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Update an existing medication in the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_med"></param>
+        public void UpdateMedication(Medication p_med)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Medication Set PermissionLevel = '" + p_med.PermissionLevel + "', MedicationName = '"
+                    + p_med.Name + "', Dosage = '" + p_med.Dosage + "' WHERE MedicationID = " + p_med.ID + ";");
+                con.CloseConnection();
+            }
         }
 
         public bool InsertIntoRota(int dayID, int staffID)

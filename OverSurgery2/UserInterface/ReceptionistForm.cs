@@ -154,6 +154,9 @@ namespace OverSurgery2
         private void btn_NewPatient_Click(object sender, EventArgs e)
         {
             FormController.Instance().OpenNewPatientForm();
+            PatientController.Instance().UpdatePatientList();
+            DataGridPatients.Update();
+            DataGridPatients.Refresh();
         }
 
         private void btn_Reload_Click(object sender, EventArgs e)

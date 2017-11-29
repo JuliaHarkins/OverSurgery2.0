@@ -92,7 +92,7 @@ namespace OverSurgery2.UserInterface
             try
             {
                 ReadBoxes();
-                //ml.AddMedication();
+                ml.AddMedication(med);
             }
             catch
             {
@@ -111,7 +111,7 @@ namespace OverSurgery2.UserInterface
             try
             {
                 ReadBoxes();
-                //ml.UpdateMedication();
+                ml.UpdateMedication(med);
             }
             catch
             {

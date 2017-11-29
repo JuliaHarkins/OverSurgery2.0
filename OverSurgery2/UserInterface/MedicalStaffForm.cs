@@ -21,13 +21,13 @@ namespace OverSurgery2
     public partial class MedicalStaffForm : Form
     {
 #region Members
-        MetaLayer ml = MetaLayer.Instance();            // the interface between the databae and the Application
-        BindingSource m_appointmentBinding;               //binds the information from the database
-        List<Appointment> m_appointments;                 // the list of the current users appointments for today
+        MetaLayer ml = MetaLayer.Instance();                // the interface between the databae and the Application
+        BindingSource m_appointmentBinding;                 // binds the information from the database
+        List<Appointment> m_appointments;                   // the list of the current users appointments for today
         List<MedicalHistory> m_medicalHistory;
         List<Prescription> m_prescriptions;
         MedicalStaff m_currentUser; 
-        int m_appointmentListCounter;                     //the current position in the appointment list.
+        int m_appointmentListCounter;                       // the current position in the appointment list.
         #endregion
 #region Constructor
         /// <summary>
@@ -37,7 +37,6 @@ namespace OverSurgery2
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
         {
-            
             m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
         }
@@ -93,13 +92,13 @@ namespace OverSurgery2
 #region SetsExtentionAmount
             //checks if the user is a doctor and shows the amount of extentions,
             //or it hides the button from non-doctors
-            if (m_currentUser.Type == 3)//m_currentUser.GetType() typeof(Doctor))
+            if (m_currentUser.Type == 3)
             {
-                Doctor d = new Doctor();
-                d = (Doctor)m_currentUser;
-                if (d.Extension !=null)
+                int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
+
+                if (extention != 0)
                 {
-                    btn_extRequest.Text = "Extention Requests : " + d.Extension.Count;
+                    btn_extRequest.Text = "Extention Requests : " + extention;
                     
                 }
                 else
@@ -148,7 +147,7 @@ namespace OverSurgery2
 
         private void btn_extRequest_Click(object sender, EventArgs e)
         {
-
+            new MedicalExtention(Convert.ToInt32(m_currentUser.MedicalStaffID)).ShowDialog();
                 
         }
         /// <summary>
