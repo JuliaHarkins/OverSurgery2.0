@@ -682,13 +682,13 @@ namespace OverSurgery2
 
                     return i;
         }/// <summary>
-         /// gets the list of extended prescriptions based off the staff id
+         /// gets the list of extended prescriptions based off the medstaff id
          /// Last Updated : 21/11/17,
          /// By j
          /// </summary>
          /// <param name="p_id"></param>
          /// <returns></returns>
-        public List<Prescription> GetExtentionRequests(int p_id)
+        public List<Prescription> GetExtentedPrescriptions(int p_id)
         {
             List<Prescription> prescriptions = new List<Prescription>();
             Prescription p;
@@ -712,6 +712,38 @@ namespace OverSurgery2
             }
 
             return prescriptions;
+        }
+        /// <summary>
+        /// gets the list of extendions based off the medstaff id
+        /// Last Updated : 21/11/17
+        /// By j
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
+        public List<Extension> GetExtentionRequests(int p_id)
+        {
+            List<Extension> extensions = new List<Extension>();
+            Extension e;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT ExtensionID, Extended, PrescriptionID, MedicalStaffID, Reason FROM Extension WHERE MedicalStaffID = " + p_id + " AND Extended = 0;");
+                while (dr.Read())
+                {
+                    e = new Extension
+                    {
+                        ExtentionID = dr.GetInt32(0),
+                        Extended = dr.GetInt32(1),
+                        PrescriptionID = dr.GetInt32(2),
+                        MedicalStaffID = dr.GetInt32(3),
+                        Reason = dr.IsDBNull(4) ? null : dr.GetString(4)
+                    };
+                    extensions.Add(e);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+
+            return extensions;
         }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
