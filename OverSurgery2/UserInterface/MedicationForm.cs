@@ -17,8 +17,6 @@ namespace OverSurgery2.UserInterface
 {
     public partial class MedicationForm : Form
     {
-        private uint m_medicationID, m_permissionLevel, m_dosage;
-        private string m_medName;
         MetaLayer ml = MetaLayer.Instance();
         Medication med = null;
 
@@ -47,9 +45,10 @@ namespace OverSurgery2.UserInterface
 
                 WriteBoxes();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
         }
@@ -66,7 +65,7 @@ namespace OverSurgery2.UserInterface
                 med.Name = txtUpdateMedName.Text;
 
                 // Verify the user wants to delete the medication
-                DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_medName + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + med.Name + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     ml.DeleteMedication(med.Name);
@@ -76,9 +75,10 @@ namespace OverSurgery2.UserInterface
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
            
@@ -94,9 +94,10 @@ namespace OverSurgery2.UserInterface
                 ReadBoxes();
                 ml.AddMedication(med);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
             }
             
         }
@@ -113,9 +114,10 @@ namespace OverSurgery2.UserInterface
                 ReadBoxes();
                 ml.UpdateMedication(med);
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -143,25 +145,29 @@ namespace OverSurgery2.UserInterface
                 //Check the tab the user is currently in
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
-                    txtAddMedName.Text = med.Name;
-                    txtAddPermission.Text = Convert.ToString(med.PermissionLevel);
-                    txtAddDosage.Text = Convert.ToString(med.Dosage);
+                    med = new Medication();
+                    med.Name = Convert.ToString(txtAddMedName.Text);
+                    med.PermissionLevel = Convert.ToUInt32(txtAddPermission.Text);
+                    med.Dosage = Convert.ToString(txtAddDosage.Text);
 
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
-                    txtUpdateMedName.Text = med.Name;
-                    txtUpdatePermission.Text = Convert.ToString(med.PermissionLevel);
-                    txtUpdateDosage.Text = Convert.ToString(med.Dosage);
+                    med = new Medication();
+                    med.Name = txtUpdateMedName.Text;
+                    med.PermissionLevel = Convert.ToUInt32(txtUpdatePermission.Text);
+                    med.Dosage = txtUpdateDosage.Text;
+                    
                 }
                 else
                 {
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -179,18 +185,19 @@ namespace OverSurgery2.UserInterface
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
-                    med.Name = txtUpdateMedName.Text;
-                    med.PermissionLevel = Convert.ToUInt32(txtUpdatePermission.Text);
-                    med.Dosage = txtUpdateDosage.Text;
+                    txtUpdateMedName.Text = med.Name;
+                    txtUpdatePermission.Text = Convert.ToString(med.PermissionLevel);
+                    txtUpdateDosage.Text = Convert.ToString(med.Dosage);
                 }
                 else
                 {
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
