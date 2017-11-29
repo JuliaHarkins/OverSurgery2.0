@@ -27,10 +27,10 @@ CREATE TABLE `Staff` (
 CREATE TABLE `MedicalStaff` (
     `MedicalStaffID` INT(8) NOT NULL auto_increment,
     `MedicalPracticeNumber` VARCHAR(35) NOT NULL default '',
-    `PermissionLevel` TINYINT(1) NOT NULL default 0,
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
+    `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `StaffID` INT(8) NOT NULL,
-    `Gender` TINYINT NOT NULL default 0,
+    `Gender` TINYINT(2) NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),
     FOREIGN KEY(`StaffID`) REFERENCES Staff(`StaffID`)
 )ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -91,7 +91,7 @@ CREATE TABLE `OnCall` (
 CREATE TABLE `Prescription` (
     `PrescriptionID` INT(8) NOT NULL auto_increment,
     `DateIssued` DATE NOT NULL default 19991231,
-    `DateOfNextIssue` DATE NULL default 19991231,
+    `DateOfNextIssue` DATE NULL default 30001231,
     `Amount` INT(2) NOT NULL default 0,
     `Extendable` BOOLEAN NOT NULL default 0,
     `MedicationID` INT(8) NOT NULL default 0,
@@ -198,48 +198,29 @@ INSERT INTO Prescription VALUES (5, 20170912, null, 14, 0, 2, 3, 6);
 INSERT INTO Prescription VALUES (6, 20171001, 20171101, 32, 1, 3, 4, 5);
 
 INSERT INTO Extension VALUES (1, 0, 1, null, 4, null);
-INSERT INTO Extension VALUES (2, 1, 3, 20171001, 1, 'Doctor Unavailable');
-INSERT INTO Extension VALUES (3, 0, 2, null, 1, null);
+INSERT INTO Extension VALUES (2, 1, 3, 20171001, 4, 'Doctor Unavailable');
+INSERT INTO Extension VALUES (3, 0, 2, null, 4, null);
 
 INSERT INTO DayOfWeek VALUES (1, 'Mon');
 INSERT INTO DayOfWeek VALUES (2, 'Tue');
 INSERT INTO DayOfWeek VALUES (3, 'Wed');
 INSERT INTO DayOfWeek VALUES (4, 'Thur');
 INSERT INTO DayOfWeek VALUES (5, 'Fri');
+INSERT INTO DayOfWeek VALUES (6, 'Default');
 
 INSERT INTO Rota VALUES (1, 1, 1);
 INSERT INTO Rota VALUES (2, 2, 1);
 INSERT INTO Rota VALUES (3, 3, 1);
 INSERT INTO Rota VALUES (4, 4, 1);
 INSERT INTO Rota VALUES (5, 5, 1);
--- INSERT INTO Rota VALUES (6);
--- INSERT INTO Rota VALUES (7);
--- INSERT INTO Rota VALUES (8);
--- INSERT INTO Rota VALUES (9);
--- INSERT INTO Rota VALUES (10);
--- INSERT INTO Rota VALUES (11);
--- INSERT INTO Rota VALUES (12);
--- INSERT INTO Rota VALUES (13);
--- INSERT INTO Rota VALUES (14);
--- INSERT INTO Rota VALUES (15);
--- INSERT INTO Rota VALUES (16);
--- INSERT INTO Rota VALUES (17);
--- INSERT INTO Rota VALUES (18);
--- INSERT INTO Rota VALUES (19);
--- INSERT INTO Rota VALUES (20);
--- INSERT INTO Rota VALUES (21);
--- INSERT INTO Rota VALUES (22);
--- INSERT INTO Rota VALUES (23);
--- INSERT INTO Rota VALUES (24);
--- INSERT INTO Rota VALUES (25);
--- INSERT INTO Rota VALUES (26);
--- INSERT INTO Rota VALUES (27);
--- INSERT INTO Rota VALUES (28);
--- INSERT INTO Rota VALUES (29);
--- INSERT INTO Rota VALUES (30);
--- INSERT INTO Rota VALUES (31);
--- INSERT INTO Rota VALUES (32);
--- INSERT INTO Rota VALUES (33);
--- INSERT INTO Rota VALUES (34);
--- INSERT INTO Rota VALUES (35);
--- INSERT INTO Rota VALUES (36);
+INSERT INTO Rota VALUES (6, 1, 2);
+INSERT INTO Rota VALUES (7, 3, 2);
+INSERT INTO Rota VALUES (8, 4, 2);
+
+INSERT INTO Rota VALUES (9, 6, 3);
+INSERT INTO Rota VALUES (10, 6, 4);
+INSERT INTO Rota VALUES (11, 6, 5);
+INSERT INTO Rota VALUES (12, 6, 6);
+INSERT INTO Rota VALUES (13, 6, 7);
+INSERT INTO Rota VALUES (14, 6, 8);
+INSERT INTO Rota VALUES (15, 6, 9);

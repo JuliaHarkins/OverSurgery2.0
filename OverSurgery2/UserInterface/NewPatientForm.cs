@@ -16,5 +16,101 @@ namespace OverSurgery2
         {
             InitializeComponent();
         }
+
+        private void NewPatientForm_Load(object sender, EventArgs e)
+        {
+            dtp_DateOfBirth.MaxDate = DateTime.Now;
+            dtp_DateOfBirth.MinDate = DateTime.Parse("1900-01-01");
+            cbx_Gender.DataSource = Enum.GetValues(typeof(Patient.Genders));
+        }
+
+        private void btn_SavePatient_Click(object sender, EventArgs e)
+        {
+            bool controlsValidated = true;
+            StringBuilder sb = new StringBuilder();
+            bool numNameVal = false;
+            foreach(Control c in this.Controls)
+            {
+                if(c is TextBox)
+                {
+                    TextBox tb = c as TextBox;
+                    if(tb.Text == String.Empty)
+                    {
+                        #region String Builder Switch
+                        // Switch on name of TextBox, add appropriate string to StringBuilder.
+                        switch(tb.Name)
+                        {
+                            case "txt_Forename":
+                                sb.Append("Forename must not be empty\r\n");
+                                controlsValidated = false;
+                                break;
+                            case "txt_Surname":
+                                sb.Append("Surname must not be empty\r\n");
+                                controlsValidated = false;
+                                break;
+                            case "txt_PhoneNumber":
+                                sb.Append("Phone Number must not be empty\r\n");
+                                controlsValidated = false;
+
+                                break;
+                            case "txt_HouseName":
+                                if (txt_HouseNumber.Text == String.Empty && !numNameVal)
+                                {
+                                    sb.Append("You must provide either a house name or number\r\n");
+                                    controlsValidated = false;
+                                    numNameVal = true;
+                                }
+                                break;
+                            case "txt_HouseNumber":
+                                if (txt_HouseName.Text == String.Empty && !numNameVal)
+                                {
+                                    sb.Append("You must provide either a house name or number\r\n");
+                                    controlsValidated = false;
+                                    numNameVal = true;
+                                }
+                                break;
+                            case "txt_Street":
+                                sb.Append("Street name must not be empty\r\n");
+                                controlsValidated = false;
+                                break;
+                            case "txt_PostCode":
+                                sb.Append("Postcode must not be empty\r\n");
+                                controlsValidated = false;
+                                break;
+                        }
+                        #endregion
+                    }
+
+                }
+            }
+            if (!controlsValidated)
+            {
+                MessageBox.Show(sb.ToString());
+            }
+            if (controlsValidated)
+            {
+                Address a = new Address
+                {
+                    HouseName = txt_HouseName.Text,
+                    HouseNumber = Convert.ToInt32(txt_HouseNumber.Text),
+                    StreetName = txt_Street.Text,
+                    PostCode = txt_PostCode.Text
+                };
+                 int addressid = MetaLayer.Instance().AddAddress(a);
+                Patient p = new Patient
+                {
+                    Forename = txt_Forename.Text,
+                    Surname = txt_Surname.Text,
+                    DateOfBirth = dtp_DateOfBirth.Value.Date,
+                    Gender = (int)cbx_Gender.SelectedValue,
+                    PhoneNumber = txt_PhoneNumber.Text,
+                    AddressID = (uint)addressid,
+                    RegisteredDoctorID = MetaLayer.Instance().getDoctorWithLowestPatient()
+                };
+                MetaLayer.Instance().InsertNewPatient(p);
+                this.Close();
+                //PatientController.Instance().UpdatePatientList();
+            }
+        }
     }
 }

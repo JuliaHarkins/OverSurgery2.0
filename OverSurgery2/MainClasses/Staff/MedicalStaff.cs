@@ -16,11 +16,12 @@ namespace OverSurgery2
         #region Member Variables
 
         private uint? m_medicalStaffID;
-        private uint? m_prescriptionLevel;
+        private uint? m_prescriptionLevel = 1;
         private string m_practiceNumber;
         private uint? m_gender;
         private string m_genderDisplay;
         private string m_phoneNumber;
+        public enum Genders { Female, Male };
         #endregion
         #region Constructors
         public MedicalStaff()

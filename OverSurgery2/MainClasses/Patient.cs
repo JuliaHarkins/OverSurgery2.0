@@ -24,6 +24,7 @@ namespace OverSurgery2
         private string m_doctorDisplay;
         private string m_phoneNumber;
         MetaLayer ml = MetaLayer.Instance();
+        public enum Genders { Female, Male };
         public int ID { get { return m_ID; } set { m_ID = value; } }
         public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
         public int Gender { get { return m_gender; } set { m_gender = value; } }
