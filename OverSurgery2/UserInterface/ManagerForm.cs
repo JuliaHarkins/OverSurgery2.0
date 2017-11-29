@@ -49,12 +49,8 @@ namespace OverSurgery2
 
         public ManagerForm(Staff p_currentUser)
         {
-            currentUserLoggedIn = p_currentUser;
-            
+            currentUserLoggedIn = p_currentUser;       
             InitializeComponent();
-            // Disable fields according to selected type
-            
-
         }
 
         /// <summary>
@@ -128,6 +124,7 @@ namespace OverSurgery2
             {
                 ReadBoxes();
                 
+                // Check if staff is medical staff
                 if (cboType.SelectedIndex != 3 || cboType.SelectedIndex !=4)
                 {
                     m.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
@@ -139,6 +136,7 @@ namespace OverSurgery2
                     MetaLayer.Instance().AddStaff(searchedStaff);
                 }
 
+                // clear all fields
                 foreach(Control c in this.Controls)
                 {
                     if(c is TextBox)
@@ -173,13 +171,8 @@ namespace OverSurgery2
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    // Delete address
-
-                    // Get the medical staff entry if it exists
-
                     // Delete the staff memeber along with and medical staff entries
-                    MetaLayer.Instance().DeleteStaff(searchedStaff);
-                    
+                    MetaLayer.Instance().DeleteStaff(searchedStaff);     
                 }
                 else
                 {
