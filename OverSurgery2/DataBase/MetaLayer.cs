@@ -847,7 +847,7 @@ namespace OverSurgery2
                 if (con.OpenConnection())
                 {
                     Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + rota.MedicalStaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
+                    con.Update("INSERT INTO Rota VALUES (null, " + rota.StaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
                         Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
                     con.CloseConnection();
                 }
@@ -952,22 +952,101 @@ namespace OverSurgery2
         {
             Rota r;
             List<Rota> rota = new List<Rota>();
+            List<int> r_staffID = new List<int>();
+            List<int> s_staffID = new List<int>();
+            List<string> s_forename = new List<string>();
+            List<string> s_surname = new List<string>();
+            List<string> days = new List<string>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT RotaID, Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
+                DbDataReader dr = con.Select("SELECT StaffID, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, DayOfWeek d WHERE r.DayID = d.DayID GROUP BY StaffID ORDER BY StaffID;");
                 while (dr.Read())
                 {
-                    r = new Rota
-                    {
-                        RotaEntryID = dr.GetInt32(0),
-                        Forename = dr.GetString(1),
-                        Surname = dr.GetString(2),
-                        Days = dr.GetString(3)
-                    };
-                    rota.Add(r);
+                    r_staffID.Add(dr.GetInt32(0));
+                    days.Add(dr.GetString(1));
                 }
                 dr.Close();
                 con.CloseConnection();
+            }
+            if (con.OpenConnection())
+            {
+                DbDataReader inner_dr = con.Select("Select StaffID, Forename, Surname FROM Staff");
+                while (inner_dr.Read())
+                {
+                    s_staffID.Add(inner_dr.GetInt32(0));
+                    s_forename.Add(inner_dr.GetString(1));
+                    s_surname.Add(inner_dr.GetString(2));
+                }
+                inner_dr.Close();
+                con.CloseConnection();
+            }
+            if (r_staffID.Count == 0)
+            {
+                for (int i = 0; i < s_staffID.Count; i++)
+                {
+                    r = new Rota
+                    {
+                        StaffID = s_staffID.ElementAtOrDefault(i),
+                        Forename = s_forename.ElementAtOrDefault(i),
+                        Surname = s_surname.ElementAtOrDefault(i),
+                        Days = "Default"
+                    };
+                    rota.Add(r);
+                }
+            }
+            else
+            {
+                for (int i = 0, j = 0; j < r_staffID.Count; i++)
+                {
+                    if (s_staffID.ElementAtOrDefault(i) == r_staffID.ElementAtOrDefault(j))
+                    {
+                        for (int k = 0; k < rota.Count; k++)
+                        {
+                            if (rota.ElementAtOrDefault(k).StaffID == s_staffID.ElementAtOrDefault(i))
+                            {
+                                rota.RemoveAt(k);
+                            }
+                        }
+                        r = new Rota
+                        {
+                            StaffID = s_staffID.ElementAtOrDefault(i),
+                            Forename = s_forename.ElementAtOrDefault(i),
+                            Surname = s_surname.ElementAtOrDefault(i),
+                            Days = days.ElementAtOrDefault(j)
+                        };
+                        rota.Add(r);
+                    }
+                    else
+                    {
+                        if (s_staffID.Count > rota.Count)
+                        {
+                            bool flg = true;
+                            for (int k = 0; k < rota.Count; k++)
+                            {
+                                if (rota.ElementAtOrDefault(k).StaffID == s_staffID.ElementAtOrDefault(i))
+                                {
+                                    flg = false;
+                                }
+                            }
+                            if (flg)
+                            {
+                                r = new Rota
+                                {
+                                    StaffID = s_staffID.ElementAtOrDefault(i),
+                                    Forename = s_forename.ElementAtOrDefault(i),
+                                    Surname = s_surname.ElementAtOrDefault(i),
+                                    Days = "Default"
+                                };
+                                rota.Add(r);
+                            }
+                        }
+                    }
+                    if (i == s_staffID.Count)
+                    {
+                        i = 0;
+                        j++;
+                    }
+                }
             }
             return rota;
         }
@@ -1088,6 +1167,30 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return medList;
+        }
+
+        public bool InsertIntoRota(int dayID, int staffID)
+        {
+            bool flg = false;
+            if (con.OpenConnection())
+            {
+                con.Insert($"INSERT INTO Rota Values (null, {dayID}, {staffID});");
+                flg = true;
+                con.CloseConnection();
+            }
+            return flg;
+        }
+
+        public bool UpdateRota(int dayID, int staffID)
+        {
+            bool flg = false;
+            if (con.OpenConnection())
+            {
+                con.Update($"DELETE FROM Rota WHERE DayID = {dayID} AND StaffID = {staffID}");
+                flg = true;
+                con.CloseConnection();
+            }
+            return flg;
         }
     }
 }

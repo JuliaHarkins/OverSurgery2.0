@@ -62,6 +62,12 @@
   <ItemGroup>
     <Compile Include="Controllers\RotaController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="UpdateRota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UpdateRota.Designer.cs">
+      <DependentUpon>UpdateRota.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -164,6 +170,9 @@
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UpdateRota.resx">
+      <DependentUpon>UpdateRota.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
       <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </EmbeddedResource>
