@@ -1246,5 +1246,36 @@ namespace OverSurgery2
             }
             return medList;
         }
+
+        /// <summary>
+        /// Add a new medication to the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_med"></param>
+        public void AddMedication(Medication p_med)
+        {
+            if (con.OpenConnection())
+            {
+                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', " + p_med.Name + ", '" + p_med.Dosage + "');");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Update an existing medication in the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_med"></param>
+        public void UpdateMedication(Medication p_med)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Medication Set PermissionLevel = '" + p_med.PermissionLevel + "', MedicationName = '"
+                    + p_med.Name + "', Dosage = '" + p_med.Dosage + "' WHERE MedicationID = " + p_med.ID + ";");
+                con.CloseConnection();
+            }
+        }
     }
 }
