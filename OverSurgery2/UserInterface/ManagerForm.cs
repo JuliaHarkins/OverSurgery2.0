@@ -138,8 +138,7 @@ namespace OverSurgery2
                     searchedStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
                     MetaLayer.Instance().AddStaff(searchedStaff);
                 }
-                
-                
+
                 foreach(Control c in this.Controls)
                 {
                     if(c is TextBox)
@@ -169,28 +168,17 @@ namespace OverSurgery2
         {  
             try
             {
-                //ReadBoxes();
-                m_userName = txtUpdateUserName.Text;
-                m_addressID = Convert.ToUInt32(searchedStaff.AddressID);
 
                 // Verify the user wants to delete the staff member
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
                     // Delete address
-                    MetaLayer.Instance().DeleteAddress(Convert.ToInt32(m_addressID));
 
                     // Get the medical staff entry if it exists
-                    if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
-                    {
-                        m = new MedicalStaff()
-                        {
-                            MedicalStaffID = Convert.ToUInt32(MetaLayer.Instance().GetMedicalStaffByStaffID(searchedStaff.StaffID, searchedStaff.Type))
-                        };
-                    }
 
                     // Delete the staff memeber along with and medical staff entries
-                    MetaLayer.Instance().DeleteStaff(m_userName, Convert.ToUInt32(m.MedicalStaffID));
+                    MetaLayer.Instance().DeleteStaff(searchedStaff);
                     
                 }
                 else

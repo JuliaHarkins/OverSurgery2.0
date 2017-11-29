@@ -1066,27 +1066,36 @@ namespace OverSurgery2
         /// Last Updated : 17/11/17,
         /// By R
         /// </summary>
-        public bool DeleteStaff(string p_username, uint p_medStaffID)
+        public void DeleteStaff(Staff p_staff)
         {
             // Delete medical staff entry
-            if (p_medStaffID != null)
+            int medStaffID = 0;
+            if (p_staff.Type == 1 || p_staff.Type == 2 || p_staff.Type == 3)
             {
                 if (con.OpenConnection())
                 {
-                    con.Update("DELETE FROM MedicalStaff WHERE MedicalStaffID ='" + p_medStaffID + "';");
+                    DbDataReader dr = con.Select("SELECT MedicalStaffID FROM MedicalStaff WHERE MedicalStaff.StaffID =" + p_staff.StaffID + ";");
+                    while (dr.Read())
+                    {
+                        medStaffID = dr.GetInt32(0);
+                    }
+                    dr.Close();
+                    con.Delete("DELETE FROM MedicalStaff WHERE MedicalStaffID =" + medStaffID + ";");
+                    con.Delete("DELETE FROM Staff WHERE StaffID =" + p_staff.StaffID + ";");
                     con.CloseConnection();
-                    
                 }
             }
-
-            // Delete normal staff entry
-            if (con.OpenConnection())
+            else
             {
-                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
-                con.CloseConnection();
-                return true;
+                if (con.OpenConnection())
+                {
+                    con.Update("DELETE FROM Staff WHERE StaffID ='" + p_staff.StaffID+ "';");
+                    con.CloseConnection();
+                }
+
             }
-            return false;
+            // Delete normal staff entry
+            
         }
 
         /// <summary>
