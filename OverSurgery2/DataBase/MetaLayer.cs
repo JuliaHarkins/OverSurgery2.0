@@ -1421,5 +1421,29 @@ namespace OverSurgery2
             }
             return flg;
         }
+
+        public Tuple<List<int>, List<string>, List<string>, List<string>> SearchRota(string searchParam)
+        {
+            List<int> staffID = new List<int>();
+            List<string> forename = new List<string>();
+            List<string> surname = new List<string>();
+            List<string> days = new List<string>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr =
+                    con.Select(
+                        $"SELECT r.StaffID, Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC) FROM DayOfWeek d, Rota r, Staff s WHERE {searchParam} AND d.DayID = r.DayID AND r.StaffID = s.StaffID GROUP BY r.StaffID ORDER BY s.StaffID;");
+                while (dr.Read())
+                {
+                    staffID.Add(dr.GetInt32(0));
+                    forename.Add(dr.GetString(1));
+                    surname.Add(dr.GetString(2));
+                    days.Add(dr.GetString(3));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return new Tuple<List<int>, List<string>, List<string>, List<string>>(staffID, forename, surname, days);
+        }
     }
 }
