@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OverSurgery2.UserInterface;
 
 namespace OverSurgery2
 {
@@ -160,6 +161,13 @@ namespace OverSurgery2
                 Convert.ToString(dG_Rota[1, selectedRowID].Value)
             };
             return staffName;
+        }
+
+        private void BtnSearch_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            new RotaSearch().ShowDialog();
+            this.Show();
         }
     }
 }
