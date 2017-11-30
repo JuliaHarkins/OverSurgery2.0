@@ -44,7 +44,7 @@
             this.txt_SearchAppSurname = new System.Windows.Forms.TextBox();
             this.btn_SearchApp = new System.Windows.Forms.Button();
             this.btn_NewApp = new System.Windows.Forms.Button();
-            this.DataGridAppointments = new System.Windows.Forms.DataGridView();
+            this.dgv_Appointments = new System.Windows.Forms.DataGridView();
             this.PatientsTab = new System.Windows.Forms.TabPage();
             this.lbl_PatientCount = new System.Windows.Forms.Label();
             this.btn_ViewAllPatients = new System.Windows.Forms.Button();
@@ -53,14 +53,13 @@
             this.txt_SearchSurname = new System.Windows.Forms.TextBox();
             this.btn_SearchPatient = new System.Windows.Forms.Button();
             this.btn_NewPatient = new System.Windows.Forms.Button();
-            this.DataGridPatients = new System.Windows.Forms.DataGridView();
+            this.dgv_Patients = new System.Windows.Forms.DataGridView();
             this.patientBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.btn_Reload = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.AppointmentsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Appointments)).BeginInit();
             this.PatientsTab.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridPatients)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Patients)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -99,7 +98,7 @@
             this.AppointmentsTab.Controls.Add(this.txt_SearchAppSurname);
             this.AppointmentsTab.Controls.Add(this.btn_SearchApp);
             this.AppointmentsTab.Controls.Add(this.btn_NewApp);
-            this.AppointmentsTab.Controls.Add(this.DataGridAppointments);
+            this.AppointmentsTab.Controls.Add(this.dgv_Appointments);
             this.AppointmentsTab.Location = new System.Drawing.Point(4, 29);
             this.AppointmentsTab.Name = "AppointmentsTab";
             this.AppointmentsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -172,26 +171,27 @@
             this.btn_NewApp.Location = new System.Drawing.Point(6, 441);
             this.btn_NewApp.Margin = new System.Windows.Forms.Padding(2);
             this.btn_NewApp.Name = "btn_NewApp";
-            this.btn_NewApp.Size = new System.Drawing.Size(132, 27);
+            this.btn_NewApp.Size = new System.Drawing.Size(144, 27);
             this.btn_NewApp.TabIndex = 7;
-            this.btn_NewApp.Text = "New Patient";
+            this.btn_NewApp.Text = "New Appointment";
             this.btn_NewApp.UseVisualStyleBackColor = true;
+            this.btn_NewApp.Click += new System.EventHandler(this.btn_NewApp_Click);
             // 
-            // DataGridAppointments
+            // dgv_Appointments
             // 
-            this.DataGridAppointments.AllowUserToAddRows = false;
-            this.DataGridAppointments.AllowUserToDeleteRows = false;
-            this.DataGridAppointments.AllowUserToResizeColumns = false;
-            this.DataGridAppointments.AllowUserToResizeRows = false;
+            this.dgv_Appointments.AllowUserToAddRows = false;
+            this.dgv_Appointments.AllowUserToDeleteRows = false;
+            this.dgv_Appointments.AllowUserToResizeColumns = false;
+            this.dgv_Appointments.AllowUserToResizeRows = false;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataGridAppointments.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.DataGridAppointments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_Appointments.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_Appointments.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataGridAppointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.DataGridAppointments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
+            this.dgv_Appointments.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dgv_Appointments.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -199,18 +199,18 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridAppointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.DataGridAppointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DataGridAppointments.Location = new System.Drawing.Point(6, 39);
-            this.DataGridAppointments.Name = "DataGridAppointments";
-            this.DataGridAppointments.ReadOnly = true;
-            this.DataGridAppointments.RowHeadersVisible = false;
-            this.DataGridAppointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            this.dgv_Appointments.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.dgv_Appointments.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Appointments.Location = new System.Drawing.Point(6, 39);
+            this.dgv_Appointments.Name = "dgv_Appointments";
+            this.dgv_Appointments.ReadOnly = true;
+            this.dgv_Appointments.RowHeadersVisible = false;
+            this.dgv_Appointments.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataGridAppointments.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            this.DataGridAppointments.Size = new System.Drawing.Size(899, 397);
-            this.DataGridAppointments.TabIndex = 6;
+            this.dgv_Appointments.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            this.dgv_Appointments.Size = new System.Drawing.Size(899, 397);
+            this.dgv_Appointments.TabIndex = 6;
             // 
             // PatientsTab
             // 
@@ -221,7 +221,7 @@
             this.PatientsTab.Controls.Add(this.txt_SearchSurname);
             this.PatientsTab.Controls.Add(this.btn_SearchPatient);
             this.PatientsTab.Controls.Add(this.btn_NewPatient);
-            this.PatientsTab.Controls.Add(this.DataGridPatients);
+            this.PatientsTab.Controls.Add(this.dgv_Patients);
             this.PatientsTab.Location = new System.Drawing.Point(4, 29);
             this.PatientsTab.Name = "PatientsTab";
             this.PatientsTab.Padding = new System.Windows.Forms.Padding(3);
@@ -309,19 +309,19 @@
             this.btn_NewPatient.UseVisualStyleBackColor = true;
             this.btn_NewPatient.Click += new System.EventHandler(this.btn_NewPatient_Click);
             // 
-            // DataGridPatients
+            // dgv_Patients
             // 
-            this.DataGridPatients.AllowUserToAddRows = false;
-            this.DataGridPatients.AllowUserToDeleteRows = false;
-            this.DataGridPatients.AllowUserToResizeColumns = false;
-            this.DataGridPatients.AllowUserToResizeRows = false;
+            this.dgv_Patients.AllowUserToAddRows = false;
+            this.dgv_Patients.AllowUserToDeleteRows = false;
+            this.dgv_Patients.AllowUserToResizeColumns = false;
+            this.dgv_Patients.AllowUserToResizeRows = false;
             dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DataGridPatients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
-            this.DataGridPatients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.dgv_Patients.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.dgv_Patients.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.DataGridPatients.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.dgv_Patients.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -329,8 +329,8 @@
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DataGridPatients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            this.DataGridPatients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_Patients.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            this.dgv_Patients.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.Color.White;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -338,32 +338,19 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.DataGridPatients.DefaultCellStyle = dataGridViewCellStyle6;
-            this.DataGridPatients.Location = new System.Drawing.Point(6, 38);
-            this.DataGridPatients.Name = "DataGridPatients";
-            this.DataGridPatients.ReadOnly = true;
-            this.DataGridPatients.Size = new System.Drawing.Size(899, 398);
-            this.DataGridPatients.TabIndex = 1;
-            this.DataGridPatients.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPatients_CellContentClick);
-            // 
-            // btn_Reload
-            // 
-            this.btn_Reload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_Reload.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Reload.Location = new System.Drawing.Point(769, 526);
-            this.btn_Reload.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_Reload.Name = "btn_Reload";
-            this.btn_Reload.Size = new System.Drawing.Size(68, 33);
-            this.btn_Reload.TabIndex = 4;
-            this.btn_Reload.Text = "Reload";
-            this.btn_Reload.UseVisualStyleBackColor = true;
+            this.dgv_Patients.DefaultCellStyle = dataGridViewCellStyle6;
+            this.dgv_Patients.Location = new System.Drawing.Point(6, 38);
+            this.dgv_Patients.Name = "dgv_Patients";
+            this.dgv_Patients.ReadOnly = true;
+            this.dgv_Patients.Size = new System.Drawing.Size(899, 398);
+            this.dgv_Patients.TabIndex = 1;
+            this.dgv_Patients.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridPatients_CellContentClick);
             // 
             // ReceptionistForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(942, 563);
-            this.Controls.Add(this.btn_Reload);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btn_Logout);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -375,10 +362,10 @@
             this.tabControl1.ResumeLayout(false);
             this.AppointmentsTab.ResumeLayout(false);
             this.AppointmentsTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridAppointments)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Appointments)).EndInit();
             this.PatientsTab.ResumeLayout(false);
             this.PatientsTab.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DataGridPatients)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_Patients)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.patientBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -390,8 +377,8 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage AppointmentsTab;
         private System.Windows.Forms.TabPage PatientsTab;
-        private System.Windows.Forms.DataGridView DataGridAppointments;
-        private System.Windows.Forms.DataGridView DataGridPatients;
+        private System.Windows.Forms.DataGridView dgv_Appointments;
+        private System.Windows.Forms.DataGridView dgv_Patients;
         private System.Windows.Forms.BindingSource patientBindingSource;
         private System.Windows.Forms.Button btn_NewPatient;
         private System.Windows.Forms.Button btn_SearchPatient;
@@ -399,7 +386,6 @@
         private System.Windows.Forms.TextBox txt_SearchSurname;
         private System.Windows.Forms.Label lbl_SearchForPatient;
         private System.Windows.Forms.Button btn_ViewAllPatients;
-        private System.Windows.Forms.Button btn_Reload;
         private System.Windows.Forms.Button btn_ViewAllApp;
         private System.Windows.Forms.Label lbl_SearchAppByPatient;
         private System.Windows.Forms.TextBox txt_SearchAppForename;

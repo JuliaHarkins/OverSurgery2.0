@@ -30,13 +30,14 @@ namespace OverSurgery2
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
             fc.OpenEditPatientForm(currentPatient);
+            PatientController.Instance().UpdatePatientDoctorDisplay();
         }
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
             #region Execution
             PatientPres = new BindingSource();
-            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            Address ad = MetaLayer.Instance().GetAddressById(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;

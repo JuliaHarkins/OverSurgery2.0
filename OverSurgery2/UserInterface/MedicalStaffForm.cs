@@ -174,7 +174,7 @@ namespace OverSurgery2
                 /*
                  * Neater solution
                  * ml.AddMedicalHistoryToTheDatabase(
-                 * new Notes { PatientID = m_currentPatient.ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
+                 * new Notes { PatientID = m_currentPatient.M_ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
                  */
             }
         }
