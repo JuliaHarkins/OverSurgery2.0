@@ -121,7 +121,8 @@ namespace OverSurgery2
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-      
+            MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
         }
 
         /// <summary>
@@ -165,6 +166,7 @@ namespace OverSurgery2
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            MessageBox.Show("Staff Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
         }
 
@@ -195,7 +197,7 @@ namespace OverSurgery2
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+            MessageBox.Show("Staff Deleted", "Removed Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         /// <summary>
