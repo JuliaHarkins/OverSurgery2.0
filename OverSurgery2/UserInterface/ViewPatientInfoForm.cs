@@ -63,26 +63,6 @@ namespace OverSurgery2
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
             m_PatientPrescriptions = ml.GetPatientsPrescriptions(currentPatient.ID);
-            lst_PatientsPres.Clear();
-            lst_PatientsPres.Columns.Add("Date");
-            lst_PatientsPres.Columns.Add("Medication");
-            lst_PatientsPres.Columns.Add("Amount");
-            lst_PatientsPres.Columns.Add("By");
-            // Add each item to the list based on prescriptions
-            foreach (Prescription p in m_PatientPrescriptions)
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = p.Date.ToShortDateString();
-                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                lvi.SubItems.Add(p.Amount.ToString());
-                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                lst_PatientsPres.Items.Add(lvi);
-            }
-            foreach (ColumnHeader column in lst_PatientsPres.Columns)
-            {
-                column.Width = -2;
-            }
 #endregion
         }
 
@@ -110,10 +90,6 @@ namespace OverSurgery2
 
         private void lst_PatientsPres_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (lst_PatientsPres.SelectedItems.Count > 0)
-            {
-                selectedP = lst_PatientsPres.Items.IndexOf(lst_PatientsPres.SelectedItems[0]);
-            }
         }
     }
     public class Address
