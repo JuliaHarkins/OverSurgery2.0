@@ -1323,13 +1323,13 @@ namespace OverSurgery2
         /// Last Updated : 20/11/17,
         /// By R
         /// </summary>
-        /// <param name="p_medName"></param>
+        /// <param name="p_medID"></param>
         /// <returns></returns>
-        public bool DeleteMedication(string p_medName)
+        public bool DeleteMedication(uint? p_medID)
         {
             if (con.OpenConnection())
             {
-                con.Update("DELETE FROM Medication WHERE MedicationName ='" + p_medName + "';");
+                con.Update("DELETE FROM Medication WHERE MedicationID ='" + p_medID + "';");
                 con.CloseConnection();
                 return true;
             }
@@ -1349,7 +1349,7 @@ namespace OverSurgery2
             List<Medication> medList = new List<Medication>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = " + p_medName + " LIMIT 1;");
+                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = '" + p_medName + "';");
                 while (dr.Read())
                 {
                     m = new Medication
