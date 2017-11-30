@@ -259,28 +259,32 @@ namespace OverSurgery2
             lst_Prescriptions.Columns.Add("Medication", 175);
             lst_Prescriptions.Columns.Add("Amount", 75);
             lst_Prescriptions.Columns.Add("By", 148);
-            if (m_medicalHistory.Count != 0)
+           
+            m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+            m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+            if (m_medicalHistory != null)
             {
-                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+                foreach (MedicalHistory mh in m_medicalHistory)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = mh.Date.ToShortDateString();
+                    lvi.SubItems.Add(mh.Notes);
+                    lst_MedicalHistory.Items.Add(lvi);
+                }
             }
-            foreach (MedicalHistory mh in m_medicalHistory)
+            if (m_prescriptions != null)
             {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = mh.Date.ToShortDateString();
-                lvi.SubItems.Add(mh.Notes);
-                lst_MedicalHistory.Items.Add(lvi);
-            }
-            foreach (Prescription p in m_prescriptions)
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = p.Date.ToShortDateString();
-                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                lvi.SubItems.Add(p.Amount.ToString());
-                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                lst_Prescriptions.Items.Add(lvi);
+                foreach (Prescription p in m_prescriptions)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = p.Date.ToShortDateString();
+                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                    lvi.SubItems.Add(p.Amount.ToString());
+                    //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
+                    lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
+                    lst_Prescriptions.Items.Add(lvi);
 
+                }
             }
             
         }
