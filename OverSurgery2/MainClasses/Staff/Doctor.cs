@@ -55,6 +55,7 @@ namespace OverSurgery2
         #region Constructor
         public Doctor()
              {
+
              }
         
         #endregion
