@@ -23,16 +23,19 @@ namespace OverSurgery2
         }
         private void btn_Login_Click(object sender, EventArgs e)
         {
+
+            SendLogin();            
+        }
+
+        private void SendLogin()
+        {
             LoginObserver lo = new LoginObserver();
-
-
-            Dictionary<string, string> test = lo.LoginPassThrough(txt_Username.Text, txt_Password.Text);
             bool flg = LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text));
-            if (LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text)))
+            if (flg)
             {
-                Console.WriteLine("\t\tLOGGED IN");
                 this.Hide();
-                fc.SetCurrentUser(test["Username"]);
+                fc.SetCurrentUser(LoginController.Instance().LoginDetails["Username"]);
+                Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.Login, LoginController.Instance().LoginDetails["Username"], "Logged in"));
                 fc.OpenMainForm();
                 txt_Username.Clear();
                 txt_Password.Clear();
@@ -40,13 +43,8 @@ namespace OverSurgery2
             }
             else
             {
-                NonValidLogin();
+                MessageBox.Show("Invalid Login Details, please try again");
             }
-        }
-
-        public void NonValidLogin()
-        {
-            MessageBox.Show("Invalid Login Details");
         }
 
         private void btn_ForgotPassword_Click(object sender, EventArgs e)
@@ -60,25 +58,7 @@ namespace OverSurgery2
         {
             if(e.KeyCode == Keys.Enter)
             {
-                LoginObserver lo = new LoginObserver();
-
-
-                Dictionary<string, string> test = lo.LoginPassThrough(txt_Username.Text, txt_Password.Text);
-                bool flg = LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text));
-                if (LoginController.Instance().ValidateLogin(lo.LoginPassThrough(txt_Username.Text, txt_Password.Text)))
-                {
-                    Console.WriteLine("\t\tLOGGED IN");
-                    this.Hide();
-                    fc.SetCurrentUser(test["Username"]);
-                    fc.OpenMainForm();
-                    txt_Username.Clear();
-                    txt_Password.Clear();
-                    this.Show();
-                }
-                else
-                {
-                    NonValidLogin();
-                }
+                SendLogin();
             }
         }
     }

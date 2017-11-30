@@ -17,9 +17,10 @@ namespace OverSurgery2.UserInterface
 {
     public partial class MedicationForm : Form
     {
-        private int m_medicationID, m_permissionLevel;
-        private string m_medName, m_dosage;
-        MetaLayer ml;
+        MetaLayer ml = MetaLayer.Instance();
+        List<Medication> medList = new List<Medication>();
+        Medication med = null;
+        int selectedMed = 0;
 
         public MedicationForm()
         {
@@ -29,7 +30,7 @@ namespace OverSurgery2.UserInterface
         private void btnRemoveMed_MouseHover(object sender, EventArgs e)
         {
             ToolTip deleteonadd = new ToolTip();
-            deleteonadd.SetToolTip(btnRemoveMed, "This will delete the medication specified in the field to the left from the database");
+            deleteonadd.SetToolTip(btnRemoveMed, "This will delete the medication currently being displayed");
         }
 
         /// <summary>
@@ -39,10 +40,21 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnSearchMed_Click(object sender, EventArgs e)
         {
-            m_medName = txtSearchMedName.Text;
-            ml.GetMedicationByName(m_medName);
+            try
+            {
+                medList = ml.GetMedicationByName(txtSearchMedName.Text);
 
-            WriteBoxes();
+                WriteBoxes();
+            }
+            catch (Exception ex)
+            {
+                //throw ex;
+                MessageBox.Show("There were no medication found with that name", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtUpdateDosage.Clear();
+                txtUpdateMedName.Clear();
+                txtUpdatePermission.Clear();
+            }
+           
         }
 
         /// <summary>
@@ -52,24 +64,25 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnRemoveMed_Click(object sender, EventArgs e)
         {
-            m_medName = txtSearchMedName.Text;
-
             try
             {
+                medList[selectedMed].Name = txtUpdateMedName.Text;
+
                 // Verify the user wants to delete the medication
-                DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_medName + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                DialogResult result = MessageBox.Show("Are you sure you want to delete " + medList[selectedMed].Name + "?", "Delete Medication", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    ml.DeleteMedication(m_medName);
+                    ml.DeleteMedication(medList[selectedMed].ID);
                 }
                 else
                 {
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
            
@@ -80,8 +93,17 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnAddMed_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.AddMedication();
+            try
+            {
+                ReadBoxes();
+                ml.AddMedication(med);
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+            }
+            
         }
 
         /// <summary>
@@ -91,8 +113,17 @@ namespace OverSurgery2.UserInterface
         /// <param name="e"></param>
         private void btnUpdateMed_Click(object sender, EventArgs e)
         {
-            ReadBoxes();
-            //ml.UpdateMedication();
+            try
+            {
+                ReadBoxes();
+                ml.UpdateMedication(medList[selectedMed]);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
         }
 
         /// <summary>
@@ -118,25 +149,27 @@ namespace OverSurgery2.UserInterface
                 //Check the tab the user is currently in
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
-                    txtAddMedName.Text = m_medName;
-                    txtAddPermission.Text = Convert.ToString(m_permissionLevel);
-                    txtAddDosage.Text = m_dosage;
+                    med = new Medication();
+                    med.Name = txtAddMedName.Text;
+                    med.PermissionLevel = Convert.ToUInt32(txtAddPermission.Text);
+                    med.Dosage = txtAddDosage.Text;
 
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
-                    txtUpdateMedName.Text = m_medName;
-                    txtUpdatePermission.Text = Convert.ToString(m_permissionLevel);
-                    txtUpdateDosage.Text = m_dosage;
+                    medList[selectedMed].Name = txtUpdateMedName.Text;
+                    medList[selectedMed].PermissionLevel = Convert.ToUInt32(txtUpdatePermission.Text);
+                    medList[selectedMed].Dosage = txtUpdateDosage.Text;
                 }
                 else
                 {
 
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -150,25 +183,26 @@ namespace OverSurgery2.UserInterface
                 //Check the tab the user is currently in
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
-                    m_medName = txtAddMedName.Text;
-                    m_permissionLevel = Convert.ToInt32(txtAddPermission.Text);
-                    m_dosage = txtAddDosage.Text;
+                    tabControl1.SelectedTab = tabUpdateMed;
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
-                    m_medName = txtUpdateMedName.Text;
-                    m_permissionLevel = Convert.ToInt32(txtUpdatePermission.Text);
-                    m_dosage = txtUpdateDosage.Text;
+                    txtUpdateMedName.Text = medList[selectedMed].Name;
+                    txtUpdatePermission.Text = Convert.ToString(medList[selectedMed].PermissionLevel);
+                    txtUpdateDosage.Text = Convert.ToString(medList[selectedMed].Dosage);
+                    updateButtons();
                 }
                 else
                 {
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                throw ex;
+                //MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+           
         }
 
         /// <summary>
@@ -179,6 +213,50 @@ namespace OverSurgery2.UserInterface
         private void btnExit_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void updateButtons()
+        {
+            if (medList.Count == selectedMed+1)
+            {
+                btnNext.Enabled = false;
+            }
+            else
+            {
+                btnNext.Enabled = true;
+            }
+            if(selectedMed == 0)
+            {
+                btnPrevious.Enabled = false;
+            }
+            else
+            {
+                btnPrevious.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// If multiple doses of medication are retrieved from the database cycle to the next one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnNext_Click_1(object sender, EventArgs e)
+        {
+            selectedMed++;
+            WriteBoxes();
+            updateButtons();
+        }
+
+        /// <summary>
+        /// If multiple doses of medication are retrieved from the database cycle to the prev one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnPrevious_Click_1(object sender, EventArgs e)
+        {
+            selectedMed--;
+            WriteBoxes();
+            updateButtons();
         }
     }
 }

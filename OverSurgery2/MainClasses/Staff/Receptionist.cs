@@ -56,15 +56,17 @@ namespace OverSurgery2
         /// <summary>
         /// Adds a new patient to the clinic
         /// </summary>
-        public void AddPatient()
+        public void AddPatient(Patient p_Patient)
         {
-
+            //MetaLayer.Instance().InsertNewPatient(p_Patient);
+            Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.Add, Username, "Patient Added"));
         }
         /// <summary>
         /// edits a patient
         /// </summary>
-        public void EditPatient()
+        public void EditPatient(Patient p_Patient)
         {
+            Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.Edit, Username, "Patient " + p_Patient.ID + " Edited"));
         }
         /// <summary>
         /// removes an appointment

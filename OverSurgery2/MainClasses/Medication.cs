@@ -17,7 +17,7 @@ namespace OverSurgery2
         private uint? m_id;
         private string m_medicationName;
         private uint? m_permissionLevel;
-        private uint? m_dosage;
+        private string m_dosage;
 #endregion
 #region Constructors
         public Medication()
@@ -58,7 +58,7 @@ namespace OverSurgery2
                 m_id = value;
             }
         }
-        public uint? Dosage
+        public string Dosage
         {
             get
             {
