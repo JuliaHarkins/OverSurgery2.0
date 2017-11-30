@@ -782,7 +782,7 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("UPDATE Extension SET Extended = "+ p_newExtentionState + ", DateOfExtension =" + DateTime.Now.ToString("yyyyMMdd") + " WHERE ExtensionID = " + p_extensionID + ";");
+                con.Update("UPDATE Extension SET Extended = "+ p_newExtentionState + ", DateOfExtension =" + DateTime.Now.ToString("yyyyMMdd") + " WHERE ExtensionID = " + p_extensionID + ";");
             }
             con.CloseConnection();
         }
