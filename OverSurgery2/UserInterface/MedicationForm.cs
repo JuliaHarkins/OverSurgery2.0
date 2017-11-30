@@ -215,6 +215,9 @@ namespace OverSurgery2.UserInterface
             this.Close();
         }
 
+        /// <summary>
+        /// Enable/Disable buttons depending on what medication dosage by name is selected
+        /// </summary>
         private void updateButtons()
         {
             if (medList.Count == selectedMed+1)
