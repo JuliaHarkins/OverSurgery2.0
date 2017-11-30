@@ -1377,7 +1377,7 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', " + p_med.Name + ", '" + p_med.Dosage + "');");
+                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', '" + p_med.Name + "', '" + p_med.Dosage + "');");
                 con.CloseConnection();
             }
         }

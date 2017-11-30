@@ -146,9 +146,9 @@ namespace OverSurgery2.UserInterface
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddMed"])
                 {
                     med = new Medication();
-                    med.Name = Convert.ToString(txtAddMedName.Text);
+                    med.Name = txtAddMedName.Text;
                     med.PermissionLevel = Convert.ToUInt32(txtAddPermission.Text);
-                    med.Dosage = Convert.ToString(txtAddDosage.Text);
+                    med.Dosage = txtAddDosage.Text;
 
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])

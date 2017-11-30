@@ -227,7 +227,7 @@ namespace OverSurgery2
                     searchedStaff.Forename = txtAddForename.Text;
                     searchedStaff.Surname = txtAddSurname.Text;
                     
-                    // Check to see if the staff memeer is a medical staff member
+                    // Check to see if the staff member is a medical staff member
                     if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
                     {
                         m = new MedicalStaff()
