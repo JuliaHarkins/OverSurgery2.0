@@ -30,13 +30,14 @@ namespace OverSurgery2
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
             fc.OpenEditPatientForm(currentPatient);
+            PatientController.Instance().UpdatePatientDoctorDisplay();
         }
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
             #region Execution
             PatientPres = new BindingSource();
-            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            Address ad = MetaLayer.Instance().GetAddressById(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;
@@ -53,6 +54,10 @@ namespace OverSurgery2
             else if(ad.HouseNumber == null)
             {
                 lbl_HouseNameNumberText.Text = ad.HouseName;
+            }
+            else if(ad.HouseName != "" && ad.HouseNumber !=null)
+            {
+                lbl_HouseNameNumberText.Text = ad.HouseName + " " + ad.HouseNumber;
             }
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
@@ -95,7 +100,7 @@ namespace OverSurgery2
             {
                 int sel = lst_PatientsPres.SelectedIndices[0];
                 pres = m_PatientPrescriptions.ElementAt(sel);
-                new PrescriptionExtendDialog(pres).ShowDialog();
+                //new PrescriptionExtendDialog(pres).ShowDialog();
             }
             catch
             {
@@ -105,11 +110,13 @@ namespace OverSurgery2
     }
     public class Address
     {
+        int m_ID;
         string m_houseName;
         int? m_houseNumber;
         string m_postCode;
         string m_streetName;
 
+        public int AddressID { get { return m_ID; } set { m_ID = value; } }
         public string HouseName { get { return m_houseName; } set { m_houseName = value; } }
         public int? HouseNumber { get { return m_houseNumber; } set { m_houseNumber = value; } }
         public string PostCode { get { return m_postCode; } set { m_postCode = value; } }

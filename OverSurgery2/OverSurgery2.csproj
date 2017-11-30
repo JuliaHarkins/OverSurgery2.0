@@ -61,13 +61,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RotaController.cs" />
-    <Compile Include="DataBase\ManagerForm.cs">
+    <Compile Include="Logger.cs" />
+    <Compile Include="MainClasses\Extention.cs" />
+    <Compile Include="UpdateRota.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="DataBase\ManagerForm.Designer.cs">
-      <DependentUpon>ManagerForm.cs</DependentUpon>
+    <Compile Include="UpdateRota.Designer.cs">
+      <DependentUpon>UpdateRota.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logger.cs" />
+    <Compile Include="UserInterface\MedicalExtention.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\MedicalExtention.Designer.cs">
+      <DependentUpon>MedicalExtention.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\NewAppointmentForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\NewAppointmentForm.Designer.cs">
+      <DependentUpon>NewAppointmentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -170,8 +183,14 @@
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="DataBase\ManagerForm.resx">
-      <DependentUpon>ManagerForm.cs</DependentUpon>
+    <EmbeddedResource Include="UpdateRota.resx">
+      <DependentUpon>UpdateRota.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\MedicalExtention.resx">
+      <DependentUpon>MedicalExtention.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\NewAppointmentForm.resx">
+      <DependentUpon>NewAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
       <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>

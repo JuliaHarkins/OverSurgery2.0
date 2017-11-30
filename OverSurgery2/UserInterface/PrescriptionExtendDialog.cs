@@ -28,8 +28,8 @@ namespace OverSurgery2
         {
             if (!(m_extendPres.DateOfNextIssue <= DateTime.Now))
             {
-                MessageBox.Show("This prescription cannot be extended yet, \nplease wait until " + m_extendPres.DateOfNextIssue.Value.ToShortDateString() + "" +
-                    "to extend this prescription.");
+                //MessageBox.Show("This prescription cannot be extended yet, \nplease wait until " + m_extendPres.DateOfNextIssue.Value.ToShortDateString() + "" +
+                    //"to extend this prescription.");
             }
             else if (!m_extendPres.Extendable)
             {
@@ -38,8 +38,6 @@ namespace OverSurgery2
             else
             {
                 MessageBox.Show(Convert.ToInt32(cbx_Months.SelectedItem.ToString()).ToString());
-
-                // m_extendPres.Extend(Convert.ToInt32(cbx_Months.SelectedItem.ToString()));
             }
         }
     }

@@ -21,14 +21,17 @@ namespace OverSurgery2
     public partial class MedicalStaffForm : Form
     {
 #region Members
-        MetaLayer ml = MetaLayer.Instance();            // the interface between the databae and the Application
-        BindingSource m_appointmentBinding;               //binds the information from the database
-        List<Appointment> m_appointments;                 // the list of the current users appointments for today
+        MetaLayer ml = MetaLayer.Instance();                // the interface between the databae and the Application
+        BindingSource m_appointmentBinding;                 // binds the information from the database
+        List<Appointment> m_appointments;                   // the list of the current users appointments for today
         List<MedicalHistory> m_medicalHistory;
         List<Prescription> m_prescriptions;
         MedicalStaff m_currentUser; 
+<<<<<<< HEAD
+        int m_appointmentListCounter;                       // the current position in the appointment list.
+=======
         int m_appointmentListCounter;                     //the current position in the appointment list.
-        Doctor m_currentDoctor;
+>>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
         #endregion
 #region Constructor
         /// <summary>
@@ -38,14 +41,11 @@ namespace OverSurgery2
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
         {
-            if(p_currentUser.GetType() == typeof(Doctor))
-            {
-                m_currentDoctor = p_currentUser as Doctor;
-            }
-            else if(p_currentUser.GetType() == typeof(MedicalStaff))
-            {
-                m_currentUser = p_currentUser as MedicalStaff;
-            }
+<<<<<<< HEAD
+=======
+            
+>>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
+            m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
         }
 #endregion
@@ -60,16 +60,9 @@ namespace OverSurgery2
             //checks there is information to load, and shows the relivent appointment information.
 #region LoadingAppointmentList
             m_appointmentBinding = new BindingSource();
-            if (m_currentDoctor != null)
-            {
-                m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentDoctor.MedicalStaffID));
-            }
-            else if (m_currentUser != null)
-            {
 
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
-                
-            }
+            
             foreach (Appointment a in m_appointments)
             {
                 a.SetNameDisplay();
@@ -100,28 +93,37 @@ namespace OverSurgery2
             SelectMedicalHistory();
             //shows the current user
 #region ShowCurrentUser
-            if (m_currentUser != null)
-            {
+
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
-            }
-            else if (m_currentDoctor != null)
-            {
-                lb_currentUser.Text = "Current User : " + m_currentDoctor.Forename + " " + m_currentDoctor.Surname;
-            }
+
             #endregion
 #region SetsExtentionAmount
             //checks if the user is a doctor and shows the amount of extentions,
-            //or it hites the button from non-doctors
-            if (m_currentUser == null)
+            //or it hides the button from non-doctors
+<<<<<<< HEAD
+            if (m_currentUser.Type == 3)
             {
-                if (m_currentDoctor.Extension !=null)
+                int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
+
+                if (extention != 0)
                 {
-                    btn_extRequest.Text = "Extention Requests : " + m_currentDoctor.Extension.Count;
+                    btn_extRequest.Text = "Extention Requests : " + extention;
+=======
+            if (m_currentUser.Type == 3)//m_currentUser.GetType() typeof(Doctor))
+            {
+                Doctor d = new Doctor();
+                d = (Doctor)m_currentUser;
+                if (d.Extension !=null)
+                {
+                    btn_extRequest.Text = "Extention Requests : " + d.Extension.Count;
+>>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
+                    
                 }
                 else
                 {
                     btn_extRequest.Text = "Extention Requests : 0";
                 }
+                btn_extRequest.Visible = true;
             }
             else
             {
@@ -154,13 +156,21 @@ namespace OverSurgery2
 #region Button
         private void btn_addPrescription_Click(object sender, EventArgs e)
         {
-            AddPrescription ap = new AddPrescription();
-            ap.Show();
+            if (m_currentUser != null)
+            {
+<<<<<<< HEAD
+                string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
+                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
+=======
+                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
+>>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
+            }
+            SelectMedicalHistory();
         }
 
         private void btn_extRequest_Click(object sender, EventArgs e)
         {
-
+            new MedicalExtention(Convert.ToInt32(m_currentUser.MedicalStaffID)).ShowDialog();
                 
         }
         /// <summary>
@@ -187,7 +197,7 @@ namespace OverSurgery2
                 /*
                  * Neater solution
                  * ml.AddMedicalHistoryToTheDatabase(
-                 * new Notes { PatientID = m_currentPatient.ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
+                 * new Notes { PatientID = m_currentPatient.M_ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
                  */
             }
         }
@@ -271,9 +281,11 @@ namespace OverSurgery2
             lst_Prescriptions.Columns.Add("Medication", 175);
             lst_Prescriptions.Columns.Add("Amount", 75);
             lst_Prescriptions.Columns.Add("By", 148);
-
-            m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-            m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+            if (m_medicalHistory.Count != 0)
+            {
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+            }
             foreach (MedicalHistory mh in m_medicalHistory)
             {
                 ListViewItem lvi = new ListViewItem();
