@@ -68,7 +68,7 @@ namespace OverSurgery2
                 {
                     // Collect data from the metalayer and store it inside the form
                     searchedStaff = MetaLayer.Instance().GetStaffByUserName(txtSearchUserName.Text);
-                    searchedAddress = MetaLayer.Instance().GetAddressByID(Convert.ToInt32(searchedStaff.AddressID));
+                    searchedAddress = MetaLayer.Instance().GetAddressById(Convert.ToInt32(searchedStaff.AddressID));
                 }
                 catch(Exception ex)
                 {

@@ -208,6 +208,7 @@
             this.lst_PatientsPres.TabIndex = 18;
             this.lst_PatientsPres.UseCompatibleStateImageBehavior = false;
             this.lst_PatientsPres.View = System.Windows.Forms.View.Details;
+            this.lst_PatientsPres.SelectedIndexChanged += new System.EventHandler(this.lst_PatientsPres_SelectedIndexChanged);
             // 
             // btn_Extend
             // 

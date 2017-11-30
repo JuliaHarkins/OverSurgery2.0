@@ -17,6 +17,7 @@ namespace OverSurgery2
         FormController fc;
         BindingSource PatientPres;
         List<Prescription> m_PatientPrescriptions;
+        private int selectedP;
         public ViewPatientInfoForm(Patient p_Patient)
         {
             currentPatient = p_Patient;
@@ -91,20 +92,27 @@ namespace OverSurgery2
 
         private void lst_PatientsPres_Click(object sender, EventArgs e)
         {
+            
         }
 
         private void btn_Extend_Click(object sender, EventArgs e)
         {
-            Prescription pres = null;
             try
-            {
-                int sel = lst_PatientsPres.SelectedIndices[0];
-                pres = m_PatientPrescriptions.ElementAt(sel);
-                //new PrescriptionExtendDialog(pres).ShowDialog();
+            { 
+                Prescription pres = m_PatientPrescriptions[selectedP];
+                new PrescriptionExtendDialog(pres).ShowDialog();
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show(this,"No prescription selected.");
+                throw ex;
+            }
+        }
+
+        private void lst_PatientsPres_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lst_PatientsPres.SelectedItems.Count > 0)
+            {
+                selectedP = lst_PatientsPres.Items.IndexOf(lst_PatientsPres.SelectedItems[0]);
             }
         }
     }

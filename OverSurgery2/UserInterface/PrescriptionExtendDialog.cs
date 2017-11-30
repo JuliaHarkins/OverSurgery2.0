@@ -21,15 +21,15 @@ namespace OverSurgery2
 
         private void PrescriptionExtendDialog_Load(object sender, EventArgs e)
         {
-            cbx_Months.Items.AddRange(Enumerable.Range(1, 12).Cast<object>().ToArray());
+
         }
 
         private void btn_Extend_Click(object sender, EventArgs e)
         {
             if (!(m_extendPres.DateOfNextIssue <= DateTime.Now))
             {
-                //MessageBox.Show("This prescription cannot be extended yet, \nplease wait until " + m_extendPres.DateOfNextIssue.Value.ToShortDateString() + "" +
-                    //"to extend this prescription.");
+                MessageBox.Show(
+                    $"This prescription cannot be extended yet, \nplease wait until {m_extendPres.DateOfNextIssue.Value.ToString("dd/MM/yyyy")}");
             }
             else if (!m_extendPres.Extendable)
             {
@@ -37,7 +37,16 @@ namespace OverSurgery2
             }
             else
             {
-                MessageBox.Show(Convert.ToInt32(cbx_Months.SelectedItem.ToString()).ToString());
+                Extension ext = new Extension()
+                {
+                    PrescriptionID = m_extendPres.ID,
+                    MedicalStaffID = m_extendPres.MedicalStaffID,
+                    DateOfExtension = m_extendPres.Date,
+                    Reason = txt_Reason.Text,
+                    ExtentionID = 0,
+                    Extended = 0
+                };
+                MetaLayer.Instance().NewExtension(ext);
             }
         }
     }

@@ -200,17 +200,8 @@ namespace OverSurgery2
         }
         private void DataGridPatients_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            try
-            {
+            
                 FormController.Instance().OpenPatientViewForm(GetPatientById());
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                throw ex;
-            }
-            dgv_Appointments.Update();
-            dgv_Appointments.Refresh();
         }
         private void btn_NewApp_Click(object sender, EventArgs e)
         {

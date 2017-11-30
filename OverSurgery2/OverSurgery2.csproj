@@ -81,18 +81,18 @@
     <Compile Include="UserInterface\NewAppointmentForm.Designer.cs">
       <DependentUpon>NewAppointmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UserInterface\PrescriptionExtendDialog.Designer.cs">
-      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Timing.cs" />
     <Compile Include="UserInterface\MedicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserInterface\MedicationForm.Designer.cs">
       <DependentUpon>MedicationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\PrescriptionExtendDialog.Designer.cs">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\RotaForm.cs">
       <SubType>Form</SubType>
@@ -192,9 +192,6 @@
     <EmbeddedResource Include="UserInterface\NewAppointmentForm.resx">
       <DependentUpon>NewAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
-      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -230,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ReceptionistForm.resx">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>

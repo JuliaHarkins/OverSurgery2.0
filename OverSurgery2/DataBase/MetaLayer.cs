@@ -786,6 +786,15 @@ namespace OverSurgery2
             }
             con.CloseConnection();
         }
+
+        public void NewExtension(Extension p_extension)
+        {
+            if (con.OpenConnection())
+            {
+                con.Insert("INSERT INTO Extension VALUES (null,0,"+p_extension.PrescriptionID+","+p_extension.DateOfExtension.ToString("yyyyMMdd")+","+p_extension.MedicalStaffID+",'"+p_extension.Reason+"');");
+            }
+            con.CloseConnection();
+        }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
         /// Last Updated : 16/11/17,
