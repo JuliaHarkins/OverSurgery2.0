@@ -706,8 +706,8 @@ namespace OverSurgery2
                     };
                     prescriptions.Add(p);
                 }
-                dr.Close();
-                con.CloseConnection();
+            dr.Close();
+            con.CloseConnection();
             }
 
             return prescriptions;
@@ -822,6 +822,34 @@ namespace OverSurgery2
             //returns the title and surname
 
             return staffid;
+        }
+        public List<Prescription> GetExtentionRequests(int medStaffID)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            if (con.OpenConnection())
+            {
+                Prescription p;
+                DbDataReader dr = con.Select("SELECT PrescriptionID");
+                while (dr.Read())
+                {
+                    p = new Prescription
+                    {
+                        ID = dr.GetInt16(0),
+                        Date = dr.GetDateTime(1),
+                        DateOfNextIssue = dr.GetDateTime(2),
+                        Amount = dr.GetInt16(3),
+                        Extendable = dr.GetBoolean(4),
+                        MedicationID = dr.GetInt16(5),
+                        PatientID = dr.GetInt16(6),
+                        MedicalStaffID = dr.GetInt16(7)
+                    };
+                    prescriptions.Add(p);
+
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return prescriptions;
         }
 
         /// <summary>
