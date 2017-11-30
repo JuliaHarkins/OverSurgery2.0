@@ -5,16 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-/*
- * This form is from all medical staff allowing them to prefrom 
- * their dayly functuions while creating and updating records.
- * 
- * Last Updated : 15/11/17
- * By: J
- */
 
 namespace OverSurgery2
 {
@@ -29,10 +22,12 @@ namespace OverSurgery2
         MedicalStaff m_currentUser; 
         int m_appointmentListCounter;                       // the current position in the appointment list.
         #endregion
-#region Constructor
+        #region Constructor
         /// <summary>
         /// Checks if the user is a doctor or a general medical staff member
-        /// so that the correct buttons are shown. 
+        /// so that the correct buttons are shown.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
@@ -42,11 +37,6 @@ namespace OverSurgery2
         }
 #endregion
 #region Load
-        /// <summary>
-        /// what happens on the load of the form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
             //checks there is information to load, and shows the relivent appointment information.
@@ -89,28 +79,9 @@ namespace OverSurgery2
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
 
             #endregion
-#region SetsExtentionAmount
-            //checks if the user is a doctor and shows the amount of extentions,
-            //or it hides the button from non-doctors
-            if (m_currentUser.Type == 3)
-            {
-                int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
-
-                if (extention != 0)
-                {
-                    btn_extRequest.Text = "Extention Requests : " + extention;
-                    
-                }
-                else
-                {
-                    btn_extRequest.Text = "Extention Requests : 0";
-                }
-                btn_extRequest.Visible = true;
-            }
-            else
-            {
-                btn_extRequest.Hide();
-            }
+            #region SetsExtentionAmount
+            CheckExtentionButton();
+            
 #endregion
         }
 #endregion
@@ -152,7 +123,9 @@ namespace OverSurgery2
                 
         }
         /// <summary>
-        /// saves the new patient notes to the medical hsitory of the patient
+        /// saves the new patient notes to the medical hsitory of the patient.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -162,25 +135,22 @@ namespace OverSurgery2
             if (btn_saveNotes.Text != null)
             {
                 mh = new MedicalHistory
-                    {
-                         ID = null,
-                         Notes =txt_CurrentNotes.Text,
-                         Date = DateTime.Now,
-                         PatientID = m_appointments[m_appointmentListCounter].PatientID
-                    };
+                {
+                    ID = null,
+                    Notes = Regex.Replace(txt_CurrentNotes.Text, "\"\'", "\'"),
+                    Date = DateTime.Now,
+                    PatientID = m_appointments[m_appointmentListCounter].PatientID
+                };
 
                 ml.AddMedicalHistoryToTheDatabase(mh);
                 txt_CurrentNotes.Clear();
                 SelectMedicalHistory();
-                /*
-                 * Neater solution
-                 * ml.AddMedicalHistoryToTheDatabase(
-                 * new Notes { PatientID = m_currentPatient.M_ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
-                 */
             }
         }
         /// <summary>
         /// highlights next patient appointment upon click of button and de selects the currently selected.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender">MedicalStaffForm</param>
         /// <param name="e"></param>
@@ -203,10 +173,12 @@ namespace OverSurgery2
             }
 
         }
-        
+
 
         /// <summary>
         /// Highlights the Previous Patient, and updates the list position upon click of button.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender">MedicalStaffForm</param>
         /// <param name="e"></param>
@@ -229,6 +201,8 @@ namespace OverSurgery2
         }
         /// <summary>
         /// Exits 
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -300,6 +274,34 @@ namespace OverSurgery2
         {
 
         }
+        #endregion
+        /// <summary>
+        /// Checks if the user is a doctor and updates the extentioin buttom accordingly 
+        /// By j
+        /// Last Updated : 30/11/17
+        /// </summary>
+        public void CheckExtentionButton()
+        {
+            if (m_currentUser.Type == 3)
+            {
+                int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
+
+                if (extention != 0)
+                {
+                    btn_extRequest.Text = "Extention Requests : " + extention;
+
+                }
+                else
+                {
+                    btn_extRequest.Text = "Extention Requests : 0";
+                }
+                btn_extRequest.Visible = true;
+            }
+            else
+            {
+                btn_extRequest.Hide();
+            }
+        }
     }
-    #endregion
+    
 }
