@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverSurgery2", "OverSurgery2\OverSurgery2.csproj", "{2A20432E-C343-4DA9-99DA-9A0CD1B53691}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{2F92DDF7-0D43-4259-9541-CF68183A7FE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{2A20432E-C343-4DA9-99DA-9A0CD1B53691}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A20432E-C343-4DA9-99DA-9A0CD1B53691}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A20432E-C343-4DA9-99DA-9A0CD1B53691}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F92DDF7-0D43-4259-9541-CF68183A7FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F92DDF7-0D43-4259-9541-CF68183A7FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F92DDF7-0D43-4259-9541-CF68183A7FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F92DDF7-0D43-4259-9541-CF68183A7FE2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -147,14 +147,14 @@ namespace OverSurgery2
             {
                 m_friSet = false;
             }
-            bool[] dataSet = new bool[5] { m_monSet, m_tueSet, m_wedSet, m_thurSet, m_friSet};
+            bool[] dataSet = { m_monSet, m_tueSet, m_wedSet, m_thurSet, m_friSet};
             return dataSet;
         }
 
         private string[] GetStaffData(int rowIndex)
         {
             int selectedRowID = rowIndex;
-            string[] staffName = new string[2]
+            string[] staffName =
             {
                 Convert.ToString(dG_Rota[0, selectedRowID].Value),
                 Convert.ToString(dG_Rota[1, selectedRowID].Value)
