@@ -17,11 +17,13 @@ namespace OverSurgery2
         MedicalStaff m_currentUser;
         List<Medication> m_medication;
         int  m_patientID;
+        string m_patientName;
 #endregion
-        public AddPrescription(Staff p_currentUser, int p_patientID)
+        public AddPrescription(Staff p_currentUser, int p_patientID, string p_patientName)
         {
             m_currentUser = p_currentUser as MedicalStaff;
             m_patientID = p_patientID;
+            m_patientName = p_patientName;
             m_medication = ml.getMedicationOnMedStaffID(m_currentUser.MedicalStaffID);
             InitializeComponent();
 
@@ -29,6 +31,7 @@ namespace OverSurgery2
 
         private void AddPrescription_Load(object sender, EventArgs e)
         {
+            lb_patient.Text = "Prescription For : "+m_patientName;
 #region hideExtention
             lb_dateOfNextIssue.Hide();
             dtp_dateOfNextExtention.Hide();

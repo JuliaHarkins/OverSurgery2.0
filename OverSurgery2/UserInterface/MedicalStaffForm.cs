@@ -140,7 +140,8 @@ namespace OverSurgery2
         {
             if (m_currentUser != null)
             {
-                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
+                string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
+                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
             }
             SelectMedicalHistory();
         }

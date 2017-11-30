@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
+using System.Text;
 
 namespace OverSurgery2
 {
@@ -671,7 +670,7 @@ namespace OverSurgery2
             int i = 0;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " ORDER BY DateOfExtension DESC;");
+                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " AND Extended = 0;;");
                 while (dr.Read())
                 {
                     i = dr.GetInt16(0);
@@ -744,6 +743,21 @@ namespace OverSurgery2
             }
 
             return extensions;
+        }
+        /// <summary>
+        /// Updates the state of an extention
+        /// Last Updated : 30/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_extensionID">the id of the extension</param>
+        /// <param name="p_newExtentionState"> the new state of the extension</param>
+        public void UpdateExtention(int p_extensionID, int p_newExtentionState)
+        {
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("UPDATE Extension SET Extended = "+ p_newExtentionState + ", DateOfExtension =" + DateTime.Now.ToString("yyyyMMdd") + " WHERE ExtensionID = " + p_extensionID + ";");
+            }
+            con.CloseConnection();
         }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
@@ -824,35 +838,7 @@ namespace OverSurgery2
 
             return staffid;
         }
-        public List<Prescription> GetExtentionRequests(int medStaffID)
-        {
-            List<Prescription> prescriptions = new List<Prescription>();
-            if (con.OpenConnection())
-            {
-                Prescription p;
-                DbDataReader dr = con.Select("SELECT PrescriptionID");
-                while (dr.Read())
-                {
-                    p = new Prescription
-                    {
-                        ID = dr.GetInt16(0),
-                        Date = dr.GetDateTime(1),
-                        DateOfNextIssue = dr.GetDateTime(2),
-                        Amount = dr.GetInt16(3),
-                        Extendable = dr.GetBoolean(4),
-                        MedicationID = dr.GetInt16(5),
-                        PatientID = dr.GetInt16(6),
-                        MedicalStaffID = dr.GetInt16(7)
-                    };
-                    prescriptions.Add(p);
-
-                }
-                dr.Close();
-                con.CloseConnection();
-            }
-            return prescriptions;
-        }
-
+        
         /// <summary>
         /// Get StaffName With Title from the staffid
         /// Last Updated : 17/11/17,

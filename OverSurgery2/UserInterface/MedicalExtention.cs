@@ -24,52 +24,69 @@ namespace OverSurgery2
 
         private void MedicalExtention_Load(object sender, EventArgs e)
         {
+
+            #region LoadExtentions
+            lst_extention.Columns.Add("Forename", 100);
+            lst_extention.Columns.Add("Surname", 100);
+            lst_extention.Columns.Add("Medication", 100);
+            lst_extention.Columns.Add("Amount", 75);
+            lst_extention.Columns.Add("Date Issued", 70);
+            lst_extention.Columns.Add("Reason", 135);
+
+            LoadList();
+#endregion
+        }
+
+        private void lst_extention_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+
+        }
+#region Buttons
+
+        private void btn_decline_Click(object sender, EventArgs e)
+        {
+            updateExtention(2);
+        }
+
+        private void btn_Extend_Click(object sender, EventArgs e)
+        {
+            updateExtention(1);
+        }
+#endregion
+#region Methoods
+        private void LoadList()
+        {
             m_extensions = ml.GetExtentionRequests(m_staffID);
             m_prescriptions = ml.GetExtentedPrescriptions(m_staffID);
 
-            #region LoadExtentions
-            lst_extention.Columns.Add("Medication", 125);
-            lst_extention.Columns.Add("Amount", 75);
-            lst_extention.Columns.Add("Forename", 125);
-            lst_extention.Columns.Add("Surname", 125);
-            lst_extention.Columns.Add("Date Issued", 75);
-
-            LoadList();
-            #endregion
-        }
-        private void LoadList()
-        { 
-        foreach (Extension ex in m_extensions)
+            lst_extention.Items.Clear();
+            foreach (Extension ex in m_extensions)
             {
                 foreach (Prescription p in m_prescriptions)
                     if (ex.PrescriptionID == p.ID)
                     {
                         ListViewItem lvi = new ListViewItem();
-                        lvi.Text = ml.GetMedicationName(p.MedicationID);
-                        lvi.SubItems.Add(Convert.ToString(p.Amount));
-                        lvi.SubItems.Add(PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Forename);
+                        lvi.Text = PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Forename;
                         lvi.SubItems.Add(PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Surname);
+                        lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                        lvi.SubItems.Add(Convert.ToString(p.Amount));
+                        
                         lvi.SubItems.Add(p.Date.ToShortDateString());
+                        lvi.SubItems.Add(ex.Reason);
 
                         lst_extention.Items.Add(lvi);
                     }
             }
         }
-        private void lst_extention_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btn_Delete_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void btn_Extend_Click(object sender, EventArgs e)
+        private void updateExtention(int p_newState)
         {
             int i = lst_extention.SelectedIndices[0];
-            Prescription p = m_prescriptions[i];
-
-            
+            Extension ex = m_extensions[i];
+            ex.Extended = p_newState;
+            ml.UpdateExtention(ex.ExtentionID, p_newState);
+            LoadList();
         }
+#endregion
+
     }
 }
