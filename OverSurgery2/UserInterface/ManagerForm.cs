@@ -80,7 +80,8 @@ namespace OverSurgery2
             }
             catch(Exception ex)
             {
-                throw ex;
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -108,7 +109,8 @@ namespace OverSurgery2
             }
             catch(Exception ex)
             {
-                throw ex;
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
       
         }
@@ -151,8 +153,8 @@ namespace OverSurgery2
             }
             catch(Exception ex)
             {
-                throw ex;
-                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -181,7 +183,8 @@ namespace OverSurgery2
             }
             catch(Exception ex)
             {
-                throw ex;
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -267,10 +270,9 @@ namespace OverSurgery2
                     searchedStaff.Username = txtUpdateUserName.Text;
                     searchedStaff.Forename = txtUpdateForename.Text;
                     searchedStaff.Surname = txtUpdateSurname.Text;
-                    //searchedStaff.Gender = Convert.ToInt32(cboUpdateGender.Text);
                     searchedStaff.EmailAddress = txtUpdateEmail.Text;
                     searchedStaff.Type = (int)cboUpdateType.SelectedValue + 1;
-                    //searchedStaff.PhoneNumber = txtUpdatePhone.Text;
+                    
 
                     if (txtUpdatePostCode.Text.Length > 10)
                     {
@@ -286,12 +288,13 @@ namespace OverSurgery2
                             PostCode = txtUpdatePostCode.Text
                         };
                     }
-                    };
-                }
-                catch(Exception ex)
-                {
-                    throw ex;
-                }
+                };
+            }
+            catch(Exception ex)
+            {
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
 

@@ -47,8 +47,8 @@ namespace OverSurgery2.UserInterface
             }
             catch (Exception ex)
             {
-                throw ex;
-                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
            
         }
@@ -77,8 +77,8 @@ namespace OverSurgery2.UserInterface
             }
             catch (Exception ex)
             {
-                throw ex;
-                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
            
@@ -96,8 +96,8 @@ namespace OverSurgery2.UserInterface
             }
             catch (Exception ex)
             {
-                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
             }
             
         }
@@ -116,8 +116,8 @@ namespace OverSurgery2.UserInterface
             }
             catch(Exception ex)
             {
-                throw ex;
-                //MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             
         }
@@ -166,8 +166,8 @@ namespace OverSurgery2.UserInterface
             }
             catch (Exception ex)
             {
-                throw ex;
-                //MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
+                MessageBox.Show("An error occured. Make sure you are entering the appropriate values for the data required", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -196,8 +196,8 @@ namespace OverSurgery2.UserInterface
             }
             catch(Exception ex)
             {
-                throw ex;
-                //MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                //throw ex;
+                MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
