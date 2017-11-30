@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
+using System.Text;
 
 namespace OverSurgery2
 {
@@ -130,8 +129,12 @@ namespace OverSurgery2
             }
             return medication;
         }
-
-        public string GetMedicalStaffNameByID(int p_id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
+        public string GetMedicalStaffNameById(int p_id)
         {
             string firstname = null, lastname = null;
             if (con.OpenConnection())
@@ -149,41 +152,44 @@ namespace OverSurgery2
             return firstname + " " + lastname;
         }
 
-
-        public bool InsertNewPatient(Patient p_Patient)
-        {
-            {
-                if (con.OpenConnection())
-                {
-                    try
-                    {
-                        con.Insert("INSERT INTO patient VALUES (NULL,'" + p_Patient.Forename + "','" + p_Patient.Surname + "'," + p_Patient.Gender + "," + Convert.ToInt32(p_Patient.DateOfBirth.ToString("yyyyMMdd")) + ",'" + p_Patient.PhoneNumber + "'," +
-                            p_Patient.RegisteredDoctorID + ","+ p_Patient.AddressID + ");");
-                        con.CloseConnection();
-                        return true;
-                        
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
-                }
-                return false;
-            }
-        }
-
         /// <summary>
-        /// Return an address by its ID.
+        /// Insert a new patient into the database by passing a patient object to the method
         /// </summary>
-        /// <param name="p_id">Use Address ID</param>
+        /// <param name="p_patient">Patient object that you want inserted into the database.</param>
+        /// <example>This shows you how to use the method<see cref="InsertNewPatient(Patient)"/>.</example>
+        /// <returns>Returns true or false depending on whether the patient was inserted</returns>
+        public bool InsertNewPatient(Patient p_patient)
+        {
+            //If connection to database can be opened, try to insert a patient to the database
+            if (con.OpenConnection())
+            {
+                try
+                {
+                    con.Insert("INSERT INTO patient VALUES (NULL,'" + p_patient.Forename + "','" +
+                                p_patient.Surname + "'," + p_patient.Gender + "," +
+                                Convert.ToInt32(p_patient.DateOfBirth.ToString("yyyyMMdd")) + ",'" +
+                                p_patient.PhoneNumber + "'," +
+                                p_patient.RegisteredDoctorID + "," + p_patient.AddressID + ");");
+                    con.CloseConnection();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Get Address from Database by AddressID
+        /// </summary>
+        /// <param name="p_id">AddressID passed into method</param>
         /// <example>
-        /// This example shows you how to use the <see cref="GetAddressByID(int)"/> method.
-        /// <code>
-        /// string address = ml.GetAddressByID(1);
-        /// </code>
+        /// This is example shows you how to use the method <see cref="GetAddressById(int)"/>
+        /// <c>Address a = GetAddressById(1);</c>
         /// </example>
-        /// <returns>Returns an address string</returns>
-        public Address GetAddressByID(int p_id)
+        /// <returns>Returns Address object retrieved from database.</returns>
+        public Address GetAddressById(int p_id)
         {
             Address a = null;
             string houseName = null;
@@ -193,19 +199,24 @@ namespace OverSurgery2
                 DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + p_id + ";");
                 while (dr.Read())
                 {
-                    string temp;
-                    try
-                    {
-                        temp = dr.GetFieldValue<string>(1);
-                    }
-                    catch
-                    {
-                        temp = null;
-                    }
-                    if (temp == null)
+                    string tempHouseName;
+                    int? tempHouseNum;
+                    tempHouseName = dr.GetFieldValue<string>(1);
+                    tempHouseNum = dr.GetFieldValue<int?>(2);
+                    if (tempHouseName == "")
                     {
                         houseName = "";
-                        houseNumber = dr.GetFieldValue<int?>(2);
+                        houseNumber = dr.GetFieldValue<int>(2);
+                    }
+                    else if (tempHouseNum == null)
+                    {
+                        houseName = dr.GetFieldValue<string>(1);
+                        houseNumber = null;
+                    }
+                    else
+                    {
+                        houseName = dr.GetFieldValue<string>(1);
+                        houseNumber = dr.GetFieldValue<int>(2);
                     }
                     a = new Address
                     {
@@ -214,18 +225,26 @@ namespace OverSurgery2
                         HouseNumber = houseNumber,
                         StreetName = dr.GetString(3),
                         PostCode = dr.GetString(4)
-
                     };
                 }
-                dr.Close();
-                con.CloseConnection();
+                dr.Close(); con.CloseConnection();
             }
             return a;
         }
 
+        /// <summary>
+        /// Gets staff email by username, used for password reset to send an email
+        /// </summary>
+        /// <example>This shows you how to to use the <see cref="GetStaffEmailByUserName(string)"/>
+        /// <c>string emailAddress = GetStaffEmailByUserName("testUser");</c>
+        /// </example>
+        /// <param name="p_username"></param>
+        /// <returns>Returns a string: email Address</returns>
         public string GetStaffEmailByUserName(string p_username)
         {
+            // Set email to null
             string email = null;
+            //If connection can be opened, grab email address for staff username(p_username)
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT email FROM Staff WHERE username = '" + p_username + "';");
@@ -234,12 +253,20 @@ namespace OverSurgery2
                 {
                     email = dr.GetString(0);
                 }
+                //Close the DbDataReader and the connection to database
                 dr.Close();
                 con.CloseConnection();
             }
+            //Return the email address
             return email;
         }
 
+        /// <summary>
+        /// Gets the staff object by username passed to the method.
+        /// </summary>
+        /// <example></example>
+        /// <param name="p_username">Staff username passed to method.</param>
+        /// <returns>Returns a Staff object for the username that you have provided.</returns>
         public Staff GetStaffByUserName(string p_username)
         {
             Staff s = null;
@@ -303,7 +330,6 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-                return m;
             }
             return m;
         }
@@ -671,7 +697,7 @@ namespace OverSurgery2
             int i = 0;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " ORDER BY DateOfExtension DESC;");
+                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " AND Extended = 0;;");
                 while (dr.Read())
                 {
                     i = dr.GetInt16(0);
@@ -682,13 +708,13 @@ namespace OverSurgery2
 
                     return i;
         }/// <summary>
-         /// gets the list of extended prescriptions based off the staff id
+         /// gets the list of extended prescriptions based off the medstaff id
          /// Last Updated : 21/11/17,
          /// By j
          /// </summary>
          /// <param name="p_id"></param>
          /// <returns></returns>
-        public List<Prescription> GetExtentionRequests(int p_id)
+        public List<Prescription> GetExtentedPrescriptions(int p_id)
         {
             List<Prescription> prescriptions = new List<Prescription>();
             Prescription p;
@@ -707,11 +733,67 @@ namespace OverSurgery2
                     };
                     prescriptions.Add(p);
                 }
+            dr.Close();
+            con.CloseConnection();
+            }
+
+            return prescriptions;
+        }
+        /// <summary>
+        /// gets the list of extendions based off the medstaff id
+        /// Last Updated : 21/11/17
+        /// By j
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
+        public List<Extension> GetExtentionRequests(int p_id)
+        {
+            List<Extension> extensions = new List<Extension>();
+            Extension e;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT ExtensionID, Extended, PrescriptionID, MedicalStaffID, Reason FROM Extension WHERE MedicalStaffID = " + p_id + " AND Extended = 0;");
+                while (dr.Read())
+                {
+                    e = new Extension
+                    {
+                        ExtentionID = dr.GetInt32(0),
+                        Extended = dr.GetInt32(1),
+                        PrescriptionID = dr.GetInt32(2),
+                        MedicalStaffID = dr.GetInt32(3),
+                        Reason = dr.IsDBNull(4) ? null : dr.GetString(4)
+                    };
+                    extensions.Add(e);
+                }
                 dr.Close();
                 con.CloseConnection();
             }
 
-            return prescriptions;
+            return extensions;
+        }
+        /// <summary>
+        /// Updates the state of an extention
+        /// Last Updated : 30/11/17,
+        /// By j
+        /// </summary>
+        /// <param name="p_extensionID">the id of the extension</param>
+        /// <param name="p_newExtentionState"> the new state of the extension</param>
+        public void UpdateExtention(int p_extensionID, int p_newExtentionState)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Extension SET Extended = "+ p_newExtentionState + ", DateOfExtension =" + DateTime.Now.ToString("yyyyMMdd") + " WHERE ExtensionID = " + p_extensionID + ";");
+            }
+            con.CloseConnection();
+        }
+
+        public void NewExtension(Extension p_extension)
+        {
+            if (con.OpenConnection())
+            {
+                con.Insert("INSERT INTO Extension VALUES (null,0,"+p_extension.PrescriptionID+","+p_extension.DateOfExtension.ToString("yyyyMMdd")+","+p_extension.MedicalStaffID+",'"+p_extension.Reason+"');");
+            }
+            con.CloseConnection();
         }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
@@ -792,7 +874,7 @@ namespace OverSurgery2
 
             return staffid;
         }
-
+        
         /// <summary>
         /// Get StaffName With Title from the staffid
         /// Last Updated : 17/11/17,
@@ -1225,6 +1307,18 @@ namespace OverSurgery2
             }
         }
 
+        public void UpdatePatient(Patient p)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Patient Set Forename = '" + p.Forename + "', Surname = '"
+                           + p.Surname + "', Gender ='" + p.Gender + "', DateOfBirth=" +
+                           Convert.ToInt32(p.DateOfBirth.ToString("yyyyMMdd")) + ", PhoneNumber='" + p.PhoneNumber +
+                           "' WHERE PatientID =" + p.ID + ";");
+                con.CloseConnection();
+            }
+        }
+
         /// <summary>
         /// Delete an address from the database using the addressID
         /// Last Updated : 20/11/17,
@@ -1291,13 +1385,13 @@ namespace OverSurgery2
         /// Last Updated : 20/11/17,
         /// By R
         /// </summary>
-        /// <param name="p_medName"></param>
+        /// <param name="p_medID"></param>
         /// <returns></returns>
-        public bool DeleteMedication(string p_medName)
+        public bool DeleteMedication(uint? p_medID)
         {
             if (con.OpenConnection())
             {
-                con.Update("DELETE FROM Medication WHERE MedicationName ='" + p_medName + "';");
+                con.Update("DELETE FROM Medication WHERE MedicationID ='" + p_medID + "';");
                 con.CloseConnection();
                 return true;
             }
@@ -1317,7 +1411,7 @@ namespace OverSurgery2
             List<Medication> medList = new List<Medication>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = " + p_medName + " LIMIT 1;");
+                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = '" + p_medName + "';");
                 while (dr.Read())
                 {
                     m = new Medication
@@ -1345,7 +1439,7 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', " + p_med.Name + ", '" + p_med.Dosage + "');");
+                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', '" + p_med.Name + "', '" + p_med.Dosage + "');");
                 con.CloseConnection();
             }
         }

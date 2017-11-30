@@ -17,6 +17,7 @@ namespace OverSurgery2
         FormController fc;
         BindingSource PatientPres;
         List<Prescription> m_PatientPrescriptions;
+        private int selectedP;
         public ViewPatientInfoForm(Patient p_Patient)
         {
             currentPatient = p_Patient;
@@ -30,13 +31,14 @@ namespace OverSurgery2
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
             fc.OpenEditPatientForm(currentPatient);
+            PatientController.Instance().UpdatePatientDoctorDisplay();
         }
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
             #region Execution
             PatientPres = new BindingSource();
-            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            Address ad = MetaLayer.Instance().GetAddressById(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;
@@ -61,26 +63,6 @@ namespace OverSurgery2
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
             m_PatientPrescriptions = ml.GetPatientsPrescriptions(currentPatient.ID);
-            lst_PatientsPres.Clear();
-            lst_PatientsPres.Columns.Add("Date");
-            lst_PatientsPres.Columns.Add("Medication");
-            lst_PatientsPres.Columns.Add("Amount");
-            lst_PatientsPres.Columns.Add("By");
-            // Add each item to the list based on prescriptions
-            foreach (Prescription p in m_PatientPrescriptions)
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = p.Date.ToShortDateString();
-                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                lvi.SubItems.Add(p.Amount.ToString());
-                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                lst_PatientsPres.Items.Add(lvi);
-            }
-            foreach (ColumnHeader column in lst_PatientsPres.Columns)
-            {
-                column.Width = -2;
-            }
 #endregion
         }
 
@@ -90,21 +72,24 @@ namespace OverSurgery2
 
         private void lst_PatientsPres_Click(object sender, EventArgs e)
         {
+            
         }
 
         private void btn_Extend_Click(object sender, EventArgs e)
         {
-            Prescription pres = null;
             try
-            {
-                int sel = lst_PatientsPres.SelectedIndices[0];
-                pres = m_PatientPrescriptions.ElementAt(sel);
+            { 
+                Prescription pres = m_PatientPrescriptions[selectedP];
                 new PrescriptionExtendDialog(pres).ShowDialog();
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show(this,"No prescription selected.");
+                throw ex;
             }
+        }
+
+        private void lst_PatientsPres_SelectedIndexChanged(object sender, EventArgs e)
+        {
         }
     }
     public class Address

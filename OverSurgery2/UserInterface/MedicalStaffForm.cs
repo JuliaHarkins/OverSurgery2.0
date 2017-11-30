@@ -140,7 +140,8 @@ namespace OverSurgery2
         {
             if (m_currentUser != null)
             {
-                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
+                string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
+                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
             }
             SelectMedicalHistory();
         }
@@ -174,7 +175,7 @@ namespace OverSurgery2
                 /*
                  * Neater solution
                  * ml.AddMedicalHistoryToTheDatabase(
-                 * new Notes { PatientID = m_currentPatient.ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
+                 * new Notes { PatientID = m_currentPatient.M_ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
                  */
             }
         }
@@ -258,9 +259,11 @@ namespace OverSurgery2
             lst_Prescriptions.Columns.Add("Medication", 175);
             lst_Prescriptions.Columns.Add("Amount", 75);
             lst_Prescriptions.Columns.Add("By", 148);
-
-            m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-            m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+            if (m_medicalHistory.Count != 0)
+            {
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+            }
             foreach (MedicalHistory mh in m_medicalHistory)
             {
                 ListViewItem lvi = new ListViewItem();

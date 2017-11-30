@@ -3,77 +3,98 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OverSurgery2.UserInterface;
 
 namespace OverSurgery2
 {
     public class FormController
     {
-        Staff currentUser;
+        Staff m_currentUser;
         private static FormController m_getInstance;
-        MetaLayer ml;
+        private readonly MetaLayer m_ml;
         private FormController()
         {
-            ml = MetaLayer.Instance();
+            m_ml = MetaLayer.Instance();
         }
+        /// <summary>
+        /// Return an instance of FormController.
+        /// </summary>
+        /// <returns></returns>
         public static FormController Instance()
         {
-            if (m_getInstance == null)
-            {
-                m_getInstance = new FormController();
-            }
-            return m_getInstance;
+            return m_getInstance ?? (m_getInstance = new FormController());
         }
+        /// <summary>
+        /// Open the main form for the user logged in.
+        /// </summary>
         public void OpenMainForm()
         {
-
-            switch(currentUser.Type)
+            // Open correct form for each user, switch on user type.
+            switch (m_currentUser.Type)
             {
                 case 1:
                 case 2:
                 case 3:
-                    new MedicalStaffForm(currentUser).ShowDialog();
+                    new MedicalStaffForm(m_currentUser).ShowDialog();
                     break;
                 case 4:
-                    new ReceptionistForm(currentUser).ShowDialog();
+                    new ReceptionistForm(m_currentUser).ShowDialog();
                     break;
                 case 5:
-                    new ManagerForm(currentUser).ShowDialog();
+                    new ManagerForm(m_currentUser).ShowDialog();
                     break;
             }
         }
-
+        /// <summary>
+        /// Set the current user logged in using a username that is passed to the method.
+        /// </summary>
+        /// <param name="p_username"></param>
         public void SetCurrentUser(string p_username)
         {
-            currentUser = ml.GetStaffByUserName(p_username);
+            // Get the current user from the database using their username.
+            m_currentUser = m_ml.GetStaffByUserName(p_username);
         }
 
-        public void OpenPatientViewForm(Patient p_Patient)
+        public void OpenPatientViewForm(Patient p_patient)
         {
-            new ViewPatientInfoForm(p_Patient).ShowDialog();
+            new ViewPatientInfoForm(p_patient).ShowDialog();
         }
-
+        /// <summary>
+        /// Open the forgot password form for the user to get a verification code to reset their password.
+        /// </summary>
         public void OpenForgotPasswordForm()
         {
+            // Create new ForgotPasswordForm instance and ShowDialog.
             new ForgotPasswordForm().ShowDialog();
         }
-        
+        /// <summary>
+        /// Open the password reset form for the user to reset their password.
+        /// </summary>
+        /// <param name="p_user"></param>
         public void OpenPasswordResetForm(Staff p_user)
         {
+            // Open a new instance of PasswordResetForm, pass the current use to it and ShowDialog.
             new PasswordResetForm(p_user).ShowDialog();
         }
 
-        public void OpenEditPatientForm(Patient p_Patient)
+        public void OpenEditPatientForm(Patient p_patient)
         {
-            new EditPatientForm(p_Patient).ShowDialog();
+            // Open a new instance of EditPatientForm, pass the patient to it and ShowDialog.
+            new NewPatientForm(p_patient).ShowDialog();
         }
 
         public void OpenNewPatientForm()
         {
+            // Open a new instance of NewPatientForm
             new NewPatientForm().ShowDialog();
         }
         public void UpdateData()
         {
            
+        }
+        public void OpenNewAppointmentForm()
+        {
+            new NewAppointmentForm().ShowDialog();
         }
     }
 }
