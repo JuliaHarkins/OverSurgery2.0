@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Controllers\RotaController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MainClasses\Extention.cs" />
     <Compile Include="UpdateRota.cs">
       <SubType>Form</SubType>
     </Compile>

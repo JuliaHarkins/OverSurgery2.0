@@ -105,7 +105,7 @@ CREATE TABLE `Prescription` (
 
 CREATE TABLE `Extension` (
     `ExtensionID` INT(8) NOT NULL auto_increment,
-    `Extended` TINYINT(1) NOT NULL default 0,
+    `Extended` TINYINT(2) NOT NULL default 0,
     `PrescriptionID` INT(8) NOT NULL default 0,
     `DateOfExtension` DATE NULL default 19991231,
     `MedicalStaffID` INT(8) NOT NULL default 0,
