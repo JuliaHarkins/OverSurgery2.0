@@ -1,4 +1,4 @@
-﻿namespace OverSurgery2.UserInterface
+﻿namespace OverSurgery2
 {
     partial class MedicationForm
     {

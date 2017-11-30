@@ -31,10 +31,7 @@ namespace OverSurgery2
 
         private void AddPrescription_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             lb_patient.Text = "Prescription For : "+m_patientName;
-=======
->>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
 #region hideExtention
             lb_dateOfNextIssue.Hide();
             dtp_dateOfNextExtention.Hide();

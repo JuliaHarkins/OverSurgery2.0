@@ -27,11 +27,7 @@ namespace OverSurgery2
         List<MedicalHistory> m_medicalHistory;
         List<Prescription> m_prescriptions;
         MedicalStaff m_currentUser; 
-<<<<<<< HEAD
         int m_appointmentListCounter;                       // the current position in the appointment list.
-=======
-        int m_appointmentListCounter;                     //the current position in the appointment list.
->>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
         #endregion
 #region Constructor
         /// <summary>
@@ -41,10 +37,6 @@ namespace OverSurgery2
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
         {
-<<<<<<< HEAD
-=======
-            
->>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
             m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
         }
@@ -100,7 +92,6 @@ namespace OverSurgery2
 #region SetsExtentionAmount
             //checks if the user is a doctor and shows the amount of extentions,
             //or it hides the button from non-doctors
-<<<<<<< HEAD
             if (m_currentUser.Type == 3)
             {
                 int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
@@ -108,15 +99,6 @@ namespace OverSurgery2
                 if (extention != 0)
                 {
                     btn_extRequest.Text = "Extention Requests : " + extention;
-=======
-            if (m_currentUser.Type == 3)//m_currentUser.GetType() typeof(Doctor))
-            {
-                Doctor d = new Doctor();
-                d = (Doctor)m_currentUser;
-                if (d.Extension !=null)
-                {
-                    btn_extRequest.Text = "Extention Requests : " + d.Extension.Count;
->>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
                     
                 }
                 else
@@ -158,12 +140,8 @@ namespace OverSurgery2
         {
             if (m_currentUser != null)
             {
-<<<<<<< HEAD
                 string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
                 new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
-=======
-                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
->>>>>>> 3b79928... Doctor is broken to high heaven, do not log on as it. I'm tryign to fix the extention button but it refused to acknowlege the Doctor and a type doctor...
             }
             SelectMedicalHistory();
         }
