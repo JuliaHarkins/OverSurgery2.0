@@ -129,8 +129,12 @@ namespace OverSurgery2
             }
             return medication;
         }
-
-        public string GetMedicalStaffNameByID(int p_id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
+        public string GetMedicalStaffNameById(int p_id)
         {
             string firstname = null, lastname = null;
             if (con.OpenConnection())
@@ -148,41 +152,44 @@ namespace OverSurgery2
             return firstname + " " + lastname;
         }
 
-
-        public bool InsertNewPatient(Patient p_Patient)
-        {
-            {
-                if (con.OpenConnection())
-                {
-                    try
-                    {
-                        con.Insert("INSERT INTO patient VALUES (NULL,'" + p_Patient.Forename + "','" + p_Patient.Surname + "'," + p_Patient.Gender + "," + Convert.ToInt32(p_Patient.DateOfBirth.ToString("yyyyMMdd")) + ",'" + p_Patient.PhoneNumber + "'," +
-                            p_Patient.RegisteredDoctorID + ","+ p_Patient.AddressID + ");");
-                        con.CloseConnection();
-                        return true;
-                        
-                    }
-                    catch (Exception e)
-                    {
-                        throw e;
-                    }
-                }
-                return false;
-            }
-        }
-
         /// <summary>
-        /// Return an address by its ID.
+        /// Insert a new patient into the database by passing a patient object to the method
         /// </summary>
-        /// <param name="p_id">Use Address ID</param>
+        /// <param name="p_patient">Patient object that you want inserted into the database.</param>
+        /// <example>This shows you how to use the method<see cref="InsertNewPatient(Patient)"/>.</example>
+        /// <returns>Returns true or false depending on whether the patient was inserted</returns>
+        public bool InsertNewPatient(Patient p_patient)
+        {
+            //If connection to database can be opened, try to insert a patient to the database
+            if (con.OpenConnection())
+            {
+                try
+                {
+                    con.Insert("INSERT INTO patient VALUES (NULL,'" + p_patient.Forename + "','" +
+                                p_patient.Surname + "'," + p_patient.Gender + "," +
+                                Convert.ToInt32(p_patient.DateOfBirth.ToString("yyyyMMdd")) + ",'" +
+                                p_patient.PhoneNumber + "'," +
+                                p_patient.RegisteredDoctorID + "," + p_patient.AddressID + ");");
+                    con.CloseConnection();
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return false;
+        }
+        /// <summary>
+        /// Get Address from Database by AddressID
+        /// </summary>
+        /// <param name="p_id">AddressID passed into method</param>
         /// <example>
-        /// This example shows you how to use the <see cref="GetAddressByID(int)"/> method.
-        /// <code>
-        /// string address = ml.GetAddressByID(1);
-        /// </code>
+        /// This is example shows you how to use the method <see cref="GetAddressById(int)"/>
+        /// <c>Address a = GetAddressById(1);</c>
         /// </example>
-        /// <returns>Returns an address string</returns>
-        public Address GetAddressByID(int p_id)
+        /// <returns>Returns Address object retrieved from database.</returns>
+        public Address GetAddressById(int p_id)
         {
             Address a = null;
             string houseName = null;
@@ -192,19 +199,24 @@ namespace OverSurgery2
                 DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + p_id + ";");
                 while (dr.Read())
                 {
-                    string temp;
-                    try
-                    {
-                        temp = dr.GetFieldValue<string>(1);
-                    }
-                    catch
-                    {
-                        temp = null;
-                    }
-                    if (temp == null)
+                    string tempHouseName;
+                    int? tempHouseNum;
+                    tempHouseName = dr.GetFieldValue<string>(1);
+                    tempHouseNum = dr.GetFieldValue<int?>(2);
+                    if (tempHouseName == "")
                     {
                         houseName = "";
-                        houseNumber = dr.GetFieldValue<int?>(2);
+                        houseNumber = dr.GetFieldValue<int>(2);
+                    }
+                    else if (tempHouseNum == null)
+                    {
+                        houseName = dr.GetFieldValue<string>(1);
+                        houseNumber = null;
+                    }
+                    else
+                    {
+                        houseName = dr.GetFieldValue<string>(1);
+                        houseNumber = dr.GetFieldValue<int>(2);
                     }
                     a = new Address
                     {
@@ -213,18 +225,26 @@ namespace OverSurgery2
                         HouseNumber = houseNumber,
                         StreetName = dr.GetString(3),
                         PostCode = dr.GetString(4)
-
                     };
                 }
-                dr.Close();
-                con.CloseConnection();
+                dr.Close(); con.CloseConnection();
             }
             return a;
         }
 
+        /// <summary>
+        /// Gets staff email by username, used for password reset to send an email
+        /// </summary>
+        /// <example>This shows you how to to use the <see cref="GetStaffEmailByUserName(string)"/>
+        /// <c>string emailAddress = GetStaffEmailByUserName("testUser");</c>
+        /// </example>
+        /// <param name="p_username"></param>
+        /// <returns>Returns a string: email Address</returns>
         public string GetStaffEmailByUserName(string p_username)
         {
+            // Set email to null
             string email = null;
+            //If connection can be opened, grab email address for staff username(p_username)
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT email FROM Staff WHERE username = '" + p_username + "';");
@@ -233,12 +253,20 @@ namespace OverSurgery2
                 {
                     email = dr.GetString(0);
                 }
+                //Close the DbDataReader and the connection to database
                 dr.Close();
                 con.CloseConnection();
             }
+            //Return the email address
             return email;
         }
 
+        /// <summary>
+        /// Gets the staff object by username passed to the method.
+        /// </summary>
+        /// <example></example>
+        /// <param name="p_username">Staff username passed to method.</param>
+        /// <returns>Returns a Staff object for the username that you have provided.</returns>
         public Staff GetStaffByUserName(string p_username)
         {
             Staff s = null;
@@ -302,7 +330,6 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-                return m;
             }
             return m;
         }
@@ -1267,6 +1294,18 @@ namespace OverSurgery2
                     + staff.Surname + "', Email = '" + staff.EmailAddress + "', Username = '"
                     + staff.Username + "', Type = "
                 + staff.Type + " WHERE StaffID = " + staff.StaffID + ";");
+                con.CloseConnection();
+            }
+        }
+
+        public void UpdatePatient(Patient p)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Patient Set Forename = '" + p.Forename + "', Surname = '"
+                           + p.Surname + "', Gender ='" + p.Gender + "', DateOfBirth=" +
+                           Convert.ToInt32(p.DateOfBirth.ToString("yyyyMMdd")) + ", PhoneNumber='" + p.PhoneNumber +
+                           "' WHERE PatientID =" + p.ID + ";");
                 con.CloseConnection();
             }
         }
