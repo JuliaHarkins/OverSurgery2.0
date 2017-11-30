@@ -20,6 +20,7 @@ namespace OverSurgery2
         MetaLayer ml = MetaLayer.Instance();
         List<Medication> medList = new List<Medication>();
         Medication med = null;
+        protected string searchedMed;
         int selectedMed = 0;
 
         public MedicationForm()
@@ -42,8 +43,8 @@ namespace OverSurgery2
         {
             try
             {
+                searchedMed = txtSearchMedName.Text;
                 medList = ml.GetMedicationByName(txtSearchMedName.Text);
-
                 WriteBoxes();
             }
             catch (Exception ex)
@@ -194,7 +195,7 @@ namespace OverSurgery2
                 {
                     tabControl1.SelectedTab = tabUpdateMed;
                 }
-                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
+                if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
                     txtUpdateMedName.Text = medList[selectedMed].Name;
                     txtUpdatePermission.Text = Convert.ToString(medList[selectedMed].PermissionLevel);
@@ -203,7 +204,7 @@ namespace OverSurgery2
                 }
                 else
                 {
-
+                    //
                 }
             }
             catch(Exception ex)
