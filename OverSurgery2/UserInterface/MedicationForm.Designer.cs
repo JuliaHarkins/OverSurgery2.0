@@ -284,7 +284,7 @@
             this.btnPrevious.Name = "btnPrevious";
             this.btnPrevious.Size = new System.Drawing.Size(75, 23);
             this.btnPrevious.TabIndex = 78;
-            this.btnPrevious.Text = "button2";
+            this.btnPrevious.Text = "Prev Med";
             this.btnPrevious.UseVisualStyleBackColor = true;
             this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click_1);
             // 
@@ -294,7 +294,7 @@
             this.btnNext.Name = "btnNext";
             this.btnNext.Size = new System.Drawing.Size(75, 23);
             this.btnNext.TabIndex = 77;
-            this.btnNext.Text = "button1";
+            this.btnNext.Text = "Next Med";
             this.btnNext.UseVisualStyleBackColor = true;
             this.btnNext.Click += new System.EventHandler(this.btnNext_Click_1);
             // 

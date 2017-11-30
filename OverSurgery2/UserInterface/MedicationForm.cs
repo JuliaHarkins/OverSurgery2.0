@@ -235,7 +235,11 @@ namespace OverSurgery2.UserInterface
             }
         }
 
-
+        /// <summary>
+        /// If multiple doses of medication are retrieved from the database cycle to the next one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnNext_Click_1(object sender, EventArgs e)
         {
             selectedMed++;
@@ -243,6 +247,11 @@ namespace OverSurgery2.UserInterface
             updateButtons();
         }
 
+        /// <summary>
+        /// If multiple doses of medication are retrieved from the database cycle to the prev one
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPrevious_Click_1(object sender, EventArgs e)
         {
             selectedMed--;
