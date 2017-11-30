@@ -100,7 +100,7 @@ namespace OverSurgery2
             {
                 int sel = lst_PatientsPres.SelectedIndices[0];
                 pres = m_PatientPrescriptions.ElementAt(sel);
-                new PrescriptionExtendDialog(pres).ShowDialog();
+                //new PrescriptionExtendDialog(pres).ShowDialog();
             }
             catch
             {
