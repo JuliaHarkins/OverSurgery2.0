@@ -15,11 +15,11 @@ namespace OverSurgery2
     {
         List<Rota> StaffTimes = new List<Rota>();
         MetaLayer ml;
-        private int m_rotaEntryID, m_medicalStaffID, m_startTime, m_endTime;
+        private int m_rotaEntryID, m_staffID, m_startTime, m_endTime;
         private string m_forename, m_surname, m_days;
 
         public int RotaEntryID { get { return m_rotaEntryID; } set { m_rotaEntryID = value; } }
-        public int MedicalStaffID { get { return m_medicalStaffID; } set { m_medicalStaffID = value; } }
+        public int StaffID { get { return m_staffID; } set { m_staffID = value; } }
         public int StartTime { get { return m_startTime; } set { m_startTime = value; } }
         public int EndTime { get { return m_endTime; } set { m_endTime = value; } }
         public string Forename { get { return m_forename; } set { m_forename = value; } }
@@ -33,7 +33,7 @@ namespace OverSurgery2
         /// <param name="p_rotaValues"></param>
         public Rota()
         {
-            ml = MetaLayer.Instance();
+            //ml = MetaLayer.Instance();
         }
     }
 }

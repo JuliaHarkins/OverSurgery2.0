@@ -331,7 +331,6 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
-                return m;
             }
             return m;
         }
@@ -710,13 +709,13 @@ namespace OverSurgery2
 
                     return i;
         }/// <summary>
-         /// gets the list of extended prescriptions based off the staff id
+         /// gets the list of extended prescriptions based off the medstaff id
          /// Last Updated : 21/11/17,
          /// By j
          /// </summary>
          /// <param name="p_id"></param>
          /// <returns></returns>
-        public List<Prescription> GetExtentionRequests(int p_id)
+        public List<Prescription> GetExtentedPrescriptions(int p_id)
         {
             List<Prescription> prescriptions = new List<Prescription>();
             Prescription p;
@@ -735,11 +734,43 @@ namespace OverSurgery2
                     };
                     prescriptions.Add(p);
                 }
+            dr.Close();
+            con.CloseConnection();
+            }
+
+            return prescriptions;
+        }
+        /// <summary>
+        /// gets the list of extendions based off the medstaff id
+        /// Last Updated : 21/11/17
+        /// By j
+        /// </summary>
+        /// <param name="p_id"></param>
+        /// <returns></returns>
+        public List<Extension> GetExtentionRequests(int p_id)
+        {
+            List<Extension> extensions = new List<Extension>();
+            Extension e;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT ExtensionID, Extended, PrescriptionID, MedicalStaffID, Reason FROM Extension WHERE MedicalStaffID = " + p_id + " AND Extended = 0;");
+                while (dr.Read())
+                {
+                    e = new Extension
+                    {
+                        ExtentionID = dr.GetInt32(0),
+                        Extended = dr.GetInt32(1),
+                        PrescriptionID = dr.GetInt32(2),
+                        MedicalStaffID = dr.GetInt32(3),
+                        Reason = dr.IsDBNull(4) ? null : dr.GetString(4)
+                    };
+                    extensions.Add(e);
+                }
                 dr.Close();
                 con.CloseConnection();
             }
 
-            return prescriptions;
+            return extensions;
         }
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
@@ -819,6 +850,34 @@ namespace OverSurgery2
             //returns the title and surname
 
             return staffid;
+        }
+        public List<Prescription> GetExtentionRequests(int medStaffID)
+        {
+            List<Prescription> prescriptions = new List<Prescription>();
+            if (con.OpenConnection())
+            {
+                Prescription p;
+                DbDataReader dr = con.Select("SELECT PrescriptionID");
+                while (dr.Read())
+                {
+                    p = new Prescription
+                    {
+                        ID = dr.GetInt16(0),
+                        Date = dr.GetDateTime(1),
+                        DateOfNextIssue = dr.GetDateTime(2),
+                        Amount = dr.GetInt16(3),
+                        Extendable = dr.GetBoolean(4),
+                        MedicationID = dr.GetInt16(5),
+                        PatientID = dr.GetInt16(6),
+                        MedicalStaffID = dr.GetInt16(7)
+                    };
+                    prescriptions.Add(p);
+
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return prescriptions;
         }
 
         /// <summary>
@@ -945,7 +1004,7 @@ namespace OverSurgery2
                 if (con.OpenConnection())
                 {
                     Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + rota.MedicalStaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
+                    con.Update("INSERT INTO Rota VALUES (null, " + rota.StaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
                         Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
                     con.CloseConnection();
                 }
@@ -1024,6 +1083,11 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// add a medical staff member from the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
         public void AddMedicalStaff(MedicalStaff m)
         {
             if (con.OpenConnection())
@@ -1055,6 +1119,11 @@ namespace OverSurgery2
             }
         }
 
+        /// <summary>
+        /// update a staff member in the database
+        /// Last Updated : 17/11/17,
+        /// By R
+        /// </summary>
         public void UpdateMedicalStaff(MedicalStaff m)
         {
             if (con.OpenConnection())
@@ -1084,15 +1153,36 @@ namespace OverSurgery2
         /// Last Updated : 17/11/17,
         /// By R
         /// </summary>
-        public bool DeleteStaff(string p_username)
+        public void DeleteStaff(Staff p_staff)
         {
-            if (con.OpenConnection())
+            // Delete medical staff entry
+            int medStaffID = 0;
+            if (p_staff.Type == 1 || p_staff.Type == 2 || p_staff.Type == 3)
             {
-                con.Update("DELETE FROM Staff WHERE username ='" + p_username + "';");
-                con.CloseConnection();
-                return true;
+                if (con.OpenConnection())
+                {
+                    DbDataReader dr = con.Select("SELECT MedicalStaffID FROM MedicalStaff WHERE MedicalStaff.StaffID =" + p_staff.StaffID + ";");
+                    while (dr.Read())
+                    {
+                        medStaffID = dr.GetInt32(0);
+                    }
+                    dr.Close();
+                    con.Delete("DELETE FROM MedicalStaff WHERE MedicalStaffID =" + medStaffID + ";");
+                    con.Delete("DELETE FROM Staff WHERE StaffID =" + p_staff.StaffID + ";");
+                    con.CloseConnection();
+                }
             }
-            return false;
+            else
+            {
+                if (con.OpenConnection())
+                {
+                    con.Update("DELETE FROM Staff WHERE StaffID ='" + p_staff.StaffID+ "';");
+                    con.CloseConnection();
+                }
+
+            }
+            // Delete normal staff entry
+            
         }
 
         /// <summary>
@@ -1105,22 +1195,101 @@ namespace OverSurgery2
         {
             Rota r;
             List<Rota> rota = new List<Rota>();
+            List<int> r_staffID = new List<int>();
+            List<int> s_staffID = new List<int>();
+            List<string> s_forename = new List<string>();
+            List<string> s_surname = new List<string>();
+            List<string> days = new List<string>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT RotaID, Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, Staff s, DayOfWeek d WHERE r.DayID = d.DayID AND r.StaffID = s.StaffID GROUP BY S.StaffID ORDER BY s.StaffID;");
+                DbDataReader dr = con.Select("SELECT StaffID, GROUP_CONCAT(DayName ORDER BY d.DayID ASC SEPARATOR ', ') AS 'Days Working' FROM Rota r, DayOfWeek d WHERE r.DayID = d.DayID GROUP BY StaffID ORDER BY StaffID;");
                 while (dr.Read())
                 {
-                    r = new Rota
-                    {
-                        RotaEntryID = dr.GetInt32(0),
-                        Forename = dr.GetString(1),
-                        Surname = dr.GetString(2),
-                        Days = dr.GetString(3)
-                    };
-                    rota.Add(r);
+                    r_staffID.Add(dr.GetInt32(0));
+                    days.Add(dr.GetString(1));
                 }
                 dr.Close();
                 con.CloseConnection();
+            }
+            if (con.OpenConnection())
+            {
+                DbDataReader inner_dr = con.Select("Select StaffID, Forename, Surname FROM Staff");
+                while (inner_dr.Read())
+                {
+                    s_staffID.Add(inner_dr.GetInt32(0));
+                    s_forename.Add(inner_dr.GetString(1));
+                    s_surname.Add(inner_dr.GetString(2));
+                }
+                inner_dr.Close();
+                con.CloseConnection();
+            }
+            if (r_staffID.Count == 0)
+            {
+                for (int i = 0; i < s_staffID.Count; i++)
+                {
+                    r = new Rota
+                    {
+                        StaffID = s_staffID.ElementAtOrDefault(i),
+                        Forename = s_forename.ElementAtOrDefault(i),
+                        Surname = s_surname.ElementAtOrDefault(i),
+                        Days = "Default"
+                    };
+                    rota.Add(r);
+                }
+            }
+            else
+            {
+                for (int i = 0, j = 0; j < r_staffID.Count; i++)
+                {
+                    if (s_staffID.ElementAtOrDefault(i) == r_staffID.ElementAtOrDefault(j))
+                    {
+                        for (int k = 0; k < rota.Count; k++)
+                        {
+                            if (rota.ElementAtOrDefault(k).StaffID == s_staffID.ElementAtOrDefault(i))
+                            {
+                                rota.RemoveAt(k);
+                            }
+                        }
+                        r = new Rota
+                        {
+                            StaffID = s_staffID.ElementAtOrDefault(i),
+                            Forename = s_forename.ElementAtOrDefault(i),
+                            Surname = s_surname.ElementAtOrDefault(i),
+                            Days = days.ElementAtOrDefault(j)
+                        };
+                        rota.Add(r);
+                    }
+                    else
+                    {
+                        if (s_staffID.Count > rota.Count)
+                        {
+                            bool flg = true;
+                            for (int k = 0; k < rota.Count; k++)
+                            {
+                                if (rota.ElementAtOrDefault(k).StaffID == s_staffID.ElementAtOrDefault(i))
+                                {
+                                    flg = false;
+                                }
+                            }
+                            if (flg)
+                            {
+                                r = new Rota
+                                {
+                                    StaffID = s_staffID.ElementAtOrDefault(i),
+                                    Forename = s_forename.ElementAtOrDefault(i),
+                                    Surname = s_surname.ElementAtOrDefault(i),
+                                    Days = "Default"
+                                };
+                                rota.Add(r);
+                            }
+                        }
+                    }
+                    if (i == s_staffID.Count)
+                    {
+                        i = 0;
+                        j++;
+                    }
+                }
             }
             return rota;
         }
@@ -1221,13 +1390,13 @@ namespace OverSurgery2
         /// Last Updated : 20/11/17,
         /// By R
         /// </summary>
-        /// <param name="p_medName"></param>
+        /// <param name="p_medID"></param>
         /// <returns></returns>
-        public bool DeleteMedication(string p_medName)
+        public bool DeleteMedication(uint? p_medID)
         {
             if (con.OpenConnection())
             {
-                con.Update("DELETE FROM Medication WHERE MedicationName ='" + p_medName + "';");
+                con.Update("DELETE FROM Medication WHERE MedicationID ='" + p_medID + "';");
                 con.CloseConnection();
                 return true;
             }
@@ -1247,7 +1416,7 @@ namespace OverSurgery2
             List<Medication> medList = new List<Medication>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = " + p_medName + " LIMIT 1;");
+                DbDataReader dr = con.Select("SELECT MedicationID, PermissionLevel, MedicationName, Dosage FROM Medication WHERE MedicationName = '" + p_medName + "';");
                 while (dr.Read())
                 {
                     m = new Medication
@@ -1263,6 +1432,61 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return medList;
+        }
+
+        /// <summary>
+        /// Add a new medication to the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_med"></param>
+        public void AddMedication(Medication p_med)
+        {
+            if (con.OpenConnection())
+            {
+                con.Insert("INSERT INTO Medication VALUES (null, '" + p_med.PermissionLevel + "', '" + p_med.Name + "', '" + p_med.Dosage + "');");
+                con.CloseConnection();
+            }
+        }
+
+        /// <summary>
+        /// Update an existing medication in the database
+        /// Last Updated : 20/11/17,
+        /// By R
+        /// </summary>
+        /// <param name="p_med"></param>
+        public void UpdateMedication(Medication p_med)
+        {
+            if (con.OpenConnection())
+            {
+                con.Update("UPDATE Medication Set PermissionLevel = '" + p_med.PermissionLevel + "', MedicationName = '"
+                    + p_med.Name + "', Dosage = '" + p_med.Dosage + "' WHERE MedicationID = " + p_med.ID + ";");
+                con.CloseConnection();
+            }
+        }
+
+        public bool InsertIntoRota(int dayID, int staffID)
+        {
+            bool flg = false;
+            if (con.OpenConnection())
+            {
+                con.Insert($"INSERT INTO Rota Values (null, {dayID}, {staffID});");
+                flg = true;
+                con.CloseConnection();
+            }
+            return flg;
+        }
+
+        public bool UpdateRota(int dayID, int staffID)
+        {
+            bool flg = false;
+            if (con.OpenConnection())
+            {
+                con.Update($"DELETE FROM Rota WHERE DayID = {dayID} AND StaffID = {staffID}");
+                flg = true;
+                con.CloseConnection();
+            }
+            return flg;
         }
     }
 }

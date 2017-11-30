@@ -22,7 +22,7 @@ namespace OverSurgery2
         private uint m_addressID;
 
         Staff currentUserLoggedIn = null;                                                                                           // Details on the current user who is logged in
-        Staff searchedStaff = null;                                                                                                 // Searched staff members details
+        Staff searchedStaff = new Staff();                                                                                                 // Searched staff members details
         MedicalStaff m = null;
         Address searchedAddress = null;                                                                                             // Searched staff members address details  
 
@@ -31,7 +31,10 @@ namespace OverSurgery2
             //Set combo box values
             cboType.DataSource = Enum.GetValues(typeof(StaffTypes));
             cboUpdateType.DataSource = Enum.GetValues(typeof(StaffTypes));
-            cboAddGender.DataSource = Enum.GetValues(typeof(MedicalStaff.Genders));
+            cboAddGender.Items.Add("Female");
+            cboAddGender.Items.Add("Male");
+            cboUpdateGender.Items.Add("Female");
+            cboUpdateGender.Items.Add("Male");
         }
 
         enum StaffTypes { Nurse, Locum, Doctor, Receptionist, Manager };
@@ -49,12 +52,8 @@ namespace OverSurgery2
 
         public ManagerForm(Staff p_currentUser)
         {
-            currentUserLoggedIn = p_currentUser;
-            
+            currentUserLoggedIn = p_currentUser;       
             InitializeComponent();
-            // Disable fields according to selected type
-            
-
         }
 
         /// <summary>
@@ -66,9 +65,16 @@ namespace OverSurgery2
         { 
             if (txtSearchUserName.Text != "")
             {
-                // Collect data from the metalayer and store it inside the form
-                searchedStaff = MetaLayer.Instance().GetStaffByUserName(txtSearchUserName.Text);
-                searchedAddress = MetaLayer.Instance().GetAddressById(Convert.ToInt32(searchedStaff.AddressID));
+                try
+                {
+                    // Collect data from the metalayer and store it inside the form
+                    searchedStaff = MetaLayer.Instance().GetStaffByUserName(txtSearchUserName.Text);
+                    searchedAddress = MetaLayer.Instance().GetAddressByID(Convert.ToInt32(searchedStaff.AddressID));
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
             }
 
             // Change the selected tab to the update tab
@@ -128,6 +134,7 @@ namespace OverSurgery2
             {
                 ReadBoxes();
                 
+                // Check if staff is medical staff
                 if (cboType.SelectedIndex != 3 || cboType.SelectedIndex !=4)
                 {
                     m.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
@@ -138,8 +145,8 @@ namespace OverSurgery2
                     searchedStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
                     MetaLayer.Instance().AddStaff(searchedStaff);
                 }
-                
-                
+
+                // clear all fields
                 foreach(Control c in this.Controls)
                 {
                     if(c is TextBox)
@@ -169,16 +176,13 @@ namespace OverSurgery2
         {  
             try
             {
-                //ReadBoxes();
-                m_userName = txtUpdateUserName.Text;
-                m_addressID = Convert.ToUInt32(searchedStaff.AddressID);
 
                 // Verify the user wants to delete the staff member
                 DialogResult result = MessageBox.Show("Are you sure you want to delete " + m_userName + "?", "Delete Staff Member", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
-                    MetaLayer.Instance().DeleteStaff(m_userName);
-                    MetaLayer.Instance().DeleteAddress(Convert.ToInt32(m_addressID));
+                    // Delete the staff memeber along with and medical staff entries
+                    MetaLayer.Instance().DeleteStaff(searchedStaff);     
                 }
                 else
                 {
@@ -232,7 +236,8 @@ namespace OverSurgery2
                     searchedStaff.Username = txtAddUserName.Text;
                     searchedStaff.Forename = txtAddForename.Text;
                     searchedStaff.Surname = txtAddSurname.Text;
-                    //searchedStaff.PracticeNumber = Convert.ToInt32(txtPracticeNumberAdd.Text);
+                    
+                    // Check to see if the staff member is a medical staff member
                     if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
                     {
                         m = new MedicalStaff()
@@ -247,6 +252,7 @@ namespace OverSurgery2
                             EmailAddress = txtAddEmail.Text,
                             Type = (int)cboType.SelectedIndex + 1
                         };
+
                         searchedAddress = new Address();
                         searchedAddress.HouseName = txtAddHouseName.Text;
                         searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
@@ -310,14 +316,25 @@ namespace OverSurgery2
                 if (tabControl1.SelectedTab == tabControl1.TabPages["tabAddStaff"])
                 {
                     tabControl1.SelectedTab = tabUpdateStaff;
+                    txtUpdatePhone.Enabled = false;
+                    cboUpdateGender.Enabled = false;
                 }
                 else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateStaff"])
                 {
+                    txtUpdatePhone.Enabled = false;
+                    cboUpdateGender.Enabled = false;
+                    if (searchedStaff.Type == 1||searchedStaff.Type==2||searchedStaff.Type==3)
+                    {
+                        MedicalStaff m = MetaLayer.Instance().GetMedicalStaffByStaffID(searchedStaff.StaffID, searchedStaff.Type) as MedicalStaff;
+                        cboUpdateGender.SelectedIndex = (int)m.Gender;
+                        cboUpdateGender.Enabled = true;
+                        txtUpdatePhone.Enabled = true;
+                        
+                    }
                     txtUpdateUserName.Text = searchedStaff.Username;
                     txtUpdateForename.Text = searchedStaff.Forename;
                     txtUpdateSurname.Text = searchedStaff.Surname;
                     txtUpdateEmail.Text = searchedStaff.EmailAddress;
-                    //cboUpdateGender.Text = searchedStaff.Gender;
                     //txtUpdatePhone.Text = searchedStaff.PhoneNumber;
                     txtUpdateHouseName.Text = searchedAddress.HouseName;
                     txtUpdateHouseNumber.Text = Convert.ToString(searchedAddress.HouseNumber);
@@ -330,9 +347,9 @@ namespace OverSurgery2
 
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                MessageBox.Show("An error has occured collecting data", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -346,6 +363,11 @@ namespace OverSurgery2
             this.Close();
         }
 
+        /// <summary>
+        /// Enable/disable fields depending on type of staff selected
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cboType_SelectedValueChanged(object sender, EventArgs e)
         {
             if (((int)cboType.SelectedValue == 3) || ((int)cboType.SelectedValue == 4))
