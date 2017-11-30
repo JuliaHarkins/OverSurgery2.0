@@ -12,13 +12,13 @@ namespace OverSurgery2
     {
         public static Timer updateDataFromDatabase; // Timer used To controll GUI update
 
-        public static void Times()
+        private static void Times()
         {
             updateDataFromDatabase = new Timer()
             {
                 Interval = 5000,
                 AutoReset = false,
-                Enabled = false,
+                Enabled = false
             };
             updateDataFromDatabase.Elapsed += UpdateData;
         }
