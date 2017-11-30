@@ -26,7 +26,7 @@ namespace OverSurgery2
         MetaLayer ml = MetaLayer.Instance();
         public enum Genders { Female, Male };
         public int ID { get { return m_ID; } set { m_ID = value; } }
-        public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID); } }
+        public string DoctorDisplay { get { return m_doctorDisplay; } set { m_doctorDisplay = ml.GetMedicalStaffNameById(m_registeredDoctorID); } }
         public int Gender { get { return m_gender; } set { m_gender = value; } }
         public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
         public string GenderDisplay { get { return m_genderDisplay; } }
@@ -62,7 +62,7 @@ namespace OverSurgery2
 
         public void SetDoctorDisplay()
         {
-            m_doctorDisplay = ml.GetMedicalStaffNameByID(m_registeredDoctorID);
+            m_doctorDisplay = ml.GetMedicalStaffNameById(m_registeredDoctorID);
         }
     }
 }
