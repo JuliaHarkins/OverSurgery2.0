@@ -20,7 +20,9 @@ namespace OverSurgery2
         MetaLayer ml = MetaLayer.Instance();
         List<Medication> medList = new List<Medication>();
         Medication med = null;
+        protected string searchedMed;
         int selectedMed = 0;
+        bool flag = true;
 
         public MedicationForm()
         {
@@ -42,9 +44,10 @@ namespace OverSurgery2
         {
             try
             {
+                searchedMed = txtSearchMedName.Text;
                 medList = ml.GetMedicationByName(txtSearchMedName.Text);
-
                 WriteBoxes();
+                
             }
             catch (Exception ex)
             {
@@ -53,6 +56,7 @@ namespace OverSurgery2
                 txtUpdateDosage.Clear();
                 txtUpdateMedName.Clear();
                 txtUpdatePermission.Clear();
+                
             }
            
         }
@@ -73,6 +77,7 @@ namespace OverSurgery2
                 if (result == DialogResult.Yes)
                 {
                     ml.DeleteMedication(medList[selectedMed].ID);
+                    flag = true;
                 }
                 else
                 {
@@ -83,11 +88,16 @@ namespace OverSurgery2
             {
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
             }
             txtUpdateDosage.Clear();
             txtUpdateMedName.Clear();
             txtUpdatePermission.Clear();
-            MessageBox.Show("Medication Removed", "Deleted Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+ 
+            if (flag == true)
+            {
+                MessageBox.Show("Medication Removed", "Deleted Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
            
         /// <summary>
@@ -110,7 +120,11 @@ namespace OverSurgery2
             txtUpdateDosage.Clear();
             txtUpdateMedName.Clear();
             txtUpdatePermission.Clear();
-            MessageBox.Show("Medication Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (flag == true)
+            {
+                MessageBox.Show("Medication Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
         }
 
@@ -125,13 +139,20 @@ namespace OverSurgery2
             {
                 ReadBoxes();
                 ml.UpdateMedication(medList[selectedMed]);
+                flag = true;
             }
             catch(Exception ex)
             {
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
             }
-            MessageBox.Show("Medication Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (flag == true)
+            {
+                MessageBox.Show("Medication Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
 
         }
 
@@ -194,7 +215,7 @@ namespace OverSurgery2
                 {
                     tabControl1.SelectedTab = tabUpdateMed;
                 }
-                else if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
+                if (tabControl1.SelectedTab == tabControl1.TabPages["tabUpdateMed"])
                 {
                     txtUpdateMedName.Text = medList[selectedMed].Name;
                     txtUpdatePermission.Text = Convert.ToString(medList[selectedMed].PermissionLevel);
@@ -203,7 +224,7 @@ namespace OverSurgery2
                 }
                 else
                 {
-
+                    //
                 }
             }
             catch(Exception ex)

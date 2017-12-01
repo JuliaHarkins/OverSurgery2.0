@@ -19,9 +19,10 @@ namespace OverSurgery2
     {
         private string m_userName;
         private uint m_addressID;
+        bool flag = true;
 
         Staff currentUserLoggedIn = null;                                                                                           // Details on the current user who is logged in
-        Staff searchedStaff = new Staff();                                                                                                 // Searched staff members details
+        Staff searchedStaff = new Staff();                                                                                          // Searched staff members details
         MedicalStaff m = null;
         Address searchedAddress = null;                                                                                             // Searched staff members address details  
 
@@ -106,6 +107,7 @@ namespace OverSurgery2
             {
                 ReadBoxes();
                 MetaLayer.Instance().UpdateStaffMember(searchedStaff);
+                flag = true;
                 
             }
             catch(Exception ex)
@@ -115,13 +117,19 @@ namespace OverSurgery2
             try
             {
                 MetaLayer.Instance().UpdateAddress(searchedAddress, Convert.ToInt32(searchedStaff.AddressID));
+                flag = true;
             }
             catch(Exception ex)
             {
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
             }
-            MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (flag == true)
+            {
+                MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
 
         }
 
@@ -141,32 +149,28 @@ namespace OverSurgery2
                 {
                     m.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
                     MetaLayer.Instance().AddMedicalStaff(m);
+                    flag = true;
                 }
                 else
                 {
                     searchedStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
                     MetaLayer.Instance().AddStaff(searchedStaff);
+                    flag = true;
                 }
 
-                // clear all fields
-                foreach(Control c in this.Controls)
-                {
-                    if(c is TextBox)
-                    {
-                        TextBox tb = c as TextBox;
-                        if(tb.Text != String.Empty)
-                        {
-                            tb.Text = String.Empty;
-                        }
-                    }
-                }
             }
             catch(Exception ex)
             {
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
             }
-            MessageBox.Show("Staff Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (flag == true)
+            {
+                MessageBox.Show("Staff Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
 
         }
 
@@ -185,7 +189,8 @@ namespace OverSurgery2
                 if (result == DialogResult.Yes)
                 {
                     // Delete the staff memeber along with and medical staff entries
-                    MetaLayer.Instance().DeleteStaff(searchedStaff);     
+                    MetaLayer.Instance().DeleteStaff(searchedStaff);
+                    flag = true;
                 }
                 else
                 {
@@ -196,8 +201,14 @@ namespace OverSurgery2
             {
                 //throw ex;
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                flag = false;
             }
-            MessageBox.Show("Staff Deleted", "Removed Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (flag == true)
+            {
+                MessageBox.Show("Staff Deleted", "Removed Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
 
         /// <summary>
@@ -284,7 +295,6 @@ namespace OverSurgery2
                     searchedStaff.EmailAddress = txtUpdateEmail.Text;
                     searchedStaff.Type = (int)cboUpdateType.SelectedValue + 1;
                     
-
                     if (txtUpdatePostCode.Text.Length > 10)
                     {
                         MessageBox.Show("Postcode Too Long! Max 10 Characters!");
@@ -339,7 +349,6 @@ namespace OverSurgery2
                     txtUpdateForename.Text = searchedStaff.Forename;
                     txtUpdateSurname.Text = searchedStaff.Surname;
                     txtUpdateEmail.Text = searchedStaff.EmailAddress;
-                    //txtUpdatePhone.Text = searchedStaff.PhoneNumber;
                     txtUpdateHouseName.Text = searchedAddress.HouseName;
                     txtUpdateHouseNumber.Text = Convert.ToString(searchedAddress.HouseNumber);
                     txtUpdatePostCode.Text = searchedAddress.PostCode;
