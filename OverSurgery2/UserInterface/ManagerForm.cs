@@ -158,18 +158,6 @@ namespace OverSurgery2
                     flag = true;
                 }
 
-                // clear all fields
-                foreach(Control c in this.Controls)
-                {
-                    if(c is TextBox)
-                    {
-                        TextBox tb = c as TextBox;
-                        if(tb.Text != String.Empty)
-                        {
-                            tb.Text = String.Empty;
-                        }
-                    }
-                }
             }
             catch(Exception ex)
             {
