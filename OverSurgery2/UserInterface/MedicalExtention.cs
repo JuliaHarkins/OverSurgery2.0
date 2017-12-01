@@ -63,6 +63,7 @@ namespace OverSurgery2
             foreach (Extension ex in m_extensions)
             {
                 foreach (Prescription p in m_prescriptions)
+                {
                     if (ex.PrescriptionID == p.ID)
                     {
                         ListViewItem lvi = new ListViewItem();
@@ -70,17 +71,19 @@ namespace OverSurgery2
                         lvi.SubItems.Add(PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Surname);
                         lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
                         lvi.SubItems.Add(Convert.ToString(p.Amount));
-                        
+
                         lvi.SubItems.Add(p.Date.ToShortDateString());
                         lvi.SubItems.Add(ex.Reason);
 
                         lst_extention.Items.Add(lvi);
                     }
+                }
+            
             }
         }
         private void updateExtention(int p_newState)
         {
-            if (lst_extention.SelectedIndices.Count > 0)
+            if (lst_extention.SelectedIndices.Count > 0 && lst_extention.SelectedIndices[0] <= lst_extention.Items.Count)
             {
                 int i = lst_extention.SelectedIndices[0];
                 Extension ex = m_extensions[i];

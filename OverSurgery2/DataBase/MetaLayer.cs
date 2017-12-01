@@ -617,10 +617,10 @@ namespace OverSurgery2
         public List<Appointment> GetStaffAppointments(int p_staffID)
         {
             List<Appointment> appointments = new List<Appointment>();
-        Appointment a;
+            Appointment a;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " AND AppointmentDate= "+ DateTime.Now.ToString("yyyyMMdd") + " ORDER BY AppointmentTime;");
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
@@ -697,7 +697,7 @@ namespace OverSurgery2
             int i = 0;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " AND Extended = 0;;");
+                DbDataReader dr = con.Select("SELECT COUNT(ExtensionID) FROM Extension WHERE MedicalStaffID =  " + p_id + " AND Extended = 0;");
                 while (dr.Read())
                 {
                     i = dr.GetInt16(0);
