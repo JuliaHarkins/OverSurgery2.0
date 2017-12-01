@@ -22,7 +22,7 @@ namespace OverSurgery2
         bool flag = true;
 
         Staff currentUserLoggedIn = null;                                                                                           // Details on the current user who is logged in
-        Staff searchedStaff = new Staff();                                                                                                 // Searched staff members details
+        Staff searchedStaff = new Staff();                                                                                          // Searched staff members details
         MedicalStaff m = null;
         Address searchedAddress = null;                                                                                             // Searched staff members address details  
 
@@ -295,7 +295,6 @@ namespace OverSurgery2
                     searchedStaff.EmailAddress = txtUpdateEmail.Text;
                     searchedStaff.Type = (int)cboUpdateType.SelectedValue + 1;
                     
-
                     if (txtUpdatePostCode.Text.Length > 10)
                     {
                         MessageBox.Show("Postcode Too Long! Max 10 Characters!");
@@ -350,7 +349,6 @@ namespace OverSurgery2
                     txtUpdateForename.Text = searchedStaff.Forename;
                     txtUpdateSurname.Text = searchedStaff.Surname;
                     txtUpdateEmail.Text = searchedStaff.EmailAddress;
-                    //txtUpdatePhone.Text = searchedStaff.PhoneNumber;
                     txtUpdateHouseName.Text = searchedAddress.HouseName;
                     txtUpdateHouseNumber.Text = Convert.ToString(searchedAddress.HouseNumber);
                     txtUpdatePostCode.Text = searchedAddress.PostCode;
