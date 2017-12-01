@@ -63,6 +63,12 @@
     <Compile Include="Controllers\RotaController.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MainClasses\Extention.cs" />
+    <Compile Include="UserInterface\AppointmentConflictResolution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\AppointmentConflictResolution.Designer.cs">
+      <DependentUpon>AppointmentConflictResolution.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\UpdateRota.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +195,9 @@
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserInterface\AppointmentConflictResolution.resx">
+      <DependentUpon>AppointmentConflictResolution.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\RotaSearch.resx">
       <DependentUpon>RotaSearch.cs</DependentUpon>
     </EmbeddedResource>
