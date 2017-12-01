@@ -655,7 +655,7 @@ namespace OverSurgery2
             Prescription p;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Prescription WHERE PatientID =  " + p_patientID +  " ORDER BY DateIssued;");
+                DbDataReader dr = con.Select("SELECT PrescriptionID, DateIssued, DateOfNextIssue,Amount,Extendable,MedicationID,PatientID,MedicalStaffID FROM Prescription WHERE PatientID =  " + p_patientID +  " ORDER BY DateIssued;");
                 DateTime? NextIssueDate;   
                 while (dr.Read())
                 {
@@ -685,7 +685,8 @@ namespace OverSurgery2
                 return prescriptions;
             }
             return prescriptions;
-        }/// <summary>
+        }
+        /// <summary>
          /// Counts the extentions for the doctor
          /// Last Updated : 28/11/17,
          /// By j

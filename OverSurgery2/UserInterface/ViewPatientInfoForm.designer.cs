@@ -214,6 +214,7 @@
             this.dgv_PatientsPres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_PatientsPres.Location = new System.Drawing.Point(12, 237);
             this.dgv_PatientsPres.Name = "dgv_PatientsPres";
+            this.dgv_PatientsPres.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgv_PatientsPres.Size = new System.Drawing.Size(517, 236);
             this.dgv_PatientsPres.TabIndex = 20;
             // 

@@ -81,7 +81,7 @@ namespace OverSurgery2
                 }
                 dG_Rota[7, i].Value = rotaData.ElementAtOrDefault(j).StaffID;
                 dG_Rota.Sort(dG_Rota.Columns[7], ListSortDirection.Ascending);
-                dG_Rota.Columns[7].Visible = false;
+                //dG_Rota.Columns[7].Visible = false;
             }
         }
 
