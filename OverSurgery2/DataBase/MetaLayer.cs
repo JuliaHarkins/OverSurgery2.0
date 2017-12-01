@@ -1364,21 +1364,50 @@ namespace OverSurgery2
         /// <param name="add"></param>
         public int AddAddress(Address add)
         {
-            int addid = 0;
+            List<int> addid = new List<int>();
+            bool flg = true;
+            int addressIDReturn = 0;
             if (con.OpenConnection())
             {
-                con.Update("INSERT INTO Address VALUES (null, '" + add.HouseName + "', " + add.HouseNumber + 
-                    ", '" + add.StreetName + "', '" + add.PostCode + "');");
                 DbDataReader dr = con.Select("SELECT addressid FROM address where housename ='" + add.HouseName + "' and housenumber='" + add.HouseNumber + 
                     "' and addressLine1='" + add.StreetName + "' and postcode='" + add.PostCode + "';");
                 while (dr.Read())
                 {
-                    addid = dr.GetInt32(0);
+                    addid.Add(dr.GetInt32(0));
                 }
                 dr.Close();
                 con.CloseConnection();
+                for (int i = 0; i < addid.Count; i++)
+                {
+                    if (!addid.ElementAtOrDefault(i).Equals(null))
+                    {
+                        flg = false;
+                    }
+                }
+                if (flg)
+                {
+                    addid.Clear();
+                    if (con.OpenConnection())
+                    {
+                        con.Insert("INSERT INTO Address VALUES (null, '" + add.HouseName + "', " + add.HouseNumber +
+                            ", '" + add.StreetName + "', '" + add.PostCode + "');");
+                        con.CloseConnection();
+                    }
+                    if (con.OpenConnection())
+                    {
+                        DbDataReader dr1 = con.Select("SELECT addressid FROM address where housename ='" + add.HouseName + "' and housenumber='" + add.HouseNumber +
+                        "' and addressLine1='" + add.StreetName + "' and postcode='" + add.PostCode + "';");
+                        while (dr1.Read())
+                        {
+                            addid.Add(dr1.GetInt32(0));
+                        }
+                        dr1.Close();
+                        con.CloseConnection();
+                    }
+                }
+                addressIDReturn = addid.ElementAtOrDefault(0);
             }
-            return addid;
+            return addressIDReturn;
         }
 
         /// <summary>
@@ -1483,6 +1512,30 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return flg;
+        }
+
+        public Tuple<List<int>, List<string>, List<string>, List<string>> SearchRota(string searchParam)
+        {
+            List<int> staffID = new List<int>();
+            List<string> forename = new List<string>();
+            List<string> surname = new List<string>();
+            List<string> days = new List<string>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr =
+                    con.Select(
+                        $"SELECT r.StaffID, Forename, Surname, GROUP_CONCAT(DayName ORDER BY d.DayID ASC) FROM DayOfWeek d, Rota r, Staff s WHERE {searchParam} AND d.DayID = r.DayID AND r.StaffID = s.StaffID GROUP BY r.StaffID ORDER BY s.StaffID;");
+                while (dr.Read())
+                {
+                    staffID.Add(dr.GetInt32(0));
+                    forename.Add(dr.GetString(1));
+                    surname.Add(dr.GetString(2));
+                    days.Add(dr.GetString(3));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return new Tuple<List<int>, List<string>, List<string>, List<string>>(staffID, forename, surname, days);
         }
     }
 }

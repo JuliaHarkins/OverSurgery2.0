@@ -80,11 +80,15 @@ namespace OverSurgery2
         }
         private void updateExtention(int p_newState)
         {
-            int i = lst_extention.SelectedIndices[0];
-            Extension ex = m_extensions[i];
-            ex.Extended = p_newState;
-            ml.UpdateExtention(ex.ExtentionID, p_newState);
-            LoadList();
+            if (lst_extention.SelectedIndices.Count > 0)
+            {
+                int i = lst_extention.SelectedIndices[0];
+                Extension ex = m_extensions[i];
+                ex.Extended = p_newState;
+                ml.UpdateExtention(ex.ExtentionID, p_newState);
+                LoadList();
+            }
+            
         }
 #endregion
 

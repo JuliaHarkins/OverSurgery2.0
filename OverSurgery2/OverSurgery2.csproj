@@ -63,10 +63,16 @@
     <Compile Include="Controllers\RotaController.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="MainClasses\Extention.cs" />
-    <Compile Include="UpdateRota.cs">
+    <Compile Include="UserInterface\AppointmentConflictResolution.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UpdateRota.Designer.cs">
+    <Compile Include="UserInterface\AppointmentConflictResolution.Designer.cs">
+      <DependentUpon>AppointmentConflictResolution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\UpdateRota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\UpdateRota.Designer.cs">
       <DependentUpon>UpdateRota.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\MedicalExtention.cs">
@@ -177,13 +183,25 @@
     <Compile Include="UserInterface\ReceptionistForm.designer.cs">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\RotaSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\RotaSearch.Designer.cs">
+      <DependentUpon>RotaSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\ViewPatientInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UpdateRota.resx">
+    <EmbeddedResource Include="UserInterface\AppointmentConflictResolution.resx">
+      <DependentUpon>AppointmentConflictResolution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\RotaSearch.resx">
+      <DependentUpon>RotaSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\UpdateRota.resx">
       <DependentUpon>UpdateRota.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalExtention.resx">
