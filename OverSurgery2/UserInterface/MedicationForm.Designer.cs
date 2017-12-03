@@ -38,6 +38,8 @@
             this.lblNameMed = new System.Windows.Forms.Label();
             this.btnAddMed = new System.Windows.Forms.Button();
             this.tabUpdateMed = new System.Windows.Forms.TabPage();
+            this.btnPrevious = new System.Windows.Forms.Button();
+            this.btnNext = new System.Windows.Forms.Button();
             this.txtUpdateDosage = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.txtUpdatePermission = new System.Windows.Forms.TextBox();
@@ -51,8 +53,6 @@
             this.lblMedName = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnUpdateRota = new System.Windows.Forms.Button();
-            this.btnPrevious = new System.Windows.Forms.Button();
-            this.btnNext = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabAddMed.SuspendLayout();
             this.tabUpdateMed.SuspendLayout();
@@ -162,6 +162,26 @@
             this.tabUpdateMed.TabIndex = 0;
             this.tabUpdateMed.Text = "Update Med";
             this.tabUpdateMed.UseVisualStyleBackColor = true;
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Location = new System.Drawing.Point(331, 351);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
+            this.btnPrevious.TabIndex = 78;
+            this.btnPrevious.Text = "Prev Med";
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click_1);
+            // 
+            // btnNext
+            // 
+            this.btnNext.Location = new System.Drawing.Point(412, 351);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(75, 23);
+            this.btnNext.TabIndex = 77;
+            this.btnNext.Text = "Next Med";
+            this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click_1);
             // 
             // txtUpdateDosage
             // 
@@ -278,26 +298,6 @@
             this.btnUpdateRota.UseVisualStyleBackColor = true;
             this.btnUpdateRota.Click += new System.EventHandler(this.btnUpdateRota_Click);
             // 
-            // btnPrevious
-            // 
-            this.btnPrevious.Location = new System.Drawing.Point(331, 351);
-            this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(75, 23);
-            this.btnPrevious.TabIndex = 78;
-            this.btnPrevious.Text = "Prev Med";
-            this.btnPrevious.UseVisualStyleBackColor = true;
-            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click_1);
-            // 
-            // btnNext
-            // 
-            this.btnNext.Location = new System.Drawing.Point(412, 351);
-            this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(75, 23);
-            this.btnNext.TabIndex = 77;
-            this.btnNext.Text = "Next Med";
-            this.btnNext.UseVisualStyleBackColor = true;
-            this.btnNext.Click += new System.EventHandler(this.btnNext_Click_1);
-            // 
             // MedicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,6 +311,7 @@
             this.Controls.Add(this.btnUpdateRota);
             this.Name = "MedicationForm";
             this.Text = "MedicationForm";
+            this.Load += new System.EventHandler(this.MedicationForm_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabAddMed.ResumeLayout(false);
             this.tabAddMed.PerformLayout();

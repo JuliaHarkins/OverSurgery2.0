@@ -291,5 +291,10 @@ namespace OverSurgery2
             WriteBoxes();
             updateButtons();
         }
+
+        private void MedicationForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -54,33 +54,41 @@ namespace OverSurgery2
         }
 #endregion
 #region Methoods
+        /// <summary>
+        /// reloads the extention list.
+        /// </summary>
         private void LoadList()
         {
             m_extensions = ml.GetExtentionRequests(m_staffID);
             m_prescriptions = ml.GetExtentedPrescriptions(m_staffID);
 
             lst_extention.Items.Clear();
+            int i = 0;
+            Prescription p;
             foreach (Extension ex in m_extensions)
             {
-                foreach (Prescription p in m_prescriptions)
-                    if (ex.PrescriptionID == p.ID)
-                    {
-                        ListViewItem lvi = new ListViewItem();
-                        lvi.Text = PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Forename;
-                        lvi.SubItems.Add(PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Surname);
-                        lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                        lvi.SubItems.Add(Convert.ToString(p.Amount));
-                        
-                        lvi.SubItems.Add(p.Date.ToShortDateString());
-                        lvi.SubItems.Add(ex.Reason);
+                p = m_prescriptions[i];
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Forename;
+                lvi.SubItems.Add(PatientController.Instance().patients.Find(pa => (pa.ID == p.PatientID)).Surname);
+                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                lvi.SubItems.Add(Convert.ToString(p.Amount));
 
-                        lst_extention.Items.Add(lvi);
-                    }
+                lvi.SubItems.Add(p.Date.ToShortDateString());
+                lvi.SubItems.Add(ex.Reason);
+
+                lst_extention.Items.Add(lvi);
+
+                i++;
             }
         }
+        /// <summary>
+        /// updates the state of an to the givin state 
+        /// </summary>
+        /// <param name="p_newState"></param>
         private void updateExtention(int p_newState)
         {
-            if (lst_extention.SelectedIndices.Count > 0)
+            if (lst_extention.SelectedIndices.Count > 0 && lst_extention.SelectedIndices[0] <= lst_extention.Items.Count)
             {
                 int i = lst_extention.SelectedIndices[0];
                 Extension ex = m_extensions[i];

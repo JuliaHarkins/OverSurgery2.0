@@ -40,6 +40,7 @@ namespace OverSurgery2
             PatientPres = new BindingSource();
             Address ad = MetaLayer.Instance().GetAddressById(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
+            
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;
             TimeSpan yearsOld = (DateTime.Now - currentPatient.DateOfBirth);
@@ -58,38 +59,47 @@ namespace OverSurgery2
             }
             else if(ad.HouseName != "" && ad.HouseNumber !=null)
             {
-                lbl_HouseNameNumberText.Text = ad.HouseName + " " + ad.HouseNumber;
+                lbl_HouseNameNumberText.Text = $"{ad.HouseNumber} {ad.HouseName}";
             }
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
             m_PatientPrescriptions = ml.GetPatientsPrescriptions(currentPatient.ID);
-#endregion
+            var PrescriptionListBind = new BindingList<Prescription>(m_PatientPrescriptions);
+            var PrescriptionBinding = new BindingSource(PrescriptionListBind,null);
+            dgv_PatientsPres.RowHeadersVisible = false;
+            dgv_PatientsPres.Columns.Add("MedicationDisplay", "Medication");
+            dgv_PatientsPres.DataSource = PrescriptionBinding;
+
+            foreach (DataGridViewRow row in dgv_PatientsPres.Rows)
+            {
+                if (row.Cells["MedicationDisplay"].Value == null)
+                {
+                    row.Cells["MedicationDisplay"].Value = Convert.ToString(MetaLayer.Instance()
+                        .GetMedicationName(Convert.ToInt32(row.Cells["MedicationID"].Value)));
+                }
+            }
+            dgv_PatientsPres.Columns["ID"].DisplayIndex = 2;
+            dgv_PatientsPres.Columns["ID"].Visible = false;
+            dgv_PatientsPres.Columns["MedicationDisplay"].DisplayIndex = 1;
+
+            #endregion
         }
 
         private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
 
-        private void lst_PatientsPres_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void btn_Extend_Click(object sender, EventArgs e)
-        {
-            try
-            { 
-                Prescription pres = m_PatientPrescriptions[selectedP];
+        { 
+                
+                
+                Prescription pres = m_PatientPrescriptions.FirstOrDefault(p => p.ID == Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells[1].Value));
                 new PrescriptionExtendDialog(pres).ShowDialog();
-            }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
         }
 
-        private void lst_PatientsPres_SelectedIndexChanged(object sender, EventArgs e)
+        private void dgv_PatientsPres_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            selectedP = Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells[0].Value);
         }
     }
     public class Address

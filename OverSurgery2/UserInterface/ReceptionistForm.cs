@@ -109,7 +109,7 @@ namespace OverSurgery2
         private void SetDgvAppointmentDisplay()
         {
             #region SetColumnDisplaysAppointments
-            dgv_Patients.RowHeadersVisible = false;
+            dgv_Appointments.RowHeadersVisible = false;
             dgv_Appointments.Columns["AppointmentID"].Visible = false;
             dgv_Appointments.Columns["AppointmentID"].DisplayIndex = 0;
             dgv_Appointments.Columns["AppTime"].Visible = false;
