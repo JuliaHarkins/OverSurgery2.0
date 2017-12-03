@@ -12,9 +12,27 @@ namespace OverSurgery2.UserInterface
 {
     public partial class AppointmentConflictResolution : Form
     {
+        public int PatID { get; set; }
         public AppointmentConflictResolution()
         {
             InitializeComponent();
+        }
+
+        private void AppointmentConflictResolution_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AppointmentConflictResolution_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //
+        }
+
+        private void BtnConfirm_Click(object sender, EventArgs e)
+        {
+            this.PatID = 0;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
         }
     }
 }
