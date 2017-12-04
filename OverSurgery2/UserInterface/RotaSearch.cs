@@ -129,7 +129,10 @@ namespace OverSurgery2.UserInterface
 
         private void dG_Suggested_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Running_DisplayMethod_FromDatagrid();
+            if (e.RowIndex != -1)
+            {
+                Running_DisplayMethod_FromDatagrid();
+            }
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
@@ -140,14 +143,19 @@ namespace OverSurgery2.UserInterface
         private void BtnClearDisp_Click(object sender, EventArgs e)
         {
             dG_Suggested.Rows.Clear();
+            m_staffID = null;
+            txtBxForename.Text =
+            txtBxSurname.Text = null;
+            Clear();
+        }
+
+        private void Clear()
+        {
             txtDispMon.Text =
             txtDispTue.Text =
             txtDispWed.Text =
             txtDispThur.Text =
             txtDispFri.Text = "[Insert Data]";
-            m_staffID = null;
-            txtBxForename.Text = 
-            txtBxSurname.Text = null;
         }
 
         private void BtnUpdate_Click(object sender, EventArgs e)
@@ -158,6 +166,8 @@ namespace OverSurgery2.UserInterface
                 this.Hide();
                 Tuple<int, string[], bool[]> data = rf.Update(m_staffID);
                 new UpdateRota(data.Item1, data.Item2, data.Item3).ShowDialog();
+                Clear();
+                Find();
                 this.Show();
             }
             else
@@ -165,6 +175,11 @@ namespace OverSurgery2.UserInterface
                 MessageBox.Show("Please Select Member of Staff from\n" +
                                 "The Right Hand Pane");
             }
+        }
+
+        private void dG_Suggested_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //
         }
     }
 }

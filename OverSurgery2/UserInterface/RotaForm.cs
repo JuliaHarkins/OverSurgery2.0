@@ -18,7 +18,6 @@ namespace OverSurgery2
         private bool m_wedSet;
         private bool m_thurSet;
         private bool m_friSet;
-        private List<int> m_staffID = new List<int>();
         private RotaFormBackEnd rfb;
         public RotaForm()
         {
@@ -33,7 +32,6 @@ namespace OverSurgery2
             for (int i = 0, j = 0; j < rotaData.Count; i++, j++)
             {
                 dG_Rota.Rows.Add();
-                m_staffID.Add(rotaData.ElementAtOrDefault(j).StaffID);
                 dG_Rota[0, i].Value = rotaData.ElementAtOrDefault(j).Forename;
                 dG_Rota[1, i].Value = rotaData.ElementAtOrDefault(j).Surname;
                 if (rotaData.ElementAtOrDefault(i).Days.Contains("Mon"))
@@ -105,7 +103,7 @@ namespace OverSurgery2
             if (locale == null)
             {
                 rowIndex = dG_Rota.SelectedCells[0].RowIndex;
-                staffID = m_staffID.ElementAtOrDefault(Convert.ToInt32(dG_Rota[7, rowIndex].Value) - 1);
+                staffID = (int)dG_Rota[7, rowIndex].Value;
             }
             else
             {
@@ -187,6 +185,8 @@ namespace OverSurgery2
         {
             this.Hide();
             new RotaSearch().ShowDialog();
+            dG_Rota.Rows.Clear();
+            LoadRota(rfb.LoadRota());
             this.Show();
         }
     }

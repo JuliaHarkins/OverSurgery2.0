@@ -241,12 +241,14 @@
             this.Forename,
             this.Surname});
             this.dG_Suggested.Location = new System.Drawing.Point(7, 22);
+            this.dG_Suggested.MultiSelect = false;
             this.dG_Suggested.Name = "dG_Suggested";
             this.dG_Suggested.ReadOnly = true;
             this.dG_Suggested.RowTemplate.Height = 24;
             this.dG_Suggested.Size = new System.Drawing.Size(427, 150);
             this.dG_Suggested.TabIndex = 0;
             this.dG_Suggested.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dG_Suggested_CellClick);
+            this.dG_Suggested.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dG_Suggested_ColumnHeaderMouseClick);
             // 
             // StaffID
             // 
