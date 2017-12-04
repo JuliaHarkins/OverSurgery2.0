@@ -13,6 +13,7 @@ namespace OverSurgery2.UserInterface
     public partial class RotaSearch : Form
     {
         MetaLayer ml =  MetaLayer.Instance();
+        private int? m_staffID = null;
         public RotaSearch()
         {
             InitializeComponent();
@@ -67,6 +68,7 @@ namespace OverSurgery2.UserInterface
         {
             if (staffID.Count == 1)
             {
+                m_staffID = staffID.ElementAtOrDefault(0);
                 string dataToDisplay = days.ElementAtOrDefault(0);
                 if (dataToDisplay.Contains("Mon"))
                 {
@@ -110,6 +112,7 @@ namespace OverSurgery2.UserInterface
             int staffID = Convert.ToInt32(dG_Suggested.Rows[rowIndex].Cells["StaffID"].Value);
             if (staffID != 0)
             {
+                m_staffID = staffID;
                 string searchParam = $"s.StaffID = '{staffID}'";
                 Display(
                     ml.SearchRota(searchParam).Item1,
@@ -126,7 +129,10 @@ namespace OverSurgery2.UserInterface
 
         private void dG_Suggested_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Running_DisplayMethod_FromDatagrid();
+            if (e.RowIndex != -1)
+            {
+                Running_DisplayMethod_FromDatagrid();
+            }
         }
 
         private void BtnClose_Click(object sender, EventArgs e)
@@ -137,13 +143,43 @@ namespace OverSurgery2.UserInterface
         private void BtnClearDisp_Click(object sender, EventArgs e)
         {
             dG_Suggested.Rows.Clear();
+            m_staffID = null;
+            txtBxForename.Text =
+            txtBxSurname.Text = null;
+            Clear();
+        }
+
+        private void Clear()
+        {
             txtDispMon.Text =
             txtDispTue.Text =
             txtDispWed.Text =
             txtDispThur.Text =
             txtDispFri.Text = "[Insert Data]";
-            txtBxForename.Text = 
-            txtBxSurname.Text = null;
+        }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            if (m_staffID != null)
+            {
+                RotaForm rf = new RotaForm();
+                this.Hide();
+                Tuple<int, string[], bool[]> data = rf.Update(m_staffID);
+                new UpdateRota(data.Item1, data.Item2, data.Item3).ShowDialog();
+                Clear();
+                Find();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please Select Member of Staff from\n" +
+                                "The Right Hand Pane");
+            }
+        }
+
+        private void dG_Suggested_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //
         }
     }
 }
