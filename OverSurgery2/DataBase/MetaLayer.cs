@@ -1507,11 +1507,6 @@ namespace OverSurgery2
             return flg;
         }
 
-        public void SelectFromRota()
-        {
-            //
-        }
-
         public Tuple<List<int>, List<string>, List<string>, List<string>> SearchRota(string searchParam)
         {
             List<int> staffID = new List<int>();
@@ -1580,28 +1575,32 @@ namespace OverSurgery2
             return patientID;
         }
 
-        public List<Appointment> SelectAppointmentBetweenDates_WithMedicalStaffIDAddOn(string searchParam, int date)
+        public Tuple<List<int>, List<string>, List<string>, List<string>, List<int>, List<string>, List<string>> SelectPatientAddress(string searchParam)
         {
-            List<Appointment> app = new List<Appointment>();
-            Appointment a;
+            List<int> patientID = new List<int>();
+            List<string> forename = new List<string>();
+            List<string> surname = new List<string>();
+            List<string> houseName = new List<string>();
+            List<int> houseNumber = new List<int>();
+            List<string> addressLine = new List<string>();
+            List<string> postCode = new List<string>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select($"SELECT * FROM Appointment WHERE AppointmentDate = {date}{searchParam};");
+                DbDataReader dr = con.Select($"SELECT PatientID, Forename, Surname, HouseName, HouseNumber, AddressLine1, PostCode FROM Patient p, Address a WHERE {searchParam} AND p.AddressID = a.AddressID");
                 while (dr.Read())
                 {
-                    a = new Appointment
-                    {
-                        AppointmentID = dr.GetInt16(0),
-                        AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
-                        AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
-                        MedicalStaffID = dr.GetInt16(5),
-                    };
-                    app.Add(a);
+                    patientID.Add(dr.GetInt32(0));
+                    forename.Add(dr.GetString(1));
+                    surname.Add(dr.GetString(2));
+                    houseName.Add(dr.IsDBNull(3) ? "[#UDEF]" : dr.GetString(3));
+                    houseNumber.Add(dr.IsDBNull(4) ? 0 : dr.GetInt32(4));
+                    addressLine.Add(dr.GetString(5));
+                    postCode.Add(dr.GetString(6));
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            return app;
+            return new Tuple<List<int>, List<string>, List<string>, List<string>, List<int>, List<string>, List<string>>(patientID, forename, surname,houseName, houseNumber, addressLine, postCode);
         }
 
         public List<int> GetMedicalStaffID(string searchParam)
@@ -1618,6 +1617,24 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return medicalStaffID;
+        }
+
+        public Tuple<List<int>, List<string>> SelectCurrentAppointments(string data, string searchParam)
+        {
+            List<int> time = new List<int>();
+            List<string> medicalStaffID_Concat = new List<string>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT {data} FROM Appointment WHERE {searchParam}");
+                while (dr.Read())
+                {
+                    time.Add(dr.GetInt32(0));
+                    medicalStaffID_Concat.Add(dr.GetString(1));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return new Tuple<List<int>, List<string>>(time, medicalStaffID_Concat);
         }
 
         public bool AddAppointment(int appointmentDate, int appointmentTime, string appointmentNotes, int medicalStaffID, int patientID)

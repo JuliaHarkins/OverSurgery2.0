@@ -10,7 +10,6 @@ namespace OverSurgery2.UserInterface
     {
         public class TimeSheet
         {
-            public int MedicalStaffID {get;set;}
             public DateTime AppDate {get;set;}
             public DateTime AppTime {get;set;}
         }
@@ -19,7 +18,6 @@ namespace OverSurgery2.UserInterface
         {
             TimeSheet ts;
             List<TimeSheet> returnData = new List<TimeSheet>();
-            List<int> mStaffID = ml.GetMedicalStaffID("");
 
             for (int i = 9; i < 17; i++)
             {
@@ -41,6 +39,38 @@ namespace OverSurgery2.UserInterface
             string searchParam = $"Forename = '{forename}' AND Surname = '{surname}'";
             List<int> returnData = ml.SelectPatient(searchParam);
             return returnData;
+        }
+
+        public Tuple<List<int>, List<string>, List<string>, List<string>> SelectPatientAddress(string forename, string surname)
+        {
+            string searchParam = $"Forename = '{forename}' AND Surname = '{surname}'";
+
+            Tuple<List<int>, List<string>, List<string>, List<string>, List<int>, List<string>, List<string>>
+                returnData = ml.SelectPatientAddress(searchParam);
+
+            List<int> patientID = returnData.Item1;
+            List<string> m_forename = returnData.Item2;
+            List<string> m_surname = returnData.Item3;
+            List<string> address = new List<string>();
+
+            for (int i = 0; i < returnData.Item4.Count; i++)
+            {
+                StringBuilder sb = new StringBuilder();
+                if (returnData.Item5.ElementAtOrDefault(i) == 0)
+                {
+                    sb.Append(returnData.Item4.ElementAtOrDefault(i) + " ");
+                }
+                else
+                {
+                    sb.Append(returnData.Item5.ElementAtOrDefault(i) + " ");
+                }
+                sb.Append(returnData.Item6.ElementAtOrDefault(i) + " ");
+                sb.Append(returnData.Item7.ElementAtOrDefault(i));
+
+                address.Add(sb.ToString());
+            }
+
+            return new Tuple<List<int>, List<string>, List<string>, List<string>>(patientID, m_forename, m_surname, address);
         }
 
         public List<string> ReturnMedicalStaff(string tables, string searchParam)
@@ -82,7 +112,7 @@ namespace OverSurgery2.UserInterface
             return flag;
         }
         /// <summary>
-        /// Filters availability based on Medical Staff, in a given date range
+        /// Generates all possible Appointments
         /// </summary>
         /// <param name="staffName"></param>
         /// <param name="dateFrom"></param>

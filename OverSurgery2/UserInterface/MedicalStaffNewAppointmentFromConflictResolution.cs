@@ -12,7 +12,8 @@ namespace OverSurgery2.UserInterface
 {
     public partial class MedicalStaffNewAppointmentFromConflictResolution : Form
     {
-        private bool CloseFlag { get; set; }
+        private bool m_closeFlag = true;
+        private bool CloseFlag { get { return m_closeFlag; } set { m_closeFlag = value; } }
         public string MedicalstaffName { get; set; }
         private List<string> StaffName { get; set; }
         public MedicalStaffNewAppointmentFromConflictResolution(string medicalStaffName)
@@ -36,7 +37,7 @@ namespace OverSurgery2.UserInterface
         {
             if (CloseFlag)
             {
-                e.Cancel = false;
+                e.Cancel = true;
             }
 
         }
@@ -45,7 +46,7 @@ namespace OverSurgery2.UserInterface
         {
             MedicalstaffName = cbxStaffName.Text;
             this.DialogResult = DialogResult.OK;
-            CloseFlag = true;
+            CloseFlag = false;
         }
     }
 }

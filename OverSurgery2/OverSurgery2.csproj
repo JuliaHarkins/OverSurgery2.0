@@ -78,6 +78,7 @@
       <DependentUpon>MedicalStaffNewAppointmentFromConflictResolution.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\NewAppointmentFormBackEnd.cs" />
+    <Compile Include="UserInterface\RotaFormBackEnd.cs" />
     <Compile Include="UserInterface\UpdateRota.cs">
       <SubType>Form</SubType>
     </Compile>

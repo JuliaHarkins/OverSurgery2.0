@@ -61,7 +61,7 @@ namespace OverSurgery2.UserInterface
                     if (patientID.Count > 1)
                     {
                         this.Hide();
-                        using (var form = new AppointmentConflictResolution())
+                        using (var form = new AppointmentConflictResolution(forename, surname))
                         {
                             var result = form.ShowDialog();
                             if (result == DialogResult.OK)

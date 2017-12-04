@@ -13,6 +13,7 @@ namespace OverSurgery2.UserInterface
     public partial class RotaSearch : Form
     {
         MetaLayer ml =  MetaLayer.Instance();
+        private int? m_staffID = null;
         public RotaSearch()
         {
             InitializeComponent();
@@ -67,6 +68,7 @@ namespace OverSurgery2.UserInterface
         {
             if (staffID.Count == 1)
             {
+                m_staffID = staffID.ElementAtOrDefault(0);
                 string dataToDisplay = days.ElementAtOrDefault(0);
                 if (dataToDisplay.Contains("Mon"))
                 {
@@ -110,6 +112,7 @@ namespace OverSurgery2.UserInterface
             int staffID = Convert.ToInt32(dG_Suggested.Rows[rowIndex].Cells["StaffID"].Value);
             if (staffID != 0)
             {
+                m_staffID = staffID;
                 string searchParam = $"s.StaffID = '{staffID}'";
                 Display(
                     ml.SearchRota(searchParam).Item1,
@@ -142,8 +145,26 @@ namespace OverSurgery2.UserInterface
             txtDispWed.Text =
             txtDispThur.Text =
             txtDispFri.Text = "[Insert Data]";
+            m_staffID = null;
             txtBxForename.Text = 
             txtBxSurname.Text = null;
+        }
+
+        private void BtnUpdate_Click(object sender, EventArgs e)
+        {
+            if (m_staffID != null)
+            {
+                RotaForm rf = new RotaForm();
+                this.Hide();
+                Tuple<int, string[], bool[]> data = rf.Update(m_staffID);
+                new UpdateRota(data.Item1, data.Item2, data.Item3).ShowDialog();
+                this.Show();
+            }
+            else
+            {
+                MessageBox.Show("Please Select Member of Staff from\n" +
+                                "The Right Hand Pane");
+            }
         }
     }
 }
