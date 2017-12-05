@@ -23,7 +23,7 @@ namespace OverSurgery2.UserInterface
             cbxMonth.MaxDropDownItems = 6;
             dGAppointment.RowHeadersVisible = false;
             PopulateDoctorFilter(m_tables, m_searchParam);
-            PopulateDataGrid(npb.GenerateAppointmentList(DayCheck(DateTime.Now)), npb.ReturnMedicalStaff(m_tables, m_searchParam));
+            PopulateDataGrid(npb.SequenceAppointments(DayCheck(DateTime.Now), null));
             PopulateYear();
             PopulateMonth();
             PopulateDay();
@@ -106,39 +106,52 @@ namespace OverSurgery2.UserInterface
             return err;
         }
 
-        private void DateFilter()
-        {
-            //
-        }
-
-        private void PopulateDataGrid(Tuple<List<string>, List<string>> data, List<string> medicalStaff)
+        private void PopulateDataGrid(Tuple<List<string>, List<string>, List<string>> data)
         {
             dGAppointment.Rows.Clear();
-            StringBuilder sb;
+            int j = 0;
             for (int i = 0; i < data.Item2.Count; i++)
             {
-                sb = new StringBuilder();
-                foreach (string name in medicalStaff)
+                if (data.Item3.ElementAtOrDefault(i) != null)
                 {
-                    string m_name = name.Remove(name.Length - 4);
-                    sb.Append(m_name);
-                    sb.Append(", ");
+                    if (data.Item3.ElementAtOrDefault(i) != "")
+                    {
+                        dGAppointment.Rows.Add();
+                        dGAppointment.Rows[j].Cells[1].Value = data.Item2.ElementAtOrDefault(i);
+                        dGAppointment.Rows[j].Cells[2].Value = data.Item1.ElementAtOrDefault(i);
+                        dGAppointment.Rows[j].Cells[3].Value = data.Item3.ElementAtOrDefault(i).Remove(data.Item3.ElementAtOrDefault(i).Length -2);
+                        j++;
+                    }
                 }
-
-                dGAppointment.Rows.Add();
-                dGAppointment.Rows[i].Cells[1].Value = data.Item2.ElementAtOrDefault(i);
-                dGAppointment.Rows[i].Cells[2].Value = data.Item1.ElementAtOrDefault(i);
-                dGAppointment.Rows[i].Cells[3].Value = sb.ToString().Remove(sb.Length -2);
+            }
+            if (dGAppointment.RowCount == 0)
+            {
+                PopulateDoctorFilter(m_tables, m_searchParam);
+                DoctorFilter();
             }
         }
 
         private void DoctorFilter()
         {
-            string staffName;
+            string staffName, searchOn;
             DateTime date;
             if (cbxDay.Text != "Day")
             {
-                date = Convert.ToDateTime(cbxDay.Text + "/" + cbxMonth.Text + "/" + cbxYear.Text);
+                if (cbxDay != null)
+                {
+                    if (cbxDay.Text != "")
+                    {
+                        date = Convert.ToDateTime(cbxDay.Text + "/" + cbxMonth.Text + "/" + cbxYear.Text);
+                    }
+                    else
+                    {
+                        date = DayCheck(DateTime.Now);
+                    }
+                }
+                else
+                {
+                    date = DayCheck(DateTime.Now);
+                }
             }
             else
             {
@@ -147,11 +160,16 @@ namespace OverSurgery2.UserInterface
             if (cbxDoctorFilter.Text.Contains("["))
             {
                 staffName = "";
+                searchOn = null;
             }
             else
             {
                 staffName = cbxDoctorFilter.Text;
                 staffName.Remove(staffName.Length - 4);
+                staffName = staffName.TrimStart(' ');
+                staffName = staffName.TrimEnd(' ');
+                string[] split = staffName.Split(' ');
+                searchOn = $" AND Forename = '{split[0]}' AND Surname = '{split[1]}'";
             }
             string tables = m_tables + ", DayOfWeek d";
             string search = "";
@@ -174,8 +192,11 @@ namespace OverSurgery2.UserInterface
                     break;
             }
             string searchParam = m_searchParam + $" AND d.DayID = r.DayID AND DayName = '{search}'";
-            PopulateDoctorFilter(tables, searchParam);
-            PopulateDataGrid(npb.GenerateAppointmentList(date), npb.ReturnMedicalStaff(tables, searchParam));
+            if (searchOn == null)
+            {
+                PopulateDoctorFilter(tables, searchParam);
+            }
+            PopulateDataGrid(npb.SequenceAppointments(date, searchOn));
         }
 
         private void BtnReturn_Click(object sender, EventArgs e)
@@ -217,12 +238,17 @@ namespace OverSurgery2.UserInterface
                     medStaffName = dGAppointment.Rows[rowIndex].Cells[3].Value.ToString();
                 }
                 string notes = RemoveSpecialChars(Interaction.InputBox("Add Notes (If Applicable)?", "Notes"));
-                bool flg = npb.InsertAppointment(patientID, date, time, notes, medStaffName);
+                int flg = npb.InsertAppointment(patientID, date, time, notes, medStaffName);
 
-                if (flg)
+                if (flg == 3)
                 {
                     MessageBox.Show("Appointment Saved");
                     this.Close();
+                }
+                else if (flg == 0)
+                {
+                    MessageBox.Show("The Selected Patient Already has an Appointment at This Time\n" +
+                                    "Concider Cancelling it Before Making a New One");
                 }
                 else
                 {
@@ -336,12 +362,12 @@ namespace OverSurgery2.UserInterface
 
         private void cbxDoctorFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //
+            DoctorFilter();
         }
 
         private void cbxDoctorFilter_DropDownClosed(object sender, EventArgs e)
         {
-            //
+            DoctorFilter();
         }
 
         private void cbxYear_SelectedIndexChanged(object sender, EventArgs e)

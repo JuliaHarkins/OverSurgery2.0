@@ -1598,31 +1598,64 @@ namespace OverSurgery2
             return medicalStaffID;
         }
 
-        public Tuple<List<int>, List<string>> SelectCurrentAppointments(string data, string searchParam)
+        public List<int> SelectCurrentAppointments(string data, string searchParam)
         {
             List<int> time = new List<int>();
-            List<string> medicalStaffID_Concat = new List<string>();
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select($"SELECT {data} FROM Appointment WHERE {searchParam}");
                 while (dr.Read())
                 {
                     time.Add(dr.GetInt32(0));
-                    medicalStaffID_Concat.Add(dr.GetString(1));
                 }
                 dr.Close();
                 con.CloseConnection();
             }
-            return new Tuple<List<int>, List<string>>(time, medicalStaffID_Concat);
+            return new List<int>(time);
         }
 
-        public bool AddAppointment(int appointmentDate, int appointmentTime, string appointmentNotes, int medicalStaffID, int patientID)
+        public int AddAppointment(int appointmentDate, int appointmentTime, string appointmentNotes, int medicalStaffID, int patientID)
         {
-            bool flg = false;
+            int flg = 2;
             if (con.OpenConnection())
             {
                 con.Insert($"INSERT INTO Appointment Values (null, {appointmentDate}, {appointmentTime}, '{appointmentNotes}', 0, {medicalStaffID}, {patientID});");
-                flg = true;
+                flg = 3;
+                con.CloseConnection();
+            }
+            return flg;
+        }
+
+        public string ReturnMedicalStaffName(int medicalStaffID)
+        {
+            string medicalStaffName = "";
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT Forename, Surname FROM MedicalStaff ms, Staff s WHERE MedicalStaffID = {medicalStaffID} AND ms.StaffID = s.StaffID LIMIT 1");
+                while (dr.Read())
+                {
+                    medicalStaffName = dr.GetString(0) + " " + dr.GetString(1);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return medicalStaffName;
+        }
+
+        public int AppointmentCheck(string checkParam)
+        {
+            int flg = 1;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT AppointmentID FROM Appointment WHERE {checkParam}");
+                while (dr.Read())
+                {
+                    if (!dr.IsDBNull(0))
+                    {
+                        flg = 0;
+                    }
+                }
+                dr.Close();
                 con.CloseConnection();
             }
             return flg;
