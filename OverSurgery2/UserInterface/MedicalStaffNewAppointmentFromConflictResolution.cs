@@ -19,6 +19,7 @@ namespace OverSurgery2.UserInterface
         public MedicalStaffNewAppointmentFromConflictResolution(string medicalStaffName)
         {
             InitializeComponent();
+            this.Text = "Select Staff Member";
             StaffName = new List<string>();
             string[] split = medicalStaffName.Split(',');
             foreach (string name in split)

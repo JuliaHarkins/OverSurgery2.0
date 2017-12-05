@@ -18,6 +18,7 @@ namespace OverSurgery2.UserInterface
         {
             InitializeComponent();
             dG_Suggested.RowHeadersVisible = false;
+            this.Text = "Search Rota";
         }
 
         private void Find()
