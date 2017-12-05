@@ -59,16 +59,14 @@ namespace OverSurgery2
             bool m_flg;
             string p_username;
             string p_password;
-            Tuple<string, string, int?> m_login;
 #endregion
 #region Initialisation
             m_flg = false;
             p_username = p_loginPassThrough["Username"];
             p_password = p_loginPassThrough["Password"];
-            m_login = new Tuple<string, string, int?>(null, null, null);
-#endregion
+            #endregion
 #region Execution
-            m_login = ml.GetLogin(p_username);
+            Tuple<string, string, int?> m_login = ml.GetLogin(p_username);
 
             if (p_username == m_login.Item1)
             {
@@ -82,10 +80,6 @@ namespace OverSurgery2
                         {"Password", p_password }
                     };
                 }
-            }
-            else
-            {
-                m_flg = false;
             }
 #endregion
 #region Return
