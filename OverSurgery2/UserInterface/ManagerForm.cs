@@ -86,6 +86,13 @@ namespace OverSurgery2
             // Update text boxes with new information
             try
             {
+                // If the staff member is not a medical staff clear the fields that are not being updated
+                if (searchedStaff.Type == 4 || searchedStaff.Type == 5)
+                {
+                    txtUpdatePhone.Text = "";
+                    cboUpdateGender.Text = "";
+                }
+
                 WriteBoxes();
             }
             catch(Exception ex)
@@ -367,9 +374,9 @@ namespace OverSurgery2
                     if (searchedStaff.Type == 1||searchedStaff.Type==2||searchedStaff.Type==3)
                     {
                         MedicalStaff newMedicalStaff = MetaLayer.Instance().GetMedicalStaffByStaffID(searchedStaff.StaffID, searchedStaff.Type) as MedicalStaff;
-                        cboUpdateGender.SelectedIndex = (int)newMedicalStaff.Gender;
                         cboUpdateGender.Enabled = true;
                         txtUpdatePhone.Enabled = true;
+                        cboUpdateGender.Text = cboUpdateGender.Items[Convert.ToInt32(newMedicalStaff.Gender)].ToString();
                         txtUpdatePhone.Text = newMedicalStaff.PhoneNumber;
                         
                     }
@@ -415,7 +422,6 @@ namespace OverSurgery2
             {
                 txtAddPhone.Enabled = false;
                 cboAddGender.Enabled = false;
-                
             }
             else
             {
@@ -443,6 +449,7 @@ namespace OverSurgery2
             txtAddHouseNumber.Text = "";
             txtAddAddressLine.Text = "";
             txtAddPostCode.Text = "";
+            cboAddGender.Text = "";
 
             // Clear update tab fields
             txtUpdateUserName.Text = "";
@@ -454,6 +461,7 @@ namespace OverSurgery2
             txtUpdateHouseNumber.Text = "";
             txtUpdateAddressLine.Text = "";
             txtUpdatePostCode.Text = "";
+            cboUpdateGender.Text = "";
         }
     }
 }
