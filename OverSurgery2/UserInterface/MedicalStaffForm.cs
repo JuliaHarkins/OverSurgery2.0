@@ -8,13 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-/*
- * This form is from all medical staff allowing them to prefrom 
- * their dayly functuions while creating and updating records.
- * 
- * Last Updated : 15/11/17
- * By: J
- */
 
 namespace OverSurgery2
 {
@@ -26,13 +19,16 @@ namespace OverSurgery2
         List<Appointment> m_appointments;                   // the list of the current users appointments for today
         List<MedicalHistory> m_medicalHistory;
         List<Prescription> m_prescriptions;
-        MedicalStaff m_currentUser; 
+        MedicalStaff m_currentUser;
+        StringBuilder sb = new StringBuilder();
         int m_appointmentListCounter;                       // the current position in the appointment list.
         #endregion
-#region Constructor
+        #region Constructor
         /// <summary>
         /// Checks if the user is a doctor or a general medical staff member
-        /// so that the correct buttons are shown. 
+        /// so that the correct buttons are shown.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="p_currentUser">the user who has logged on</param>
         public MedicalStaffForm(Staff p_currentUser)
@@ -42,11 +38,6 @@ namespace OverSurgery2
         }
 #endregion
 #region Load
-        /// <summary>
-        /// what happens on the load of the form
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
             //checks there is information to load, and shows the relivent appointment information.
@@ -89,28 +80,9 @@ namespace OverSurgery2
                 lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
 
             #endregion
-#region SetsExtentionAmount
-            //checks if the user is a doctor and shows the amount of extentions,
-            //or it hides the button from non-doctors
-            if (m_currentUser.Type == 3)
-            {
-                int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
-
-                if (extention != 0)
-                {
-                    btn_extRequest.Text = "Extention Requests : " + extention;
-                    
-                }
-                else
-                {
-                    btn_extRequest.Text = "Extention Requests : 0";
-                }
-                btn_extRequest.Visible = true;
-            }
-            else
-            {
-                btn_extRequest.Hide();
-            }
+            #region SetsExtentionAmount
+            CheckExtentionButton();
+            
 #endregion
         }
 #endregion
@@ -140,7 +112,15 @@ namespace OverSurgery2
         {
             if (m_currentUser != null)
             {
-                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID).ShowDialog();
+                if (m_appointments.Count != 0)
+                {
+                    string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
+                    new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to add add a prescription as there is no patient selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             SelectMedicalHistory();
         }
@@ -148,86 +128,121 @@ namespace OverSurgery2
         private void btn_extRequest_Click(object sender, EventArgs e)
         {
             new MedicalExtention(Convert.ToInt32(m_currentUser.MedicalStaffID)).ShowDialog();
-                
+            CheckExtentionButton();
+
+
         }
         /// <summary>
-        /// saves the new patient notes to the medical hsitory of the patient
+        /// saves the new patient notes to the medical hsitory of the patient.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_saveNotes_Click(object sender, EventArgs e)
         {
+            string notes ="";
             MedicalHistory mh;
             if (btn_saveNotes.Text != null)
             {
-                mh = new MedicalHistory
+                sb.Clear();
+                foreach (var ch in txt_CurrentNotes.Text)
+                {
+                    if (ch == '\'')
                     {
-                         ID = null,
-                         Notes =txt_CurrentNotes.Text,
-                         Date = DateTime.Now,
-                         PatientID = m_appointments[m_appointmentListCounter].PatientID
+                        sb.Append("\'").Append(ch);
+                    }
+                    else
+                    {
+                        sb.Append(ch);
+                    }
+                    notes = sb.ToString();
+                    
+                }
+                
+                if (m_appointments.Count != 0)
+                {
+                    mh = new MedicalHistory
+                    {
+                        ID = null,
+
+                        
+
+                    Notes = notes,
+                        Date = DateTime.Now,
+                        PatientID = m_appointments[m_appointmentListCounter].PatientID
                     };
 
-                ml.AddMedicalHistoryToTheDatabase(mh);
-                txt_CurrentNotes.Clear();
-                SelectMedicalHistory();
-                /*
-                 * Neater solution
-                 * ml.AddMedicalHistoryToTheDatabase(
-                 * new Notes { PatientID = m_currentPatient.ID, MedHistory = CurrentNotes.Text, DateOf = DateTime.Now, MedicalHistoryID = null});
-                 */
+                    ml.AddMedicalHistoryToTheDatabase(mh);
+                    txt_CurrentNotes.Clear();
+                    SelectMedicalHistory();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to add Medical Histoy as there is no patient selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         /// <summary>
         /// highlights next patient appointment upon click of button and de selects the currently selected.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender">MedicalStaffForm</param>
         /// <param name="e"></param>
         private void btn_nextPatient_Click(object sender, EventArgs e)
-        {
-            if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
-                && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
+        {if (m_appointments.Count != 0)
             {
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
-                dgv_AppointmentList.CurrentRow.Selected = false;
-
-                if (m_appointmentListCounter < dgv_AppointmentList.RowCount - 1)
+                if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
+                    && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
                 {
-                    m_appointmentListCounter++;
-                }
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                    dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                    dgv_AppointmentList.CurrentRow.Selected = false;
 
-                dgv_AppointmentList.CurrentRow.Selected = true;
-                SelectMedicalHistory();
+                    if (m_appointmentListCounter < dgv_AppointmentList.RowCount - 1)
+                    {
+                        m_appointmentListCounter++;
+                    }
+                    dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+
+                    dgv_AppointmentList.CurrentRow.Selected = true;
+                    SelectMedicalHistory();
+                }
             }
 
         }
-        
+
 
         /// <summary>
         /// Highlights the Previous Patient, and updates the list position upon click of button.
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender">MedicalStaffForm</param>
         /// <param name="e"></param>
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
-
-            if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount && dgv_AppointmentList.CurrentCell.RowIndex > 0)
+            if (m_appointments.Count != 0)
             {
+                if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount && dgv_AppointmentList.CurrentCell.RowIndex > 0)
+                {
 
-                m_appointmentListCounter--;
+                    m_appointmentListCounter--;
 
-                dgv_AppointmentList.CurrentRow.Selected = false;
+                    dgv_AppointmentList.CurrentRow.Selected = false;
 
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                    dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
 
-                dgv_AppointmentList.CurrentRow.Selected = true;
-                SelectMedicalHistory();
+                    dgv_AppointmentList.CurrentRow.Selected = true;
+                    SelectMedicalHistory();
+                }
             }
 
         }
         /// <summary>
         /// Exits 
+        /// By j
+        /// Last Updated : 30/11/17
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -258,26 +273,34 @@ namespace OverSurgery2
             lst_Prescriptions.Columns.Add("Medication", 175);
             lst_Prescriptions.Columns.Add("Amount", 75);
             lst_Prescriptions.Columns.Add("By", 148);
-
-            m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-            m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
-            foreach (MedicalHistory mh in m_medicalHistory)
+            if (m_appointments.Count != 0)
             {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = mh.Date.ToShortDateString();
-                lvi.SubItems.Add(mh.Notes);
-                lst_MedicalHistory.Items.Add(lvi);
-            }
-            foreach (Prescription p in m_prescriptions)
-            {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = p.Date.ToShortDateString();
-                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                lvi.SubItems.Add(p.Amount.ToString());
-                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                lst_Prescriptions.Items.Add(lvi);
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+                if (m_medicalHistory != null)
+                {
+                    foreach (MedicalHistory mh in m_medicalHistory)
+                    {
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = mh.Date.ToShortDateString();
+                        lvi.SubItems.Add(mh.Notes);
+                        lst_MedicalHistory.Items.Add(lvi);
+                    }
+                }
+                if (m_prescriptions != null)
+                {
+                    foreach (Prescription p in m_prescriptions)
+                    {
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = p.Date.ToShortDateString();
+                        lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                        lvi.SubItems.Add(p.Amount.ToString());
+                        //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
+                        lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
+                        lst_Prescriptions.Items.Add(lvi);
 
+                    }
+                }
             }
             
         }
@@ -293,6 +316,34 @@ namespace OverSurgery2
         {
 
         }
+        #endregion
+        /// <summary>
+        /// Checks if the user is a doctor and updates the extentioin buttom accordingly 
+        /// By j
+        /// Last Updated : 30/11/17
+        /// </summary>
+        public void CheckExtentionButton()
+        {
+            if (m_currentUser.Type == 3)
+            {
+                int extention = ml.DoctorExtentionCount(Convert.ToInt32(m_currentUser.MedicalStaffID));
+
+                if (extention != 0)
+                {
+                    btn_extRequest.Text = "Extention Requests : " + extention;
+
+                }
+                else
+                {
+                    btn_extRequest.Text = "Extention Requests : 0";
+                }
+                btn_extRequest.Visible = true;
+            }
+            else
+            {
+                btn_extRequest.Hide();
+            }
+        }
     }
-    #endregion
+    
 }

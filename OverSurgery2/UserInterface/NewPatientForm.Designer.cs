@@ -195,6 +195,9 @@
             // cbx_Gender
             // 
             this.cbx_Gender.FormattingEnabled = true;
+            this.cbx_Gender.Items.AddRange(new object[] {
+            "Female",
+            "Male"});
             this.cbx_Gender.Location = new System.Drawing.Point(126, 102);
             this.cbx_Gender.Name = "cbx_Gender";
             this.cbx_Gender.Size = new System.Drawing.Size(170, 28);

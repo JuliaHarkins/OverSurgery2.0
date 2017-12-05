@@ -58,6 +58,7 @@ namespace OverSurgery2
         /// </summary>
         public void AddPatient(Patient p_Patient)
         {
+            //MetaLayer.Instance().InsertNewPatient(p_Patient);
             Logger.GetLogger().AddLog(new LoggerEvent(DateTime.Now, LogType.Add, Username, "Patient Added"));
         }
         /// <summary>

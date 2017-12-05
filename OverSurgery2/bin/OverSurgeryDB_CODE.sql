@@ -27,8 +27,8 @@ CREATE TABLE `Staff` (
 CREATE TABLE `MedicalStaff` (
     `MedicalStaffID` INT(8) NOT NULL auto_increment,
     `MedicalPracticeNumber` VARCHAR(35) NOT NULL default '',
-    `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `PhoneNumber` VARCHAR(35) NOT NULL default '',
+    `PermissionLevel` TINYINT(4) NOT NULL default 0,
     `StaffID` INT(8) NOT NULL,
     `Gender` TINYINT(2) NOT NULL default 0,
     PRIMARY KEY(`MedicalStaffID`),
@@ -105,7 +105,7 @@ CREATE TABLE `Prescription` (
 
 CREATE TABLE `Extension` (
     `ExtensionID` INT(8) NOT NULL auto_increment,
-    `Extended` TINYINT(1) NOT NULL default 0,
+    `Extended` TINYINT(2) NOT NULL default 0,
     `PrescriptionID` INT(8) NOT NULL default 0,
     `DateOfExtension` DATE NULL default 19991231,
     `MedicalStaffID` INT(8) NOT NULL default 0,
@@ -216,11 +216,3 @@ INSERT INTO Rota VALUES (5, 5, 1);
 INSERT INTO Rota VALUES (6, 1, 2);
 INSERT INTO Rota VALUES (7, 3, 2);
 INSERT INTO Rota VALUES (8, 4, 2);
-
-INSERT INTO Rota VALUES (9, 6, 3);
-INSERT INTO Rota VALUES (10, 6, 4);
-INSERT INTO Rota VALUES (11, 6, 5);
-INSERT INTO Rota VALUES (12, 6, 6);
-INSERT INTO Rota VALUES (13, 6, 7);
-INSERT INTO Rota VALUES (14, 6, 8);
-INSERT INTO Rota VALUES (15, 6, 9);

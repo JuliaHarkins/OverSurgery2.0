@@ -43,6 +43,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\BCrypt.Net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.Compatibility" />
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Debug\MySql.Data.dll</HintPath>
@@ -62,17 +64,38 @@
   <ItemGroup>
     <Compile Include="Controllers\RotaController.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="MainClasses\Extention.cs" />
+    <Compile Include="UserInterface\AppointmentConflictResolution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\AppointmentConflictResolution.Designer.cs">
+      <DependentUpon>AppointmentConflictResolution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\MedicalStaffNewAppointmentFromConflictResolution.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\MedicalStaffNewAppointmentFromConflictResolution.Designer.cs">
+      <DependentUpon>MedicalStaffNewAppointmentFromConflictResolution.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\NewAppointmentFormBackEnd.cs" />
+    <Compile Include="UserInterface\RotaFormBackEnd.cs" />
+    <Compile Include="UserInterface\UpdateRota.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\UpdateRota.Designer.cs">
+      <DependentUpon>UpdateRota.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\MedicalExtention.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserInterface\MedicalExtention.Designer.cs">
       <DependentUpon>MedicalExtention.cs</DependentUpon>
     </Compile>
-    <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
+    <Compile Include="UserInterface\NewAppointmentForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UserInterface\PrescriptionExtendDialog.Designer.cs">
-      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
+    <Compile Include="UserInterface\NewAppointmentForm.Designer.cs">
+      <DependentUpon>NewAppointmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Timing.cs" />
     <Compile Include="UserInterface\MedicationForm.cs">
@@ -80,6 +103,12 @@
     </Compile>
     <Compile Include="UserInterface\MedicationForm.Designer.cs">
       <DependentUpon>MedicationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserInterface\PrescriptionExtendDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\PrescriptionExtendDialog.Designer.cs">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="UserInterface\RotaForm.cs">
       <SubType>Form</SubType>
@@ -164,17 +193,35 @@
     <Compile Include="UserInterface\ReceptionistForm.designer.cs">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UserInterface\RotaSearch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UserInterface\RotaSearch.Designer.cs">
+      <DependentUpon>RotaSearch.cs</DependentUpon>
+    </Compile>
     <Compile Include="UserInterface\ViewPatientInfoForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UserInterface\ViewPatientInfoForm.designer.cs">
       <DependentUpon>ViewPatientInfoForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UserInterface\AppointmentConflictResolution.resx">
+      <DependentUpon>AppointmentConflictResolution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\MedicalStaffNewAppointmentFromConflictResolution.resx">
+      <DependentUpon>MedicalStaffNewAppointmentFromConflictResolution.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\RotaSearch.resx">
+      <DependentUpon>RotaSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\UpdateRota.resx">
+      <DependentUpon>UpdateRota.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\MedicalExtention.resx">
       <DependentUpon>MedicalExtention.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
-      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
+    <EmbeddedResource Include="UserInterface\NewAppointmentForm.resx">
+      <DependentUpon>NewAppointmentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -211,6 +258,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\PasswordResetForm.resx">
       <DependentUpon>PasswordResetForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserInterface\PrescriptionExtendDialog.resx">
+      <DependentUpon>PrescriptionExtendDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UserInterface\ReceptionistForm.resx">
       <DependentUpon>ReceptionistForm.cs</DependentUpon>

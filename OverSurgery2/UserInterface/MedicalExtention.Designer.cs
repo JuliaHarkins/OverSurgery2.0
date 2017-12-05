@@ -31,7 +31,7 @@
             this.lb_extentions = new System.Windows.Forms.Label();
             this.lst_extention = new System.Windows.Forms.ListView();
             this.btn_Extend = new System.Windows.Forms.Button();
-            this.btn_Delete = new System.Windows.Forms.Button();
+            this.btn_decline = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lb_extentions
@@ -63,22 +63,21 @@
             this.btn_Extend.UseVisualStyleBackColor = true;
             this.btn_Extend.Click += new System.EventHandler(this.btn_Extend_Click);
             // 
-            // btn_Delete
+            // btn_decline
             // 
-            this.btn_Delete.Location = new System.Drawing.Point(145, 245);
-            this.btn_Delete.Name = "btn_Delete";
-            this.btn_Delete.Size = new System.Drawing.Size(106, 23);
-            this.btn_Delete.TabIndex = 4;
-            this.btn_Delete.Text = "Delete";
-            this.btn_Delete.UseVisualStyleBackColor = true;
-            this.btn_Delete.Click += new System.EventHandler(this.btn_Delete_Click);
+            this.btn_decline.Location = new System.Drawing.Point(127, 245);
+            this.btn_decline.Name = "btn_decline";
+            this.btn_decline.Size = new System.Drawing.Size(106, 23);
+            this.btn_decline.TabIndex = 0;
+            this.btn_decline.Text = "Decline";
+            this.btn_decline.Click += new System.EventHandler(this.btn_decline_Click);
             // 
             // MedicalExtention
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(616, 286);
-            this.Controls.Add(this.btn_Delete);
+            this.Controls.Add(this.btn_decline);
             this.Controls.Add(this.btn_Extend);
             this.Controls.Add(this.lst_extention);
             this.Controls.Add(this.lb_extentions);
@@ -94,6 +93,6 @@
         private System.Windows.Forms.Label lb_extentions;
         private System.Windows.Forms.ListView lst_extention;
         private System.Windows.Forms.Button btn_Extend;
-        private System.Windows.Forms.Button btn_Delete;
+        private System.Windows.Forms.Button btn_decline;
     }
 }

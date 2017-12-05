@@ -17,6 +17,7 @@ namespace OverSurgery2
         FormController fc;
         BindingSource PatientPres;
         List<Prescription> m_PatientPrescriptions;
+        private int selectedP;
         public ViewPatientInfoForm(Patient p_Patient)
         {
             currentPatient = p_Patient;
@@ -30,14 +31,16 @@ namespace OverSurgery2
         private void btn_EditPatient_Click(object sender, EventArgs e)
         {
             fc.OpenEditPatientForm(currentPatient);
+            PatientController.Instance().UpdatePatientDoctorDisplay();
         }
 
         private void ViewPatientInfoForm_Load(object sender, EventArgs e)
         {
             #region Execution
             PatientPres = new BindingSource();
-            Address ad = MetaLayer.Instance().GetAddressByID(Convert.ToInt16(currentPatient.AddressID));
+            Address ad = MetaLayer.Instance().GetAddressById(Convert.ToInt16(currentPatient.AddressID));
             this.Text = "Viewing Patient - " + currentPatient.Forename + " " + currentPatient.Surname;
+            
             lbl_ForenameText.Text = currentPatient.Forename;
             lbl_SurnameText.Text = currentPatient.Surname;
             TimeSpan yearsOld = (DateTime.Now - currentPatient.DateOfBirth);
@@ -54,62 +57,60 @@ namespace OverSurgery2
             {
                 lbl_HouseNameNumberText.Text = ad.HouseName;
             }
+            else if(ad.HouseName != "" && ad.HouseNumber !=null)
+            {
+                lbl_HouseNameNumberText.Text = $"{ad.HouseNumber} {ad.HouseName}";
+            }
             lbl_StreetNameText.Text = ad.StreetName;
             lbl_PostCodeText.Text = ad.PostCode;
             m_PatientPrescriptions = ml.GetPatientsPrescriptions(currentPatient.ID);
-            lst_PatientsPres.Clear();
-            lst_PatientsPres.Columns.Add("Date");
-            lst_PatientsPres.Columns.Add("Medication");
-            lst_PatientsPres.Columns.Add("Amount");
-            lst_PatientsPres.Columns.Add("By");
-            // Add each item to the list based on prescriptions
-            foreach (Prescription p in m_PatientPrescriptions)
+            var PrescriptionListBind = new BindingList<Prescription>(m_PatientPrescriptions);
+            var PrescriptionBinding = new BindingSource(PrescriptionListBind,null);
+            dgv_PatientsPres.RowHeadersVisible = false;
+            dgv_PatientsPres.Columns.Add("MedicationDisplay", "Medication");
+            dgv_PatientsPres.DataSource = PrescriptionBinding;
+
+            foreach (DataGridViewRow row in dgv_PatientsPres.Rows)
             {
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = p.Date.ToShortDateString();
-                lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                lvi.SubItems.Add(p.Amount.ToString());
-                //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                lst_PatientsPres.Items.Add(lvi);
+                if (row.Cells["MedicationDisplay"].Value == null)
+                {
+                    row.Cells["MedicationDisplay"].Value = Convert.ToString(MetaLayer.Instance()
+                        .GetMedicationName(Convert.ToInt32(row.Cells["MedicationID"].Value)));
+                }
             }
-            foreach (ColumnHeader column in lst_PatientsPres.Columns)
-            {
-                column.Width = -2;
-            }
-#endregion
+            dgv_PatientsPres.Columns["ID"].DisplayIndex = 2;
+            dgv_PatientsPres.Columns["ID"].Visible = false;
+            dgv_PatientsPres.Columns["MedicationDisplay"].DisplayIndex = 1;
+
+            #endregion
         }
 
         private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
         }
 
-        private void lst_PatientsPres_Click(object sender, EventArgs e)
-        {
+        private void btn_Extend_Click(object sender, EventArgs e)
+        { 
+                
+                
+                Prescription pres = m_PatientPrescriptions.FirstOrDefault(p => p.ID == Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells[1].Value));
+                new PrescriptionExtendDialog(pres).ShowDialog();
         }
 
-        private void btn_Extend_Click(object sender, EventArgs e)
+        private void dgv_PatientsPres_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            Prescription pres = null;
-            try
-            {
-                int sel = lst_PatientsPres.SelectedIndices[0];
-                pres = m_PatientPrescriptions.ElementAt(sel);
-                new PrescriptionExtendDialog(pres).ShowDialog();
-            }
-            catch
-            {
-                MessageBox.Show(this,"No prescription selected.");
-            }
+            selectedP = Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells[0].Value);
         }
     }
     public class Address
     {
+        int m_ID;
         string m_houseName;
         int? m_houseNumber;
         string m_postCode;
         string m_streetName;
 
+        public int AddressID { get { return m_ID; } set { m_ID = value; } }
         public string HouseName { get { return m_houseName; } set { m_houseName = value; } }
         public int? HouseNumber { get { return m_houseNumber; } set { m_houseNumber = value; } }
         public string PostCode { get { return m_postCode; } set { m_postCode = value; } }
