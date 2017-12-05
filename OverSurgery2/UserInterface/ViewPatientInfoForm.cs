@@ -12,12 +12,14 @@ namespace OverSurgery2
 {
     public partial class ViewPatientInfoForm : Form
     {
-        Patient currentPatient;
+        public Patient currentPatient { get; set; }
         MetaLayer ml;
         FormController fc;
         BindingSource PatientPres;
         List<Prescription> m_PatientPrescriptions;
         private int selectedP;
+
+
         public ViewPatientInfoForm(Patient p_Patient)
         {
             currentPatient = p_Patient;
@@ -25,6 +27,11 @@ namespace OverSurgery2
             ml = MetaLayer.Instance();
             fc = FormController.Instance();
             
+        }
+
+        public Patient GetCurrentPatient()
+        {
+            return currentPatient; 
         }
 
 
@@ -78,8 +85,13 @@ namespace OverSurgery2
                         .GetMedicationName(Convert.ToInt32(row.Cells["MedicationID"].Value)));
                 }
             }
+            foreach (DataGridViewColumn c in dgv_PatientsPres.Columns)
+            {
+                c.Visible = false;
+            }
+            dgv_PatientsPres.Columns["MedicationDisplay"].Visible = true;
+            dgv_PatientsPres.Columns["Date"].Visible = true;
             dgv_PatientsPres.Columns["ID"].DisplayIndex = 2;
-            dgv_PatientsPres.Columns["ID"].Visible = false;
             dgv_PatientsPres.Columns["MedicationDisplay"].DisplayIndex = 1;
 
             #endregion
@@ -87,14 +99,13 @@ namespace OverSurgery2
 
         private void ViewPatientInfoForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
         }
 
         private void btn_Extend_Click(object sender, EventArgs e)
         { 
-                
-                
-                Prescription pres = m_PatientPrescriptions.FirstOrDefault(p => p.ID == Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells[1].Value));
-                new PrescriptionExtendDialog(pres).ShowDialog();
+                Prescription pres = m_PatientPrescriptions.FirstOrDefault(p => p.ID == Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells["ID"].Value));
+                new PrescriptionExtendDialog(this, pres).ShowDialog();
         }
 
         private void dgv_PatientsPres_CellClick(object sender, DataGridViewCellEventArgs e)

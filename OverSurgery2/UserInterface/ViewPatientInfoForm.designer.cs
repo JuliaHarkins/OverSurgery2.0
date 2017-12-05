@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btn_EditPatient = new System.Windows.Forms.Button();
             this.lbl_Forename = new System.Windows.Forms.Label();
             this.lbl_Surname = new System.Windows.Forms.Label();
@@ -201,6 +202,7 @@
             // 
             // btn_Extend
             // 
+            this.btn_Extend.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_Extend.Location = new System.Drawing.Point(368, 479);
             this.btn_Extend.Name = "btn_Extend";
             this.btn_Extend.Size = new System.Drawing.Size(161, 37);
@@ -211,6 +213,15 @@
             // 
             // dgv_PatientsPres
             // 
+            this.dgv_PatientsPres.AllowUserToAddRows = false;
+            this.dgv_PatientsPres.AllowUserToDeleteRows = false;
+            this.dgv_PatientsPres.AllowUserToResizeColumns = false;
+            this.dgv_PatientsPres.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.dgv_PatientsPres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.dgv_PatientsPres.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dgv_PatientsPres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv_PatientsPres.Location = new System.Drawing.Point(12, 237);
             this.dgv_PatientsPres.Name = "dgv_PatientsPres";
