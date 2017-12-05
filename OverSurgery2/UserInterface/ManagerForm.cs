@@ -98,7 +98,8 @@ namespace OverSurgery2
             catch(Exception ex)
             {
                 //throw ex;
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error has occured. Make sure the username you search is for an existing staff member (case sensitive)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
             }
             
         }
@@ -110,6 +111,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnUpdateStaff_Click(object sender, EventArgs e)
         {
+            // Update the staff member
             try
             {
                 ReadBoxes();
@@ -121,6 +123,8 @@ namespace OverSurgery2
             {
                 throw ex;
             }
+
+            // Update the address
             try
             {
                 MetaLayer.Instance().UpdateAddress(searchedAddress, Convert.ToInt32(searchedStaff.AddressID));
@@ -194,7 +198,7 @@ namespace OverSurgery2
             catch(Exception ex)
             {
                 //throw ex;
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("An error has occured. Make sure your input is correct", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
             }
 
@@ -397,7 +401,7 @@ namespace OverSurgery2
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

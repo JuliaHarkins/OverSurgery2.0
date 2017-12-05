@@ -48,7 +48,7 @@ namespace OverSurgery2
         }
         private void btn_savePrescription_Click(object sender, EventArgs e)
         {
-            if (lst_medication.SelectedIndices.Count != 0 && nud_amount.Value >= 0) {
+            if ((lst_medication.SelectedIndices.Count != 0 && nud_amount.Value > 0) && (cb_extenable.Checked == false || (cb_extenable.Checked && dtp_dateOfNextExtention.Value > DateTime.Now))) {
                 Prescription p = new Prescription();
 
                 int i = lst_medication.SelectedIndices[0];
@@ -73,6 +73,10 @@ namespace OverSurgery2
             {
                 ErrorBox("A prescription requires an amount greater than zero.");
 
+            }
+            else if (cb_extenable.Checked && dtp_dateOfNextExtention.Value < DateTime.Now)
+            {
+                ErrorBox("Date of next issue must be in the future");
             }
             else
             {
