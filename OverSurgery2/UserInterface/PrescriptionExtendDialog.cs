@@ -13,15 +13,18 @@ namespace OverSurgery2
     public partial class PrescriptionExtendDialog : Form
     {
         private Prescription m_extendPres;
-        public PrescriptionExtendDialog(Prescription p_Prescription)
+        private Patient m_currPatient;
+        public PrescriptionExtendDialog(ViewPatientInfoForm vcp, Prescription p_Prescription)
         {
             m_extendPres = p_Prescription;
+            m_currPatient = vcp.GetCurrentPatient();
             InitializeComponent();
         }
 
         private void PrescriptionExtendDialog_Load(object sender, EventArgs e)
         {
-
+            lbl_MedicationText.Text = MetaLayer.Instance().GetMedicationName(m_extendPres.MedicationID);
+            lbl_PatientText.Text = $"{m_currPatient.Forename} {m_currPatient.Surname}";
         }
 
         private void btn_Extend_Click(object sender, EventArgs e)
@@ -29,7 +32,7 @@ namespace OverSurgery2
             if (!(m_extendPres.DateOfNextIssue <= DateTime.Now))
             {
                 MessageBox.Show(
-                    $"This prescription cannot be extended yet, \nplease wait until {m_extendPres.DateOfNextIssue.Value.ToString("dd/MM/yyyy")}");
+                    "This prescription cannot be extended yet");
             }
             else if (!m_extendPres.Extendable)
             {
@@ -47,6 +50,8 @@ namespace OverSurgery2
                     Extended = 0
                 };
                 MetaLayer.Instance().NewExtension(ext);
+                MessageBox.Show("Extension Request sent!");
+                Close();
             }
         }
     }
