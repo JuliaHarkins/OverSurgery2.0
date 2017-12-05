@@ -50,7 +50,7 @@ namespace OverSurgery2.UserInterface
         {
             txtPatIDSet.Text = "[Patient ID NOT SET]";
             npb = new NewAppointmentFormBackEnd();
-            string forename = txtForename.Text, surname = txtSurname.Text;
+            string forename = RemoveSpecialChars(txtForename.Text), surname = RemoveSpecialChars(txtSurname.Text);
             bool err = ErrorCheck(forename, surname);
             int patID;
             if (err)
@@ -82,6 +82,12 @@ namespace OverSurgery2.UserInterface
                     }
                 }
             }
+        }
+
+        private string RemoveSpecialChars(string clip)
+        {
+            clip = clip.Replace("\"", null).Replace("'", null).Replace("\\", null);
+            return clip;
         }
 
         private bool ErrorCheck(string forename, string surname)
@@ -210,7 +216,7 @@ namespace OverSurgery2.UserInterface
                 {
                     medStaffName = dGAppointment.Rows[rowIndex].Cells[3].Value.ToString();
                 }
-                string notes = Interaction.InputBox("Add Notes (If Applicable)?", "Notes");
+                string notes = RemoveSpecialChars(Interaction.InputBox("Add Notes (If Applicable)?", "Notes"));
                 bool flg = npb.InsertAppointment(patientID, date, time, notes, medStaffName);
 
                 if (flg)
