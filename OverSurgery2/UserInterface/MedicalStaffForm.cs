@@ -143,7 +143,7 @@ namespace OverSurgery2
         {
             string notes ="";
             MedicalHistory mh;
-            if (btn_saveNotes.Text != null)
+            if (txt_CurrentNotes.Text != "")
             {
                 sb.Clear();
                 foreach (var ch in txt_CurrentNotes.Text)

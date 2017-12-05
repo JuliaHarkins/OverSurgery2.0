@@ -189,28 +189,11 @@ namespace OverSurgery2
             int? houseNumber = null;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM ADDRESS WHERE AddressID = " + p_id + ";");
+                DbDataReader dr = con.Select("SELECT * FROM Address WHERE AddressID = " + p_id + ";");
                 while (dr.Read())
                 {
-                    string tempHouseName;
-                    int? tempHouseNum;
-                    tempHouseName = dr.GetFieldValue<string>(1);
-                    tempHouseNum = dr.GetFieldValue<int?>(2);
-                    if (tempHouseName == "")
-                    {
-                        houseName = "";
-                        houseNumber = dr.GetFieldValue<int>(2);
-                    }
-                    else if (tempHouseNum == null)
-                    {
-                        houseName = dr.GetFieldValue<string>(1);
-                        houseNumber = null;
-                    }
-                    else
-                    {
-                        houseName = dr.GetFieldValue<string>(1);
-                        houseNumber = dr.GetFieldValue<int>(2);
-                    }
+                    houseName = dr.IsDBNull(1) ? null : dr.GetFieldValue<string>(1);
+                    houseNumber = dr.IsDBNull(2) ? null : dr.GetFieldValue<int?>(2);
                     a = new Address
                     {
                         AddressID = dr.GetInt32(0),
@@ -308,7 +291,7 @@ namespace OverSurgery2
                     {
                         MedicalStaffID = Convert.ToUInt16(dr.GetInt16(0)),
                         PracticeNumber = dr.GetString(1),
-                        PhoneNumber = dr.GetString(3),
+                        PhoneNumber = dr.GetString(2),
                         StaffID = dr.GetInt16(4),
                         Gender = Convert.ToUInt16(dr.GetInt16(5)),
                         Forename = dr.GetString(7),
@@ -1355,7 +1338,7 @@ namespace OverSurgery2
         /// By R
         /// </summary>
         /// <param name="add"></param>
-        public int AddAddress(Address add)
+        public int AddAddress(Address add, string p_column, string p_passedData)
         {
             List<int> addid = new List<int>();
             bool flg = true;
@@ -1372,18 +1355,14 @@ namespace OverSurgery2
                 con.CloseConnection();
                 for (int i = 0; i < addid.Count; i++)
                 {
-                    if (!addid.ElementAtOrDefault(i).Equals(null))
-                    {
-                        flg = false;
-                    }
+                    flg = false;
                 }
                 if (flg)
                 {
                     addid.Clear();
                     if (con.OpenConnection())
                     {
-                        con.Insert("INSERT INTO Address VALUES (null, '" + add.HouseName + "', " + add.HouseNumber +
-                            ", '" + add.StreetName + "', '" + add.PostCode + "');");
+                        con.Insert($"INSERT INTO Address{p_column} VALUES ({p_passedData});");
                         con.CloseConnection();
                     }
                     if (con.OpenConnection())
