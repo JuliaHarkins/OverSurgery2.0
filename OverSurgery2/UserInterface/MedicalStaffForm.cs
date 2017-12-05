@@ -5,9 +5,9 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace OverSurgery2
 {
@@ -19,7 +19,8 @@ namespace OverSurgery2
         List<Appointment> m_appointments;                   // the list of the current users appointments for today
         List<MedicalHistory> m_medicalHistory;
         List<Prescription> m_prescriptions;
-        MedicalStaff m_currentUser; 
+        MedicalStaff m_currentUser;
+        StringBuilder sb = new StringBuilder();
         int m_appointmentListCounter;                       // the current position in the appointment list.
         #endregion
         #region Constructor
@@ -111,8 +112,15 @@ namespace OverSurgery2
         {
             if (m_currentUser != null)
             {
-                string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
-                new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
+                if (m_appointments.Count != 0)
+                {
+                    string patientName = m_appointments[m_appointmentListCounter].ForeNameDisplay + " " + m_appointments[m_appointmentListCounter].SurNameDisplay;
+                    new AddPrescription(m_currentUser, m_appointments[m_appointmentListCounter].PatientID, patientName).ShowDialog();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to add add a prescription as there is no patient selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
             SelectMedicalHistory();
         }
@@ -120,7 +128,9 @@ namespace OverSurgery2
         private void btn_extRequest_Click(object sender, EventArgs e)
         {
             new MedicalExtention(Convert.ToInt32(m_currentUser.MedicalStaffID)).ShowDialog();
-                
+            CheckExtentionButton();
+
+
         }
         /// <summary>
         /// saves the new patient notes to the medical hsitory of the patient.
@@ -131,20 +141,46 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btn_saveNotes_Click(object sender, EventArgs e)
         {
+            string notes ="";
             MedicalHistory mh;
             if (btn_saveNotes.Text != null)
             {
-                mh = new MedicalHistory
+                sb.Clear();
+                foreach (var ch in txt_CurrentNotes.Text)
                 {
-                    ID = null,
-                    Notes = Regex.Replace(txt_CurrentNotes.Text, "\"\'", "\'"),
-                    Date = DateTime.Now,
-                    PatientID = m_appointments[m_appointmentListCounter].PatientID
-                };
+                    if (ch == '\'')
+                    {
+                        sb.Append("\'").Append(ch);
+                    }
+                    else
+                    {
+                        sb.Append(ch);
+                    }
+                    notes = sb.ToString();
+                    
+                }
+                
+                if (m_appointments.Count != 0)
+                {
+                    mh = new MedicalHistory
+                    {
+                        ID = null,
 
-                ml.AddMedicalHistoryToTheDatabase(mh);
-                txt_CurrentNotes.Clear();
-                SelectMedicalHistory();
+                        
+
+                    Notes = notes,
+                        Date = DateTime.Now,
+                        PatientID = m_appointments[m_appointmentListCounter].PatientID
+                    };
+
+                    ml.AddMedicalHistoryToTheDatabase(mh);
+                    txt_CurrentNotes.Clear();
+                    SelectMedicalHistory();
+                }
+                else
+                {
+                    MessageBox.Show("Unable to add Medical Histoy as there is no patient selected.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
         /// <summary>
@@ -155,21 +191,23 @@ namespace OverSurgery2
         /// <param name="sender">MedicalStaffForm</param>
         /// <param name="e"></param>
         private void btn_nextPatient_Click(object sender, EventArgs e)
-        {
-            if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
-                && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
+        {if (m_appointments.Count != 0)
             {
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
-                dgv_AppointmentList.CurrentRow.Selected = false;
-
-                if (m_appointmentListCounter < dgv_AppointmentList.RowCount - 1)
+                if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount
+                    && dgv_AppointmentList.CurrentCell.RowIndex >= 0)
                 {
-                    m_appointmentListCounter++;
-                }
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                    dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                    dgv_AppointmentList.CurrentRow.Selected = false;
 
-                dgv_AppointmentList.CurrentRow.Selected = true;
-                SelectMedicalHistory();
+                    if (m_appointmentListCounter < dgv_AppointmentList.RowCount - 1)
+                    {
+                        m_appointmentListCounter++;
+                    }
+                    dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+
+                    dgv_AppointmentList.CurrentRow.Selected = true;
+                    SelectMedicalHistory();
+                }
             }
 
         }
@@ -184,18 +222,20 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btn_previousPatient_Click(object sender, EventArgs e)
         {
-
-            if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount && dgv_AppointmentList.CurrentCell.RowIndex > 0)
+            if (m_appointments.Count != 0)
             {
+                if (dgv_AppointmentList.CurrentCell.RowIndex <= dgv_AppointmentList.RowCount && dgv_AppointmentList.CurrentCell.RowIndex > 0)
+                {
 
-                m_appointmentListCounter--;
+                    m_appointmentListCounter--;
 
-                dgv_AppointmentList.CurrentRow.Selected = false;
+                    dgv_AppointmentList.CurrentRow.Selected = false;
 
-                dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
+                    dgv_AppointmentList.CurrentCell = dgv_AppointmentList[0, m_appointmentListCounter];
 
-                dgv_AppointmentList.CurrentRow.Selected = true;
-                SelectMedicalHistory();
+                    dgv_AppointmentList.CurrentRow.Selected = true;
+                    SelectMedicalHistory();
+                }
             }
 
         }
@@ -233,31 +273,33 @@ namespace OverSurgery2
             lst_Prescriptions.Columns.Add("Medication", 175);
             lst_Prescriptions.Columns.Add("Amount", 75);
             lst_Prescriptions.Columns.Add("By", 148);
-           
-            m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
-            m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
-            if (m_medicalHistory != null)
+            if (m_appointments.Count != 0)
             {
-                foreach (MedicalHistory mh in m_medicalHistory)
+                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
+                if (m_medicalHistory != null)
                 {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = mh.Date.ToShortDateString();
-                    lvi.SubItems.Add(mh.Notes);
-                    lst_MedicalHistory.Items.Add(lvi);
+                    foreach (MedicalHistory mh in m_medicalHistory)
+                    {
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = mh.Date.ToShortDateString();
+                        lvi.SubItems.Add(mh.Notes);
+                        lst_MedicalHistory.Items.Add(lvi);
+                    }
                 }
-            }
-            if (m_prescriptions != null)
-            {
-                foreach (Prescription p in m_prescriptions)
+                if (m_prescriptions != null)
                 {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = p.Date.ToShortDateString();
-                    lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
-                    lvi.SubItems.Add(p.Amount.ToString());
-                    //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                    lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
-                    lst_Prescriptions.Items.Add(lvi);
+                    foreach (Prescription p in m_prescriptions)
+                    {
+                        ListViewItem lvi = new ListViewItem();
+                        lvi.Text = p.Date.ToShortDateString();
+                        lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
+                        lvi.SubItems.Add(p.Amount.ToString());
+                        //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
+                        lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
+                        lst_Prescriptions.Items.Add(lvi);
 
+                    }
                 }
             }
             

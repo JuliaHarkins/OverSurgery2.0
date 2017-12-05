@@ -77,11 +77,14 @@ namespace OverSurgery2
                 if (result == DialogResult.Yes)
                 {
                     ml.DeleteMedication(medList[selectedMed].ID);
+                    txtUpdateDosage.Clear();
+                    txtUpdateMedName.Clear();
+                    txtUpdatePermission.Clear();
                     flag = true;
                 }
                 else
                 {
-
+                    flag = false;
                 }
             }
             catch (Exception ex)
@@ -90,9 +93,6 @@ namespace OverSurgery2
                 MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
             }
-            txtUpdateDosage.Clear();
-            txtUpdateMedName.Clear();
-            txtUpdatePermission.Clear();
  
             if (flag == true)
             {
@@ -290,6 +290,11 @@ namespace OverSurgery2
             selectedMed--;
             WriteBoxes();
             updateButtons();
+        }
+
+        private void MedicationForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

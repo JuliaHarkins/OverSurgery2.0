@@ -81,13 +81,11 @@ namespace OverSurgery2
             #region Declaration
             string m_username, m_password;
             int? m_type;
-            Tuple<string, string, int?> m_login;
             #endregion
             #region Initialisation
             m_username = null;
             m_password = null;
             m_type = null;
-            m_login = new Tuple<string, string, int?>(null, null, null);
             #endregion
             #region Execution
             DataConnection con = DBFactory.Instance();
@@ -100,17 +98,12 @@ namespace OverSurgery2
                     m_password = dr.GetString(1);
                     m_type = dr.GetInt32(2);
                 }
-                m_login = new Tuple<string, string, int?>(m_username, m_password, m_type);
                 dr.Close();
                 con.CloseConnection();
             }
-            else
-            {
-                m_login = new Tuple<string, string, int?>(null, null, null);
-            }
             #endregion
             #region Return
-            return m_login;
+            return new Tuple<string, string, int?>(m_username, m_password, m_type); 
             #endregion
         }
 
@@ -617,10 +610,10 @@ namespace OverSurgery2
         public List<Appointment> GetStaffAppointments(int p_staffID)
         {
             List<Appointment> appointments = new List<Appointment>();
-        Appointment a;
+            Appointment a;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " ORDER BY AppointmentTime, AppointmentDate;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE MedicalStaffID = " + p_staffID + " AND AppointmentDate= "+ DateTime.Now.ToString("yyyyMMdd") + " ORDER BY AppointmentTime;");
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
@@ -698,7 +691,7 @@ namespace OverSurgery2
             int i = 0;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT COUNT(MedicalStaffID) FROM Extension WHERE MedicalStaffID =  " + p_id + " AND Extended = 0;;");
+                DbDataReader dr = con.Select("SELECT COUNT(ExtensionID) FROM Extension WHERE MedicalStaffID =  " + p_id + " AND Extended = 0;");
                 while (dr.Read())
                 {
                     i = dr.GetInt16(0);
@@ -1184,7 +1177,7 @@ namespace OverSurgery2
         /// <summary>
         /// Get the full staff rota
         /// Last Updated : 21/11/17,
-        /// By R
+        /// By E
         /// </summary>
         /// <returns></returns>
         public List<Rota> GetStaffRota()
@@ -1536,6 +1529,124 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return new Tuple<List<int>, List<string>, List<string>, List<string>>(staffID, forename, surname, days);
+        }
+
+        public Tuple<List<string>, List<string>, List<string>> SelectMedicalStaff_WithDateAddOn(string tables, string searchParam)
+        {
+            List<string> forename = new List<string>();
+            List<string> surname = new List<string>();
+            List<string> gender = new List<string>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select(
+                    $"SELECT Forename, Surname, Gender FROM MedicalStaff ms, {tables} WHERE {searchParam} GROUP BY r.StaffID ORDER BY Surname, Forename;");
+                while (dr.Read())
+                {
+                    forename.Add(dr.GetString(0));
+                    surname.Add(dr.GetString(1));
+                    if (dr.GetInt32(2) == 1)
+                    {
+                        gender.Add("M");
+                    }
+                    else
+                    {
+                        gender.Add("F");
+                    }
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return new Tuple<List<string>, List<string>, List<string>>(forename, surname, gender);
+        }
+
+        public List<int> SelectPatient(string searchParam)
+        {
+            List<int> patientID = new List<int>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT PatientID FROM Patient WHERE {searchParam}");
+                while (dr.Read())
+                {
+                    patientID.Add(dr.GetInt32(0));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return patientID;
+        }
+
+        public Tuple<List<int>, List<string>, List<string>, List<string>, List<int>, List<string>, List<string>> SelectPatientAddress(string searchParam)
+        {
+            List<int> patientID = new List<int>();
+            List<string> forename = new List<string>();
+            List<string> surname = new List<string>();
+            List<string> houseName = new List<string>();
+            List<int> houseNumber = new List<int>();
+            List<string> addressLine = new List<string>();
+            List<string> postCode = new List<string>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT PatientID, Forename, Surname, HouseName, HouseNumber, AddressLine1, PostCode FROM Patient p, Address a WHERE {searchParam} AND p.AddressID = a.AddressID");
+                while (dr.Read())
+                {
+                    patientID.Add(dr.GetInt32(0));
+                    forename.Add(dr.GetString(1));
+                    surname.Add(dr.GetString(2));
+                    houseName.Add(dr.IsDBNull(3) ? "[#UDEF]" : dr.GetString(3));
+                    houseNumber.Add(dr.IsDBNull(4) ? 0 : dr.GetInt32(4));
+                    addressLine.Add(dr.GetString(5));
+                    postCode.Add(dr.GetString(6));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return new Tuple<List<int>, List<string>, List<string>, List<string>, List<int>, List<string>, List<string>>(patientID, forename, surname,houseName, houseNumber, addressLine, postCode);
+        }
+
+        public List<int> GetMedicalStaffID(string searchParam)
+        {
+            List<int> medicalStaffID = new List<int>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT MedicalStaffID FROM MedicalStaff{searchParam}");
+                while (dr.Read())
+                {
+                    medicalStaffID.Add(dr.GetInt32(0));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return medicalStaffID;
+        }
+
+        public Tuple<List<int>, List<string>> SelectCurrentAppointments(string data, string searchParam)
+        {
+            List<int> time = new List<int>();
+            List<string> medicalStaffID_Concat = new List<string>();
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select($"SELECT {data} FROM Appointment WHERE {searchParam}");
+                while (dr.Read())
+                {
+                    time.Add(dr.GetInt32(0));
+                    medicalStaffID_Concat.Add(dr.GetString(1));
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return new Tuple<List<int>, List<string>>(time, medicalStaffID_Concat);
+        }
+
+        public bool AddAppointment(int appointmentDate, int appointmentTime, string appointmentNotes, int medicalStaffID, int patientID)
+        {
+            bool flg = false;
+            if (con.OpenConnection())
+            {
+                con.Insert($"INSERT INTO Appointment Values (null, {appointmentDate}, {appointmentTime}, '{appointmentNotes}', 0, {medicalStaffID}, {patientID});");
+                flg = true;
+                con.CloseConnection();
+            }
+            return flg;
         }
     }
 }

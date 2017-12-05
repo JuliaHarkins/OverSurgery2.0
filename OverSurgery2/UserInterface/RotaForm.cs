@@ -18,25 +18,20 @@ namespace OverSurgery2
         private bool m_wedSet;
         private bool m_thurSet;
         private bool m_friSet;
-        private List<int> m_staffID = new List<int>();
-        private List<Rota> rotaData;
-        MetaLayer ml;
+        private RotaFormBackEnd rfb;
         public RotaForm()
         {
             InitializeComponent();
             dG_Rota.RowHeadersVisible = false;
-            LoadRota();
+            rfb = new RotaFormBackEnd();
+            LoadRota(rfb.LoadRota());
         }
 
-        public void LoadRota()
+        public void LoadRota(List<Rota> rotaData)
         {
-            ml = MetaLayer.Instance();
-            rotaData = ml.GetStaffRota();
-
             for (int i = 0, j = 0; j < rotaData.Count; i++, j++)
             {
                 dG_Rota.Rows.Add();
-                m_staffID.Add(rotaData.ElementAtOrDefault(j).StaffID);
                 dG_Rota[0, i].Value = rotaData.ElementAtOrDefault(j).Forename;
                 dG_Rota[1, i].Value = rotaData.ElementAtOrDefault(j).Surname;
                 if (rotaData.ElementAtOrDefault(i).Days.Contains("Mon"))
@@ -81,27 +76,50 @@ namespace OverSurgery2
                 }
                 dG_Rota[7, i].Value = rotaData.ElementAtOrDefault(j).StaffID;
                 dG_Rota.Sort(dG_Rota.Columns[7], ListSortDirection.Ascending);
-                //dG_Rota.Columns[7].Visible = false;
+                dG_Rota.Columns[7].Visible = false;
             }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            rotaData.Clear();
+            dG_Rota.Rows.Clear();
             this.Close();
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            int rowIndex = dG_Rota.SelectedCells[0].RowIndex;
-            int staffID = m_staffID.ElementAtOrDefault(Convert.ToInt32(dG_Rota[7, rowIndex].Value) -1);
+            Tuple<int, string[], bool[]> data = Update(null);
+            this.Hide();
+            new UpdateRota(data.Item1, data.Item2, data.Item3).ShowDialog();
+            dG_Rota.Rows.Clear();
+            LoadRota(rfb.LoadRota());
+            this.Show();
+        }
+
+        public Tuple<int, string[], bool[]> Update(int? locale)
+        {
+            int rowIndex = 0;
+            int staffID;
+            if (locale == null)
+            {
+                rowIndex = dG_Rota.SelectedCells[0].RowIndex;
+                staffID = (int)dG_Rota[7, rowIndex].Value;
+            }
+            else
+            {
+                staffID = (int)locale;
+                for (int i = 0; i < dG_Rota.RowCount; i++)
+                {
+                    if (dG_Rota.Rows[i].Cells[7].Value.ToString() == locale.ToString())
+                    {
+                        rowIndex = (int)dG_Rota.Rows[i].Cells[7].Value - 1;
+                    }
+                }
+            }
             string[] staffName = GetStaffData(rowIndex);
             bool[] rowStatus = GetRowData(rowIndex);
-            this.Hide();
-            new UpdateRota(staffID, staffName, rowStatus).ShowDialog();
-            dG_Rota.Rows.Clear();
-            LoadRota();
-            this.Show();
+
+            return new Tuple<int, string[], bool[]>(staffID, staffName, rowStatus);
         }
 
         private bool[] GetRowData(int rowIndex)
@@ -167,6 +185,8 @@ namespace OverSurgery2
         {
             this.Hide();
             new RotaSearch().ShowDialog();
+            dG_Rota.Rows.Clear();
+            LoadRota(rfb.LoadRota());
             this.Show();
         }
     }

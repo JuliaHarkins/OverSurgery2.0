@@ -52,6 +52,7 @@
             this.Surname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BtnClose = new System.Windows.Forms.Button();
             this.BtnClearDisp = new System.Windows.Forms.Button();
+            this.BtnUpdate = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -240,12 +241,14 @@
             this.Forename,
             this.Surname});
             this.dG_Suggested.Location = new System.Drawing.Point(7, 22);
+            this.dG_Suggested.MultiSelect = false;
             this.dG_Suggested.Name = "dG_Suggested";
             this.dG_Suggested.ReadOnly = true;
             this.dG_Suggested.RowTemplate.Height = 24;
             this.dG_Suggested.Size = new System.Drawing.Size(427, 150);
             this.dG_Suggested.TabIndex = 0;
             this.dG_Suggested.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dG_Suggested_CellClick);
+            this.dG_Suggested.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dG_Suggested_ColumnHeaderMouseClick);
             // 
             // StaffID
             // 
@@ -285,11 +288,22 @@
             this.BtnClearDisp.UseVisualStyleBackColor = true;
             this.BtnClearDisp.Click += new System.EventHandler(this.BtnClearDisp_Click);
             // 
+            // BtnUpdate
+            // 
+            this.BtnUpdate.Location = new System.Drawing.Point(407, 492);
+            this.BtnUpdate.Name = "BtnUpdate";
+            this.BtnUpdate.Size = new System.Drawing.Size(113, 23);
+            this.BtnUpdate.TabIndex = 9;
+            this.BtnUpdate.Text = "Update Rota";
+            this.BtnUpdate.UseVisualStyleBackColor = true;
+            this.BtnUpdate.Click += new System.EventHandler(this.BtnUpdate_Click);
+            // 
             // RotaSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(885, 528);
+            this.Controls.Add(this.BtnUpdate);
             this.Controls.Add(this.BtnClearDisp);
             this.Controls.Add(this.BtnClose);
             this.Controls.Add(this.groupBox3);
@@ -338,5 +352,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Surname;
         private System.Windows.Forms.Button BtnClose;
         private System.Windows.Forms.Button BtnClearDisp;
+        private System.Windows.Forms.Button BtnUpdate;
     }
 }
