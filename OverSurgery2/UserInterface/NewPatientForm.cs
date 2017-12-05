@@ -58,8 +58,8 @@ namespace OverSurgery2
                 };
                 if (!m_updateflg)
                 {
-                    int addressid = MetaLayer.Instance().AddAddress(a);
-                    p.AddressID = (uint)addressid;
+                    //int addressid = MetaLayer.Instance().AddAddress(a);
+                    //p.AddressID = (uint)addressid;
                     p.RegisteredDoctorID = MetaLayer.Instance().getDoctorWithLowestPatient();
 
                 if (!MetaLayer.Instance().InsertNewPatient(p))

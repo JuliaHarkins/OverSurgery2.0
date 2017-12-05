@@ -17,13 +17,14 @@ namespace OverSurgery2
 {
     public partial class ManagerForm : Form
     {
-        private string m_userName;
+        private string m_userName, column, passedData;
         private uint m_addressID;
         bool flag = true;
+        
 
         Staff currentUserLoggedIn = null;                                                                                           // Details on the current user who is logged in
         Staff searchedStaff = new Staff();                                                                                          // Searched staff members details
-        MedicalStaff m = null;
+        MedicalStaff newMedicalStaff = null;
         Address searchedAddress = null;                                                                                             // Searched staff members address details  
 
         private void ManagerForm_Load(object sender, EventArgs e)
@@ -126,7 +127,7 @@ namespace OverSurgery2
                 flag = false;
             }
 
-            if (flag == true)
+            if (flag)
             {
                 MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -143,17 +144,40 @@ namespace OverSurgery2
             try
             {
                 ReadBoxes();
-                
+
+                if(searchedAddress.HouseName == null && searchedAddress.HouseNumber == 0)
+                {
+                    throw new Exception("Both the house number and house name textboxes are blank");
+                }
+
+                // Build the database query to send to the metalayer
+                if (searchedAddress.HouseName != null && searchedAddress.HouseNumber == 0)
+                {
+                    column = $" (AddressID, HouseName, AddressLine1, PostCode)";
+                    passedData = $"null, '{searchedAddress.HouseName}', '{searchedAddress.StreetName}', '{searchedAddress.PostCode}'";
+                }
+                else if (searchedAddress.HouseNumber != 0 && searchedAddress.HouseName == null)
+                {
+                    column = $" (AddressID, HouseNumber, AddressLine1, PostCode)";
+                    passedData = $"null, {searchedAddress.HouseNumber}, '{searchedAddress.StreetName}', '{searchedAddress.PostCode}'";
+                }
+                else
+                {
+                    column = null;
+                    passedData = $"null, '{searchedAddress.HouseName}', {searchedAddress.HouseNumber}, '{searchedAddress.StreetName}', '{searchedAddress.PostCode}'";
+                }
+
                 // Check if staff is medical staff
                 if (cboType.SelectedIndex != 3 || cboType.SelectedIndex !=4)
                 {
-                    m.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
-                    MetaLayer.Instance().AddMedicalStaff(m);
+                    newMedicalStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));
+                    
+                    MetaLayer.Instance().AddMedicalStaff(newMedicalStaff);
                     flag = true;
                 }
                 else
                 {
-                    searchedStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress));
+                    searchedStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));
                     MetaLayer.Instance().AddStaff(searchedStaff);
                     flag = true;
                 }
@@ -162,7 +186,7 @@ namespace OverSurgery2
             catch(Exception ex)
             {
                 //throw ex;
-                MessageBox.Show("An error has occured", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 flag = false;
             }
 
@@ -255,7 +279,7 @@ namespace OverSurgery2
                     // Check to see if the staff member is a medical staff member
                     if ((int)cboType.SelectedIndex == 0 || (int)cboType.SelectedIndex == 1 || (int)cboType.SelectedIndex == 2)
                     {
-                        m = new MedicalStaff()
+                        newMedicalStaff = new MedicalStaff()
                         {
                             Username = txtAddUserName.Text,
                             Forename = txtAddForename.Text,
@@ -269,8 +293,8 @@ namespace OverSurgery2
                         };
 
                         searchedAddress = new Address();
-                        searchedAddress.HouseName = txtAddHouseName.Text;
-                        searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
+                        searchedAddress.HouseName = txtAddHouseName.Text.Equals("") ? null : txtAddHouseName.Text;
+                        searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text.Equals("") ? "0" : txtAddHouseNumber.Text);
                         searchedAddress.StreetName = txtAddAddressLine.Text;
                         searchedAddress.PostCode = txtAddPostCode.Text;
                     }
@@ -280,8 +304,8 @@ namespace OverSurgery2
                         searchedStaff.Type = (int)cboType.SelectedIndex + 1;
                         searchedStaff.Password = LoginController.Instance().HashPassword(txtAddPassword.Text);
                         searchedAddress = new Address();
-                        searchedAddress.HouseName = txtAddHouseName.Text;
-                        searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text);
+                        searchedAddress.HouseName = txtAddHouseName.Text.Equals("") ? null : txtAddHouseName.Text;
+                        searchedAddress.HouseNumber = Convert.ToInt32(txtAddHouseNumber.Text.Equals("") ? "0" : txtAddHouseNumber.Text);
                         searchedAddress.StreetName = txtAddAddressLine.Text;
                         searchedAddress.PostCode = txtAddPostCode.Text;
                     }
@@ -303,13 +327,13 @@ namespace OverSurgery2
                     {
                         searchedAddress = new Address()
                         {
-                            HouseName = txtUpdateHouseName.Text,
-                            HouseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text),
+                            HouseName = txtUpdateHouseName.Text.Equals("") ? null : txtAddHouseName.Text,
+                            HouseNumber = Convert.ToInt32(txtUpdateHouseNumber.Text.Equals("") ? "0" : txtUpdateHouseNumber.Text),
                             StreetName = txtUpdateAddressLine.Text,
                             PostCode = txtUpdatePostCode.Text
                         };
                     }
-                };
+                }
             }
             catch(Exception ex)
             {
@@ -339,10 +363,11 @@ namespace OverSurgery2
                     cboUpdateGender.Enabled = false;
                     if (searchedStaff.Type == 1||searchedStaff.Type==2||searchedStaff.Type==3)
                     {
-                        MedicalStaff m = MetaLayer.Instance().GetMedicalStaffByStaffID(searchedStaff.StaffID, searchedStaff.Type) as MedicalStaff;
-                        cboUpdateGender.SelectedIndex = (int)m.Gender;
+                        MedicalStaff newMedicalStaff = MetaLayer.Instance().GetMedicalStaffByStaffID(searchedStaff.StaffID, searchedStaff.Type) as MedicalStaff;
+                        cboUpdateGender.SelectedIndex = (int)newMedicalStaff.Gender;
                         cboUpdateGender.Enabled = true;
                         txtUpdatePhone.Enabled = true;
+                        txtUpdatePhone.Text = newMedicalStaff.PhoneNumber;
                         
                     }
                     txtUpdateUserName.Text = searchedStaff.Username;
