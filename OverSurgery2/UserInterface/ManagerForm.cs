@@ -20,7 +20,6 @@ namespace OverSurgery2
         private string m_userName, column, passedData;
         private uint m_addressID;
         bool flag = true;
-        
 
         Staff currentUserLoggedIn = null;                                                                                           // Details on the current user who is logged in
         Staff searchedStaff = new Staff();                                                                                          // Searched staff members details
@@ -132,6 +131,8 @@ namespace OverSurgery2
                 MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
+            ClearBoxes();
+
         }
 
         /// <summary>
@@ -194,8 +195,8 @@ namespace OverSurgery2
             {
                 MessageBox.Show("Staff Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
 
+            ClearBoxes();
         }
 
         /// <summary>
@@ -232,7 +233,9 @@ namespace OverSurgery2
             {
                 MessageBox.Show("Staff Deleted", "Removed Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            
+
+            ClearBoxes();
+
         }
 
         /// <summary>
@@ -419,6 +422,38 @@ namespace OverSurgery2
                 txtAddPhone.Enabled = true;
                 cboAddGender.Enabled = true;
             }
+        }
+
+        /// <summary>
+        /// Clear all the text boxes on the form
+        /// </summary>
+        private void ClearBoxes()
+        {
+            btnSearchUserName.Text = "";
+
+            // Clear add tab fields
+            txtAddUserName.Text = "";
+            txtAddPassword.Text = "";
+            txtAddForename.Text = "";
+            txtAddSurname.Text = "";
+            txtAddPhone.Text = "";
+            txtAddEmail.Text = "";
+            txtPracticeNumberAdd.Text = "";
+            txtAddHouseName.Text = "";
+            txtAddHouseNumber.Text = "";
+            txtAddAddressLine.Text = "";
+            txtAddPostCode.Text = "";
+
+            // Clear update tab fields
+            txtUpdateUserName.Text = "";
+            txtUpdateForename.Text = "";
+            txtUpdateSurname.Text = "";
+            txtUpdatePhone.Text = "";
+            txtUpdateEmail.Text = "";
+            txtUpdateHouseName.Text = "";
+            txtUpdateHouseNumber.Text = "";
+            txtUpdateAddressLine.Text = "";
+            txtUpdatePostCode.Text = "";
         }
     }
 }
