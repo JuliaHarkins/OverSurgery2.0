@@ -202,9 +202,10 @@ namespace OverSurgery2
             if (flag == true)
             {
                 MessageBox.Show("Staff Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearBoxes();
             }
 
-            ClearBoxes();
+            
         }
 
         /// <summary>
@@ -223,6 +224,7 @@ namespace OverSurgery2
                 {
                     // Delete the staff memeber along with and medical staff entries
                     MetaLayer.Instance().DeleteStaff(searchedStaff);
+                    ClearBoxes();
                     flag = true;
                 }
                 else
@@ -241,8 +243,6 @@ namespace OverSurgery2
             {
                 MessageBox.Show("Staff Deleted", "Removed Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            ClearBoxes();
 
         }
 
