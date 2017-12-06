@@ -12,12 +12,39 @@ namespace UnitTests
     public class Julia
     {
         MetaLayer ml = MetaLayer.Instance();
-        List<Medication> medicatinoList = new List<Medication>();
-        
-        public void Querries()
+        List<Medication> medications = new List<Medication>();
+        List<Prescription> prescriptions = new List<Prescription>();
+        List<Extension> extensions = new List<Extension>();
+        [TestMethod]
+        public void GetMedicationOnMedStaffID()
         {
-            medicatinoList = ml.getMedicationOnMedStaffID(3);
-            Assert.AreEqual(medicatinoList[0].Name,"Asprin");
+            medications = ml.GetMedicationOnMedStaffID(3);
+            Assert.AreEqual(medications[0].Name, "Asprin");
+            Assert.AreEqual(medications[1].Name, "Ibruprofen");
         }
+        [TestMethod]
+        public void GetPatientsPrescriptions()
+        {
+            prescriptions = ml.GetPatientsPrescriptions(2);
+            Assert.AreEqual(prescriptions[0].Amount, 32);
+        }
+        [TestMethod]
+        public void DoctorExtentionCount()
+        {
+            int i = ml.DoctorExtentionCount(4);
+            Assert.AreEqual(i, 10);
+        }
+        [TestMethod]
+        public void GetExtentedPrescriptions()
+        {
+            prescriptions= ml.GetExtentedPrescriptions(4);
+            Assert.AreEqual(prescriptions.Count, 10);
+        }
+        [TestMethod]
+        public void GetExtentionRequests()
+        {
+
+        }
+
     }
 }

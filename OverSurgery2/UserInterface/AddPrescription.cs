@@ -24,7 +24,7 @@ namespace OverSurgery2
             m_currentUser = p_currentUser as MedicalStaff;
             m_patientID = p_patientID;
             m_patientName = p_patientName;
-            m_medication = ml.getMedicationOnMedStaffID(m_currentUser.MedicalStaffID);
+            m_medication = ml.GetMedicationOnMedStaffID(m_currentUser.MedicalStaffID);
             InitializeComponent();
 
         }

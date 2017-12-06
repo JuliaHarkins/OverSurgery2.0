@@ -527,7 +527,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_id">medicalStaffID</param>
         /// <returns></returns>
-        public List<Medication> getMedicationOnMedStaffID(uint? p_id)
+        public List<Medication> GetMedicationOnMedStaffID(uint? p_id)
         {
             int permissionLevel = 0;
             List<Medication> medication = new List<Medication>();
