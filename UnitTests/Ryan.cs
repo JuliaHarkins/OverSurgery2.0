@@ -31,7 +31,7 @@ namespace UnitTests
         [TestMethod]
         public void Rota()
         {
-            
+            rota = new Rota(null, 1, "03-03-03", "03-33-33", "Mr", "Rota", "Monday");
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace UnitTests
         [TestMethod]
         public void Appointment()
         {
-            
+            app = new Appointment(null, 0, "1998-03-03", "03-03-03", 1, 1, 1);
         }
 
         /// <summary>
