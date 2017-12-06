@@ -216,3 +216,9 @@ INSERT INTO Rota VALUES (5, 5, 1);
 INSERT INTO Rota VALUES (6, 1, 2);
 INSERT INTO Rota VALUES (7, 3, 2);
 INSERT INTO Rota VALUES (8, 4, 2);
+
+
+NSERT INTO Appointment VALUES (null, 20171206, 093000, 'blood test', 0, 4, 1);
+INSERT INTO Appointment VALUES (null, 20171206, 161500, '', 0, 4, 2);
+INSERT INTO Appointment VALUES (null, 20171206, 161500, '', 0, 4, 5);
+INSERT INTO Appointment VALUES (null, 20171206, 161500, '', 0, 4, 3);
