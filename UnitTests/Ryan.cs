@@ -13,6 +13,7 @@ namespace UnitTests
     public class Ryan
     {
         Rota rota = new Rota();
+        RotaController rotCon = new RotaController();
         Appointment app = new Appointment();
         //AppointmentController appCon = new AppointmentController();
         Manager man = new Manager();
@@ -26,34 +27,46 @@ namespace UnitTests
         }
         
         /// <summary>
-        /// Tests for rota form
+        /// Tests for rota
         /// </summary>
         [TestMethod]
         public void Rota()
         {
-            rota = new Rota(null, 1, "03-03-03", "03-33-33", "Mr", "Rota", "Monday");
+            rota = new Rota(null, 1, "03-03-03", "03-33-33", "Linus", "Torvild", "Monday");
+            Asserts.AreEqual("Linus", rota.Forename, "Object not grabbed correctly");
         }
 
         /// <summary>
-        /// Tests for appointment form
+        /// Tests for rota controller
+        /// </summary>
+        public void RotaController()
+        {
+            rota = new Rota(null, 1, "03-03-03", "03-33-33", "Linus", "Torvild", "Monday");
+            Asserts.AreEqual("Linus", rota.Forename, "Object not grabbed correctly");
+        }
+
+        /// <summary>
+        /// Tests for appointment
         /// </summary>
         [TestMethod]
         public void Appointment()
         {
             app = new Appointment(null, 0, "1998-03-03", "03-03-03", 1, 1, 1);
+            Asserts.AreEqual();
         }
 
         /// <summary>
-        /// Tests for appointment controller form
+        /// Tests for appointment controller
         /// </summary>
         [TestMethod]
         public void AppointmentController()
         {
-            
+            app = new Appointment(null, 0, "1998-03-03", "03-03-03", 1, 1, 1);
+            Asserts.AreEqual();
         }
 
         /// <summary>
-        /// Tests for manager form
+        /// Tests for manager
         /// </summary>
         [TestMethod]
         public void Manager()
@@ -62,7 +75,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests for manager form form
+        /// Tests for manager form
         /// </summary>
         [TestMethod]
         public void ManagerForm()
@@ -71,7 +84,7 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests for person form
+        /// Tests for person
         /// </summary>
         [TestMethod]
         public void Person()
