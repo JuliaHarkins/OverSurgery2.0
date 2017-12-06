@@ -180,7 +180,7 @@ namespace OverSurgery2
                 }
 
                 // Check if staff is medical staff
-                if (searchedStaff.Type != 3 || searchedStaff.Type !=4)
+                if (searchedStaff.Type == 0 || searchedStaff.Type == 1 || searchedStaff.Type == 2)
                 {
                     newMedicalStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));   
                     MetaLayer.Instance().AddMedicalStaff(newMedicalStaff);
