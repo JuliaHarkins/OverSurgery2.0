@@ -180,10 +180,9 @@ namespace OverSurgery2
                 }
 
                 // Check if staff is medical staff
-                if (cboType.SelectedIndex != 3 || cboType.SelectedIndex !=4)
+                if (searchedStaff.Type != 3 || searchedStaff.Type !=4)
                 {
-                    newMedicalStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));
-                    
+                    newMedicalStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));   
                     MetaLayer.Instance().AddMedicalStaff(newMedicalStaff);
                     flag = true;
                 }
@@ -439,7 +438,7 @@ namespace OverSurgery2
         /// </summary>
         private void ClearBoxes()
         {
-            btnSearchUserName.Text = "";
+            txtSearchUserName.Text = "";
 
             // Clear add tab fields
             txtAddUserName.Text = "";
