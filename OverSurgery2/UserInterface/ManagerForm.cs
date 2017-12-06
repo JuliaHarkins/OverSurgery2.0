@@ -142,8 +142,6 @@ namespace OverSurgery2
                 MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            ClearBoxes();
-
         }
 
         /// <summary>
@@ -229,7 +227,7 @@ namespace OverSurgery2
                 }
                 else
                 {
-
+                    flag = false;
                 }
             }
             catch(Exception ex)
