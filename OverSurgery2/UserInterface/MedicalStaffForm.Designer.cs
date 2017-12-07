@@ -60,7 +60,6 @@
             this.lb_appnotes.Size = new System.Drawing.Size(111, 15);
             this.lb_appnotes.TabIndex = 9;
             this.lb_appnotes.Text = "Appointment Notes";
-            this.lb_appnotes.Click += new System.EventHandler(this.lb_notes_Click);
             // 
             // btn_addPrescription
             // 
@@ -94,7 +93,6 @@
             this.dgv_AppointmentList.ReadOnly = true;
             this.dgv_AppointmentList.Size = new System.Drawing.Size(957, 150);
             this.dgv_AppointmentList.TabIndex = 12;
-            this.dgv_AppointmentList.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_AppointmentList_CellContentClick);
             // 
             // btn_nextPatient
             // 
@@ -126,7 +124,6 @@
             this.lb_appList.Size = new System.Drawing.Size(98, 15);
             this.lb_appList.TabIndex = 15;
             this.lb_appList.Text = "Appointment List";
-            this.lb_appList.Click += new System.EventHandler(this.lb_appList_Click);
             // 
             // lb_MedHistory
             // 
@@ -137,7 +134,6 @@
             this.lb_MedHistory.Size = new System.Drawing.Size(91, 15);
             this.lb_MedHistory.TabIndex = 16;
             this.lb_MedHistory.Text = "Medical History";
-            this.lb_MedHistory.Click += new System.EventHandler(this.lb_MedHistory_Click);
             // 
             // btn_extRequest
             // 
@@ -168,7 +164,6 @@
             this.lb_currentUser.Size = new System.Drawing.Size(81, 16);
             this.lb_currentUser.TabIndex = 19;
             this.lb_currentUser.Text = "Temp name";
-            this.lb_currentUser.Click += new System.EventHandler(this.lb_currentUser_Click);
             // 
             // lst_MedicalHistory
             // 
@@ -181,7 +176,6 @@
             this.lst_MedicalHistory.TabIndex = 20;
             this.lst_MedicalHistory.UseCompatibleStateImageBehavior = false;
             this.lst_MedicalHistory.View = System.Windows.Forms.View.Details;
-            this.lst_MedicalHistory.SelectedIndexChanged += new System.EventHandler(this.lst_MedicalHistory_SelectedIndexChanged);
             // 
             // col_medicalDate
             // 
@@ -206,7 +200,6 @@
             this.lst_Prescriptions.TabIndex = 21;
             this.lst_Prescriptions.UseCompatibleStateImageBehavior = false;
             this.lst_Prescriptions.View = System.Windows.Forms.View.Details;
-            this.lst_Prescriptions.SelectedIndexChanged += new System.EventHandler(this.lst_Prescriptions_SelectedIndexChanged);
             // 
             // col_dateIssued
             // 

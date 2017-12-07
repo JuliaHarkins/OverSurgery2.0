@@ -48,7 +48,6 @@
             this.lb_patient.Size = new System.Drawing.Size(132, 20);
             this.lb_patient.TabIndex = 2;
             this.lb_patient.Text = "Prescription For : ";
-            this.lb_patient.Click += new System.EventHandler(this.lb_patient_Click);
             // 
             // btn_savePrescription
             // 
@@ -68,7 +67,7 @@
             this.lb_amount.Size = new System.Drawing.Size(101, 13);
             this.lb_amount.TabIndex = 5;
             this.lb_amount.Text = "Prescription Amount";
-            this.lb_amount.Click += new System.EventHandler(this.lb_notes_Click);
+            
             // 
             // lst_medication
             // 
@@ -79,7 +78,6 @@
             this.lst_medication.TabIndex = 8;
             this.lst_medication.UseCompatibleStateImageBehavior = false;
             this.lst_medication.View = System.Windows.Forms.View.Details;
-            this.lst_medication.SelectedIndexChanged += new System.EventHandler(this.lst_medication_SelectedIndexChanged_1);
             // 
             // dtp_dateOfNextExtention
             // 
@@ -87,7 +85,6 @@
             this.dtp_dateOfNextExtention.Name = "dtp_dateOfNextExtention";
             this.dtp_dateOfNextExtention.Size = new System.Drawing.Size(227, 20);
             this.dtp_dateOfNextExtention.TabIndex = 12;
-            this.dtp_dateOfNextExtention.ValueChanged += new System.EventHandler(this.dtp_dateOfNextExtention_ValueChanged);
             // 
             // cb_extenable
             // 
@@ -108,7 +105,6 @@
             this.lb_dateOfNextIssue.Size = new System.Drawing.Size(97, 13);
             this.lb_dateOfNextIssue.TabIndex = 15;
             this.lb_dateOfNextIssue.Text = "Date Of Next Issue";
-            this.lb_dateOfNextIssue.Click += new System.EventHandler(this.lb_dateOfNextIssue_Click);
             // 
             // nud_amount
             // 
@@ -116,7 +112,6 @@
             this.nud_amount.Name = "nud_amount";
             this.nud_amount.Size = new System.Drawing.Size(123, 20);
             this.nud_amount.TabIndex = 16;
-            this.nud_amount.ValueChanged += new System.EventHandler(this.nud_amount_ValueChanged);
             // 
             // AddPrescription
             // 
