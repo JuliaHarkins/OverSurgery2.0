@@ -103,9 +103,27 @@ namespace OverSurgery2
         }
 
         private void btn_Extend_Click(object sender, EventArgs e)
-        { 
-                Prescription pres = m_PatientPrescriptions.FirstOrDefault(p => p.ID == Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells["ID"].Value));
-                new PrescriptionExtendDialog(this, pres).ShowDialog();
+        {
+            Prescription pres;
+            try
+            {
+                pres = m_PatientPrescriptions.FirstOrDefault(p =>
+                    p.ID == Convert.ToInt16(dgv_PatientsPres.CurrentRow.Cells["ID"].Value));
+                if (pres == null)
+                {
+                    throw new NullReferenceException();
+                }
+                else
+                {
+                    new PrescriptionExtendDialog(this, pres).ShowDialog();
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Prescription not selected");
+            }
+
         }
 
         private void dgv_PatientsPres_CellClick(object sender, DataGridViewCellEventArgs e)
