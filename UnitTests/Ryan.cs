@@ -150,8 +150,16 @@ namespace UnitTests
             appList = ml.GetMissedAppointments();
 
             // Tests for AddMedicalStaff method
-            medStaff.Type = 
-            ml.AddMedicalStaff();
+            medStaff.Type = 1;
+            medStaff.Forename = "Test";
+            medStaff.Surname = "Testing";
+            medStaff.Username = "tester";
+            medStaff.PrescriptionLevel = 1;
+            medStaff.Password = "password123";
+            medStaff.PhoneNumber = "123456789";
+            medStaff.Gender = 0;
+            medStaff.EmailAddress = "test@test.com";
+            ml.AddMedicalStaff(medStaff);
         }
     }
 }
