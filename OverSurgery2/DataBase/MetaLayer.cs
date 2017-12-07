@@ -1672,7 +1672,7 @@ namespace OverSurgery2
             int count = 0;
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT DISTINCT COUNT(MedicalStaffID) FROM Rota");
+                DbDataReader dr = con.Select("SELECT DISTINCT COUNT(StaffID) FROM Rota");
                 while (dr.Read())
                 {
                     count = dr.GetInt32(0);
