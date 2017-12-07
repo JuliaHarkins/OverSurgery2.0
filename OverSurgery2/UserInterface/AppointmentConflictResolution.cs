@@ -21,6 +21,8 @@ namespace OverSurgery2.UserInterface
         public AppointmentConflictResolution(string p_forename, string p_surname)
         {
             InitializeComponent();
+            this.Text = "Select Patient";
+            dGConflict.RowHeadersVisible = false;
             forename = p_forename;
             surname = p_surname;
         }

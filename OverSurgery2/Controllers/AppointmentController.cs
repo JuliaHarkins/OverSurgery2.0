@@ -17,7 +17,7 @@ namespace OverSurgery2
     /// </summary>
     public class AppointmentController
     {
-        Appointment a;
+        Appointment appointment;
         private List<Appointment> m_appointments;
 
         public List<Appointment> Appointments { get { return m_appointments; } }

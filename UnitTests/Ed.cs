@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OverSurgery2;
+using OverSurgery2.UserInterface;
 
 namespace UnitTests
 {
@@ -10,7 +11,7 @@ namespace UnitTests
         RotaForm rf = new RotaForm(); // No public methods! & it's a form
         MedicalStaff ms = new MedicalStaff(); // No references to Method!
         Medication m = new Medication(); // No functioning Methods!
-        UpdateRota ur = new UpdateRota(0, new string[] {"",""}, new bool[] {false}); // No public methods! & it's a form
+        UpdateRota ur = new UpdateRota(0, new string[] { "", "" }, new bool[] { false }); // No public methods! & it's a form
         [TestMethod]
         public void RotaForm()
         {
@@ -30,6 +31,12 @@ namespace UnitTests
 
         [TestMethod]
         public void UpdateRota()
+        {
+            //
+        }
+
+        [TestMethod]
+        public void NewAppointmentFormBackEnd()
         {
             //
         }

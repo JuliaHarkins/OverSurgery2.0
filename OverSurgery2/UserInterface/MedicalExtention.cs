@@ -25,7 +25,7 @@ namespace OverSurgery2
         private void MedicalExtention_Load(object sender, EventArgs e)
         {
 
-            #region LoadExtentions
+            // LoadExtentions
             lst_extention.Columns.Add("Forename", 100);
             lst_extention.Columns.Add("Surname", 100);
             lst_extention.Columns.Add("Medication", 100);
@@ -34,15 +34,8 @@ namespace OverSurgery2
             lst_extention.Columns.Add("Reason", 135);
 
             LoadList();
-#endregion
         }
-
-        private void lst_extention_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
-#region Buttons
-
+        
         private void btn_decline_Click(object sender, EventArgs e)
         {
             updateExtention(2);
@@ -52,7 +45,6 @@ namespace OverSurgery2
         {
             updateExtention(1);
         }
-#endregion
 #region Methoods
         /// <summary>
         /// reloads the extention list.
@@ -96,9 +88,11 @@ namespace OverSurgery2
                 ml.UpdateExtention(ex.ExtentionID, p_newState);
                 LoadList();
             }
-            
         }
-#endregion
+        #endregion
+        private void lst_extention_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
 
+        }
     }
 }

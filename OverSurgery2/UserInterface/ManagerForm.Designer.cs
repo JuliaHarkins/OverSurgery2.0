@@ -222,6 +222,7 @@
             // 
             // cboType
             // 
+            this.cboType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboType.FormattingEnabled = true;
             this.cboType.Location = new System.Drawing.Point(166, 41);
             this.cboType.Name = "cboType";
@@ -342,6 +343,7 @@
             // 
             // cboAddGender
             // 
+            this.cboAddGender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboAddGender.FormattingEnabled = true;
             this.cboAddGender.Location = new System.Drawing.Point(166, 237);
             this.cboAddGender.Name = "cboAddGender";
@@ -368,6 +370,7 @@
             // 
             this.txtAddPassword.Location = new System.Drawing.Point(166, 94);
             this.txtAddPassword.Name = "txtAddPassword";
+            this.txtAddPassword.PasswordChar = '*';
             this.txtAddPassword.Size = new System.Drawing.Size(100, 20);
             this.txtAddPassword.TabIndex = 61;
             // 

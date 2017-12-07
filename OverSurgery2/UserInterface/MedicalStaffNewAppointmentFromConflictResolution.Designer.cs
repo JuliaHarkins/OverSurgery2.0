@@ -35,6 +35,7 @@
             // 
             // cbxStaffName
             // 
+            this.cbxStaffName.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbxStaffName.FormattingEnabled = true;
             this.cbxStaffName.Location = new System.Drawing.Point(37, 66);
             this.cbxStaffName.Name = "cbxStaffName";

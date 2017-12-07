@@ -18,13 +18,14 @@ namespace OverSurgery2.UserInterface
         {
             InitializeComponent();
             dG_Suggested.RowHeadersVisible = false;
+            this.Text = "Search Rota";
         }
 
         private void Find()
         {
             dG_Suggested.Rows.Clear();
             bool flg = true;
-            string forename = txtBxForename.Text, surname = txtBxSurname.Text, searchParam = "";
+            string forename = RemoveSpecialChars(txtBxForename.Text), surname = RemoveSpecialChars(txtBxSurname.Text), searchParam = "";
 
             if ((forename == null && surname == null) || (forename == "" && surname == ""))
             {
@@ -45,13 +46,19 @@ namespace OverSurgery2.UserInterface
             }
             if (flg)
             {
+                Tuple<List<int>, List<string>, List<string>, List<string>> dataToDisplay = ml.SearchRota(searchParam);
                 Display(
-                ml.SearchRota(searchParam).Item1,
-                ml.SearchRota(searchParam).Item2,
-                ml.SearchRota(searchParam).Item3,
-                ml.SearchRota(searchParam).Item4
+                    dataToDisplay.Item1,
+                    dataToDisplay.Item2,
+                    dataToDisplay.Item3,
+                    dataToDisplay.Item4
                 );
             }
+        }
+        private string RemoveSpecialChars(string clip)
+        {
+            clip = clip.Replace("\"", null).Replace("'", null).Replace("\\", null);
+            return clip;
         }
 
         private void BtnSearch_Click(object sender, EventArgs e)
