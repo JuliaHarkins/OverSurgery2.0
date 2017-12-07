@@ -1006,7 +1006,7 @@ namespace OverSurgery2
         /// </summary>
         public List<Appointment> GetMissedAppointments()
         {
-        Appointment a;
+            Appointment app;
             List<Appointment> missedApp = new List<Appointment>();
             if (con.OpenConnection())
             {
@@ -1014,17 +1014,17 @@ namespace OverSurgery2
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
-                a = new Appointment
-                {
-                    AppointmentID = dr.GetInt16(0),
-                    AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
-                    AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
-                    Notes = dr.GetString(3),
-                    AppAttend = dr.GetBoolean(4),
-                    MedicalStaffID = dr.GetInt16(5),
-                    PatientID = dr.GetInt16(6)
-                };
-                missedApp.Add(a);
+                    app = new Appointment
+                    {
+                        AppointmentID = dr.GetInt16(0),
+                        AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
+                        AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
+                        Notes = dr.GetString(3),
+                        AppAttend = dr.GetBoolean(4),
+                        MedicalStaffID = dr.GetInt16(5),
+                        PatientID = dr.GetInt16(6)
+                    };
+                    missedApp.Add(app);
                 };
                 // Close Data Reader
                 dr.Close();
@@ -1038,14 +1038,6 @@ namespace OverSurgery2
         /// </summary>
         public void AddStaff(Staff staff)
         {
-            /* `StaffID` 
-                * `Forename`
-                * `Surname`
-                * `Email` 
-                * `AddressID` 
-                * `Username` 
-                * `Password`
-                */
             if (con.OpenConnection())
             {
 

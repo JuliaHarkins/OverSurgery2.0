@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery2.UserInterface
+namespace OverSurgery2
 {
     class NewAppointmentFormBackEnd
     {

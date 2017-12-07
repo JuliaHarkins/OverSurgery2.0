@@ -4,6 +4,7 @@
  * Last Edit by: R
  */
 using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OverSurgery2;
 
@@ -13,10 +14,13 @@ namespace UnitTests
     public class Ryan
     {
         Rota rota = new Rota();
+        List<Rota> rotaList = new List<Rota>();
         RotaController rotCon = RotaController.Instance(); 
         Appointment app = new Appointment();
+        List<Appointment> appList = new List<Appointment>();
         AppointmentController appCon = AppointmentController.Instance();
         Manager man = new Manager();
+        MedicalStaff medStaff = new MedicalStaff();
         MetaLayer ml = MetaLayer.Instance();
 
 
@@ -52,8 +56,7 @@ namespace UnitTests
         [TestMethod]
         public void RotaControllerTest()
         {
-            rotCon = RotaController.Instance();
-            Assert.AreEqual("Linus", rota.Forename, "Object not grabbed correctly");
+            
         }
 
         /// <summary>
@@ -99,5 +102,56 @@ namespace UnitTests
             
         }
 
+        /// <summary>
+        /// Tests for the sections of the metalayer that i implemened
+        /// </summary>
+        [TestMethod]
+        public void MetalayerSectionsTests()
+        {
+            // Tests for GetAppointmentById method
+            app = new Appointment();
+            app = ml.GetAppointmentById(1);
+            Assert.AreEqual(1, app.MedicalStaffID);
+            Assert.AreEqual(1, app.PatientID);
+
+            // Tests for UpdateAppointment method
+            app.MedicalStaffID = 2;
+            ml.UpdateAppointment(app);
+
+            // Tests for AddAppointment method
+            app.AppDate = new DateTime(2017, 11, 12);
+            app.AppTime = new DateTime(2017, 11, 12,16,15,00);
+            app.Notes = "Follow up";
+            app.AppAttend = true;
+            app.MedicalStaffID = 1;
+            app.PatientID = 1;
+            ml.AddAppointment(app);
+
+            // Tests for GetStaffRotaByID method
+            rota = new Rota();
+            rota.RotaEntryID = 1;
+            ml.GetStaffRotaByID(rota);
+
+            // Tests the AddRota method
+            rota.StaffID = 1;
+            rota.StartTime = 161500;
+            rota.Forename = "Linus";
+            rota.Surname = "Torvild";
+            rota.EndTime = 163500;
+            rota.Days = "Monday";
+            ml.AddRota(rota);
+
+            // Tests for UpdateRota method
+            rota.EndTime = 164504;
+            ml.UpdateRota(rota);
+
+            // Tests for GetMissedAppointments method
+            appList = new List<Appointment>();
+            appList = ml.GetMissedAppointments();
+
+            // Tests for AddMedicalStaff method
+            medStaff.Type = 
+            ml.AddMedicalStaff();
+        }
     }
 }
