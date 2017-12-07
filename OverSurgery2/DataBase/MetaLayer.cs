@@ -462,7 +462,6 @@ namespace OverSurgery2
             }
             return a;
         }
-
         /// <summary>
         /// Update Appointment in the database to take new values
         /// Last Updated : 15/11/17,
@@ -559,11 +558,11 @@ namespace OverSurgery2
         return medication;
         }
         /// <summary>
-        /// Uses the perscription object to add a new perscription to the databaes.
+        /// Uses the prescription object to add a new prescription to the databaes.
         /// Last Updated : 15/11/17,
         /// By j
         /// </summary>
-        /// <param name="p_p">the perscription</param>
+        /// <param name="p_p">the prescription</param>
         public void AddPrescriptionToTheDatabase(Prescription p_p)
             {
             if (con.OpenConnection())
@@ -582,7 +581,6 @@ namespace OverSurgery2
                 }
         con.CloseConnection();
         }
-
         /// <summary>
         /// Finds the appointments for one medical staff member for a given day.
         /// Last Updated : 21/11/17,
@@ -831,7 +829,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_staffID">the staff id</param>
         /// <returns></returns>
-        public int GetStafIDFromMedStaffID(int p_staffID)
+        public int GetStaffIDFromMedStaffID(int p_staffID)
         {
             int staffid = 0;
             if (con.OpenConnection())

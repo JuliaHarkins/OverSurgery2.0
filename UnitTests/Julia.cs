@@ -16,9 +16,12 @@ namespace UnitTests
         List<Prescription> prescriptions = new List<Prescription>();
         List<Extension> extensions = new List<Extension>();
         List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
+        List<Appointment> appointments = new List<Appointment>();
+        int i;
+        string s;
 
         [TestMethod]
-        private void GetMedicationOnMedStaffID()
+        public void GetMedicationOnMedStaffID()
         {
             medications = ml.GetMedicationOnMedStaffID(3);
             Assert.AreEqual(medications[0].Name, "Asprin");
@@ -26,44 +29,58 @@ namespace UnitTests
         }
 
         [TestMethod]
-        private void GetPatientsPrescriptions()
+        public void GetPatientsPrescriptions()
         {
             prescriptions = ml.GetPatientsPrescriptions(2);
             Assert.AreEqual(prescriptions[0].Amount, 32);
         }
 
         [TestMethod]
-        private void DoctorExtentionCount()
+        public void DoctorExtentionCount()
         {
-            int i = ml.DoctorExtentionCount(4);
+            i = ml.DoctorExtentionCount(4);
             Assert.AreEqual(i, 10);
         }
 
         [TestMethod]
-        private void GetExtentedPrescriptions()
+        public void GetExtentedPrescriptions()
         {
             prescriptions= ml.GetExtentedPrescriptions(4);
             Assert.AreEqual(prescriptions.Count, 10);
         }
 
         [TestMethod]
-        private void GetExtentionRequests()
+        public void GetExtentionRequests()
         {
             extensions = ml.GetExtentionRequests(4);
             Assert.AreEqual(extensions.Count, 10);
         }
 
         [TestMethod]
-        private void GetPatientsMedicalHiatory()
+        public void GetPatientsMedicalHiatory()
         {
             medicalHistoy = ml.GetPatientsMedicalHiatory(3);
             Assert.AreEqual(medicalHistoy.Count, 7);
         }
         
         [TestMethod]
-        private void GetMedicationName()
+        public void GetMedicationName()
         {
+            s = ml.GetMedicationName(2);
+            Assert.AreEqual(s, "Asprin");
+        }
 
+        [TestMethod]
+        public void GetStaffIDFromMedStaffID()
+        {
+            i = ml.GetStaffIDFromMedStaffID(4);
+            Assert.AreEqual(i, 7);
+        }
+        [TestMethod]
+        public void GetStaffNameAndTitle()
+        {
+            s = ml.GetStaffNameAndTitle(4);
+            Assert.AreEqual(s, "Nurse Test Trial");
         }
     }
 }
