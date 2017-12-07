@@ -18,6 +18,7 @@ namespace OverSurgery2.UserInterface
         public NewAppointmentForm()
         {
             InitializeComponent();
+            npb = new NewAppointmentFormBackEnd();
             this.Text = "New Appointment Booking";
             cbxDay.MaxDropDownItems = 7;
             cbxDay.DropDownHeight = 200;
