@@ -63,6 +63,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnSearchUserName_Click(object sender, EventArgs e)
         { 
+            
             if (txtSearchUserName.Text != "")
             {
                 try

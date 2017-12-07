@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery2.Controllers
+namespace OverSurgery2
 {
     public class RotaController
     {
@@ -22,6 +22,10 @@ namespace OverSurgery2.Controllers
 
         MetaLayer ml;
 
+        private RotaController()
+        {
+
+        }
         private static RotaController m_instance;
         public static RotaController Instance()
         {

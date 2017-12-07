@@ -13,24 +13,18 @@ namespace UnitTests
     public class Ryan
     {
         Rota rota = new Rota();
-        //RotaController rotCon = new RotaController(); 
+        RotaController rotCon = RotaController.Instance(); 
         Appointment app = new Appointment();
-        //AppointmentController appCon = new AppointmentController();
+        AppointmentController appCon = AppointmentController.Instance();
         Manager man = new Manager();
-        //ManagerForm manForm = new ManagerForm();
-        //Person per = new Person();
         MetaLayer ml = MetaLayer.Instance();
 
-        [TestMethod]
-        public void TestMethod1()
-        {
-        }
 
         /// <summary>
         /// Tests for rota
         /// </summary>
         [TestMethod]
-        public void Rota()
+        public void RotaTest()
         {
             // Create data for objects
             rota = new Rota();
@@ -43,30 +37,30 @@ namespace UnitTests
             rota.StaffID = 1;
 
             // Testing the object variables are grabable
-            Assert.AreEqual(1, rota.RotaEntryID, "Object not grabbed correctly");
-            Assert.AreEqual("Linus", rota.Forename, "Object not grabbed correctly");
-            Assert.AreEqual("Torvild", rota.Surname, "Object not grabbed correctly");
-            Assert.AreEqual(03-03-03, rota.StartTime, "Object not grabbed correctly");
-            Assert.AreEqual(03-33-33, rota.EndTime, "Object not grabbed correctly");
-            Assert.AreEqual("Monday", rota.Days, "Object not grabbed correctly");
-            Assert.AreEqual(1, rota.StaffID, "Object not grabbed correctly");
+            Assert.AreEqual(1, rota.RotaEntryID);
+            Assert.AreEqual("Linus", rota.Forename);
+            Assert.AreEqual("Torvild", rota.Surname);
+            Assert.AreEqual(03-03-03, rota.StartTime);
+            Assert.AreEqual(03-33-33, rota.EndTime);
+            Assert.AreEqual("Monday", rota.Days);
+            Assert.AreEqual(1, rota.StaffID);
         }
 
         /// <summary>
         /// Tests for rota controller
         /// </summary>
         [TestMethod]
-        public void RotaController()
+        public void RotaControllerTest()
         {
-            //rotCon = new RotaController();
-            //Assert.AreEqual("Linus", rota.Forename, "Object not grabbed correctly");
+            rotCon = RotaController.Instance();
+            Assert.AreEqual("Linus", rota.Forename, "Object not grabbed correctly");
         }
 
         /// <summary>
         /// Tests for appointment
         /// </summary>
         [TestMethod]
-        public void Appointment()
+        public void AppointmentTest()
         {
             app = new Appointment();
             app.MedicalStaffID = 1;
@@ -77,20 +71,20 @@ namespace UnitTests
             //app.AppTime = 03-03-03;
             app.Notes = "Notes";
 
-            Assert.AreEqual(1, app.MedicalStaffID, "Object not grabbed correctly");
-            Assert.AreEqual(1, app.PatientID, "Object not grabbed correctly");
-            Assert.AreEqual(true, app.AppAttend, "Object not grabbed correctly");
-            Assert.AreEqual(1, app.AppointmentID, "Object not grabbed correctly");
-            //Assert.AreEqual(19980303, app.AppDate, "Object not grabbed correctly");
-            //Assert.AreEqual(03-03-03, app.AppTime, "Object not grabbed correctly");
-            Assert.AreEqual("Notes", app.Notes, "Object not grabbed correctly");
+            Assert.AreEqual(1, app.MedicalStaffID);
+            Assert.AreEqual(1, app.PatientID);
+            Assert.AreEqual(true, app.AppAttend);
+            Assert.AreEqual(1, app.AppointmentID);
+            //Assert.AreEqual(19980303, app.AppDate);
+            //Assert.AreEqual(03-03-03, app.AppTime);
+            Assert.AreEqual("Notes", app.Notes);
         }
 
         /// <summary>
         /// Tests for appointment controller
         /// </summary>
         [TestMethod]
-        public void AppointmentController()
+        public void AppointmentControllerTest()
         {
             //appCon = new AppointmentController();
             //Assert.AreEqual();
@@ -100,25 +94,7 @@ namespace UnitTests
         /// Tests for manager
         /// </summary>
         [TestMethod]
-        public void Manager()
-        {
-            
-        }
-
-        /// <summary>
-        /// Tests for manager form
-        /// </summary>
-        [TestMethod]
-        public void ManagerForm()
-        {
-            
-        }
-
-        /// <summary>
-        /// Tests for person
-        /// </summary>
-        [TestMethod]
-        public void Person()
+        public void ManagerTest()
         {
             
         }
