@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OverSurgery2.UserInterface
+namespace OverSurgery2
 {
     class NewAppointmentFormBackEnd
     {
-        public class TimeSheet
+        private class TimeSheet
         {
             public DateTime AppDate {get;set;}
             public DateTime AppTime {get;set;}
@@ -243,6 +243,21 @@ namespace OverSurgery2.UserInterface
                 staffAvailable.Add(sb.ToString());
             }
             return new Tuple<List<string>, List<string>, List<string>>(generatedTimeSheet.Item2, generatedTimeSheet.Item1, staffAvailable);
+        }
+
+        public bool IsRotaNull()
+        {
+            bool flg = false;
+            int rotaCount = ml.GetRotaCount();
+            if (rotaCount == 0)
+            {
+                flg = false;
+            }
+            if (rotaCount > 0)
+            {
+                flg =  true;
+            }
+            return flg;
         }
 
         /// <summary>
