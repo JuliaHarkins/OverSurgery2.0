@@ -1666,5 +1666,21 @@ namespace OverSurgery2
             }
             return flg;
         }
+
+        public int GetRotaCount()
+        {
+            int count = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT DISTINCT COUNT(MedicalStaffID) FROM Rota");
+                while (dr.Read())
+                {
+                    count = dr.GetInt32(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return count;
+        }
     }
 }
