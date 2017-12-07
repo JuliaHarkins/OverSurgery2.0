@@ -23,7 +23,7 @@ namespace OverSurgery2
         StringBuilder sb = new StringBuilder();
         int m_appointmentListCounter;                       // the current position in the appointment list.
         #endregion
-        #region Constructor
+
         /// <summary>
         /// Checks if the user is a doctor or a general medical staff member
         /// so that the correct buttons are shown.
@@ -36,12 +36,9 @@ namespace OverSurgery2
             m_currentUser = p_currentUser as MedicalStaff;
             InitializeComponent();
         }
-#endregion
-#region Load
         private void MedicalStaff_Load(object sender, EventArgs e)
         {
             //checks there is information to load, and shows the relivent appointment information.
-#region LoadingAppointmentList
             m_appointmentBinding = new BindingSource();
 
                 m_appointments = ml.GetStaffAppointments(Convert.ToInt16(m_currentUser.MedicalStaffID));
@@ -72,41 +69,15 @@ namespace OverSurgery2
                 dgv_AppointmentList.CurrentRow.Selected = true;
             }
 
-            #endregion
             SelectMedicalHistory();
             //shows the current user
-#region ShowCurrentUser
 
-                lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
+            lb_currentUser.Text = "Current User : " + m_currentUser.Forename + " " + m_currentUser.Surname;
 
-            #endregion
-            #region SetsExtentionAmount
+            // Sets Extention Amount
             CheckExtentionButton();
-            
-#endregion
-        }
-#endregion
-#region Lable
-        private void lb_notes_Click(object sender, EventArgs e)
-        {
-
         }
 
-        private void lb_MedHistory_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lb_appList_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lb_currentUser_Click(object sender, EventArgs e)
-        {
-
-        }
- #endregion
 #region Button
         private void btn_addPrescription_Click(object sender, EventArgs e)
         {
@@ -129,8 +100,6 @@ namespace OverSurgery2
         {
             new MedicalExtention(Convert.ToInt32(m_currentUser.MedicalStaffID)).ShowDialog();
             CheckExtentionButton();
-
-
         }
         /// <summary>
         /// saves the new patient notes to the medical hsitory of the patient.
@@ -157,7 +126,6 @@ namespace OverSurgery2
                         sb.Append(ch);
                     }
                     notes = sb.ToString();
-                    
                 }
                 
                 if (m_appointments.Count != 0)
@@ -237,7 +205,6 @@ namespace OverSurgery2
                     SelectMedicalHistory();
                 }
             }
-
         }
         /// <summary>
         /// Exits 
@@ -251,17 +218,7 @@ namespace OverSurgery2
             this.Close();
         }
         #endregion
-#region DataGridView
-        private void dgv_AppointmentList_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-        #endregion
-#region TextBox
-        private void txt_CurrentNotes_SelectedIndexChanged(object sender, EventArgs e)
-        {
-        }
-        #endregion
+        
 #region Method
         private void SelectMedicalHistory()
         {
@@ -305,18 +262,6 @@ namespace OverSurgery2
             
         }
 #endregion
-#region Lists
-
-        private void lst_MedicalHistory_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void lst_Prescriptions_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-        #endregion
         /// <summary>
         /// Checks if the user is a doctor and updates the extentioin buttom accordingly 
         /// By j

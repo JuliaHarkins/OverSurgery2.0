@@ -63,6 +63,7 @@ namespace OverSurgery2
         /// <param name="e"></param>
         private void btnSearchUserName_Click(object sender, EventArgs e)
         { 
+            
             if (txtSearchUserName.Text != "")
             {
                 try
@@ -142,8 +143,6 @@ namespace OverSurgery2
                 MessageBox.Show("Staff Updated", "Updated Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            ClearBoxes();
-
         }
 
         /// <summary>
@@ -180,10 +179,9 @@ namespace OverSurgery2
                 }
 
                 // Check if staff is medical staff
-                if (cboType.SelectedIndex != 3 || cboType.SelectedIndex !=4)
+                if (searchedStaff.Type == 0 || searchedStaff.Type == 1 || searchedStaff.Type == 2)
                 {
-                    newMedicalStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));
-                    
+                    newMedicalStaff.AddressID = Convert.ToUInt16(MetaLayer.Instance().AddAddress(searchedAddress, column, passedData));   
                     MetaLayer.Instance().AddMedicalStaff(newMedicalStaff);
                     flag = true;
                 }
@@ -205,9 +203,10 @@ namespace OverSurgery2
             if (flag == true)
             {
                 MessageBox.Show("Staff Added", "New Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                ClearBoxes();
             }
 
-            ClearBoxes();
+            
         }
 
         /// <summary>
@@ -226,11 +225,12 @@ namespace OverSurgery2
                 {
                     // Delete the staff memeber along with and medical staff entries
                     MetaLayer.Instance().DeleteStaff(searchedStaff);
+                    ClearBoxes();
                     flag = true;
                 }
                 else
                 {
-
+                    flag = false;
                 }
             }
             catch(Exception ex)
@@ -244,8 +244,6 @@ namespace OverSurgery2
             {
                 MessageBox.Show("Staff Deleted", "Removed Entry", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-
-            ClearBoxes();
 
         }
 
@@ -439,7 +437,7 @@ namespace OverSurgery2
         /// </summary>
         private void ClearBoxes()
         {
-            btnSearchUserName.Text = "";
+            txtSearchUserName.Text = "";
 
             // Clear add tab fields
             txtAddUserName.Text = "";
