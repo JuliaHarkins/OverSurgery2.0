@@ -19,6 +19,13 @@ namespace OverSurgery2
         int m_patientID;
         string m_patientName;
         #endregion
+        /// <summary>
+        /// opens the add prescription form using the currentUser, the patientID and the patientName
+        /// By J
+        /// </summary>
+        /// <param name="p_currentUser"></param>
+        /// <param name="p_patientID"></param>
+        /// <param name="p_patientName"></param>
         public AddPrescription(Staff p_currentUser, int p_patientID, string p_patientName)
         {
             m_currentUser = p_currentUser as MedicalStaff;
@@ -32,19 +39,15 @@ namespace OverSurgery2
         private void AddPrescription_Load(object sender, EventArgs e)
         {
             lb_patient.Text = "Prescription For : " + m_patientName;
-            #region hideExtention
+
             lb_dateOfNextIssue.Hide();
             dtp_dateOfNextExtention.Hide();
-            #endregion
-            #region LoadMedication
+
             lst_medication.Columns.Add("Medication", 125);
             lst_medication.Columns.Add("Dosage", 75);
             lst_medication.Columns.Add("Permission Level", 95);
 
             loadList();
-
-            #endregion
-
         }
         private void btn_savePrescription_Click(object sender, EventArgs e)
         {
@@ -84,29 +87,6 @@ namespace OverSurgery2
             }
 
         }
-        private void lst_medication_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-        }
-        private void lb_notes_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void lb_dateOfNextIssue_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void lb_patient_Click(object sender, EventArgs e)
-        {
-
-        }
-        private void dtp_dateOfNextExtention_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-        private void nud_amount_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
         private void cb_extenable_CheckedChanged(object sender, EventArgs e)
         {
             if (cb_extenable.Checked)
@@ -120,6 +100,9 @@ namespace OverSurgery2
                 dtp_dateOfNextExtention.Hide();
             }
         }
+        /// <summary>
+        /// loads the list of medications.
+        /// </summary>
         private void loadList()
         {
             foreach (Medication m in m_medication)

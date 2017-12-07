@@ -15,36 +15,55 @@ namespace UnitTests
         List<Medication> medications = new List<Medication>();
         List<Prescription> prescriptions = new List<Prescription>();
         List<Extension> extensions = new List<Extension>();
+        List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
+
         [TestMethod]
-        public void GetMedicationOnMedStaffID()
+        private void GetMedicationOnMedStaffID()
         {
             medications = ml.GetMedicationOnMedStaffID(3);
             Assert.AreEqual(medications[0].Name, "Asprin");
             Assert.AreEqual(medications[1].Name, "Ibruprofen");
         }
+
         [TestMethod]
-        public void GetPatientsPrescriptions()
+        private void GetPatientsPrescriptions()
         {
             prescriptions = ml.GetPatientsPrescriptions(2);
             Assert.AreEqual(prescriptions[0].Amount, 32);
         }
+
         [TestMethod]
-        public void DoctorExtentionCount()
+        private void DoctorExtentionCount()
         {
             int i = ml.DoctorExtentionCount(4);
             Assert.AreEqual(i, 10);
         }
+
         [TestMethod]
-        public void GetExtentedPrescriptions()
+        private void GetExtentedPrescriptions()
         {
             prescriptions= ml.GetExtentedPrescriptions(4);
             Assert.AreEqual(prescriptions.Count, 10);
         }
+
         [TestMethod]
-        public void GetExtentionRequests()
+        private void GetExtentionRequests()
+        {
+            extensions = ml.GetExtentionRequests(4);
+            Assert.AreEqual(extensions.Count, 10);
+        }
+
+        [TestMethod]
+        private void GetPatientsMedicalHiatory()
+        {
+            medicalHistoy = ml.GetPatientsMedicalHiatory(3);
+            Assert.AreEqual(medicalHistoy.Count, 7);
+        }
+        
+        [TestMethod]
+        private void GetMedicationName()
         {
 
         }
-
     }
 }
