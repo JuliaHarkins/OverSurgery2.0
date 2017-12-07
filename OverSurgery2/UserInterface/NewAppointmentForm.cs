@@ -32,7 +32,10 @@ namespace OverSurgery2.UserInterface
             PopulateYear();
             PopulateMonth();
             PopulateDay();
-            DoctorFilter();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void PopulateDoctorFilter(string tables, string searchParam)
@@ -113,6 +116,7 @@ namespace OverSurgery2.UserInterface
 
         private void PopulateDataGrid(Tuple<List<string>, List<string>, List<string>> data)
         {
+            npb = new NewAppointmentFormBackEnd();
             dGAppointment.Rows.Clear();
             int j = 0;
             for (int i = 0; i < data.Item2.Count; i++)
@@ -129,7 +133,7 @@ namespace OverSurgery2.UserInterface
                     }
                 }
             }
-            if (dGAppointment.RowCount == 0)
+            if (dGAppointment.RowCount == 0 && npb.IsRotaNull())
             {
                 PopulateDoctorFilter(m_tables, m_searchParam);
                 DoctorFilter();
@@ -223,7 +227,7 @@ namespace OverSurgery2.UserInterface
             {
                 MessageBox.Show("Patient Must be Selected");
             }
-            if (patientID != 0)
+            if (patientID != 0 && dGAppointment.Rows.Count > 0)
             {
                 int rowIndex = dGAppointment.SelectedCells[0].RowIndex;
                 string date = dGAppointment.Rows[rowIndex].Cells[1].Value.ToString();
@@ -262,6 +266,10 @@ namespace OverSurgery2.UserInterface
                 {
                     MessageBox.Show("There has been an error with the request");
                 }
+            }
+            else
+            {
+                MessageBox.Show("there is no staff available");
             }
         }
 
@@ -365,17 +373,29 @@ namespace OverSurgery2.UserInterface
 
         private void cbxDay_DropDownClosed(object sender, EventArgs e)
         {
-            DoctorFilter();
+            npb = new NewAppointmentFormBackEnd();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void cbxDoctorFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DoctorFilter();
+            npb = new NewAppointmentFormBackEnd();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void cbxDoctorFilter_DropDownClosed(object sender, EventArgs e)
         {
-            DoctorFilter();
+            npb = new NewAppointmentFormBackEnd();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void cbxYear_SelectedIndexChanged(object sender, EventArgs e)
