@@ -8,7 +8,7 @@ namespace OverSurgery2.UserInterface
 {
     class NewAppointmentFormBackEnd
     {
-        public class TimeSheet
+        private class TimeSheet
         {
             public DateTime AppDate {get;set;}
             public DateTime AppTime {get;set;}

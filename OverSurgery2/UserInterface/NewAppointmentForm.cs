@@ -118,8 +118,8 @@ namespace OverSurgery2.UserInterface
                     if (data.Item3.ElementAtOrDefault(i) != "")
                     {
                         dGAppointment.Rows.Add();
-                        dGAppointment.Rows[j].Cells[1].Value = data.Item2.ElementAtOrDefault(i);
-                        dGAppointment.Rows[j].Cells[2].Value = data.Item1.ElementAtOrDefault(i);
+                        dGAppointment.Rows[j].Cells[1].Value = data.Item1.ElementAtOrDefault(i);
+                        dGAppointment.Rows[j].Cells[2].Value = data.Item2.ElementAtOrDefault(i);
                         dGAppointment.Rows[j].Cells[3].Value = data.Item3.ElementAtOrDefault(i).Remove(data.Item3.ElementAtOrDefault(i).Length -2);
                         j++;
                     }
