@@ -245,6 +245,21 @@ namespace OverSurgery2
             return new Tuple<List<string>, List<string>, List<string>>(generatedTimeSheet.Item2, generatedTimeSheet.Item1, staffAvailable);
         }
 
+        public bool IsRotaNull()
+        {
+            bool flg = false;
+            int rotaCount = ml.GetRotaCount();
+            if (rotaCount == 0)
+            {
+                flg = false;
+            }
+            if (rotaCount > 0)
+            {
+                flg =  true;
+            }
+            return flg;
+        }
+
         /// <summary>
         /// Generates all possible Appointments
         /// </summary>

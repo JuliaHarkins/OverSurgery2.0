@@ -23,8 +23,11 @@ namespace OverSurgery2.UserInterface
             cbxDay.DropDownHeight = 200;
             cbxMonth.MaxDropDownItems = 6;
             dGAppointment.RowHeadersVisible = false;
-            PopulateDoctorFilter(m_tables, m_searchParam);
-            PopulateDataGrid(npb.SequenceAppointments(DayCheck(DateTime.Now), null));
+            if (npb.IsRotaNull())
+            {
+                PopulateDoctorFilter(m_tables, m_searchParam);
+                PopulateDataGrid(npb.SequenceAppointments(DayCheck(DateTime.Now), null));
+            }
             PopulateYear();
             PopulateMonth();
             PopulateDay();
@@ -193,11 +196,14 @@ namespace OverSurgery2.UserInterface
                     break;
             }
             string searchParam = m_searchParam + $" AND d.DayID = r.DayID AND DayName = '{search}'";
-            if (searchOn == null)
+            if (npb.IsRotaNull())
             {
-                PopulateDoctorFilter(tables, searchParam);
+                if (searchOn == null)
+                {
+                    PopulateDoctorFilter(tables, searchParam);
+                }
+                PopulateDataGrid(npb.SequenceAppointments(date, searchOn));
             }
-            PopulateDataGrid(npb.SequenceAppointments(date, searchOn));
         }
 
         private void BtnReturn_Click(object sender, EventArgs e)
