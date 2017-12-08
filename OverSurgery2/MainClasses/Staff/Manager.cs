@@ -15,8 +15,6 @@ namespace OverSurgery2
     public class Manager : Staff
     {
         MetaLayer ml;
-        public static Manager m_instance;
-
         public Manager()
         {
 
