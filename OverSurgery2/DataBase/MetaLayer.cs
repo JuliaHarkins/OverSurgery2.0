@@ -785,7 +785,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_patientID">the id of the patient that you want to check</param>
         /// <returns></returns>
-        public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
+        public List<MedicalHistory> GetPatientsMedicalHistory(int p_patientID)
         {
             List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
         MedicalHistory mh;
@@ -845,7 +845,6 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 //gets the staff id
-
                 DbDataReader dr = con.Select("SELECT DISTINCT StaffID FROM MedicalStaff  WHERE MedicalStaffID =" + p_staffID + ";");
                 while (dr.Read())
                 {
@@ -855,8 +854,6 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-            //returns the title and surname
-
             return staffid;
         }
         

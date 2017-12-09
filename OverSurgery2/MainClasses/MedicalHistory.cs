@@ -12,64 +12,15 @@ namespace OverSurgery2
     /// </summary>
     public class MedicalHistory
     {
-#region Members
-        int? m_id;
-        DateTime m_date;
-        string m_notes;
-       int  m_patientID;
-#endregion
-#region Properties
-        public int? ID
-        {
-            get
-            {
-                return m_id;
-            }
-            set
-            {
-                m_id = value;
-            }
-        }
-        public DateTime Date
-        {
-            get
-            {
-                return m_date;
-            }
-            set
-            {
-                m_date = value;
-            }
-        }
-        public string Notes
-        {
-            get
-            {
-                return m_notes;
-            }
-            set
-            {
-                m_notes = value;
-            }
-        }
-        public int PatientID
-        {
-            get
-            {
-                return m_patientID;
-            }
-            set
-            {
-                m_patientID = value;
-            }
-        }
-        #endregion
-#region Constructor
+        public int ID { get; set; }
+        public DateTime Date { get; set; }
+        public string Notes { get; set; }
+        public int PatientID { get; set; }
+        
         public MedicalHistory()
         {
         }
     }
-#endregion
 }
 
 

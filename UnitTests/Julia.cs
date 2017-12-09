@@ -34,7 +34,6 @@ namespace UnitTests
             prescriptions = ml.GetPatientsPrescriptions(2);
             Assert.AreEqual(prescriptions[0].Amount, 32);
         }
-        //a comment
         [TestMethod]
         public void DoctorExtentionCount()
         {
@@ -59,7 +58,7 @@ namespace UnitTests
         [TestMethod]
         public void GetPatientsMedicalHiatory()
         {
-            medicalHistoy = ml.GetPatientsMedicalHiatory(3);
+            medicalHistoy = ml.GetPatientsMedicalHistory(3);
             Assert.AreEqual(medicalHistoy.Count, 7);
         }
         
