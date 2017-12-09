@@ -26,10 +26,14 @@ namespace UnitTests
         MedicalStaff medStaffTest = new MedicalStaff();
         Staff staff = new Staff();
         Staff staffTest = new Staff();
-        MetaLayer ml = MetaLayer.Instance();
         Address add = new Address();
+        Address addTest = new Address();
+        Medication med = new Medication();
+        Medication medTest = new Medication();
+        List<Medication> medList = new List<Medication>();
+        MetaLayer ml = MetaLayer.Instance();
 
-        string column, passedData, DeleteStaffCatch = null;
+        string column, passedData, DeleteStaffCatch = null, DeleteAddCatch = null;
 
         /// <summary>
         /// Tests for rota
@@ -175,6 +179,23 @@ namespace UnitTests
             appList = new List<Appointment>();
             appList = ml.GetMissedAppointments();
 
+            // Tests for AddAddress method
+            add.HouseName = "name";
+            add.HouseNumber = 22;
+            add.PostCode = "PE433RE";
+            add.StreetName = "Street";
+
+            column = null;
+            passedData = $"null, '{add.HouseName}', {add.HouseNumber}, '{add.StreetName}', '{add.PostCode}'";
+
+            ml.AddAddress(add, column, passedData);
+
+            addTest = ml.GetAddressById(6);
+            Assert.AreEqual("name", addTest.HouseName);
+            Assert.AreEqual(22, addTest.HouseNumber);
+            Assert.AreEqual("Street", addTest.StreetName);
+            Assert.AreEqual("PE433RE", addTest.PostCode);
+
             // Tests for AddMedicalStaff method
             medStaff.Type = 1;
             medStaff.Forename = "Test";
@@ -185,16 +206,8 @@ namespace UnitTests
             medStaff.PhoneNumber = "123456789";
             medStaff.Gender = 0;
             medStaff.EmailAddress = "test@test.com";
+            medStaff.AddressID = 6;
 
-            add.HouseName = "name";
-            add.HouseNumber = 22;
-            add.PostCode = "PE433RE";
-            add.StreetName = "Street";
-
-            column = null;
-            passedData = $"null, '{add.HouseName}', {add.HouseNumber}, '{add.StreetName}', '{add.PostCode}'";
-
-            ml.AddAddress(add, column, passedData);
             ml.AddMedicalStaff(medStaff);
 
             staffTest = ml.GetStaffByUserName(medStaff.Username);
@@ -203,6 +216,7 @@ namespace UnitTests
             Assert.AreEqual("tester", staffTest.Username);
             Assert.AreEqual("test@test.com", staffTest.EmailAddress);
             Assert.AreEqual(1, staffTest.Type);
+            Assert.AreEqual(6, staffTest.AddressID);
 
             // Tests for UpdateMedicalStaff method
             medStaff.Forename = "Tester";
@@ -222,9 +236,11 @@ namespace UnitTests
 
             try
             {
-                staff = ml.GetStaffByUserName("tester");
+                staffTest = new Staff();
+                staffTest = null;
+                staffTest = ml.GetStaffByUserName("tester");
 
-                if (staff.Username == "tester")
+                if (staffTest.Username == "tester")
                 {
                     DeleteStaffCatch = "Found, DeleteStaff Fail";
                 }
@@ -241,19 +257,52 @@ namespace UnitTests
 
             Assert.AreEqual("Not found, DeleteStaff pass", DeleteStaffCatch);
 
-            // Tests for DeleteAddress method
-
             // Tests for UpdateAddress method
+            add = ml.GetAddressById(6);
+            add.HouseName = "testName";
+            ml.UpdateAddress(add, 6);
 
-            // Tests for AddAddress method
+            addTest = ml.GetAddressById(6);
+            Assert.AreEqual("testName", addTest.HouseName);
 
-            // Tests for DeleteMedication method
+            // Tests for DeleteAddress method
+            ml.DeleteAddress(6);
+
+            try
+            {
+                addTest = new Address();
+                addTest = null;
+                addTest = ml.GetAddressById(6);
+
+                if (addTest.HouseNumber == 22)
+                {
+                    DeleteAddCatch = "Found, DeleteAdd Fail";
+                }
+                else
+                {
+                    DeleteAddCatch = "Not found, DeleteAdd pass";
+                }
+
+            }
+            catch
+            {
+                DeleteAddCatch = "Not found, DeleteAdd pass";
+            }
+
+            Assert.AreEqual("Not found, DeleteAdd pass", DeleteAddCatch);
 
             // Tests for GetMedicationByName method
+            medList = ml.GetMedicationByName("Asprin");
+
+            medTest = medList[-1];
+            Assert.AreEqual("Asprin", medTest.Name);
+            Assert.AreEqual(2, medTest.ID);
 
             // Tests for AddMedication method
 
             // Tests for UpdateMedication method
+
+            // Tests for DeleteMedication method
         }
     }
 }
