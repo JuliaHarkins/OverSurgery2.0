@@ -23,8 +23,10 @@ namespace UnitTests
         AppointmentController appCon = AppointmentController.Instance();
         Manager man = new Manager();
         MedicalStaff medStaff = new MedicalStaff();
+        MedicalStaff medStaffTest = new MedicalStaff();
+        Staff staffTest = new Staff();
         MetaLayer ml = MetaLayer.Instance();
-
+        Address add = new Address();
 
         /// <summary>
         /// Tests for rota
@@ -133,13 +135,18 @@ namespace UnitTests
             ml.AddAppointment(app);
 
             appList = ml.GetAppointments();
-            appTest = appList[-1];                                                                                          // Take the last list entry and store it in the test appointment
+            appTest = appList[-1];                                                                                                          // Take the last list entry and store it in the test appointment
             Assert.AreEqual("Follow up", appTest.Notes);
+            Assert.AreEqual(true, appTest.AppAttend);
+            Assert.AreEqual(1, appTest.MedicalStaffID);
+            Assert.AreEqual(1, appTest.PatientID);
+            Assert.AreEqual(new DateTime(2017, 11, 12, 16, 15, 00), appTest.AppTime);
+            Assert.AreEqual(new DateTime(2017, 11, 12), appTest.AppDate);
 
             // Tests for GetStaffRotaByID method
             rota = new Rota();
             rota.RotaEntryID = 1;
-            ml.GetStaffRotaByID(rota);
+            rotaList = ml.GetStaffRotaByID(rota);
 
             // Tests the AddRota method
             rota.StaffID = 1;
@@ -151,13 +158,15 @@ namespace UnitTests
             ml.AddRota(rota);
 
             rotaList = ml.GetStaffRota();
-            rotaTest = rotaList[-1];
+            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
 
             // Tests for UpdateRota method
+            rota.RotaEntryID = 1;
             rota.EndTime = 164504;
             ml.UpdateRota(rota);
+            rotaList = ml.GetStaffRotaByID(rota);
 
             // Tests for GetMissedAppointments method
             appList = new List<Appointment>();
@@ -175,9 +184,34 @@ namespace UnitTests
             medStaff.EmailAddress = "test@test.com";
             ml.AddMedicalStaff(medStaff);
 
+            staffTest = ml.GetStaffByUserName(medStaff.Username);
+            Assert.AreEqual("Test", staffTest.Forename);
+            Assert.AreEqual("Testing", staffTest.Surname);
+            Assert.AreEqual("tester", staffTest.Username);
+            Assert.AreEqual("test@test.com", staffTest.EmailAddress);
+            Assert.AreEqual(1, staffTest.Type);
+
             // Tests for UpdateMedicalStaff method
             medStaff.Forename = "Tester";
             ml.UpdateMedicalStaff(medStaff);
+
+            // Tests for DeleteStaff method
+
+            // Tests for UpdateStaffMember method
+
+            // Tests for DeleteAddress method
+
+            // Tests for UpdateAddress method
+
+            // Tests for AddAddress method
+
+            // Tests for DeleteMedication method
+
+            // Tests for GetMedicationByName method
+
+            // Tests for AddMedication method
+
+            // Tests for UpdateMedication method
         }
     }
 }
