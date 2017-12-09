@@ -90,9 +90,5 @@ namespace OverSurgery2
             }
         }
         #endregion
-        private void lst_extention_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-
-        }
     }
 }

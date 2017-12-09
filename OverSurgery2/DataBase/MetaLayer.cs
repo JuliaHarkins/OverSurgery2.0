@@ -456,7 +456,6 @@ namespace OverSurgery2
             }
             return a;
         }
-
         /// <summary>
         /// Update Appointment in the database to take new values
         /// Last Updated : 15/11/17,
@@ -556,11 +555,11 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Uses the perscription object to add a new perscription to the databaes.
+        /// Uses the prescription object to add a new prescription to the databaes.
         /// Last Updated : 15/11/17,
         /// By j
         /// </summary>
-        /// <param name="p_p">the perscription</param>
+        /// <param name="p_p">the prescription</param>
         public void AddPrescriptionToTheDatabase(Prescription p_p)
             {
             if (con.OpenConnection())
@@ -579,7 +578,6 @@ namespace OverSurgery2
                 }
         con.CloseConnection();
         }
-
         /// <summary>
         /// Finds the appointments for one medical staff member for a given day.
         /// Last Updated : 21/11/17,
@@ -787,7 +785,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_patientID">the id of the patient that you want to check</param>
         /// <returns></returns>
-        public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
+        public List<MedicalHistory> GetPatientsMedicalHistory(int p_patientID)
         {
             List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
         MedicalHistory mh;
@@ -841,13 +839,12 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_staffID">the staff id</param>
         /// <returns></returns>
-        public int GetStafIDFromMedStaffID(int p_staffID)
+        public int GetStaffIDFromMedStaffID(int p_staffID)
         {
             int staffid = 0;
             if (con.OpenConnection())
             {
                 //gets the staff id
-
                 DbDataReader dr = con.Select("SELECT DISTINCT StaffID FROM MedicalStaff  WHERE MedicalStaffID =" + p_staffID + ";");
                 while (dr.Read())
                 {
@@ -857,8 +854,6 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-            //returns the title and surname
-
             return staffid;
         }
         
