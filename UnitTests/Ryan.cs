@@ -294,13 +294,32 @@ namespace UnitTests
             // Tests for GetMedicationByName method
             medList = ml.GetMedicationByName("Asprin");
 
-            medTest = medList[-1];
+            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
             Assert.AreEqual("Asprin", medTest.Name);
             Assert.AreEqual(2, medTest.ID);
 
             // Tests for AddMedication method
+            med.Name = "TestMed";
+            med.PermissionLevel = 2;
+            med.Dosage = "50mg";
+            ml.AddMedication(med);
+
+            medList = ml.GetMedicationByName("TestMed");
+            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            Assert.AreEqual("TestMed", medTest.Name);
+            Assert.AreEqual("50mg", medTest.Dosage);
+            Assert.AreEqual(2, medTest.PermissionLevel);
 
             // Tests for UpdateMedication method
+            med.ID = medTest.ID;
+            med.Dosage = "500mg";
+            ml.UpdateMedication(med);
+
+            medList = ml.GetMedicationByName("TestMed");
+            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            Assert.AreEqual("TestMed", medTest.Name);
+            Assert.AreEqual("500mg", medTest.Dosage);
+            Assert.AreEqual(2, medTest.PermissionLevel);
 
             // Tests for DeleteMedication method
         }
