@@ -24,9 +24,12 @@ namespace UnitTests
         Manager man = new Manager();
         MedicalStaff medStaff = new MedicalStaff();
         MedicalStaff medStaffTest = new MedicalStaff();
+        Staff staff = new Staff();
         Staff staffTest = new Staff();
         MetaLayer ml = MetaLayer.Instance();
         Address add = new Address();
+
+        string column, passedData, DeleteStaffCatch = null;
 
         /// <summary>
         /// Tests for rota
@@ -182,6 +185,16 @@ namespace UnitTests
             medStaff.PhoneNumber = "123456789";
             medStaff.Gender = 0;
             medStaff.EmailAddress = "test@test.com";
+
+            add.HouseName = "name";
+            add.HouseNumber = 22;
+            add.PostCode = "PE433RE";
+            add.StreetName = "Street";
+
+            column = null;
+            passedData = $"null, '{add.HouseName}', {add.HouseNumber}, '{add.StreetName}', '{add.PostCode}'";
+
+            ml.AddAddress(add, column, passedData);
             ml.AddMedicalStaff(medStaff);
 
             staffTest = ml.GetStaffByUserName(medStaff.Username);
@@ -195,9 +208,38 @@ namespace UnitTests
             medStaff.Forename = "Tester";
             ml.UpdateMedicalStaff(medStaff);
 
-            // Tests for DeleteStaff method
-
             // Tests for UpdateStaffMember method
+            staff = ml.GetStaffByUserName("tester");
+            staff.Surname = "MoreTesting";
+            ml.UpdateStaffMember(staff);
+
+            staffTest = ml.GetStaffByUserName("tester");
+            Assert.AreEqual("MoreTesting", staffTest.Surname);
+
+            // Tests for DeleteStaff method
+            staff = ml.GetStaffByUserName("tester");
+            ml.DeleteStaff(staff);
+
+            try
+            {
+                staff = ml.GetStaffByUserName("tester");
+
+                if (staff.Username == "tester")
+                {
+                    DeleteStaffCatch = "Found, DeleteStaff Fail";
+                }
+                else
+                {
+                    DeleteStaffCatch = "Not found, DeleteStaff pass";
+                }
+                
+            }
+            catch
+            {
+                DeleteStaffCatch = "Not found, DeleteStaff pass";
+            }
+
+            Assert.AreEqual("Not found, DeleteStaff pass", DeleteStaffCatch);
 
             // Tests for DeleteAddress method
 
