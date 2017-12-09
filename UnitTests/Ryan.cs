@@ -33,7 +33,7 @@ namespace UnitTests
         List<Medication> medList = new List<Medication>();
         MetaLayer ml = MetaLayer.Instance();
 
-        string column, passedData, DeleteStaffCatch = null, DeleteAddCatch = null;
+        string column, passedData, DeleteStaffCatch = null, DeleteAddressCatch = null, DeleteMedicationCatch = null;
 
         /// <summary>
         /// Tests for rota
@@ -150,11 +150,6 @@ namespace UnitTests
             Assert.AreEqual(new DateTime(2017, 11, 12, 16, 15, 00), appTest.AppTime);
             Assert.AreEqual(new DateTime(2017, 11, 12), appTest.AppDate);
 
-            // Tests for GetStaffRotaByID method
-            rota = new Rota();
-            rota.RotaEntryID = 1;
-            rotaList = ml.GetStaffRotaByID(rota);
-
             // Tests the AddRota method
             rota.StaffID = 1;
             rota.StartTime = 161500;
@@ -166,6 +161,16 @@ namespace UnitTests
 
             rotaList = ml.GetStaffRota();
             rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
+            Assert.AreEqual(1, rotaTest.RotaEntryID);
+            Assert.AreEqual("Linus", rotaTest.Forename);
+            Assert.AreEqual("Torvild", rotaTest.Surname);
+
+            // Tests for GetStaffRotaByID method
+            rota = new Rota();
+            rota.RotaEntryID = 1;
+            rotaList = ml.GetStaffRotaByID(rota);
+            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
+            Assert.AreEqual(1, rotaTest.RotaEntryID);
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
 
@@ -173,11 +178,18 @@ namespace UnitTests
             rota.RotaEntryID = 1;
             rota.EndTime = 164504;
             ml.UpdateRota(rota);
+
             rotaList = ml.GetStaffRotaByID(rota);
+            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
+            Assert.AreEqual(164504, rotaTest.EndTime);
 
             // Tests for GetMissedAppointments method
             appList = new List<Appointment>();
             appList = ml.GetMissedAppointments();
+
+            appTest = appList[-1];                                                                                                          // Take the last list entry and store it in the test appointment
+            Assert.AreEqual(4, appTest.AppointmentID);
+            Assert.AreEqual(false, appTest.AppAttend);
 
             // Tests for AddAddress method
             add.HouseName = "name";
@@ -219,8 +231,12 @@ namespace UnitTests
             Assert.AreEqual(6, staffTest.AddressID);
 
             // Tests for UpdateMedicalStaff method
-            medStaff.Forename = "Tester";
+            medStaff.StaffID = staffTest.StaffID;
+            medStaff.Forename = "TesterA";
             ml.UpdateMedicalStaff(medStaff);
+
+            staffTest = ml.GetStaffByUserName("tester");
+            Assert.AreEqual("TesterA", staffTest.Forename);
 
             // Tests for UpdateStaffMember method
             staff = ml.GetStaffByUserName("tester");
@@ -258,6 +274,7 @@ namespace UnitTests
             Assert.AreEqual("Not found, DeleteStaff pass", DeleteStaffCatch);
 
             // Tests for UpdateAddress method
+            add.AddressID = addTest.AddressID;
             add = ml.GetAddressById(6);
             add.HouseName = "testName";
             ml.UpdateAddress(add, 6);
@@ -276,20 +293,20 @@ namespace UnitTests
 
                 if (addTest.HouseNumber == 22)
                 {
-                    DeleteAddCatch = "Found, DeleteAdd Fail";
+                    DeleteAddressCatch = "Found, DeleteAddress Fail";
                 }
                 else
                 {
-                    DeleteAddCatch = "Not found, DeleteAdd pass";
+                    DeleteAddressCatch = "Not found, DeleteAddress pass";
                 }
 
             }
             catch
             {
-                DeleteAddCatch = "Not found, DeleteAdd pass";
+                DeleteAddressCatch = "Not found, DeleteAddress pass";
             }
 
-            Assert.AreEqual("Not found, DeleteAdd pass", DeleteAddCatch);
+            Assert.AreEqual("Not found, DeleteAddress pass", DeleteAddressCatch);
 
             // Tests for GetMedicationByName method
             medList = ml.GetMedicationByName("Asprin");
@@ -322,6 +339,31 @@ namespace UnitTests
             Assert.AreEqual(2, medTest.PermissionLevel);
 
             // Tests for DeleteMedication method
+            ml.DeleteMedication(med.ID);
+
+            try
+            {
+                medList = new List<Medication>();
+                medList = null;
+                medList = ml.GetMedicationByName("TestMed");
+                medTest = medList[-1];                                                                                                    // Take the last list entry and store it in the test medication
+
+                if (medTest.Name == "TestMed")
+                {
+                    DeleteMedicationCatch = "Found, DeleteMedication Fail";
+                }
+                else
+                {
+                    DeleteMedicationCatch = "Not found, DeleteMedication pass";
+                }
+
+            }
+            catch
+            {
+                DeleteMedicationCatch = "Not found, DeleteMedication pass";
+            }
+
+            Assert.AreEqual("Not found, DeleteMedication pass", DeleteMedicationCatch);
         }
     }
 }
