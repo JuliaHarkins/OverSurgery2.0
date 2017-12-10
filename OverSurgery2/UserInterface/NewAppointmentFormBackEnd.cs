@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LoggingSystem.GenLog;
+using static LoggingSystem.PerfLog;
 
 namespace OverSurgery2
 {
@@ -197,6 +199,7 @@ namespace OverSurgery2
         }
         public Tuple<List<string>, List<string>, List<string>> SequenceAppointments(DateTime date, string doctorFilter)
         {
+            SubPerfStart();
             Tuple<List<string>, List<string>> generatedTimeSheet = GenerateAppointmentList(date);
 
             string dayName = DayConvert(date.DayOfWeek.ToString());
@@ -242,6 +245,7 @@ namespace OverSurgery2
                 }
                 staffAvailable.Add(sb.ToString());
             }
+            SubPerfStop(GetCurrentMethod());
             return new Tuple<List<string>, List<string>, List<string>>(generatedTimeSheet.Item2, generatedTimeSheet.Item1, staffAvailable);
         }
 

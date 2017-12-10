@@ -272,6 +272,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "NewAppointmentForm";
             this.Text = "NewAppointmentForm";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NewAppointmentForm_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.dGAppointment)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

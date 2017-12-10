@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using System.Windows.Forms;
+using static LoggingSystem.GenLog;
+using static LoggingSystem.PerfLog;
 
 namespace OverSurgery2.UserInterface
 {
@@ -18,6 +20,10 @@ namespace OverSurgery2.UserInterface
         public NewAppointmentForm()
         {
             InitializeComponent();
+            PerfStop(this.GetType().Name);
+            StartLog();
+            GenerateSessionID();
+            Write(this.GetType().Name);
             npb = new NewAppointmentFormBackEnd();
             this.Text = "New Appointment Booking";
             cbxDay.MaxDropDownItems = 7;
@@ -407,6 +413,12 @@ namespace OverSurgery2.UserInterface
         private void cbxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateDay();
+        }
+
+        private void NewAppointmentForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EndLog();
+            perf().WritePerfLog();
         }
 
         private void PopulateYear()
