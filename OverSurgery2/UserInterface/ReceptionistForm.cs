@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Diagnostics;
+using static LoggingSystem.PerfLog;
 
 namespace OverSurgery2
 {
@@ -205,6 +206,7 @@ namespace OverSurgery2
         }
         private void btn_NewApp_Click(object sender, EventArgs e)
         {
+            PerfStart();
             FormController.Instance().OpenNewAppointmentForm();
         }
         #endregion
