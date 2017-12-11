@@ -16,6 +16,7 @@ namespace OverSurgery2
         /// </summary>
         public Doctor()
         {
+
         }
     }
 }
