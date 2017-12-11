@@ -1128,12 +1128,13 @@ namespace OverSurgery2
         /// </summary>
         public void DeleteStaff(Staff p_staff)
         {
-            // Delete medical staff entry
+            
             int medStaffID = 0;
             if (p_staff.Type == 1 || p_staff.Type == 2 || p_staff.Type == 3)
             {
                 if (con.OpenConnection())
                 {
+                    // Delete medical staff entry and staff entry
                     DbDataReader dr = con.Select("SELECT MedicalStaffID FROM MedicalStaff WHERE MedicalStaff.StaffID =" + p_staff.StaffID + ";");
                     while (dr.Read())
                     {
@@ -1149,12 +1150,12 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
+                    // Delete just the staff entry
                     con.Update("DELETE FROM Staff WHERE StaffID ='" + p_staff.StaffID+ "';");
                     con.CloseConnection();
                 }
 
             }
-            // Delete normal staff entry
             
         }
 

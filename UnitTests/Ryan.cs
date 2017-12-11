@@ -15,8 +15,7 @@ namespace UnitTests
     {
         Rota rota = new Rota();
         Rota rotaTest = new Rota();
-        List<Rota> rotaList = new List<Rota>();
-        RotaController rotCon = RotaController.Instance(); 
+        List<Rota> rotaList = new List<Rota>(); 
         Appointment app = new Appointment();
         Appointment appTest = new Appointment();
         List<Appointment> appList = new List<Appointment>();
@@ -62,15 +61,6 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests for rota controller
-        /// </summary>
-        [TestMethod]
-        public void RotaControllerTest()
-        {
-            
-        }
-
-        /// <summary>
         /// Tests for appointment
         /// </summary>
         [TestMethod]
@@ -100,8 +90,7 @@ namespace UnitTests
         [TestMethod]
         public void AppointmentControllerTest()
         {
-            //appCon = new AppointmentController();
-            //Assert.AreEqual();
+            
         }
 
         /// <summary>
@@ -110,7 +99,7 @@ namespace UnitTests
         [TestMethod]
         public void ManagerTest()
         {
-            
+            //man.Manager();
         }
 
         /// <summary>
