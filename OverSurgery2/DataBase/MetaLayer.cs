@@ -468,8 +468,9 @@ namespace OverSurgery2
             {
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
                 con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = "
-                    + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
-                    + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
+                    + Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
+                    + Convert.ToInt16(app.AppAttend) + ", MedicalStaffID = " + app.MedicalStaffID + ", PatientID = " + app.PatientID + 
+                    " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
                 con.CloseConnection();
             }
         }
@@ -984,9 +985,8 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
-                    Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + rota.StaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
-                        Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
+                    //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                    con.Update("INSERT INTO rota VALUES (null, " + int.Parse(rota.Days) + ", " + rota.StaffID + ");");
                     con.CloseConnection();
                 }
             }
