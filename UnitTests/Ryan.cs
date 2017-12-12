@@ -283,6 +283,7 @@ namespace UnitTests
             staffTest = ml.GetStaffByUserName("tester");
             Assert.AreEqual("TesterA", staffTest.Forename);
         }
+        
         /// <summary>
         /// Tests for UpdateStaffMember method
         /// </summary>
@@ -296,6 +297,7 @@ namespace UnitTests
             staffTest = ml.GetStaffByUserName("tester");
             Assert.AreEqual("MoreTesting", staffTest.Surname);
         }
+        
         /// <summary>
         /// Tests for DeleteStaff method
         /// </summary>
