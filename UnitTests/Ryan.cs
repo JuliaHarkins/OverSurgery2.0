@@ -15,21 +15,26 @@ namespace UnitTests
     {
         Rota rota = new Rota();
         Rota rotaTest = new Rota();
-        Rota rotaOriginal = new Rota();
+        //Rota rotaOriginal = new Rota();
         List<Rota> rotaList = new List<Rota>(); 
         Appointment app = new Appointment();
         Appointment appTest = new Appointment();
+        Appointment appOriginal = new Appointment();
         List<Appointment> appList = new List<Appointment>();
         AppointmentController appCon = AppointmentController.Instance();
         Manager man = new Manager();
         MedicalStaff medStaff = new MedicalStaff();
         MedicalStaff medStaffTest = new MedicalStaff();
+        //MedicalStaff medStaffOriginal = new MedicalStaff();
         Staff staff = new Staff();
         Staff staffTest = new Staff();
+        //Staff staffOriginal = new Staff();
         Address add = new Address();
         Address addTest = new Address();
+        //Address addOriginal = new Address();
         Medication med = new Medication();
         Medication medTest = new Medication();
+        //Medication medOriginal = new Medication();
         List<Medication> medList = new List<Medication>();
         MetaLayer ml = MetaLayer.Instance();
 
@@ -104,27 +109,37 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests for the sections of the metalayer that i implemened
+        /// Tests for GetAppointmentById method
         /// </summary>
         [TestMethod]
-        public void MetalayerSectionsTests()
+        public void MetalayerGetAppointmentById()
         {
-            // Tests for GetAppointmentById method
-            appTest = ml.GetAppointmentById(1);
-            Assert.AreEqual(1, appTest.MedicalStaffID);
-            Assert.AreEqual(1, appTest.PatientID);
+            appOriginal = ml.GetAppointmentById(1);
+            Assert.AreEqual(1, appOriginal.MedicalStaffID);
+            Assert.AreEqual(1, appOriginal.PatientID);
+        }
 
-            // Tests for UpdateAppointment method
-            //app = new Appointment();
-            //app = null;
+        /// <summary>
+        /// Tests for UpdateAppointment method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateAppointment()
+        { 
             app = ml.GetAppointmentById(1);
             app.MedicalStaffID = 2;
             ml.UpdateAppointment(app);
             appTest = ml.GetAppointmentById(1);
             Assert.AreEqual(2, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
+            ml.UpdateAppointment(appOriginal);
+        }
 
-            // Tests for AddAppointment method
+        /// <summary>
+        /// Tests for AddAppointment method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddAppointment()
+        { 
             app.AppDate = new DateTime(2017, 11, 12);
             app.AppTime = new DateTime(2017, 11, 12, 16, 15, 00);
             app.Notes = "Follow up";
@@ -141,8 +156,14 @@ namespace UnitTests
             Assert.AreEqual(1, appTest.PatientID);
             Assert.AreEqual(new DateTime(2017, 12, 12, 16, 15, 00), appTest.AppTime);
             Assert.AreEqual(new DateTime(2017, 11, 12), appTest.AppDate);
+        }
 
-            // Tests the AddRota method
+        /// <summary>
+        /// Tests the AddRota method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddRota()
+        {
             rota.StaffID = 1;
             rota.StartTime = 161500;
             rota.Forename = "Linus";
@@ -156,9 +177,14 @@ namespace UnitTests
             Assert.AreEqual(1, rotaTest.RotaEntryID);
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
+        }
 
-            // Tests for GetStaffRotaByID method
-            rota = new Rota();
+        /// <summary>
+        /// Tests for GetStaffRotaByID method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerGetStaffRotaByID()
+        {
             rota = null;
             rota.RotaEntryID = 1;
             rotaList = ml.GetStaffRotaByID(rota);
@@ -166,8 +192,14 @@ namespace UnitTests
             Assert.AreEqual(1, rotaTest.RotaEntryID);
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
+        }
 
-            // Tests for UpdateRota method
+        /// <summary>
+        /// Tests for UpdateRota method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateRota()
+        {
             rota.RotaEntryID = 1;
             rota.EndTime = 164504;
             ml.UpdateRota(rota);
@@ -175,16 +207,27 @@ namespace UnitTests
             rotaList = ml.GetStaffRotaByID(rota);
             rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
             Assert.AreEqual(164504, rotaTest.EndTime);
+        }
 
-            // Tests for GetMissedAppointments method
-            appList = new List<Appointment>();
+        /// <summary>
+        /// Tests for GetMissedAppointments method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerGetMissedAppointments()
+        {
             appList = ml.GetMissedAppointments();
 
             appTest = appList[appList.Count -1];                                                                                            // Take the last list entry and store it in the test appointment
             Assert.AreEqual(4, appTest.AppointmentID);
             Assert.AreEqual(false, appTest.AppAttend);
+        }
 
-            // Tests for AddAddress method
+        /// <summary>
+        /// Tests for AddAddress method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddAddress()
+        {
             add.HouseName = "name";
             add.HouseNumber = 22;
             add.PostCode = "PE433RE";
@@ -200,8 +243,14 @@ namespace UnitTests
             Assert.AreEqual(22, addTest.HouseNumber);
             Assert.AreEqual("Street", addTest.StreetName);
             Assert.AreEqual("PE433RE", addTest.PostCode);
+        }
 
-            // Tests for AddMedicalStaff method
+        /// <summary>
+        /// Tests for AddMedicalStaff method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddMedicalStaff()
+        {
             medStaff.Type = 1;
             medStaff.Forename = "Test";
             medStaff.Surname = "Testing";
@@ -223,23 +272,40 @@ namespace UnitTests
             Assert.AreEqual(1, staffTest.Type);
             Assert.AreEqual(6, staffTest.AddressID);
 
-            // Tests for UpdateMedicalStaff method
+        }
+
+        /// <summary>
+        /// Tests for UpdateMedicalStaff method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateMedicalStaff()
+        {
             medStaff.StaffID = staffTest.StaffID;
             medStaff.Forename = "TesterA";
             ml.UpdateMedicalStaff(medStaff);
 
             staffTest = ml.GetStaffByUserName("tester");
             Assert.AreEqual("TesterA", staffTest.Forename);
-
-            // Tests for UpdateStaffMember method
+        }
+        /// <summary>
+        /// Tests for UpdateStaffMember method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateStaffMember()
+        {
             staff = ml.GetStaffByUserName("tester");
             staff.Surname = "MoreTesting";
             ml.UpdateStaffMember(staff);
 
             staffTest = ml.GetStaffByUserName("tester");
             Assert.AreEqual("MoreTesting", staffTest.Surname);
-
-            // Tests for DeleteStaff method
+        }
+        /// <summary>
+        /// Tests for DeleteStaff method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerDeleteStaff()
+        { 
             staff = ml.GetStaffByUserName("tester");
             ml.DeleteStaff(staff);
 
@@ -266,7 +332,14 @@ namespace UnitTests
 
             Assert.AreEqual("Not found, DeleteStaff pass", DeleteStaffCatch);
 
-            // Tests for UpdateAddress method
+        }
+
+        /// <summary>
+        /// Tests for UpdateAddress method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateAddress()
+        {
             add.AddressID = addTest.AddressID;
             add = ml.GetAddressById(6);
             add.HouseName = "testName";
@@ -275,7 +348,14 @@ namespace UnitTests
             addTest = ml.GetAddressById(6);
             Assert.AreEqual("testName", addTest.HouseName);
 
-            // Tests for DeleteAddress method
+        }
+
+        /// <summary>
+        /// Tests for DeleteAddress method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerDeleteAddress()
+        {
             ml.DeleteAddress(6);
 
             try
@@ -301,14 +381,29 @@ namespace UnitTests
 
             Assert.AreEqual("Not found, DeleteAddress pass", DeleteAddressCatch);
 
-            // Tests for GetMedicationByName method
+
+        }
+
+        /// <summary>
+        /// Tests for GetMedicationByName method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerGetMedicationByName()
+        { 
             medList = ml.GetMedicationByName("Asprin");
 
             medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("Asprin", medTest.Name);
             Assert.AreEqual(2, medTest.ID);
 
-            // Tests for AddMedication method
+        }
+
+        /// <summary>
+        /// Tests for AddMedication method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddMedication()
+        {
             med.Name = "TestMed";
             med.PermissionLevel = 2;
             med.Dosage = "50mg";
@@ -319,8 +414,14 @@ namespace UnitTests
             Assert.AreEqual("TestMed", medTest.Name);
             Assert.AreEqual("50mg", medTest.Dosage);
             Assert.AreEqual(2, medTest.PermissionLevel);
+        }
 
-            // Tests for UpdateMedication method
+        /// <summary>
+        /// Tests for UpdateMedication method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateMedication()
+        { 
             med.ID = medTest.ID;
             med.Dosage = "500mg";
             ml.UpdateMedication(med);
@@ -330,8 +431,14 @@ namespace UnitTests
             Assert.AreEqual("TestMed", medTest.Name);
             Assert.AreEqual("500mg", medTest.Dosage);
             Assert.AreEqual(2, medTest.PermissionLevel);
+        }
 
-            // Tests for DeleteMedication method
+        /// <summary>
+        /// Tests for DeleteMedication method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerDeleteMedication()
+        {
             ml.DeleteMedication(med.ID);
 
             try
@@ -358,7 +465,7 @@ namespace UnitTests
 
             Assert.AreEqual("Not found, DeleteMedication pass", DeleteMedicationCatch);
 
-            
         }
+
     }
 }
