@@ -986,7 +986,7 @@ namespace OverSurgery2
                 if (con.OpenConnection())
                 {
                     //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO rota VALUES (null, " + int.Parse(rota.Days) + ", " + rota.StaffID + ");");
+                    con.Update("INSERT INTO Rota VALUES (null, " + int.Parse(rota.Days) + ", " + rota.StaffID + ");");
                     con.CloseConnection();
                 }
             }
@@ -1002,8 +1002,8 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
-                    + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
+                con.Update("UPDATE Rota Set DayID = " + rota.Days + ", StaffID = "
+                    + rota.StaffID + " WHERE RotaID = " + rota.RotaEntryID + ";");
                 con.CloseConnection();
             }
         }

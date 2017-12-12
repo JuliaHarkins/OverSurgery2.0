@@ -15,26 +15,20 @@ namespace UnitTests
     {
         Rota rota = new Rota();
         Rota rotaTest = new Rota();
-        //Rota rotaOriginal = new Rota();
         List<Rota> rotaList = new List<Rota>(); 
         Appointment app = new Appointment();
         Appointment appTest = new Appointment();
-        Appointment appOriginal = new Appointment();
         List<Appointment> appList = new List<Appointment>();
         AppointmentController appCon = AppointmentController.Instance();
         Manager man = new Manager();
         MedicalStaff medStaff = new MedicalStaff();
         MedicalStaff medStaffTest = new MedicalStaff();
-        //MedicalStaff medStaffOriginal = new MedicalStaff();
         Staff staff = new Staff();
         Staff staffTest = new Staff();
-        //Staff staffOriginal = new Staff();
         Address add = new Address();
         Address addTest = new Address();
-        //Address addOriginal = new Address();
         Medication med = new Medication();
         Medication medTest = new Medication();
-        //Medication medOriginal = new Medication();
         List<Medication> medList = new List<Medication>();
         MetaLayer ml = MetaLayer.Instance();
 
@@ -114,9 +108,9 @@ namespace UnitTests
         [TestMethod]
         public void MetalayerGetAppointmentById()
         {
-            appOriginal = ml.GetAppointmentById(1);
-            Assert.AreEqual(1, appOriginal.MedicalStaffID);
-            Assert.AreEqual(1, appOriginal.PatientID);
+            app = ml.GetAppointmentById(1);
+            Assert.AreEqual(1, app.MedicalStaffID);
+            Assert.AreEqual(1, app.PatientID);
         }
 
         /// <summary>
@@ -131,7 +125,8 @@ namespace UnitTests
             appTest = ml.GetAppointmentById(1);
             Assert.AreEqual(2, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
-            ml.UpdateAppointment(appOriginal);
+            app.MedicalStaffID = 1;
+            ml.UpdateAppointment(app);
         }
 
         /// <summary>
@@ -174,7 +169,7 @@ namespace UnitTests
 
             rotaList = ml.GetStaffRota();
             rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
-            Assert.AreEqual(1, rotaTest.RotaEntryID);
+            Assert.AreEqual("1", rotaTest.Days);
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
         }
@@ -201,12 +196,13 @@ namespace UnitTests
         public void MetalayerUpdateRota()
         {
             rota.RotaEntryID = 1;
-            rota.EndTime = 164504;
+            rota.StaffID = 1;
+            rota.Days = "2";
             ml.UpdateRota(rota);
 
             rotaList = ml.GetStaffRotaByID(rota);
             rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
-            Assert.AreEqual(164504, rotaTest.EndTime);
+            Assert.AreEqual("2", rotaTest.Days);
         }
 
         /// <summary>
