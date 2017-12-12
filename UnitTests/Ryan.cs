@@ -15,6 +15,7 @@ namespace UnitTests
     {
         Rota rota = new Rota();
         Rota rotaTest = new Rota();
+        Rota rotaOriginal = new Rota();
         List<Rota> rotaList = new List<Rota>(); 
         Appointment app = new Appointment();
         Appointment appTest = new Appointment();
@@ -109,15 +110,13 @@ namespace UnitTests
         public void MetalayerSectionsTests()
         {
             // Tests for GetAppointmentById method
-            app = new Appointment();
-            app = null;
             appTest = ml.GetAppointmentById(1);
             Assert.AreEqual(1, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
 
             // Tests for UpdateAppointment method
-            app = new Appointment();
-            app = null;
+            //app = new Appointment();
+            //app = null;
             app = ml.GetAppointmentById(1);
             app.MedicalStaffID = 2;
             ml.UpdateAppointment(app);
@@ -135,12 +134,12 @@ namespace UnitTests
             ml.AddAppointment(app);
 
             appList = ml.GetAppointments();
-            appTest = appList[-1];                                                                                                          // Take the last list entry and store it in the test appointment
+            appTest = appList[appList.Count -1];                                                                                            // Take the last list entry and store it in the test appointment
             Assert.AreEqual("Follow up", appTest.Notes);
             Assert.AreEqual(true, appTest.AppAttend);
             Assert.AreEqual(1, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
-            Assert.AreEqual(new DateTime(2017, 11, 12, 16, 15, 00), appTest.AppTime);
+            Assert.AreEqual(new DateTime(2017, 12, 12, 16, 15, 00), appTest.AppTime);
             Assert.AreEqual(new DateTime(2017, 11, 12), appTest.AppDate);
 
             // Tests the AddRota method
@@ -149,11 +148,11 @@ namespace UnitTests
             rota.Forename = "Linus";
             rota.Surname = "Torvild";
             rota.EndTime = 163500;
-            rota.Days = "Monday";
+            rota.Days = "1";
             ml.AddRota(rota);
 
             rotaList = ml.GetStaffRota();
-            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
+            rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
             Assert.AreEqual(1, rotaTest.RotaEntryID);
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
@@ -163,7 +162,7 @@ namespace UnitTests
             rota = null;
             rota.RotaEntryID = 1;
             rotaList = ml.GetStaffRotaByID(rota);
-            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
+            rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
             Assert.AreEqual(1, rotaTest.RotaEntryID);
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
@@ -174,14 +173,14 @@ namespace UnitTests
             ml.UpdateRota(rota);
 
             rotaList = ml.GetStaffRotaByID(rota);
-            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
+            rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
             Assert.AreEqual(164504, rotaTest.EndTime);
 
             // Tests for GetMissedAppointments method
             appList = new List<Appointment>();
             appList = ml.GetMissedAppointments();
 
-            appTest = appList[-1];                                                                                                          // Take the last list entry and store it in the test appointment
+            appTest = appList[appList.Count -1];                                                                                            // Take the last list entry and store it in the test appointment
             Assert.AreEqual(4, appTest.AppointmentID);
             Assert.AreEqual(false, appTest.AppAttend);
 
@@ -305,7 +304,7 @@ namespace UnitTests
             // Tests for GetMedicationByName method
             medList = ml.GetMedicationByName("Asprin");
 
-            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("Asprin", medTest.Name);
             Assert.AreEqual(2, medTest.ID);
 
@@ -316,7 +315,7 @@ namespace UnitTests
             ml.AddMedication(med);
 
             medList = ml.GetMedicationByName("TestMed");
-            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("TestMed", medTest.Name);
             Assert.AreEqual("50mg", medTest.Dosage);
             Assert.AreEqual(2, medTest.PermissionLevel);
@@ -327,7 +326,7 @@ namespace UnitTests
             ml.UpdateMedication(med);
 
             medList = ml.GetMedicationByName("TestMed");
-            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("TestMed", medTest.Name);
             Assert.AreEqual("500mg", medTest.Dosage);
             Assert.AreEqual(2, medTest.PermissionLevel);
@@ -340,7 +339,7 @@ namespace UnitTests
                 medList = new List<Medication>();
                 medList = null;
                 medList = ml.GetMedicationByName("TestMed");
-                medTest = medList[-1];                                                                                                    // Take the last list entry and store it in the test medication
+                medTest = medList[medList.Count -1];                                                                                      // Take the last list entry and store it in the test medication
 
                 if (medTest.Name == "TestMed")
                 {
@@ -358,6 +357,8 @@ namespace UnitTests
             }
 
             Assert.AreEqual("Not found, DeleteMedication pass", DeleteMedicationCatch);
+
+            
         }
     }
 }
