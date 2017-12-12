@@ -110,11 +110,15 @@ namespace UnitTests
         {
             // Tests for GetAppointmentById method
             app = new Appointment();
+            app = null;
             appTest = ml.GetAppointmentById(1);
             Assert.AreEqual(1, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
 
             // Tests for UpdateAppointment method
+            app = new Appointment();
+            app = null;
+            app = ml.GetAppointmentById(1);
             app.MedicalStaffID = 2;
             ml.UpdateAppointment(app);
             appTest = ml.GetAppointmentById(1);
@@ -156,6 +160,7 @@ namespace UnitTests
 
             // Tests for GetStaffRotaByID method
             rota = new Rota();
+            rota = null;
             rota.RotaEntryID = 1;
             rotaList = ml.GetStaffRotaByID(rota);
             rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
