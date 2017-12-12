@@ -1,0 +1,13 @@
+
+###################### [BEGIN LOG] ######################
+SessionID : 710x013
+Session Start Time : 09/12/2017 12:35:38
+Session End Time : 09/12/2017 12:35:42
+Username : 
+Using Password : 
+
+		 $$ START LOG $$
+
+NewAppointmentForm
+
+======================  [END LOG]  ======================

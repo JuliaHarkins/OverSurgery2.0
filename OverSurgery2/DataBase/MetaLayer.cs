@@ -412,12 +412,6 @@ namespace OverSurgery2
         }
 
         /// <summary>
-        /// Get appointment details from the database
-        /// Last Updated : 15/11/17,
-        /// By R
-        /// </summary>
-
-        /// <summary>
         /// Get appointment from the database using a given id for a specific appointment
         /// Last Updated : 15/11/17,
         /// By R
@@ -471,7 +465,6 @@ namespace OverSurgery2
             }
             return a;
         }
-
         /// <summary>
         /// Update Appointment in the database to take new values
         /// Last Updated : 15/11/17,
@@ -484,8 +477,9 @@ namespace OverSurgery2
             {
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
                 con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = "
-                    + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
-                    + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
+                    + Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
+                    + Convert.ToInt16(app.AppAttend) + ", MedicalStaffID = " + app.MedicalStaffID + ", PatientID = " + app.PatientID + 
+                    " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
                 con.CloseConnection();
             }
         }
@@ -513,8 +507,9 @@ namespace OverSurgery2
                     con.Update("INSERT INTO Appointment VALUES (null, " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", " +
                         Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", '" + app.Notes + "', " + Convert.ToInt16(app.AppAttend) + ", " + app.MedicalStaffID + ", " + app.PatientID + ");");
                     con.CloseConnection();
-                }
             }
+        }
+
         /// <summary>
         /// Uses the medicalHistory object to add a new medicalhistory to the databaes.
         /// Last Updated : 17/11/17,
@@ -529,6 +524,7 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
         }
+
         /// <summary>
         /// gets the medication avalible to the medicalstaff member using their staff id.
         /// Last Updated : 27/11/17,
@@ -567,12 +563,13 @@ namespace OverSurgery2
             }
         return medication;
         }
+
         /// <summary>
-        /// Uses the perscription object to add a new perscription to the databaes.
+        /// Uses the prescription object to add a new prescription to the databaes.
         /// Last Updated : 15/11/17,
         /// By j
         /// </summary>
-        /// <param name="p_p">the perscription</param>
+        /// <param name="p_p">the prescription</param>
         public void AddPrescriptionToTheDatabase(Prescription p_p)
             {
             if (con.OpenConnection())
@@ -591,7 +588,6 @@ namespace OverSurgery2
                 }
         con.CloseConnection();
         }
-
         /// <summary>
         /// Finds the appointments for one medical staff member for a given day.
         /// Last Updated : 21/11/17,
@@ -627,6 +623,7 @@ namespace OverSurgery2
             }
             return appointments;
         }
+
         /// <summary>
         /// finds all prescriptions based on the patient id.
         /// Last Updated : 21/11/17,
@@ -671,6 +668,7 @@ namespace OverSurgery2
             }
             return prescriptions;
         }
+
         /// <summary>
          /// Counts the extentions for the doctor
          /// Last Updated : 28/11/17,
@@ -693,7 +691,9 @@ namespace OverSurgery2
             }
 
                     return i;
-        }/// <summary>
+        }
+        
+        /// <summary>
          /// gets the list of extended prescriptions based off the medstaff id
          /// Last Updated : 21/11/17,
          /// By j
@@ -725,6 +725,7 @@ namespace OverSurgery2
 
             return prescriptions;
         }
+
         /// <summary>
         /// gets the list of extendions based off the medstaff id
         /// Last Updated : 21/11/17
@@ -757,6 +758,7 @@ namespace OverSurgery2
 
             return extensions;
         }
+
         /// <summary>
         /// Updates the state of an extention
         /// Last Updated : 30/11/17,
@@ -773,6 +775,10 @@ namespace OverSurgery2
             con.CloseConnection();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="p_extension"></param>
         public void NewExtension(Extension p_extension)
         {
             if (con.OpenConnection())
@@ -781,6 +787,7 @@ namespace OverSurgery2
             }
             con.CloseConnection();
         }
+
         /// <summary>
         /// retrieves the medical history of the patient for the id given.
         /// Last Updated : 16/11/17,
@@ -788,7 +795,7 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_patientID">the id of the patient that you want to check</param>
         /// <returns></returns>
-        public List<MedicalHistory> GetPatientsMedicalHiatory(int p_patientID)
+        public List<MedicalHistory> GetPatientsMedicalHistory(int p_patientID)
         {
             List<MedicalHistory> medicalHistoy = new List<MedicalHistory>();
         MedicalHistory mh;
@@ -811,6 +818,7 @@ namespace OverSurgery2
             }
             return medicalHistoy;
         }
+
         /// <summary>
         /// finds the name of the medication based off the id
         /// Last Updated : 17/11/17,
@@ -833,6 +841,7 @@ namespace OverSurgery2
             }
             return med;
         }
+
         /// <summary>
         /// Finds The medical Staffs staffid form its medStaff id
         /// Last Updated : 17/11/17,
@@ -840,13 +849,12 @@ namespace OverSurgery2
         /// </summary>
         /// <param name="p_staffID">the staff id</param>
         /// <returns></returns>
-        public int GetStafIDFromMedStaffID(int p_staffID)
+        public int GetStaffIDFromMedStaffID(int p_staffID)
         {
             int staffid = 0;
             if (con.OpenConnection())
             {
                 //gets the staff id
-
                 DbDataReader dr = con.Select("SELECT DISTINCT StaffID FROM MedicalStaff  WHERE MedicalStaffID =" + p_staffID + ";");
                 while (dr.Read())
                 {
@@ -856,8 +864,6 @@ namespace OverSurgery2
                 dr.Close();
                 con.CloseConnection();
             }
-            //returns the title and surname
-
             return staffid;
         }
         
@@ -905,6 +911,10 @@ namespace OverSurgery2
             return title + " " + medStaffName;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public List<Appointment> GetAppointments()
         {
         Appointment a;
@@ -984,9 +994,8 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
-                    Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + rota.StaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
-                        Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
+                    //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                    con.Update("INSERT INTO Rota VALUES (null, " + int.Parse(rota.Days) + ", " + rota.StaffID + ");");
                     con.CloseConnection();
                 }
             }
@@ -1002,8 +1011,8 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
-                    + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
+                con.Update("UPDATE Rota Set DayID = " + rota.Days + ", StaffID = "
+                    + rota.StaffID + " WHERE RotaID = " + rota.RotaEntryID + ";");
                 con.CloseConnection();
             }
         }
@@ -1015,7 +1024,7 @@ namespace OverSurgery2
         /// </summary>
         public List<Appointment> GetMissedAppointments()
         {
-        Appointment a;
+            Appointment app;
             List<Appointment> missedApp = new List<Appointment>();
             if (con.OpenConnection())
             {
@@ -1023,17 +1032,17 @@ namespace OverSurgery2
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
-                a = new Appointment
-                {
-                    AppointmentID = dr.GetInt16(0),
-                    AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
-                    AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
-                    Notes = dr.GetString(3),
-                    AppAttend = dr.GetBoolean(4),
-                    MedicalStaffID = dr.GetInt16(5),
-                    PatientID = dr.GetInt16(6)
-                };
-                missedApp.Add(a);
+                    app = new Appointment
+                    {
+                        AppointmentID = dr.GetInt16(0),
+                        AppDate = DateTime.Parse(dr.GetFieldValue<object>(1).ToString()),
+                        AppTime = DateTime.Parse(dr.GetFieldValue<object>(2).ToString()),
+                        Notes = dr.GetString(3),
+                        AppAttend = dr.GetBoolean(4),
+                        MedicalStaffID = dr.GetInt16(5),
+                        PatientID = dr.GetInt16(6)
+                    };
+                    missedApp.Add(app);
                 };
                 // Close Data Reader
                 dr.Close();
@@ -1047,14 +1056,6 @@ namespace OverSurgery2
         /// </summary>
         public void AddStaff(Staff staff)
         {
-            /* `StaffID` 
-                * `Forename`
-                * `Surname`
-                * `Email` 
-                * `AddressID` 
-                * `Username` 
-                * `Password`
-                */
             if (con.OpenConnection())
             {
 
@@ -1136,12 +1137,13 @@ namespace OverSurgery2
         /// </summary>
         public void DeleteStaff(Staff p_staff)
         {
-            // Delete medical staff entry
+            
             int medStaffID = 0;
             if (p_staff.Type == 1 || p_staff.Type == 2 || p_staff.Type == 3)
             {
                 if (con.OpenConnection())
                 {
+                    // Delete medical staff entry and staff entry
                     DbDataReader dr = con.Select("SELECT MedicalStaffID FROM MedicalStaff WHERE MedicalStaff.StaffID =" + p_staff.StaffID + ";");
                     while (dr.Read())
                     {
@@ -1157,12 +1159,12 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
+                    // Delete just the staff entry
                     con.Update("DELETE FROM Staff WHERE StaffID ='" + p_staff.StaffID+ "';");
                     con.CloseConnection();
                 }
 
             }
-            // Delete normal staff entry
             
         }
 
@@ -1669,6 +1671,22 @@ namespace OverSurgery2
                 con.CloseConnection();
             }
             return flg;
+        }
+
+        public int GetRotaCount()
+        {
+            int count = 0;
+            if (con.OpenConnection())
+            {
+                DbDataReader dr = con.Select("SELECT DISTINCT COUNT(StaffID) FROM Rota");
+                while (dr.Read())
+                {
+                    count = dr.GetInt32(0);
+                }
+                dr.Close();
+                con.CloseConnection();
+            }
+            return count;
         }
     }
 }

@@ -132,11 +132,7 @@ namespace OverSurgery2
                 {
                     mh = new MedicalHistory
                     {
-                        ID = null,
-
-                        
-
-                    Notes = notes,
+                        Notes = notes,
                         Date = DateTime.Now,
                         PatientID = m_appointments[m_appointmentListCounter].PatientID
                     };
@@ -230,9 +226,10 @@ namespace OverSurgery2
             lst_Prescriptions.Columns.Add("Medication", 175);
             lst_Prescriptions.Columns.Add("Amount", 75);
             lst_Prescriptions.Columns.Add("By", 148);
+
             if (m_appointments.Count != 0)
             {
-                m_medicalHistory = ml.GetPatientsMedicalHiatory(m_appointments[m_appointmentListCounter].PatientID);
+                m_medicalHistory = ml.GetPatientsMedicalHistory(m_appointments[m_appointmentListCounter].PatientID);
                 m_prescriptions = ml.GetPatientsPrescriptions(m_appointments[m_appointmentListCounter].PatientID);
                 if (m_medicalHistory != null)
                 {
@@ -253,7 +250,7 @@ namespace OverSurgery2
                         lvi.SubItems.Add(ml.GetMedicationName(p.MedicationID));
                         lvi.SubItems.Add(p.Amount.ToString());
                         //using the medStaff id, I get the staff id and find out the full title and name of the medicalStaff member
-                        lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStafIDFromMedStaffID(p.MedicalStaffID)));
+                        lvi.SubItems.Add(ml.GetStaffNameAndTitle(ml.GetStaffIDFromMedStaffID(p.MedicalStaffID)));
                         lst_Prescriptions.Items.Add(lvi);
 
                     }
@@ -267,7 +264,7 @@ namespace OverSurgery2
         /// By j
         /// Last Updated : 30/11/17
         /// </summary>
-        public void CheckExtentionButton()
+        private void CheckExtentionButton()
         {
             if (m_currentUser.Type == 3)
             {

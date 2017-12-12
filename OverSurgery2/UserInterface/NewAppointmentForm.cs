@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.VisualBasic;
 using System.Windows.Forms;
+using static LoggingSystem.GenLog;
+using static LoggingSystem.PerfLog;
 
 namespace OverSurgery2.UserInterface
 {
@@ -18,17 +20,28 @@ namespace OverSurgery2.UserInterface
         public NewAppointmentForm()
         {
             InitializeComponent();
+            PerfStop(this.GetType().Name);
+            StartLog();
+            GenerateSessionID();
+            Write(this.GetType().Name);
+            npb = new NewAppointmentFormBackEnd();
             this.Text = "New Appointment Booking";
             cbxDay.MaxDropDownItems = 7;
             cbxDay.DropDownHeight = 200;
             cbxMonth.MaxDropDownItems = 6;
             dGAppointment.RowHeadersVisible = false;
-            PopulateDoctorFilter(m_tables, m_searchParam);
-            PopulateDataGrid(npb.SequenceAppointments(DayCheck(DateTime.Now), null));
+            if (npb.IsRotaNull())
+            {
+                PopulateDoctorFilter(m_tables, m_searchParam);
+                PopulateDataGrid(npb.SequenceAppointments(DayCheck(DateTime.Now), null));
+            }
             PopulateYear();
             PopulateMonth();
             PopulateDay();
-            DoctorFilter();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void PopulateDoctorFilter(string tables, string searchParam)
@@ -109,6 +122,7 @@ namespace OverSurgery2.UserInterface
 
         private void PopulateDataGrid(Tuple<List<string>, List<string>, List<string>> data)
         {
+            npb = new NewAppointmentFormBackEnd();
             dGAppointment.Rows.Clear();
             int j = 0;
             for (int i = 0; i < data.Item2.Count; i++)
@@ -118,14 +132,14 @@ namespace OverSurgery2.UserInterface
                     if (data.Item3.ElementAtOrDefault(i) != "")
                     {
                         dGAppointment.Rows.Add();
-                        dGAppointment.Rows[j].Cells[1].Value = data.Item2.ElementAtOrDefault(i);
-                        dGAppointment.Rows[j].Cells[2].Value = data.Item1.ElementAtOrDefault(i);
+                        dGAppointment.Rows[j].Cells[1].Value = data.Item1.ElementAtOrDefault(i);
+                        dGAppointment.Rows[j].Cells[2].Value = data.Item2.ElementAtOrDefault(i);
                         dGAppointment.Rows[j].Cells[3].Value = data.Item3.ElementAtOrDefault(i).Remove(data.Item3.ElementAtOrDefault(i).Length -2);
                         j++;
                     }
                 }
             }
-            if (dGAppointment.RowCount == 0)
+            if (dGAppointment.RowCount == 0 && npb.IsRotaNull())
             {
                 PopulateDoctorFilter(m_tables, m_searchParam);
                 DoctorFilter();
@@ -193,11 +207,14 @@ namespace OverSurgery2.UserInterface
                     break;
             }
             string searchParam = m_searchParam + $" AND d.DayID = r.DayID AND DayName = '{search}'";
-            if (searchOn == null)
+            if (npb.IsRotaNull())
             {
-                PopulateDoctorFilter(tables, searchParam);
+                if (searchOn == null)
+                {
+                    PopulateDoctorFilter(tables, searchParam);
+                }
+                PopulateDataGrid(npb.SequenceAppointments(date, searchOn));
             }
-            PopulateDataGrid(npb.SequenceAppointments(date, searchOn));
         }
 
         private void BtnReturn_Click(object sender, EventArgs e)
@@ -216,7 +233,7 @@ namespace OverSurgery2.UserInterface
             {
                 MessageBox.Show("Patient Must be Selected");
             }
-            if (patientID != 0)
+            if (patientID != 0 && dGAppointment.Rows.Count > 0)
             {
                 int rowIndex = dGAppointment.SelectedCells[0].RowIndex;
                 string date = dGAppointment.Rows[rowIndex].Cells[1].Value.ToString();
@@ -255,6 +272,10 @@ namespace OverSurgery2.UserInterface
                 {
                     MessageBox.Show("There has been an error with the request");
                 }
+            }
+            else
+            {
+                MessageBox.Show("there is no staff available");
             }
         }
 
@@ -358,17 +379,29 @@ namespace OverSurgery2.UserInterface
 
         private void cbxDay_DropDownClosed(object sender, EventArgs e)
         {
-            DoctorFilter();
+            npb = new NewAppointmentFormBackEnd();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void cbxDoctorFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            DoctorFilter();
+            npb = new NewAppointmentFormBackEnd();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void cbxDoctorFilter_DropDownClosed(object sender, EventArgs e)
         {
-            DoctorFilter();
+            npb = new NewAppointmentFormBackEnd();
+            if (npb.IsRotaNull())
+            {
+                DoctorFilter();
+            }
         }
 
         private void cbxYear_SelectedIndexChanged(object sender, EventArgs e)
@@ -380,6 +413,12 @@ namespace OverSurgery2.UserInterface
         private void cbxMonth_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateDay();
+        }
+
+        private void NewAppointmentForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            EndLog();
+            perf().WritePerfLog();
         }
 
         private void PopulateYear()

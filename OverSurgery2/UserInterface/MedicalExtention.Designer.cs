@@ -51,7 +51,6 @@
             this.lst_extention.TabIndex = 2;
             this.lst_extention.UseCompatibleStateImageBehavior = false;
             this.lst_extention.View = System.Windows.Forms.View.Details;
-            this.lst_extention.SelectedIndexChanged += new System.EventHandler(this.lst_extention_SelectedIndexChanged_1);
             // 
             // btn_Extend
             // 

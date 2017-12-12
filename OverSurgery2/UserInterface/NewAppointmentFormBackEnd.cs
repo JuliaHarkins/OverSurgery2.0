@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LoggingSystem.GenLog;
+using static LoggingSystem.PerfLog;
 
-namespace OverSurgery2.UserInterface
+namespace OverSurgery2
 {
     class NewAppointmentFormBackEnd
     {
-        public class TimeSheet
+        private class TimeSheet
         {
             public DateTime AppDate {get;set;}
             public DateTime AppTime {get;set;}
@@ -197,6 +199,7 @@ namespace OverSurgery2.UserInterface
         }
         public Tuple<List<string>, List<string>, List<string>> SequenceAppointments(DateTime date, string doctorFilter)
         {
+            SubPerfStart();
             Tuple<List<string>, List<string>> generatedTimeSheet = GenerateAppointmentList(date);
 
             string dayName = DayConvert(date.DayOfWeek.ToString());
@@ -242,7 +245,23 @@ namespace OverSurgery2.UserInterface
                 }
                 staffAvailable.Add(sb.ToString());
             }
+            SubPerfStop(GetCurrentMethod());
             return new Tuple<List<string>, List<string>, List<string>>(generatedTimeSheet.Item2, generatedTimeSheet.Item1, staffAvailable);
+        }
+
+        public bool IsRotaNull()
+        {
+            bool flg = false;
+            int rotaCount = ml.GetRotaCount();
+            if (rotaCount == 0)
+            {
+                flg = false;
+            }
+            if (rotaCount > 0)
+            {
+                flg =  true;
+            }
+            return flg;
         }
 
         /// <summary>

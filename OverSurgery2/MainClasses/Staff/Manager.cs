@@ -15,61 +15,60 @@ namespace OverSurgery2
     public class Manager : Staff
     {
         MetaLayer ml;
-        public static Manager m_instance;
 
         public Manager()
         {
 
         }
 
-        /// <summary>
-        /// Add a staff member to the database from values in the 'Staff' class
-        /// </summary>
-        public void AddStaff(Staff staff)
-        {
-            ml.AddStaff(staff);
-        }
+        ///// <summary>
+        ///// Add a staff member to the database from values in the 'Staff' class
+        ///// </summary>
+        //public void AddStaff(Staff staff)
+        //{
+        //    ml.AddStaff(staff);
+        //}
 
-        /// <summary>
-        /// View all of the missed appointments in the database
-        /// </summary>
-        public void ViewMissedAppointments()
-        {
-            ml.GetMissedAppointments();
-        }
+        ///// <summary>
+        ///// View all of the missed appointments in the database
+        ///// </summary>
+        //public void ViewMissedAppointments()
+        //{
+        //    ml.GetMissedAppointments();
+        //}
 
-        /// <summary>
-        /// View the percentage of missed appointments compared against all appointments
-        /// </summary>
-        public void ViewPercentageMissed()
-        {
-            ml.GetMissedAppointments();
-            ml.GetAppointments();
+        ///// <summary>
+        ///// View the percentage of missed appointments compared against all appointments
+        ///// </summary>
+        //public void ViewPercentageMissed()
+        //{
+        //    ml.GetMissedAppointments();
+        //    ml.GetAppointments();
             
-        }
+        //}
 
-        /// <summary>
-        /// View all user logs
-        /// </summary>
-        public void ViewUserLogs()
-        {
+        ///// <summary>
+        ///// View all user logs
+        ///// </summary>
+        //public void ViewUserLogs()
+        //{
 
-        }
+        //}
 
-        /// <summary>
-        /// Update the staff rota with new data from the 'Rota' class
-        /// </summary>
-        public void UpdateRota(Rota rota)
-        {
-            ml.UpdateRota(rota);
-        }
+        ///// <summary>
+        ///// Update the staff rota with new data from the 'Rota' class
+        ///// </summary>
+        //public void UpdateRota(Rota rota)
+        //{
+        //    ml.UpdateRota(rota);
+        //}
 
-        /// <summary>
-        /// Book a locum
-        /// </summary>
-        public void BookLocum()
-        {
+        ///// <summary>
+        ///// Book a locum
+        ///// </summary>
+        //public void BookLocum()
+        //{
 
-        }
+        //}
     }
 }

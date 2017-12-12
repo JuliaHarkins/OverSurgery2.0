@@ -36,7 +36,5 @@ namespace OverSurgery2
         public Prescription()
         {
         }
-
-
     }
 }

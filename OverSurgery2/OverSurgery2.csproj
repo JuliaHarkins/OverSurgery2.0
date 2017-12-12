@@ -63,7 +63,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\RotaController.cs" />
+    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="LoggingSystem\GenLog.cs" />
+    <Compile Include="LoggingSystem\PerfLog.cs" />
+    <Compile Include="LoggingSystem\Time.cs" />
     <Compile Include="MainClasses\Extention.cs" />
     <Compile Include="UserInterface\AppointmentConflictResolution.cs">
       <SubType>Form</SubType>
@@ -97,7 +101,6 @@
     <Compile Include="UserInterface\NewAppointmentForm.Designer.cs">
       <DependentUpon>NewAppointmentForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Timing.cs" />
     <Compile Include="UserInterface\MedicationForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -290,5 +293,6 @@
   <ItemGroup>
     <Content Include="syringe.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
