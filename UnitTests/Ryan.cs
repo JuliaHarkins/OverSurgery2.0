@@ -276,12 +276,15 @@ namespace UnitTests
         [TestMethod]
         public void MetalayerUpdateMedicalStaff()
         {
-            medStaff.StaffID = staffTest.StaffID;
+            medStaff.StaffID = 16;
+            medStaff.Type = 1;
             medStaff.Forename = "TesterA";
+            medStaff.PhoneNumber = "987654321";
             ml.UpdateMedicalStaff(medStaff);
 
-            staffTest = ml.GetStaffByUserName("tester");
-            Assert.AreEqual("TesterA", staffTest.Forename);
+            medStaffTest = (MedicalStaff) ml.GetStaffByUserName("tester");
+            Assert.AreEqual("TesterA", medStaffTest.Forename);
+            Assert.AreEqual("987654321", medStaffTest.PhoneNumber);
         }
         
         /// <summary>

@@ -1105,8 +1105,9 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 int permissionLevel = 0;
-                con.Insert("UPDATE Staff SET forename='"  +m.Forename + "', surname='" + m.Surname + "', emailaddress='" + m.EmailAddress + "', addressid='" +
-                    Convert.ToInt32(m.AddressID) + "', username='" + m.Username + "', type='" + m.Type + "WHERE staffid="+m.StaffID+";");
+                con.Insert("UPDATE Staff SET forename = '"  +m.Forename + "', surname = '" + m.Surname + "', emailaddress = '" + m.EmailAddress + 
+                    "', addressid = '" + Convert.ToInt32(m.AddressID) + "', username = '" + m.Username + "', type = '" + m.Type + 
+                    " WHERE staffid = " + m.StaffID + ";");
                 if (m.Type == 1)
                 {
                     permissionLevel = 1;
