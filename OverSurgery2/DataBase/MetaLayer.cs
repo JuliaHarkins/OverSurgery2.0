@@ -1123,7 +1123,7 @@ namespace OverSurgery2
                 }
 
                 con.Insert("UPDATE MedicalStaff SET practicenumber = '" + m.PracticeNumber + "', phonenumber = '" + m.PhoneNumber + 
-                    "', permissonlevel = '" + permissionLevel + ", gender = " + m.Gender + " WHERE medicalstaffid = "+m.MedicalStaffID + ";");
+                    "', permissonlevel = '" + permissionLevel + ", gender = " + m.Gender + " WHERE medicalstaffid = "+ m.MedicalStaffID + ";");
                 con.CloseConnection();
             }
         }
