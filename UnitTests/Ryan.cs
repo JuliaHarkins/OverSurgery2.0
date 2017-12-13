@@ -266,7 +266,7 @@ namespace UnitTests
             Assert.AreEqual("tester", staffTest.Username);
             Assert.AreEqual("test@test.com", staffTest.EmailAddress);
             Assert.AreEqual(1, staffTest.Type);
-            Assert.AreEqual(6, staffTest.AddressID);
+            Assert.AreEqual(Convert.ToUInt32(6), staffTest.AddressID);
 
         }
 
