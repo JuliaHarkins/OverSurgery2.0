@@ -13,7 +13,7 @@ namespace OverSurgery2
     /// </summary>
     public class MedicalStaff : Staff
     {
-        #region Member Variables
+#region Member Variables
 
         private uint? m_medicalStaffID;
         private uint? m_prescriptionLevel = 1;
@@ -22,8 +22,8 @@ namespace OverSurgery2
         private string m_genderDisplay;
         private string m_phoneNumber;
         public enum Genders { Female, Male };
-        #endregion
-        #region Constructors
+#endregion
+#region Constructors
         public MedicalStaff()
         {
             if (m_gender == 1)
@@ -35,8 +35,8 @@ namespace OverSurgery2
                 m_genderDisplay = "Female";
             }
         }
-        #endregion
-        #region Properties
+#endregion
+#region Properties
         public uint? PrescriptionLevel
         {
             get
@@ -63,7 +63,7 @@ namespace OverSurgery2
         public string PracticeNumber { get { return m_practiceNumber; } set { m_practiceNumber = value; } }
         public uint? Gender { get { return m_gender; } set { m_gender = value; } }
         public string PhoneNumber { get { return m_phoneNumber; } set { m_phoneNumber = value; } }
-        #endregion
+#endregion
         public string PrescribeMedication(int? paitientID, int? prescribeeID, int? medicationID)
         {
 #region Declaration

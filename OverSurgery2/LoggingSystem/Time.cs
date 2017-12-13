@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -12,6 +12,7 @@ namespace LoggingSystem
     {
         private double m_elapsed = 0;
         private static Time m_time;
+        private static double m_interval = 0.1;
 
         public double Elapsed { get { return m_elapsed; } set { m_elapsed = value; } }
         public Timer PerTimer { get; set; }
@@ -30,13 +31,13 @@ namespace LoggingSystem
             time().PerTimer = new Timer();
             time().PerTimer.AutoReset = true;
             time().PerTimer.Enabled = running;
-            time().PerTimer.Interval = 0.1;
+            time().PerTimer.Interval = m_interval;
             time().PerTimer.Elapsed += time().ElapsedTime;
         }
 
         private void ElapsedTime(Object source, ElapsedEventArgs e)
         {
-            Elapsed += 0.1;
+            Elapsed += m_interval;
         }
     }
 }

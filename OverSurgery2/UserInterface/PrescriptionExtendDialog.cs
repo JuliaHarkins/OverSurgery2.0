@@ -1,23 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace OverSurgery2
 {
     public partial class PrescriptionExtendDialog : Form
     {
-        private Prescription m_extendPres;
-        private Patient m_currPatient;
-        public PrescriptionExtendDialog(ViewPatientInfoForm vcp, Prescription p_Prescription)
+        private readonly Prescription m_extendPres;
+        private readonly Patient m_currPatient;
+
+        public PrescriptionExtendDialog(ViewPatientInfoForm p_vcp, Prescription p_prescription)
         {
-            m_extendPres = p_Prescription;
-            m_currPatient = vcp.GetCurrentPatient();
+            m_extendPres = p_prescription;
+            m_currPatient = p_vcp.GetCurrentPatient();
             InitializeComponent();
         }
 
@@ -29,18 +23,19 @@ namespace OverSurgery2
 
         private void btn_Extend_Click(object sender, EventArgs e)
         {
+            //Check that the date of next issue is not before or on current date.
             if (!(m_extendPres.DateOfNextIssue <= DateTime.Now))
             {
-                MessageBox.Show(
-                    "This prescription cannot be extended yet");
+                MessageBox.Show("This prescription cannot be extended yet");
             }
+            //If prescription not extendable
             else if (!m_extendPres.Extendable)
             {
                 MessageBox.Show("This prescription cannot be extended. Please refer the patient to their GP.");
             }
             else
             {
-                Extension ext = new Extension()
+                var ext = new Extension
                 {
                     PrescriptionID = m_extendPres.ID,
                     MedicalStaffID = m_extendPres.MedicalStaffID,

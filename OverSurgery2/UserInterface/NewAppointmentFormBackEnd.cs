@@ -8,7 +8,7 @@ using static LoggingSystem.PerfLog;
 
 namespace OverSurgery2
 {
-    class NewAppointmentFormBackEnd
+    public class NewAppointmentFormBackEnd
     {
         private class TimeSheet
         {
@@ -63,7 +63,7 @@ namespace OverSurgery2
         public Tuple<List<int>, List<string>, List<string>, List<string>> SelectPatientAddress(string forename, string surname)
         {
             string searchParam = $"Forename = '{forename}' AND Surname = '{surname}'";
-
+            var dt = new DateTime(2017, 08, 15).DayOfWeek;
             Tuple<List<int>, List<string>, List<string>, List<string>, List<int>, List<string>, List<string>>
                 returnData = ml.SelectPatientAddress(searchParam);
 

@@ -5,6 +5,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OverSurgery2;
 
@@ -103,25 +104,38 @@ namespace UnitTests
         }
 
         /// <summary>
-        /// Tests for the sections of the metalayer that i implemened
+        /// Tests for GetAppointmentById method
         /// </summary>
         [TestMethod]
-        public void MetalayerSectionsTests()
+        public void MetalayerGetAppointmentById()
         {
-            // Tests for GetAppointmentById method
-            app = new Appointment();
-            appTest = ml.GetAppointmentById(1);
-            Assert.AreEqual(1, appTest.MedicalStaffID);
-            Assert.AreEqual(1, appTest.PatientID);
+            app = ml.GetAppointmentById(1);
+            Assert.AreEqual(1, app.MedicalStaffID);
+            Assert.AreEqual(1, app.PatientID);
+        }
 
-            // Tests for UpdateAppointment method
+        /// <summary>
+        /// Tests for UpdateAppointment method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateAppointment()
+        { 
+            app = ml.GetAppointmentById(1);
             app.MedicalStaffID = 2;
             ml.UpdateAppointment(app);
             appTest = ml.GetAppointmentById(1);
             Assert.AreEqual(2, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
+            app.MedicalStaffID = 1;
+            ml.UpdateAppointment(app);
+        }
 
-            // Tests for AddAppointment method
+        /// <summary>
+        /// Tests for AddAppointment method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddAppointment()
+        { 
             app.AppDate = new DateTime(2017, 11, 12);
             app.AppTime = new DateTime(2017, 11, 12, 16, 15, 00);
             app.Notes = "Follow up";
@@ -131,56 +145,85 @@ namespace UnitTests
             ml.AddAppointment(app);
 
             appList = ml.GetAppointments();
-            appTest = appList[-1];                                                                                                          // Take the last list entry and store it in the test appointment
+            appTest = appList[appList.Count -1];                                                                                            // Take the last list entry and store it in the test appointment
             Assert.AreEqual("Follow up", appTest.Notes);
             Assert.AreEqual(true, appTest.AppAttend);
             Assert.AreEqual(1, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
-            Assert.AreEqual(new DateTime(2017, 11, 12, 16, 15, 00), appTest.AppTime);
+            Assert.AreEqual(new DateTime(2017, 12, 13, 16, 15, 00), appTest.AppTime);
             Assert.AreEqual(new DateTime(2017, 11, 12), appTest.AppDate);
+        }
 
-            // Tests the AddRota method
+        /// <summary>
+        /// Tests the AddRota method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddRota()
+        {
             rota.StaffID = 1;
             rota.StartTime = 161500;
             rota.Forename = "Linus";
             rota.Surname = "Torvild";
             rota.EndTime = 163500;
-            rota.Days = "Monday";
+            rota.Days = "1";
             ml.AddRota(rota);
 
             rotaList = ml.GetStaffRota();
-            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
-            Assert.AreEqual(1, rotaTest.RotaEntryID);
+            rotaTest = rotaList.ElementAtOrDefault(0);                                                                                         // Take the last list entry and store it in the test rota
+            Assert.AreEqual(true, rotaTest.Days.Contains("Mon"));
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
+        }
 
-            // Tests for GetStaffRotaByID method
+        /// <summary>
+        /// Tests for GetStaffRotaByID method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerGetStaffRotaByID()
+        {
             rota = new Rota();
             rota.RotaEntryID = 1;
             rotaList = ml.GetStaffRotaByID(rota);
-            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
-            Assert.AreEqual(1, rotaTest.RotaEntryID);
-            Assert.AreEqual("Linus", rotaTest.Forename);
-            Assert.AreEqual("Torvild", rotaTest.Surname);
+            rotaTest = rotaList.ElementAtOrDefault(0);                                                                                         // Take the last list entry and store it in the test rota
+            Assert.AreEqual("1", rotaTest.Days);
+            Assert.AreEqual(1, rotaTest.StaffID);
+        }
 
-            // Tests for UpdateRota method
+        /// <summary>
+        /// Tests for UpdateRota method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateRota()
+        {
             rota.RotaEntryID = 1;
-            rota.EndTime = 164504;
+            rota.StaffID = 1;
+            rota.Days = "2";
             ml.UpdateRota(rota);
 
             rotaList = ml.GetStaffRotaByID(rota);
-            rotaTest = rotaList[-1];                                                                                                        // Take the last list entry and store it in the test rota
-            Assert.AreEqual(164504, rotaTest.EndTime);
+            rotaTest = rotaList.ElementAtOrDefault(0);                                                                                        // Take the last list entry and store it in the test rota
+            Assert.AreEqual("2", rotaTest.Days);
+        }
 
-            // Tests for GetMissedAppointments method
-            appList = new List<Appointment>();
+        /// <summary>
+        /// Tests for GetMissedAppointments method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerGetMissedAppointments()
+        {
             appList = ml.GetMissedAppointments();
 
-            appTest = appList[-1];                                                                                                          // Take the last list entry and store it in the test appointment
+            appTest = appList[appList.Count -1];                                                                                            // Take the last list entry and store it in the test appointment
             Assert.AreEqual(4, appTest.AppointmentID);
             Assert.AreEqual(false, appTest.AppAttend);
+        }
 
-            // Tests for AddAddress method
+        /// <summary>
+        /// Tests for AddAddress method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddAddress()
+        {
             add.HouseName = "name";
             add.HouseNumber = 22;
             add.PostCode = "PE433RE";
@@ -196,8 +239,14 @@ namespace UnitTests
             Assert.AreEqual(22, addTest.HouseNumber);
             Assert.AreEqual("Street", addTest.StreetName);
             Assert.AreEqual("PE433RE", addTest.PostCode);
+        }
 
-            // Tests for AddMedicalStaff method
+        /// <summary>
+        /// Tests for AddMedicalStaff method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddMedicalStaff()
+        {
             medStaff.Type = 1;
             medStaff.Forename = "Test";
             medStaff.Surname = "Testing";
@@ -217,25 +266,47 @@ namespace UnitTests
             Assert.AreEqual("tester", staffTest.Username);
             Assert.AreEqual("test@test.com", staffTest.EmailAddress);
             Assert.AreEqual(1, staffTest.Type);
-            Assert.AreEqual(6, staffTest.AddressID);
+            Assert.AreEqual(Convert.ToUInt32(6), staffTest.AddressID);
 
-            // Tests for UpdateMedicalStaff method
-            medStaff.StaffID = staffTest.StaffID;
+        }
+
+        /// <summary>
+        /// Tests for UpdateMedicalStaff method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateMedicalStaff()
+        {
+            medStaff.StaffID = 16;
+            medStaff.Type = 1;
             medStaff.Forename = "TesterA";
+            medStaff.PhoneNumber = "987654321";
             ml.UpdateMedicalStaff(medStaff);
 
-            staffTest = ml.GetStaffByUserName("tester");
-            Assert.AreEqual("TesterA", staffTest.Forename);
-
-            // Tests for UpdateStaffMember method
+            medStaffTest = (MedicalStaff) ml.GetStaffByUserName("tester");
+            Assert.AreEqual("TesterA", medStaffTest.Forename);
+            Assert.AreEqual("987654321", medStaffTest.PhoneNumber);
+        }
+        
+        /// <summary>
+        /// Tests for UpdateStaffMember method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateStaffMember()
+        {
             staff = ml.GetStaffByUserName("tester");
             staff.Surname = "MoreTesting";
             ml.UpdateStaffMember(staff);
 
             staffTest = ml.GetStaffByUserName("tester");
             Assert.AreEqual("MoreTesting", staffTest.Surname);
-
-            // Tests for DeleteStaff method
+        }
+        
+        /// <summary>
+        /// Tests for DeleteStaff method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerDeleteStaff()
+        { 
             staff = ml.GetStaffByUserName("tester");
             ml.DeleteStaff(staff);
 
@@ -262,7 +333,14 @@ namespace UnitTests
 
             Assert.AreEqual("Not found, DeleteStaff pass", DeleteStaffCatch);
 
-            // Tests for UpdateAddress method
+        }
+
+        /// <summary>
+        /// Tests for UpdateAddress method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateAddress()
+        {
             add.AddressID = addTest.AddressID;
             add = ml.GetAddressById(6);
             add.HouseName = "testName";
@@ -271,7 +349,14 @@ namespace UnitTests
             addTest = ml.GetAddressById(6);
             Assert.AreEqual("testName", addTest.HouseName);
 
-            // Tests for DeleteAddress method
+        }
+
+        /// <summary>
+        /// Tests for DeleteAddress method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerDeleteAddress()
+        {
             ml.DeleteAddress(6);
 
             try
@@ -297,37 +382,64 @@ namespace UnitTests
 
             Assert.AreEqual("Not found, DeleteAddress pass", DeleteAddressCatch);
 
-            // Tests for GetMedicationByName method
+
+        }
+
+        /// <summary>
+        /// Tests for GetMedicationByName method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerGetMedicationByName()
+        { 
             medList = ml.GetMedicationByName("Asprin");
 
-            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("Asprin", medTest.Name);
             Assert.AreEqual(2, medTest.ID);
 
-            // Tests for AddMedication method
+        }
+
+        /// <summary>
+        /// Tests for AddMedication method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerAddMedication()
+        {
             med.Name = "TestMed";
             med.PermissionLevel = 2;
             med.Dosage = "50mg";
             ml.AddMedication(med);
 
             medList = ml.GetMedicationByName("TestMed");
-            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("TestMed", medTest.Name);
             Assert.AreEqual("50mg", medTest.Dosage);
             Assert.AreEqual(2, medTest.PermissionLevel);
+        }
 
-            // Tests for UpdateMedication method
+        /// <summary>
+        /// Tests for UpdateMedication method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerUpdateMedication()
+        { 
             med.ID = medTest.ID;
             med.Dosage = "500mg";
             ml.UpdateMedication(med);
 
             medList = ml.GetMedicationByName("TestMed");
-            medTest = medList[-1];                                                                                                        // Take the last list entry and store it in the test medication
+            medTest = medList[medList.Count -1];                                                                                          // Take the last list entry and store it in the test medication
             Assert.AreEqual("TestMed", medTest.Name);
             Assert.AreEqual("500mg", medTest.Dosage);
             Assert.AreEqual(2, medTest.PermissionLevel);
+        }
 
-            // Tests for DeleteMedication method
+        /// <summary>
+        /// Tests for DeleteMedication method
+        /// </summary>
+        [TestMethod]
+        public void MetalayerDeleteMedication()
+        {
             ml.DeleteMedication(med.ID);
 
             try
@@ -335,7 +447,7 @@ namespace UnitTests
                 medList = new List<Medication>();
                 medList = null;
                 medList = ml.GetMedicationByName("TestMed");
-                medTest = medList[-1];                                                                                                    // Take the last list entry and store it in the test medication
+                medTest = medList[medList.Count -1];                                                                                      // Take the last list entry and store it in the test medication
 
                 if (medTest.Name == "TestMed")
                 {
@@ -353,6 +465,8 @@ namespace UnitTests
             }
 
             Assert.AreEqual("Not found, DeleteMedication pass", DeleteMedicationCatch);
+
         }
+
     }
 }

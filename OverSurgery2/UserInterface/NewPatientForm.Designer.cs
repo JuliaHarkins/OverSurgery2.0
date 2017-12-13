@@ -194,6 +194,7 @@
             // 
             // cbx_Gender
             // 
+            this.cbx_Gender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbx_Gender.FormattingEnabled = true;
             this.cbx_Gender.Items.AddRange(new object[] {
             "Female",
