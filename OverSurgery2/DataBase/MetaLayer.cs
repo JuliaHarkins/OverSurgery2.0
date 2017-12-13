@@ -964,19 +964,13 @@ namespace OverSurgery2
                 DbDataReader dr = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
                 while (dr.Read())
                 {
-
-                    while (dr.Read())
+                    r = new Rota
                     {
-                        r = new Rota
-                        {
-                            RotaEntryID = dr.GetInt32(0),
-                            Forename = dr.GetString(1),
-                            Surname = dr.GetString(2),
-                            Days = dr.GetString(3)
-                        };
-                        rotaValues.Add(r);
-                    }
-
+                        RotaEntryID = dr.GetInt32(0),
+                        Days = dr.GetString(1),
+                        StaffID = dr.GetInt32(2)
+                    };
+                    rotaValues.Add(r);
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -995,7 +989,7 @@ namespace OverSurgery2
                 if (con.OpenConnection())
                 {
                     //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + int.Parse(rota.Days) + ", " + rota.StaffID + ");");
+                    con.Update($"INSERT INTO Rota VALUES (null, {Convert.ToInt32(rota.Days)}, {rota.StaffID});");
                     con.CloseConnection();
                 }
             }
@@ -1010,8 +1004,8 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                con.Update("UPDATE Rota Set DayID = " + rota.Days + ", StaffID = "
+                //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("UPDATE Rota Set DayID = " + Convert.ToInt32(rota.Days) + ", StaffID = "
                     + rota.StaffID + " WHERE RotaID = " + rota.RotaEntryID + ";");
                 con.CloseConnection();
             }
@@ -1028,7 +1022,7 @@ namespace OverSurgery2
             List<Appointment> missedApp = new List<Appointment>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend = 0;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE AppointmentAttended = 0;");
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
@@ -1111,8 +1105,10 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 int permissionLevel = 0;
-                con.Insert("UPDATE Staff SET forename='"  +m.Forename + "', surname='" + m.Surname + "', emailaddress='" + m.EmailAddress + "', addressid='" +
-                    Convert.ToInt32(m.AddressID) + "', username='" + m.Username + "', type='" + m.Type + "WHERE staffid="+m.StaffID+";");
+                con.Update("UPDATE Staff SET forename = '"  + m.Forename + "', surname = '" + m.Surname + "', email = '" + m.EmailAddress + 
+                    "', addressid = '" + Convert.ToInt32(m.AddressID) + "', username = '" + m.Username + "', type = '" + m.Type + 
+                    " WHERE staffid = " + m.StaffID + ";");
+
                 if (m.Type == 1)
                 {
                     permissionLevel = 1;
@@ -1125,7 +1121,9 @@ namespace OverSurgery2
                 {
                     permissionLevel = 3;
                 }
-                con.Insert("UPDATE MedicalStaff SET practicenumber='" + m.PracticeNumber + "',phonenumber='" + m.PhoneNumber + "',permissonlevel='" + permissionLevel + ",gender=" + m.Gender + "WHERE medicalstaffid="+m.MedicalStaffID+";");
+
+                con.Insert("UPDATE MedicalStaff SET practicenumber = '" + m.PracticeNumber + "', phonenumber = '" + m.PhoneNumber + 
+                    "', permissonlevel = '" + permissionLevel + ", gender = " + m.Gender + " WHERE medicalstaffid = "+ m.MedicalStaffID + ";");
                 con.CloseConnection();
             }
         }

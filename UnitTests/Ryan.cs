@@ -5,6 +5,7 @@
  */
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OverSurgery2;
 
@@ -149,7 +150,7 @@ namespace UnitTests
             Assert.AreEqual(true, appTest.AppAttend);
             Assert.AreEqual(1, appTest.MedicalStaffID);
             Assert.AreEqual(1, appTest.PatientID);
-            Assert.AreEqual(new DateTime(2017, 12, 12, 16, 15, 00), appTest.AppTime);
+            Assert.AreEqual(new DateTime(2017, 12, 13, 16, 15, 00), appTest.AppTime);
             Assert.AreEqual(new DateTime(2017, 11, 12), appTest.AppDate);
         }
 
@@ -168,8 +169,8 @@ namespace UnitTests
             ml.AddRota(rota);
 
             rotaList = ml.GetStaffRota();
-            rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
-            Assert.AreEqual("1", rotaTest.Days);
+            rotaTest = rotaList.ElementAtOrDefault(0);                                                                                         // Take the last list entry and store it in the test rota
+            Assert.AreEqual(true, rotaTest.Days.Contains("Mon"));
             Assert.AreEqual("Linus", rotaTest.Forename);
             Assert.AreEqual("Torvild", rotaTest.Surname);
         }
@@ -180,13 +181,12 @@ namespace UnitTests
         [TestMethod]
         public void MetalayerGetStaffRotaByID()
         {
-            rota = null;
+            rota = new Rota();
             rota.RotaEntryID = 1;
             rotaList = ml.GetStaffRotaByID(rota);
-            rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
-            Assert.AreEqual(1, rotaTest.RotaEntryID);
-            Assert.AreEqual("Linus", rotaTest.Forename);
-            Assert.AreEqual("Torvild", rotaTest.Surname);
+            rotaTest = rotaList.ElementAtOrDefault(0);                                                                                         // Take the last list entry and store it in the test rota
+            Assert.AreEqual("1", rotaTest.Days);
+            Assert.AreEqual(1, rotaTest.StaffID);
         }
 
         /// <summary>
@@ -201,7 +201,7 @@ namespace UnitTests
             ml.UpdateRota(rota);
 
             rotaList = ml.GetStaffRotaByID(rota);
-            rotaTest = rotaList[rotaList.Count -1];                                                                                         // Take the last list entry and store it in the test rota
+            rotaTest = rotaList.ElementAtOrDefault(0);                                                                                        // Take the last list entry and store it in the test rota
             Assert.AreEqual("2", rotaTest.Days);
         }
 
@@ -266,7 +266,7 @@ namespace UnitTests
             Assert.AreEqual("tester", staffTest.Username);
             Assert.AreEqual("test@test.com", staffTest.EmailAddress);
             Assert.AreEqual(1, staffTest.Type);
-            Assert.AreEqual(6, staffTest.AddressID);
+            Assert.AreEqual(Convert.ToUInt32(6), staffTest.AddressID);
 
         }
 
@@ -276,12 +276,15 @@ namespace UnitTests
         [TestMethod]
         public void MetalayerUpdateMedicalStaff()
         {
-            medStaff.StaffID = staffTest.StaffID;
+            medStaff.StaffID = 16;
+            medStaff.Type = 1;
             medStaff.Forename = "TesterA";
+            medStaff.PhoneNumber = "987654321";
             ml.UpdateMedicalStaff(medStaff);
 
-            staffTest = ml.GetStaffByUserName("tester");
-            Assert.AreEqual("TesterA", staffTest.Forename);
+            medStaffTest = (MedicalStaff) ml.GetStaffByUserName("tester");
+            Assert.AreEqual("TesterA", medStaffTest.Forename);
+            Assert.AreEqual("987654321", medStaffTest.PhoneNumber);
         }
         
         /// <summary>
