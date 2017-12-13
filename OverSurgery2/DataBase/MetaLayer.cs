@@ -964,19 +964,13 @@ namespace OverSurgery2
                 DbDataReader dr = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
                 while (dr.Read())
                 {
-
-                    while (dr.Read())
+                    r = new Rota
                     {
-                        r = new Rota
-                        {
-                            RotaEntryID = dr.GetInt32(0),
-                            Forename = dr.GetString(1),
-                            Surname = dr.GetString(2),
-                            Days = dr.GetString(3)
-                        };
-                        rotaValues.Add(r);
-                    }
-
+                        RotaEntryID = dr.GetInt32(0),
+                        Days = dr.GetString(1),
+                        StaffID = dr.GetInt32(2)
+                    };
+                    rotaValues.Add(r);
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -995,7 +989,7 @@ namespace OverSurgery2
                 if (con.OpenConnection())
                 {
                     //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + int.Parse(rota.Days) + ", " + rota.StaffID + ");");
+                    con.Update($"INSERT INTO Rota VALUES (null, {Convert.ToInt32(rota.Days)}, {rota.StaffID});");
                     con.CloseConnection();
                 }
             }
@@ -1010,8 +1004,8 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                con.Update("UPDATE Rota Set DayID = " + rota.Days + ", StaffID = "
+                //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("UPDATE Rota Set DayID = " + Convert.ToInt32(rota.Days) + ", StaffID = "
                     + rota.StaffID + " WHERE RotaID = " + rota.RotaEntryID + ";");
                 con.CloseConnection();
             }
@@ -1028,7 +1022,7 @@ namespace OverSurgery2
             List<Appointment> missedApp = new List<Appointment>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend = 0;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE AppointmentAttended = 0;");
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
