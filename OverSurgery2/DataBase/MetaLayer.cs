@@ -30,6 +30,7 @@ namespace OverSurgery2
             return m_Instance;
         }
 
+
         public List<Patient> GetPatients()
         {
             List<Patient> patients = new List<Patient>();
@@ -40,6 +41,7 @@ namespace OverSurgery2
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
+                    // create new patient object
                     p = new Patient
                     {
                         ID = dr.GetInt16(0),
@@ -51,6 +53,7 @@ namespace OverSurgery2
                         RegisteredDoctorID = dr.GetInt16(6),
                         AddressID = Convert.ToUInt16(dr.GetInt16(7))
                     };
+                    //add patient object to list
                     patients.Add(p);
                 }
                 // Close Data Reader
@@ -64,7 +67,7 @@ namespace OverSurgery2
         {
             int lowest = 0;
             if (con.OpenConnection())
-            {
+            { // getting doctor with the lowest number of patients assigned
                 DbDataReader dr = con.Select("select count(patientid),regestereddoctorid from patient p, medicalstaff m where p.regestereddoctorid = m.medicalstaffid group by m.medicalstaffid order by m.medicalstaffid asc Limit 1;");
                 while (dr.Read())
                 {
@@ -132,10 +135,12 @@ namespace OverSurgery2
             string firstname = null, lastname = null;
             if (con.OpenConnection())
             {
+                // get forename and surname from table via id
                 DbDataReader dr = con.Select("SELECT forename, surname FROM staff WHERE exists(SELECT * FROM medicalstaff where medicalstaffid =" + p_id + " and staff.staffid = medicalstaff.staffid);");
 
                 while (dr.Read())
                 {
+                    //set variables to database returned columns values
                     firstname = dr.GetString(0);
                     lastname = dr.GetString(1);
                 }
@@ -185,15 +190,13 @@ namespace OverSurgery2
         public Address GetAddressById(int p_id)
         {
             Address a = null;
-            string houseName = null;
-            int? houseNumber = null;
             if (con.OpenConnection())
             {
                 DbDataReader dr = con.Select("SELECT * FROM Address WHERE AddressID = " + p_id + ";");
                 while (dr.Read())
                 {
-                    houseName = dr.IsDBNull(1) ? null : dr.GetFieldValue<string>(1);
-                    houseNumber = dr.IsDBNull(2) ? null : dr.GetFieldValue<int?>(2);
+                    string houseName = dr.IsDBNull(1) ? null : dr.GetFieldValue<string>(1);
+                    int? houseNumber = dr.IsDBNull(2) ? null : dr.GetFieldValue<int?>(2);
                     a = new Address
                     {
                         AddressID = dr.GetInt32(0),
@@ -251,6 +254,7 @@ namespace OverSurgery2
                 DbDataReader dr = con.Select("SELECT * FROM Staff WHERE username = '" + p_username + "';");
                 while (dr.Read())
                 {
+                    //create new staff object from database returned column values
                     s = new Staff 
                     {
                         StaffID = dr.GetInt16(0),
@@ -269,6 +273,7 @@ namespace OverSurgery2
             }
             switch (s.Type)
             {
+                //switch to returning medical staff details if they are medical staff
                 case 1:
                 case 2:
                 case 3:
@@ -318,6 +323,7 @@ namespace OverSurgery2
 
                 while (dr.Read())
                 {
+                    //if there are no staff return false
                     if (dr.GetInt16(0) == 0)
                     {
                         dr.Close();
@@ -357,6 +363,7 @@ namespace OverSurgery2
             string verificationcode = null;
             if (con.OpenConnection())
             {
+                //get verificationcode for password reset
                 DbDataReader dr = con.Select("SELECT verificationcode FROM resetrequests WHERE username = '" + p_user.Username + "';");
 
                 while (dr.Read())
@@ -373,6 +380,7 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
+                //insert a new password reset request
                 con.Insert("INSERT INTO resetrequests VALUES (null,'" + username + "','" + verificationcode + "');");
                 con.CloseConnection();
                 return true;
@@ -395,6 +403,7 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
+                //delete a reset request from database
                 con.Delete("DELETE FROM resetrequests WHERE username ='" + user + "';");
                 con.CloseConnection();
                 return true;
@@ -468,8 +477,9 @@ namespace OverSurgery2
             {
                 Console.WriteLine(Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")));
                 con.Update("UPDATE Appointment Set appointmentDate = " + Convert.ToInt32(app.AppDate.ToString("yyyyMMdd")) + ", AppointmentTime = "
-                    + Convert.ToInt16(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
-                    + Convert.ToInt16(app.AppAttend) + " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
+                    + Convert.ToInt32(app.AppTime.ToString("HHmmss")) + ", appointmentNote = '" + app.Notes + "', appointmentAttended = "
+                    + Convert.ToInt16(app.AppAttend) + ", MedicalStaffID = " + app.MedicalStaffID + ", PatientID = " + app.PatientID + 
+                    " WHERE appointmentID = " + app.AppointmentID + " LIMIT 1;");
                 con.CloseConnection();
             }
         }
@@ -954,19 +964,13 @@ namespace OverSurgery2
                 DbDataReader dr = con.Select("SELECT * FROM Rota WHERE RotaID = " + p_rota.RotaEntryID + ";");
                 while (dr.Read())
                 {
-
-                    while (dr.Read())
+                    r = new Rota
                     {
-                        r = new Rota
-                        {
-                            RotaEntryID = dr.GetInt32(0),
-                            Forename = dr.GetString(1),
-                            Surname = dr.GetString(2),
-                            Days = dr.GetString(3)
-                        };
-                        rotaValues.Add(r);
-                    }
-
+                        RotaEntryID = dr.GetInt32(0),
+                        Days = dr.GetString(1),
+                        StaffID = dr.GetInt32(2)
+                    };
+                    rotaValues.Add(r);
                 }
                 dr.Close();
                 con.CloseConnection();
@@ -984,9 +988,8 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
-                    Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                    con.Update("INSERT INTO Rota VALUES (null, " + rota.StaffID + ", " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", " +
-                        Convert.ToInt32(rota.EndTime.ToString("HHmmss")) + ");");
+                    //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                    con.Update($"INSERT INTO Rota VALUES (null, {Convert.ToInt32(rota.Days)}, {rota.StaffID});");
                     con.CloseConnection();
                 }
             }
@@ -1001,9 +1004,9 @@ namespace OverSurgery2
         {
             if (con.OpenConnection())
             {
-                Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
-                con.Update("UPDATE Rota Set StartDateTime = " + Convert.ToInt32(rota.StartTime.ToString("HHmmss")) + ", EndDateTime = "
-                    + Convert.ToInt16(rota.EndTime.ToString("HHmmss")) + " LIMIT 1;");
+                //Console.WriteLine(Convert.ToInt32(rota.StartTime.ToString("HHmmss")));
+                con.Update("UPDATE Rota Set DayID = " + Convert.ToInt32(rota.Days) + ", StaffID = "
+                    + rota.StaffID + " WHERE RotaID = " + rota.RotaEntryID + ";");
                 con.CloseConnection();
             }
         }
@@ -1019,7 +1022,7 @@ namespace OverSurgery2
             List<Appointment> missedApp = new List<Appointment>();
             if (con.OpenConnection())
             {
-                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE Attend = 0;");
+                DbDataReader dr = con.Select("SELECT * FROM Appointment WHERE AppointmentAttended = 0;");
                 //Read the data and store them in the list
                 while (dr.Read())
                 {
@@ -1102,8 +1105,10 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 int permissionLevel = 0;
-                con.Insert("UPDATE Staff SET forename='"  +m.Forename + "', surname='" + m.Surname + "', emailaddress='" + m.EmailAddress + "', addressid='" +
-                    Convert.ToInt32(m.AddressID) + "', username='" + m.Username + "', type='" + m.Type + "WHERE staffid="+m.StaffID+";");
+                con.Update("UPDATE Staff SET forename = '"  + m.Forename + "', surname = '" + m.Surname + "', email = '" + m.EmailAddress + 
+                    "', addressid = '" + Convert.ToInt32(m.AddressID) + "', username = '" + m.Username + "', type = '" + m.Type + 
+                    " WHERE staffid = " + m.StaffID + ";");
+
                 if (m.Type == 1)
                 {
                     permissionLevel = 1;
@@ -1116,7 +1121,9 @@ namespace OverSurgery2
                 {
                     permissionLevel = 3;
                 }
-                con.Insert("UPDATE MedicalStaff SET practicenumber='" + m.PracticeNumber + "',phonenumber='" + m.PhoneNumber + "',permissonlevel='" + permissionLevel + ",gender=" + m.Gender + "WHERE medicalstaffid="+m.MedicalStaffID+";");
+
+                con.Insert("UPDATE MedicalStaff SET practicenumber = '" + m.PracticeNumber + "', phonenumber = '" + m.PhoneNumber + 
+                    "', permissonlevel = '" + permissionLevel + ", gender = " + m.Gender + " WHERE medicalstaffid = "+ m.MedicalStaffID + ";");
                 con.CloseConnection();
             }
         }
@@ -1128,12 +1135,13 @@ namespace OverSurgery2
         /// </summary>
         public void DeleteStaff(Staff p_staff)
         {
-            // Delete medical staff entry
+            
             int medStaffID = 0;
             if (p_staff.Type == 1 || p_staff.Type == 2 || p_staff.Type == 3)
             {
                 if (con.OpenConnection())
                 {
+                    // Delete medical staff entry and staff entry
                     DbDataReader dr = con.Select("SELECT MedicalStaffID FROM MedicalStaff WHERE MedicalStaff.StaffID =" + p_staff.StaffID + ";");
                     while (dr.Read())
                     {
@@ -1149,12 +1157,12 @@ namespace OverSurgery2
             {
                 if (con.OpenConnection())
                 {
+                    // Delete just the staff entry
                     con.Update("DELETE FROM Staff WHERE StaffID ='" + p_staff.StaffID+ "';");
                     con.CloseConnection();
                 }
 
             }
-            // Delete normal staff entry
             
         }
 
@@ -1324,11 +1332,10 @@ namespace OverSurgery2
         public void UpdateAddress(Address add, int id)
         {
             int addid = id;
+            add.HouseNumber = add.HouseNumber == 0 ? null : add.HouseNumber;
             if (con.OpenConnection())
             {
-                con.Update("UPDATE Address Set HouseName = '" + add.HouseName + "', HouseNumber = '"
-                    + add.HouseNumber + "', AddressLine1 = '" + add.StreetName + "', PostCode = '"
-                    + add.PostCode + "' WHERE AddressID = "+id+";");
+                con.Update($"UPDATE Address Set HouseName = '{add.HouseName}',HouseNumber ={add.HouseNumber}, AddressLine1 ='{add.StreetName}', PostCode = '{add.PostCode}' WHERE AddressID = {id};");
                 con.CloseConnection();
             }
         }
@@ -1354,6 +1361,8 @@ namespace OverSurgery2
                 }
                 dr.Close();
                 con.CloseConnection();
+                // this is redundant, there are  much better ways to do it... seriously facepalming...
+                // if(addid.Count !=0) {flg=false;} <-- proper way to do it.
                 for (int i = 0; i < addid.Count; i++)
                 {
                     flg = false;

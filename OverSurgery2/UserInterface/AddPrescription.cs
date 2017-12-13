@@ -47,7 +47,7 @@ namespace OverSurgery2
             lst_medication.Columns.Add("Dosage", 75);
             lst_medication.Columns.Add("Permission Level", 95);
 
-            loadList();
+            LoadList();
         }
         private void btn_savePrescription_Click(object sender, EventArgs e)
         {
@@ -103,7 +103,7 @@ namespace OverSurgery2
         /// <summary>
         /// loads the list of medications.
         /// </summary>
-        private void loadList()
+        private void LoadList()
         {
             foreach (Medication m in m_medication)
             {

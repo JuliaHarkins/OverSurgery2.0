@@ -116,6 +116,7 @@
             this.btn_ViewAllApp.TabIndex = 2;
             this.btn_ViewAllApp.Text = "View All";
             this.btn_ViewAllApp.UseVisualStyleBackColor = true;
+            this.btn_ViewAllApp.Click += new System.EventHandler(this.btn_ViewAllApp_Click);
             // 
             // lbl_SearchAppByPatient
             // 
