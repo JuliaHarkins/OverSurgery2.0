@@ -1105,9 +1105,10 @@ namespace OverSurgery2
             if (con.OpenConnection())
             {
                 int permissionLevel = 0;
-                con.Insert("UPDATE Staff SET forename = '"  +m.Forename + "', surname = '" + m.Surname + "', emailaddress = '" + m.EmailAddress + 
+                con.Update("UPDATE Staff SET forename = '"  + m.Forename + "', surname = '" + m.Surname + "', email = '" + m.EmailAddress + 
                     "', addressid = '" + Convert.ToInt32(m.AddressID) + "', username = '" + m.Username + "', type = '" + m.Type + 
                     " WHERE staffid = " + m.StaffID + ";");
+
                 if (m.Type == 1)
                 {
                     permissionLevel = 1;
@@ -1120,7 +1121,9 @@ namespace OverSurgery2
                 {
                     permissionLevel = 3;
                 }
-                con.Insert("UPDATE MedicalStaff SET practicenumber='" + m.PracticeNumber + "',phonenumber='" + m.PhoneNumber + "',permissonlevel='" + permissionLevel + ",gender=" + m.Gender + "WHERE medicalstaffid="+m.MedicalStaffID+";");
+
+                con.Insert("UPDATE MedicalStaff SET practicenumber = '" + m.PracticeNumber + "', phonenumber = '" + m.PhoneNumber + 
+                    "', permissonlevel = '" + permissionLevel + ", gender = " + m.Gender + " WHERE medicalstaffid = "+m.MedicalStaffID + ";");
                 con.CloseConnection();
             }
         }
