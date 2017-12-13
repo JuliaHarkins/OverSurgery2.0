@@ -266,5 +266,12 @@ namespace OverSurgery2
             }
         }
         #endregion
+
+        private void btn_ViewAllApp_Click(object sender, EventArgs e)
+        {
+            LoadAllAppointments();
+            dgv_Appointments.Update();
+            dgv_Appointments.Refresh();
+        }
     }
     }
