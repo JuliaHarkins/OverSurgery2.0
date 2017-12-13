@@ -9,7 +9,7 @@ using static LoggingSystem.Time;
 
 namespace LoggingSystem
 {
-    class PerfLog
+    public class PerfLog
     {
         private static PerfLog m_perfLog;
         private StringBuilder m_bufferString = new StringBuilder();
@@ -21,7 +21,7 @@ namespace LoggingSystem
         private bool subPerfStarted;
         private string m_logStart = $"\t\t $$ START LOG $$\r\n";
 
-        public string SessionID { get { return m_sessionID; } set { m_sessionID = value; } }
+        public string SessionID { get { return perf().m_sessionID; } set { perf().m_sessionID = value; } }
         private StringBuilder BufferString { get { return m_bufferString; } set { m_bufferString = value; } }
 
         public static PerfLog perf()

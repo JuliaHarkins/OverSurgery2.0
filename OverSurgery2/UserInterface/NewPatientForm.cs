@@ -61,7 +61,6 @@ namespace OverSurgery2
                     //int addressid = MetaLayer.Instance().AddAddress(a);
                     //p.AddressID = (uint)addressid;
                     p.RegisteredDoctorID = MetaLayer.Instance().getDoctorWithLowestPatient();
-
                 if (!MetaLayer.Instance().InsertNewPatient(p))
                     {
                         MessageBox.Show(@"Sorry, this patient cannot be added");

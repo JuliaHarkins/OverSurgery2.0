@@ -8,7 +8,7 @@ using static LoggingSystem.PerfLog;
 
 namespace OverSurgery2
 {
-    class NewAppointmentFormBackEnd
+    public class NewAppointmentFormBackEnd
     {
         private class TimeSheet
         {

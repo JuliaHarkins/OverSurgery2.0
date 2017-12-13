@@ -11,7 +11,7 @@ using static LoggingSystem.PerfLog;
 
 namespace LoggingSystem
 {
-    class GenLog
+    public class GenLog
     {
         private StringBuilder m_bufferString = new StringBuilder();
         private StringBuilder m_writeString = new StringBuilder();
@@ -27,7 +27,7 @@ namespace LoggingSystem
         private static GenLog m_log;
         private static Random rand;
 
-        private DateTime StartTime { get { return m_startTime; } set { m_startTime = value; } }
+        private DateTime StartTime { get { return log().m_startTime; } set { log().m_startTime = value; } }
         private DateTime EndTime { get { return m_endTime; } set { m_endTime = value; } }
         private string SessionID { get { return m_sessionID; } set { m_sessionID = value; } }
         private StringBuilder BufferString { get { return m_bufferString; } set { m_bufferString = value; }}
