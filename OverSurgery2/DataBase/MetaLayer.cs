@@ -1335,7 +1335,7 @@ namespace OverSurgery2
             add.HouseNumber = add.HouseNumber == 0 ? null : add.HouseNumber;
             if (con.OpenConnection())
             {
-                con.Update($"UPDATE Address Set HouseName = '{add.HouseName}',HouseNumber ={add.HouseNumber}, AddressLine1 ='{add.StreetName}', PostCode = '{add.PostCode}' WHERE AddressID = {id};");
+                con.Update($"UPDATE Address Set HouseName = '{add.HouseName}',HouseNumber = {add.HouseNumber}, AddressLine1 ='{add.StreetName}', PostCode = '{add.PostCode}' WHERE AddressID = {id};");
                 con.CloseConnection();
             }
         }

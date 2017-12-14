@@ -1,0 +1,65 @@
+
+###################### [BEGIN LOG] ######################
+SessionID : 154x919
+Session Start Time : 13/12/2017 12:37:50
+Session End Time : 13/12/2017 12:38:45
+Username : 
+Using Password : 
+
+		 $$ START LOG $$
+
+NewAppointmentForm
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 154x919
+Session Start Time : 13/12/2017 12:39:33
+Session End Time : 13/12/2017 12:39:49
+Username : 
+Using Password : 
+
+		 $$ START LOG $$
+
+NewAppointmentForm
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 270x461
+Session Start Time : 13/12/2017 12:49:01
+Session End Time : 13/12/2017 12:50:27
+Username : 
+Using Password : 
+
+		 $$ START LOG $$
+
+NewAppointmentForm
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 270x461
+Session Start Time : 13/12/2017 12:50:40
+Session End Time : 13/12/2017 12:51:23
+Username : 
+Using Password : 
+
+		 $$ START LOG $$
+
+NewAppointmentForm
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 208x940
+Session Start Time : 13/12/2017 13:16:51
+Session End Time : 13/12/2017 13:21:42
+Username : 
+Using Password : 
+
+		 $$ START LOG $$
+
+NewAppointmentForm
+
+======================  [END LOG]  ======================

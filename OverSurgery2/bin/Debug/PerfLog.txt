@@ -1,0 +1,54 @@
+
+###################### [BEGIN LOG] ######################
+SessionID : 154x919
+		 $$ START LOG $$
+
+NewAppointmentForm - 0.9ms
+	SequenceAppointments - 1.4ms
+	SequenceAppointments - 1.4ms
+	SequenceAppointments - 2ms
+	SequenceAppointments - 2.4ms
+	SequenceAppointments - 3.4ms
+	SequenceAppointments - 2.8ms
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 154x919
+		 $$ START LOG $$
+
+NewAppointmentForm - 1.5ms
+	SequenceAppointments - 4.4ms
+	SequenceAppointments - 4.7ms
+	SequenceAppointments - 5.4ms
+	SequenceAppointments - 5.99999999999999ms
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 270x461
+		 $$ START LOG $$
+
+NewAppointmentForm - 0.3ms
+	SequenceAppointments - 1.4ms
+	SequenceAppointments - 1.7ms
+	SequenceAppointments - 1.8ms
+	SequenceAppointments - 2.4ms
+	SequenceAppointments - 2.2ms
+	SequenceAppointments - 3.2ms
+
+======================  [END LOG]  ======================
+
+###################### [BEGIN LOG] ######################
+SessionID : 270x461
+		 $$ START LOG $$
+
+NewAppointmentForm - 2.3ms
+	SequenceAppointments - 4.5ms
+	SequenceAppointments - 4.9ms
+	SequenceAppointments - 5.5ms
+	SequenceAppointments - 3.6ms
+	SequenceAppointments - 6.09999999999999ms
+	SequenceAppointments - 6.89999999999999ms
+
+======================  [END LOG]  ======================
